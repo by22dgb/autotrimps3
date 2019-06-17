@@ -1,37 +1,22 @@
-# autotrimps3
+# AutoTrimps - Zek Fork
 
-#### 介绍
-第三个脚本
+## Discussion / Discord Channel
+<a href="https://discord.gg/Ztcnfjr"><img src="https://png.icons8.com/color/180/discord-new-logo.png" width=48></a>
+Discord is a chat program. Come to talk about AutoTrimps, for help, or suggestions for new features : https://discord.gg/Ztcnfjr
 
-#### 软件架构
-软件架构说明
+## Current Version (full changes below) - Ongoing Development!
+- Zek Fork. All changes made by Zek using GenBTC as base. Currently up-to-date as of 06/2019.
 
+## Script Installation
 
-#### 安装教程
+Step 1: Install TamperMonkey
 
-1. xxxx
-2. xxxx
-3. xxxx
+https://www.tampermonkey.net/
 
-#### 使用说明
+Step 2: 
 
-1. xxxx
-2. xxxx
-3. xxxx
+Click this link: https://github.com/Zorn192/AutoTrimps/raw/gh-pages/.user.js
 
-#### 参与贡献
+Step 3: 
 
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+Configure settings. Will NOT work as intended with default settings. 
