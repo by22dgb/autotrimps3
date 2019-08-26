@@ -339,10 +339,10 @@ function RbuyGemEfficientHousing() {
         if (game.buildings[keysSorted[best]].owned < max || max == -1) {
             bestBuilding = keysSorted[best];
             document.getElementById(bestBuilding).style.border = "1px solid #00CC00";
+            break;
         }
-        break;
     }
-	if (smithylogic(bestBuilding, 'gems', false) && bestBuilding) {
+    if (smithylogic(bestBuilding, 'gems', false) && bestBuilding) {
         RsafeBuyBuilding(bestBuilding);
     }
 }
@@ -356,7 +356,7 @@ function RbuyBuildings() {
     if (!game.buildings.Smithy.locked && canAffordBuilding('Smithy') && game.global.challengeActive != "Quest") {
         RsafeBuyBuilding('Smithy');
     }
-    if (!game.buildings.Smithy.locked && canAffordBuilding('Smithy') && game.global.challengeActive == "Quest" && ((questcheck() != 7) || (RcalcHDratio() * 10 >= getPageSetting('Rmapcuntoff')))) {
+    if (!game.buildings.Smithy.locked && canAffordBuilding('Smithy') && game.global.challengeActive == "Quest" && ((questcheck() == 7) || (RcalcHDratio() * 10 >= getPageSetting('Rmapcuntoff')))) {
         RsafeBuyBuilding('Smithy');
     }	
     if (!game.buildings.Microchip.locked && canAffordBuilding('Microchip')) {

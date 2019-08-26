@@ -167,10 +167,10 @@ function autoMap() {
     var voidMapLevelSettingCell;
     var voidMapLevelPlus = 0;
     if (game.global.challengeActive != "Daily") {
-	voidMapLevelSettingCell = ((getPageSetting('voidcell') > 0) ? getPageSetting('voidcell') : 70);
+	voidMapLevelSettingCell = ((getPageSetting('voidscell') > 0) ? getPageSetting('voidscell') : 70);
     }
     if (game.global.challengeActive == "Daily") {
-	voidMapLevelSettingCell = ((getPageSetting('dvoidcell') > 0) ? getPageSetting('dvoidcell') : 70);
+	voidMapLevelSettingCell = ((getPageSetting('dvoidscell') > 0) ? getPageSetting('dvoidscell') : 70);
     }
     if (game.global.challengeActive != "Daily" && getPageSetting('VoidMaps') > 0) {
         voidMapLevelSetting = getPageSetting('VoidMaps');
@@ -370,11 +370,13 @@ function autoMap() {
 
     //Maps
     vanillaMapatZone = (game.options.menu.mapAtZone.enabled && game.global.canMapAtZone && !isActiveSpireAT() && !disActiveSpireAT());
-    if (vanillaMapatZone)
+    if (vanillaMapatZone) {
         for (var x = 0; x < game.options.menu.mapAtZone.setZone.length; x++) {
-            if (game.global.world == game.options.menu.mapAtZone.setZone[x])
+            if (game.global.world == game.options.menu.mapAtZone.setZone[x].world)
                 shouldDoMaps = true;
         }
+    }
+    
     var siphlvl = shouldFarmLowerZone ? game.global.world - 10 : game.global.world - game.portal.Siphonology.level;
     var maxlvl = game.talents.mapLoot.purchased ? game.global.world - 1 : game.global.world;
     maxlvl += extraMapLevels;
@@ -951,7 +953,7 @@ function RautoMap() {
     RvanillaMapatZone = (game.options.menu.mapAtZone.enabled && game.global.canMapAtZone);
     if (RvanillaMapatZone) {
         for (var x = 0; x < game.options.menu.mapAtZone.setZoneU2.length; x++) {
-            if (game.global.world == game.options.menu.mapAtZone.setZoneU2[x])
+            if (game.global.world == game.options.menu.mapAtZone.setZoneU2[x].world)
                 RshouldDoMaps = true;
         }
     }
@@ -1011,8 +1013,8 @@ function RautoMap() {
                     selectedMap = theMap.id;
                     break;
                 }
-		if (theMap.name == 'Melting Point' && ((game.global.challengeActive == "Trappapalooza") || (game.global.challengeActive == "Melt" && getPageSetting('Rmeltpoint') == true) || (getPageSetting('Rmeltsmithy') > 0 && game.mapUnlocks.SmithFree.canRunOnce))) {
-                    if (game.global.world < 51 || ((RcalcHDratio() > 1000) || (game.global.challengeActive != "Melt" && game.global.challengeActive != "Trappapalooza" && getPageSetting('Rmeltsmithy') > game.buildings.Smithy.owned))) continue;
+		if (theMap.name == 'Melting Point' && ((game.global.challengeActive == "Trappapalooza" && getPageSetting('Rmeltpoint') == true) || (game.global.challengeActive == "Melt" && getPageSetting('Rmeltpoint') == true) || (getPageSetting('Rmeltsmithy') > 0 && getPageSetting('Rmeltsmithy') <= game.buildings.Smithy.owned && game.mapUnlocks.SmithFree.canRunOnce))) {
+                    if (game.global.world < 51) continue;
                     selectedMap = theMap.id;
                     break;
                 }
