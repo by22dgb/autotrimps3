@@ -317,8 +317,8 @@ function mainLoop() {
         var RforcePrecZ = (getPageSetting('RForcePresZ') < 0) || (game.global.world < getPageSetting('RForcePresZ'));
         if (getPageSetting('RDynamicPrestige2') > 0 && RforcePrecZ) RprestigeChanging2();
         else autoTrimpSettings.RPrestige.selected = document.getElementById('RPrestige').value;
-        if (game.global.world > 5 && game.global.challengeActive == "Daily" && getPageSetting('avoidempower') == true && typeof game.global.dailyChallenge.empower !== 'undefined' && !game.global.preMapsActive && !game.global.mapsActive && game.global.soldierHealth > 0) avoidempower();
-        if (getPageSetting('trimpsnotdie') == true && game.global.world > 1) Rhelptrimpsnotdie();
+        if (game.global.world > 5 && game.global.challengeActive == "Daily" && getPageSetting('Ravoidempower') == true && typeof game.global.dailyChallenge.empower !== 'undefined' && !game.global.preMapsActive && !game.global.mapsActive && game.global.soldierHealth > 0) avoidempower();
+        if (getPageSetting('Rtrimpsnotdie') == true && game.global.world > 1) Rhelptrimpsnotdie();
         /*if (!game.global.fighting) {
         if (getPageSetting('Rfightforever') == 0) Rfightalways();
             else if (getPageSetting('Rfightforever') > 0 && RcalcHDratio() <= getPageSetting('Rfightforever')) Rfightalways();
@@ -359,14 +359,14 @@ function mainCleanup() {
     if (game.global.universe == 1 && currentworld == 1 && aWholeNewWorld) {
         lastHeliumZone = 0;
         zonePostpone = 0;
-        if (getPageSetting('AutoMaps')==0 && !game.upgrades.Battle.done)
+        if (getPageSetting('automapsportal') == true && getPageSetting('AutoMaps')==0 && !game.upgrades.Battle.done)
             autoTrimpSettings["AutoMaps"].value = 1;
         return true;
     }
     if (game.global.universe == 2 && currentworld == 1 && aWholeNewWorld) {
         lastRadonZone = 0;
         zonePostpone = 0;
-        if (getPageSetting('RAutoMaps') == 0 && !game.upgrades.Battle.done)
+        if (getPageSetting('Rautomapsportal') == true && getPageSetting('RAutoMaps') == 0 && !game.upgrades.Battle.done)
             autoTrimpSettings["RAutoMaps"].value = 1;
         return true;
     }
