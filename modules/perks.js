@@ -737,14 +737,16 @@ var Rqueuescript = document.createElement('script');
 queuescript.type = 'text/javascript';
 queuescript.src = 'https://Zorn192.github.io/AutoTrimps/FastPriorityQueue.js';
 head.appendChild(queuescript);
-//[looting,toughness,power,motivation,pheromones,artisanistry,carpentry,prismal,equality,criticality,tenacity]
-var preset_Rspace = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-var preset_RZek059 = [7, 10, 5, 1, 0.5, 2, 12, 9, 0.5, 2, 25];
-var preset_RZekmelt = [10, 0.5, 2, 0.5, 0.3, 1.2, 3, 0.5, 1, 3, 18];
-var RpresetList = [preset_RZek059,preset_RZekmelt,preset_Rspace];
+//[looting,toughness,power,motivation,pheromones,artisanistry,carpentry,prismal,equality,criticality,resilience,tenacity,greed]
+var preset_Rspace = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var preset_RZek059 = [7, 10, 5, 1, 0.5, 2, 12, 9, 0.5, 2, 5, 0, 0];
+var preset_RZekmelt = [10, 0.5, 2, 0.5, 0.3, 1.2, 3, 0.5, 1, 3, 6, 18, 20];
+var preset_RZekquag = [8, 0.7, 1.8, 0.8, 0.2, 1.3, 3.3, 0.6, 0.8, 2.8, 6.2, 18, 27];
+var RpresetList = [preset_RZek059,preset_RZekmelt,preset_RZekquag,preset_Rspace];
 var RpresetListHtml = "\
 <option id='preset_RZek059'>Zek (z1-59)</option>\
 <option id='preset_RZekmelt'>Zek (Melt)</option>\
+<option id='preset_RZekquag'>Zek (Quag)</option>\
 <option id='preset_Rspace'>--------------</option>\
 <option id='customPreset'>CUSTOM ratio</option></select>";
 RAutoPerks.createInput = function(perkname,div) {
@@ -804,7 +806,7 @@ RAutoPerks.displayGUI = function() {
     //Line 3 of the UI
     apGUI.$ratiosLine3 = document.createElement("DIV");
     apGUI.$ratiosLine3.setAttribute('style', 'display: inline-block; text-align: left; width: 100%');
-    var listratiosLine3 = ["Tenacity"];
+    var listratiosLine3 = ["Resilience","Tenacity","Greed"];
     for (var i in listratiosLine3)
         RAutoPerks.createInput(listratiosLine3[i],apGUI.$ratiosLine3);
     //Create dump perk dropdown
@@ -836,10 +838,10 @@ RAutoPerks.displayGUI = function() {
     var setID;
     if (loadLastPreset != null) { 
         // Why 8?  What is this?
-        if (loadLastPreset == 8 && !localStorage.getItem('RAutoperkSelectedRatioPresetName'))
-            loadLastPreset = 2;
+        /*if (loadLastPreset == 8 && !localStorage.getItem('RAutoperkSelectedRatioPresetName'))
+            loadLastPreset = 3;*/
         if (localStorage.getItem('RAutoperkSelectedRatioPresetName')=="customPreset")
-            loadLastPreset = 2;
+            loadLastPreset = 4;
         setID = loadLastPreset;
     }
     else 
@@ -930,7 +932,6 @@ RAutoPerks.updatePerkRatios = function() {
         currentPerk = RAutoPerks.getPerkByName($perkRatioBoxes[i].id.substring(0, $perkRatioBoxes[i].id.length - 5));
         currentPerk.updatedValue = parseFloat($perkRatioBoxes[i].value);
     }
-    RAutoPerks.getPerkByName("toughness").updatedValue = RAutoPerks.getPerkByName("resilience").updatedValue / 2;
     var tierIIPerks = RAutoPerks.getTierIIPerks();
     for(var i in tierIIPerks)
         tierIIPerks[i].updatedValue = tierIIPerks[i].parent.updatedValue / tierIIPerks[i].relativeIncrease;
@@ -1362,18 +1363,19 @@ RAutoPerks.initializePerks = function () {
     var pheromones = new RAutoPerks.VariablePerk("pheromones", 3, false,       4, 0.1);
     var artisanistry = new RAutoPerks.VariablePerk("artisanistry", 15, true,   5, 0.1);
     var carpentry = new RAutoPerks.VariablePerk("carpentry", 25, true,         6, 0.1);
-    var prismal = new RAutoPerks.VariablePerk("prismal", 1, true,              7, 0.1);
-    var resilience = new RAutoPerks.VariablePerk("resilience", 100, true,       11, 0.1); // no preset
-    var criticality = new RAutoPerks.VariablePerk("criticality", 100, true,     9, 0.1);
-    var tenacity = new RAutoPerks.VariablePerk("tenacity", 50000000, true,      10, 0.1);
-    // Equality is a 9/10 multiplier on enemy damage, which is like a 10/9 multiplier on your health.  So we pretend the bonus for this perk is 1/9.
+    var prismal = new RAutoPerks.VariablePerk("prismal", 1, true,              7, 0.1, 100);
     var equality = new RAutoPerks.VariablePerk("equality", 1, true,            8, 0.11111);
+    var criticality = new RAutoPerks.VariablePerk("criticality", 100, true,     9, 0.1);
+    var resilience = new RAutoPerks.VariablePerk("resilience", 100, true,       10, 0.1);
+    var tenacity = new RAutoPerks.VariablePerk("tenacity", 50000000, true,      11, 0.1, 40);
+    var greed = new RAutoPerks.VariablePerk("greed", 10000000000, true,      12, 0.1, 40);
+    
     equality.exprate = 1.5;
     //scruffy
 	//no
     //tier2
 	//no
-    RAutoPerks.perkHolder = [range, agility, bait, trumps, packrat, overkill, looting, toughness, power, motivation, pheromones, artisanistry, carpentry, prismal, resilience, criticality, tenacity, equality];
+    RAutoPerks.perkHolder = [range, agility, bait, trumps, packrat, overkill, looting, toughness, power, motivation, pheromones, artisanistry, carpentry, prismal, resilience, criticality, tenacity, greed, equality];
     for(var i in RAutoPerks.perkHolder) {
         RAutoPerks.perkHolder[i].radLevel = 0;
         RAutoPerks.perkHolder[i].spent = 0;
