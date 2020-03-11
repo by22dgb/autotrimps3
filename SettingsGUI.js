@@ -518,7 +518,7 @@ function initializeAllSettings() {
     createSetting('automapsportal', 'AM Portal', 'Makes sure Auto Maps is on after portalling. Turn this off to disable this and remember your choice. ', 'boolean', true, null, 'Maps');
     createSetting('DynamicSiphonology', 'Dynamic Siphonology', 'Recommended Always ON. Use the right level of siphonology based on your damage output. IE: Only uses  siphonology if you are weak. With this OFF it means it ALWAYS uses the lowest siphonology map you can create. Siphonology is a perk you get at level 115-125ish, and means you receive map bonus stacks for running maps below your current zone - Up to 3 zones below (1 per perk level).', 'boolean', true, null, 'Maps');
     createSetting('PreferMetal', 'Prefer Metal Maps', 'Always prefer metal maps, intended for manual use, such as pre-spire farming. Remember to turn it back off after you\'re done farming!', 'boolean', false, null, 'Maps');
-    createSetting('mapselection', 'Map Selection', 'Select which you prefer to use. Recommend Gardens if you have unlocked it. ', 'dropdown', 'Mountain', ["Random", "Mountain", "Forest", "Sea", "Depths", "Gardens"], 'Maps');
+    createSetting('mapselection', 'Map Selection', 'Select which you prefer to use. Recommend Plentiful (Gardens) if you have unlocked it. ', 'dropdown', 'Mountain', ["Random", "Mountain", "Forest", "Sea", "Depths", "Gardens"], 'Maps');
     createSetting('MaxMapBonusAfterZone', 'Max MapBonus After', 'Always gets Max Map Bonus from this zone on. (inclusive and after).<br><b>NOTE:</b> Set -1 to disable entirely (default). Set 0 to use it always.<br><b>Advanced:</b>User can set a lower number than the default 10 maps with the AT hidden console command: MODULES[\\"maps\\"].maxMapBonusAfterZ = 9;', 'value', '-1', null, 'Maps');
     createSetting('MaxMapBonuslimit', 'Max MapBonus Limit', 'Limit the amount of Map Bonuses you get. Default is 10. ', 'value', '10', null, 'Maps');
     createSetting('MaxMapBonushealth', 'Max MapBonus Health', 'Limit the amount of map bonuses you get when AutoMaps requires more health. Default is 10. ', 'value', '10', null, 'Maps');
@@ -546,7 +546,7 @@ function initializeAllSettings() {
     //Line 1
     createSetting('RAutoMaps', ["Auto Maps Off", "Auto Maps On", "Auto Maps No Unique"], 'Automaps. The no unique setting will not run unique maps such as dimensions of rage. Recommended ON. ', 'multitoggle', 1, null, "Maps");
     createSetting('Rautomapsportal', 'AM Portal', 'Makes sure Auto Maps is on after portalling. Turn this off to disable this and remember your choice. ', 'boolean', true, null, 'Maps');
-    createSetting('Rmapselection', 'Map Selection', 'Select which you prefer to use. Recommend Gardens if you have unlocked it. ', 'dropdown', 'Mountain', ["Random", "Mountain", "Forest", "Sea", "Depths", "Plentiful"], 'Maps');
+    createSetting('Rmapselection', 'Map Selection', 'Select which you prefer to use. Recommend Plentiful (Gardens) if you have unlocked it. ', 'dropdown', 'Mountain', ["Random", "Mountain", "Forest", "Sea", "Depths", "Plentiful"], 'Maps');
     createSetting('RMaxMapBonusAfterZone', 'Max MapBonus After', 'Always gets Max Map Bonus from this zone on. (inclusive and after).<br><b>NOTE:</b> Set -1 to disable entirely (default). Set 0 to use it always. ', 'value', '-1', null, 'Maps');
     createSetting('RMaxMapBonuslimit', 'Max MapBonus Limit', 'Limit the amount of Map Bonuses you get. Default is 10. ', 'value', '10', null, 'Maps');
     createSetting('RMaxMapBonushealth', 'Max MapBonus Health', 'Limit the amount of map bonuses you get when AutoMaps requires more health. Default is 10. ', 'value', '10', null, 'Maps');
@@ -624,6 +624,13 @@ function initializeAllSettings() {
 
     //Line 2
     createSetting('RBWraidingmax', 'Max BW to raid', 'Raids BWs until zone specified. Example: 515, will raid all BWs for all gear until 515. Will skip lower BWs if you have enough damage. Once all gear is obtained, will return to regular farming. Now accepts comma separated lists - see description of Z to BW raid setting for details.', 'multiValue', [-1], null, 'Raiding');
+    document.getElementById('RBWraidingmax').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('RAMPraid', 'Praiding', '<b>MASTER BUTTON</b><br>Toggle Prestige Raiding. Use PR: Zone, PR: Raid and PR: Cell to Raid Prestiges in higher Maps.<br> I.e: World is 95, PR: Zone is [95,105], PR: Raid is [105,115], PR: Cell is 1. Will go into map creation at cell 1, create maps 101, 102, 103, 104, 105 with Prestige option. If you can\'t afford P maps, it will try without. If still unable to afford will buy the highest maps first without buying 101 and 102 for example. Raiding will take longer if you can\'t afford it. Once all maps are created it will run the lowest created then move onto the next till all created maps are finished. If you have enabled PR: Recycle it will then recycle those maps. There may be more options in the future depending on content added. ', 'boolean', false, null, 'Raiding');
+    createSetting('RAMPraidzone', 'PR: Zone', 'Zones to Prestige Raid. Can use 95,105,115! ', 'multiValue', [-1], null, 'Raiding');
+    createSetting('RAMPraidraid', 'PR: Raid', 'What Maps to Raid. Corrosponds to PR: Zone, so first value will corrospond to first value in PR: Zone. Can use 105,115,125! ', 'multiValue', [-1], null, 'Raiding');
+    createSetting('RAMPraidcell', 'PR: Cell', 'What Cell to start Prestige Raiding at. Recommend below your BW Raiding cell if used together. -1 to Raid at cell 1. ', 'value', -1, null, 'Raiding');
+    createSetting('RAMPraidfrag', ['PR: Frag', 'PR: Frag Min', 'PR: Frag Max'], 'Farm for fragments to afford the maps you want to create. PR: Frag Min is used for absolute minimum frag costs (which includes no Prestige special, perfect sliders, random map and the difficulty and size options, however it will try to afford those options first!) and prioritises buying the most maps for a smoother sequential raid. PR: Frag Max is used for the ultimate Raiding experience. This option will probably take the most time to farm but may save you time in the actual raid. I would recommend using Min Mode if you don\'t have frag drop or explorer effic on your heirloom and Max if you are confident in your Fragment gains. ', 'multitoggle', 0, null, 'Raiding');
+    createSetting('RAMPraidrecycle', 'PR: Recycle', 'Recycle maps created in Prestige Raiding. ', 'boolean', false, null, 'Raiding');
 
 
 
@@ -674,10 +681,21 @@ function initializeAllSettings() {
 
     
     //Challenges
+    
+    //Arch
     createSetting('Rarchon', 'Archaeology', 'Turn on Archaeology settings. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rarchstring1', 'First String', 'First string to use in Archaeology. Put the zone you want to stop using this string and start using the second string (Make sure the second string has a value) at the start. I.e: 70,10a,10e ', 'textValue', 'undefined', null, 'Challenges');
     createSetting('Rarchstring2', 'Second String', 'Second string to use in Archaeology. Put the zone you want to stop using this string and start using the third string (Make sure the third string has a value) at the start. I.e: 94,10a,10e ', 'textValue', 'undefined', null, 'Challenges');
     createSetting('Rarchstring3', 'Third String', 'Third string to use in Archaeology. Make sure this is just your Archaeology string and nothing else. I.e: 10a,10e ', 'textValue', 'undefined', null, 'Challenges');
+    
+    //Mayhem
+    document.getElementById('Rarchstring3').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rmayhemon', 'Mayhem', 'Turn on Mayhem settings. ', 'boolean', 'false', null, 'Challenges');
+    createSetting('Rmayhemattack', 'M: Attack', 'Turn this on to ignore your farm settings so It will do maps if you cannot survive the hits you have defined in Maps. ', 'boolean', 'false', null, 'Challenges');
+    createSetting('Rmayhemhealth', 'M: Health', 'Turn this on to ignore your farm settings so It will do maps if your HD is above the target you have defined in Maps. ', 'boolean', 'false', null, 'Challenges');
+    createSetting('Rmayhemacut', 'M: Attack Cut-off', 'What cut-off to use when using M: Attack. ', 'value', '-1', null, 'Challenges');
+    createSetting('Rmayhemhcut', 'M: Health Cut-off', 'What cut-off to use when using M: Health. ', 'value', '-1', null, 'Challenges');
+    createSetting('Rmayhemmap', ['M: Maps Off', 'M: Highest Map', 'M: Smart Map'], 'Control what maps you do to farm M: Attack and/or M: Health. M: Highest map always selects the highest map you have whether it be from Praiding, Time Farming or any you have manually created. M: Smart Map attempts to create a map best suited to the situation. Will calculate if you can survive and kill the map, and will try to buy all the necessary map attributes such as FA. ', 'multitoggle', 0, null, 'Challenges');
     
     
 
@@ -693,10 +711,14 @@ function initializeAllSettings() {
     createSetting('AutoRoboTrimp', 'AutoRoboTrimp', 'Use RoboTrimps ability starting at this level, and every 5 levels thereafter. (set to 0 to disable. default 60.) 60 is a good choice for mostly everybody.', 'value', '60', null, 'Combat');
 
     //Line 2
-    createSetting('fightforever', 'Fight Always', '-1 to disable. Sends trimps to fight if they\'re not fighting, regardless of BAF. Has 2 uses. Set to 0 to always send out trimps. Or set a number higher than 0 to enable the H:D function. If the H:D ratio is below this number it will send them out. I.e, this is set to 1, it will send out trimps regardless with the H:D ratio is below 1. ', 'value', '-1', null, 'Combat');
+    createSetting('fightforever', 'Fight Always', 'U1: -1 to disable. Sends trimps to fight if they\'re not fighting, regardless of BAF. Has 2 uses. Set to 0 to always send out trimps. Or set a number higher than 0 to enable the H:D function. If the H:D ratio is below this number it will send them out. I.e, this is set to 1, it will send out trimps regardless with the H:D ratio is below 1. ', 'value', '-1', null, 'Combat');
     createSetting('addpoison', 'Poison Calc', '<b>Experimental. </b><br>Adds poison to the battlecalc. May improve your poison zone speed. ', 'boolean', 'false', null, 'Combat');
     createSetting('fullice', 'Ice Calc', '<b>Experimental. </b><br>Always calculates your ice to be a consistent level instead of going by the enemy debuff. Stops H:D spazzing out. ', 'boolean', 'false', null, 'Combat');
     createSetting('45stacks', 'Antistack Calc', '<b>Experimental. </b><br>Always calcs your damage as having full antistacks. Useful for windstacking. ', 'boolean', 'false', null, 'Combat');
+    
+    
+    //RCombat
+    createSetting('Rfightforever', 'Fight Always', 'U2: -1 to disable. Sends trimps to fight if they\'re not fighting, regardless of BAF. Has 2 uses. Set to 0 to always send out trimps. Or set a number higher than 0 to enable the H:D function. If the H:D ratio is below this number it will send them out. I.e, this is set to 1, it will send out trimps regardless with the H:D ratio is below 1. ', 'value', '-1', null, 'Combat');
     createSetting('Rcalcmaxequality', ['Equality Calc Off', 'EC: On', 'EC: Health'], '<b>Experimental. </b><br>Adds Max Equality stacks to the battlecalc. Assumes you use Equality Scaling. Turning this on allows in-game Equality Scaling to adjust your Health accordingly. EC: Health only decreases enemies attack in the calculation which may improve speed. ', 'multitoggle', 0, null, 'Combat');
 
 
@@ -754,9 +776,16 @@ function initializeAllSettings() {
 
     //Heirloom
 
-    createSetting('highdmg', 'HS: High Damage', '<b>HIGH DAMAGE HEIRLOOM</b><br><br>Enter the name of your high damage heirloom. This is your heirloom that you will use normally. ', 'textValue', 'undefined', null, 'Heirlooms');
-    createSetting('lowdmg', 'HS: Low Damage', '<b>LOW DAMAGE HEIRLOOM</b><br><br>Enter the name of your low damage heirloom. This is the heirloom that you will use for windstacking. ', 'textValue', 'undefined', null, 'Heirlooms');
+    createSetting('highdmg', 'WS: High Damage', '<b>HIGH DAMAGE HEIRLOOM</b><br><br>Enter the name of your high damage heirloom. This is your heirloom that you will use normally. ', 'textValue', 'undefined', null, 'Heirlooms');
+    createSetting('lowdmg', 'WS: Low Damage', '<b>LOW DAMAGE HEIRLOOM</b><br><br>Enter the name of your low damage heirloom. This is the heirloom that you will use for windstacking. ', 'textValue', 'undefined', null, 'Heirlooms');
 
+    //Heirloom Swapping
+    document.getElementById('lowdmg').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rhs', 'Heirloom Swapping', 'Heirloom swapping master button. Turn this on to allow heirloom swapping and its associated settings. ', 'boolean', false, null, 'Heirlooms');
+    createSetting('Rhsz', 'HS: Zone', 'Which zone to swap from your first heirloom you have defined to your second heirloom you have defined. I.e if this value is 75 it will switch to the second heirloom <b>on z75</b>', 'value', '-1', null, 'Heirlooms');
+    createSetting('Rhs1', 'HS: First', '<b>First Heirloom to use</b><br><br>Enter the name of your first heirloom. This is the heirloom that you will use before swapping to the second heirloom at the zone you have defined in the HS: Zone. ', 'textValue', 'undefined', null, 'Heirlooms');
+    createSetting('Rhs2', 'HS: Second', '<b>Second Heirloom to use</b><br><br>Enter the name of your second heirloom. This is the heirloom that you will use after swapping from the first heirloom at the zone you have defined in the HS: Zone. ', 'textValue', 'undefined', null, 'Heirlooms');
+    
     /*//Nu Line disabled due to being annoying
     document.getElementById('lowdmg').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('autonu', 'Auto Nu', '<b>ONLY WORKS ON 6 SLOT HEIRLOOMS</b><br>Autospend Nu on an Heirloom you select. Works on Portal. You can either use an Automated Ratio (Not mathmatically tested currently) or a Manual Ratio (Recommended, plenty of tools to help with this). ', 'boolean', false, null, 'Heirlooms');
@@ -770,7 +799,7 @@ function initializeAllSettings() {
     createSetting('slot6nu', 'Slot 6', 'Slot 6 of your Heirloom', 'value', '-1', null, 'Heirlooms');
 */
     //Heirloom Line
-    document.getElementById('lowdmg').parentNode.insertAdjacentHTML('afterend', '<br>');
+    document.getElementById('Rhs2').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('autoheirlooms', 'Auto Heirlooms', 'Auto Heirlooms master button. Turn this on to enable all Auto Heirloom settings. <br><br><b>The Modifier points will be explained here.</b> The more points an heirloom has, the better chance it has of being kept. If empty is selected, it will muliplty the score by 4. If any is selected, it will multiply the score of the heirloom by 2. <br><br>E.g Mod 1 = CC (+6 if dropped, 1st modifier) <br>Mod 2 = CD (+5 if dropped, 2nd modifier) <br>Mod 3 = PB (+4 if dropped, 3rd modifier) <br>Mod 4 = Empty (x4 if dropped, +0 if not) <br>Mod 5 = Empty (x4 if dropped, +0 if not) <br><br>If an heirloom dropped with these exact modifiers, it would get a score of 192 (6+5+4*4*4=240). The highest point heirlooms will be kept. ', 'boolean', false, null, 'Heirlooms');
     createSetting('typetokeep', ['None', 'Shields', 'Staffs', 'Cores', 'All'], '<b>Shields: </b>Keeps Shields and nothing else.<br><b>Staffs: </b>Keeps Staffs and nothing else.<br><b>Cores: </b>Keeps Cores and nothing else.<br><b>All: </b>Keeps 4 Shields and 3 Staffs and 3 Cores. If you have protected heirlooms in your inventory it will overrite one slot. E.g if one heirloom is protected, you will keep 4 Shields and 3 Staffs and 2 Cores. ', 'multitoggle', 0, null, 'Heirlooms');
     createSetting('raretokeep', 'Rarity to Keep', 'Auto Heirlooms. Keeps the selected rarity of heirloom, recycles all others. ', 'dropdown', 'Any', ["Any", "Common", "Uncommon", "Rare", "Epic", "Legendary", "Magnificent", "Ethereal", "Magmatic", "Plagued", "Radiating"], 'Heirlooms');
@@ -1641,6 +1670,14 @@ function updateCustomButtons() {
     radonon ? turnOn("RBWraid"): turnOff("RBWraid");
     radonon && getPageSetting('RBWraid')==true ? turnOn("RBWraidingz"): turnOff("RBWraidingz");
     radonon && getPageSetting('RBWraid')==true ? turnOn("RBWraidingmax"): turnOff("RBWraidingmax");
+    
+    //RPR
+    radonon ? turnOn("RAMPraid"): turnOff("RAMPraid");
+    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidzone"): turnOff("RAMPraidzone");
+    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidraid"): turnOff("RAMPraidraid");
+    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidcell"): turnOff("RAMPraidcell");
+    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidfrag"): turnOff("RAMPraidfrag");
+    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidrecycle"): turnOff("RAMPraidrecycle");
 
     
     
@@ -1682,6 +1719,7 @@ function updateCustomButtons() {
     !radonon ? turnOn("AutoStanceNew"): turnOff("AutoStanceNew");
     !radonon ? turnOn("DynamicGyms"): turnOff("DynamicGyms");
     !radonon ? turnOn("AutoRoboTrimp"): turnOff("AutoRoboTrimp");
+    !radonon ? turnOn("fightforever"): turnOff("fightforever");
     !radonon ? turnOn("addpoison"): turnOff("addpoison");
     !radonon ? turnOn("fullice"): turnOff("fullice");
     !radonon ? turnOn("45stacks"): turnOff("45stacks");
@@ -1690,15 +1728,26 @@ function updateCustomButtons() {
     
     
     //RCombat
+    radonon ? turnOn("Rfightforever"): turnOff("Rfightforever");
     radonon ? turnOn("Rcalcmaxequality"): turnOff("Rcalcmaxequality");
     
     
     
     //Challenges
+    
+    //Arch
     radonon ? turnOn("Rarchon") : turnOff("Rarchon");
     radonon && getPageSetting('Rarchon') == true ? turnOn("Rarchstring1") : turnOff("Rarchstring1");
     radonon && getPageSetting('Rarchon') == true ? turnOn("Rarchstring2") : turnOff("Rarchstring2");
     radonon && getPageSetting('Rarchon') == true ? turnOn("Rarchstring3") : turnOff("Rarchstring3");
+    
+    //Mayhem
+    radonon ? turnOn("Rmayhemon") : turnOff("Rmayhemon");
+    radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemattack") : turnOff("Rmayhemattack");
+    radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemhealth") : turnOff("Rmayhemhealth");
+    radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemacut") : turnOff("Rmayhemacut");
+    radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemhcut") : turnOff("Rmayhemhcut");
+    radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemmap") : turnOff("Rmayhemmap");
 
     
     
@@ -1773,6 +1822,7 @@ function updateCustomButtons() {
     !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("AutoWind"): turnOff("AutoWind");
     !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("AutoIce"): turnOff("AutoIce");
 
+    
     //Enlight
     !radonon ? turnOn("autoenlight"): turnOff("autoenlight");
     !radonon && getPageSetting('autoenlight') == true ? turnOn("pfillerenlightthresh"): turnOff("pfillerenlightthresh");
@@ -1785,6 +1835,7 @@ function updateCustomButtons() {
     !radonon && getPageSetting('autoenlight') == true ? turnOn("wc2enlightthresh"): turnOff("wc2enlightthresh");
     !radonon && getPageSetting('autoenlight') == true ? turnOn("ic2enlightthresh"): turnOff("ic2enlightthresh");
 
+    
     //Display
     (game.worldUnlocks.easterEgg.locked == false) ? turnOn('AutoEggs') : turnOff('AutoEggs');
 
@@ -1795,9 +1846,9 @@ function updateCustomButtons() {
     !radonon ? turnOn("showautomapstatus"): turnOff("showautomapstatus");
     radonon ? turnOn("Rshowautomapstatus"): turnOff("Rshowautomapstatus");
 
-
+    
     //Heirlooms
-    var nuratio = (getPageSetting('rationu')==0 && getPageSetting('autonu')==true);
+    /*var nuratio = (getPageSetting('rationu')==0 && getPageSetting('autonu')==true);
 
     getPageSetting('autonu')==true ? turnOn('rationu') : turnOff('rationu');
     getPageSetting('autonu')==true ? turnOn('heirloomnu') : turnOff('heirloomnu');
@@ -1806,12 +1857,18 @@ function updateCustomButtons() {
     (nuratio) ? turnOn('slot3nu') : turnOff('slot3nu');
     (nuratio) ? turnOn('slot4nu') : turnOff('slot4nu');
     (nuratio) ? turnOn('slot5nu') : turnOff('slot5nu');
-    (nuratio) ? turnOn('slot6nu') : turnOff('slot6nu');
+    (nuratio) ? turnOn('slot6nu') : turnOff('slot6nu');*/
+    
+    radonon ? turnOn('Rhs') : turnOff('Rhs');
+    var hson = (getPageSetting('Rhs') == true);
+    radonon && hson ? turnOn('Rhsz') : turnOff('Rhsz');
+    radonon && hson ? turnOn('Rhs1') : turnOff('Rhs1');
+    radonon && hson ? turnOn('Rhs2') : turnOff('Rhs2');
 
-    var autoheirloomenable = (getPageSetting('autoheirlooms')==true);
-    var keepshieldenable = (autoheirloomenable && getPageSetting('keepshields')==true);
-    var keepstaffenable = (autoheirloomenable && getPageSetting('keepstaffs')==true);
-    var keepcoreenable = (autoheirloomenable && getPageSetting('keepcores')==true);
+    var autoheirloomenable = (getPageSetting('autoheirlooms') == true);
+    var keepshieldenable = (autoheirloomenable && getPageSetting('keepshields') == true);
+    var keepstaffenable = (autoheirloomenable && getPageSetting('keepstaffs') == true);
+    var keepcoreenable = (autoheirloomenable && getPageSetting('keepcores') == true);
 
     (autoheirloomenable) ? turnOn('typetokeep') : turnOff('typetokeep');
     (autoheirloomenable) ? turnOn('raretokeep') : turnOff('raretokeep');

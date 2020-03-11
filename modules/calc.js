@@ -934,8 +934,9 @@ function RcalcEnemyBaseHealth(world, level, name) {
 			return Math.floor(amt);
 }
 
-function RcalcEnemyHealth() {
-    var health = RcalcEnemyBaseHealth(game.global.world, 50, "Snimp");
+function RcalcEnemyHealth(world) {
+    if (world == false) world = game.global.world;
+    var health = RcalcEnemyBaseHealth(world, 50, "Snimp");
     if (game.global.challengeActive == "Unbalance") {
 	health *= 2;
     }
@@ -959,6 +960,6 @@ function RcalcHDratio() {
     var ratio = 0;
     var ourBaseDamage = RcalcOurDmg("avg", false, true);
 
-    ratio = RcalcEnemyHealth() / ourBaseDamage;
+    ratio = RcalcEnemyHealth(game.global.world) / ourBaseDamage;
     return ratio;
 }
