@@ -140,7 +140,7 @@ AutoPerks.populateDumpPerkList = function() {
     var html = "";
     var dumpperks = AutoPerks.getVariablePerks();
     for(var i in dumpperks)
-        html += "<option id='"+dumpperks[i].name+"Dump'>"+AutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"</option>"
+        html += "<option id='"+dumpperks[i].name+"Dump' value='"+AutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"'>"+AutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"</option>"
     html += "<option id='none'>None</option></select>";
     $dumpDropdown.innerHTML = html;
     var loadLastDump = localStorage.getItem('AutoperkSelectedDumpPresetID');
@@ -359,7 +359,7 @@ AutoPerks.spendHelium = function(helium) {
     if ($selector != null && $selector.value != "None") {
         var heb4dump = helium;
         var index = $selector.selectedIndex;
-        var dumpPerk = AutoPerks.getPerkByName($selector[index].innerHTML);
+        var dumpPerk = AutoPerks.getPerkByName($selector[index].value);
         if(dumpPerk.level < dumpPerk.max) {
             for(price = AutoPerks.calculatePrice(dumpPerk, dumpPerk.level); price < helium && dumpPerk.level < dumpPerk.max; price = AutoPerks.calculatePrice(dumpPerk, dumpPerk.level)) {
                 helium -= price;
@@ -457,7 +457,7 @@ AutoPerks.spendHelium2 = function(helium) {
     if ($selector != null && $selector.value != "None") {
         var heb4dump = helium;
         var index = $selector.selectedIndex;
-        var dumpPerk = AutoPerks.getPerkByName($selector[index].innerHTML);
+        var dumpPerk = AutoPerks.getPerkByName($selector[index].value);
         if(dumpPerk.level < dumpPerk.max) {
             for(price = AutoPerks.calculatePrice(dumpPerk, dumpPerk.level); price < helium && dumpPerk.level < dumpPerk.max; price = AutoPerks.calculatePrice(dumpPerk, dumpPerk.level)) {
                 helium -= price;
@@ -863,7 +863,7 @@ RAutoPerks.populateDumpPerkList = function() {
     var html = "";
     var dumpperks = RAutoPerks.getVariablePerks();
     for(var i in dumpperks)
-        html += "<option id='"+dumpperks[i].name+"Dump'>"+RAutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"</option>"
+        html += "<option id='"+dumpperks[i].name+"Dump value='"+RAutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"'>"+RAutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"</option>"
     html += "<option id='none'>None</option></select>";
     $dumpDropdown.innerHTML = html;
     var loadLastDump = localStorage.getItem('RAutoperkSelectedDumpPresetID');
@@ -1089,7 +1089,7 @@ RAutoPerks.spendRadon = function(radon) {
     if ($selector != null && $selector.value != "None") {
         var heb4dump = radon;
         var index = $selector.selectedIndex;
-        var RdumpPerk = RAutoPerks.getPerkByName($selector[index].innerHTML);
+        var RdumpPerk = RAutoPerks.getPerkByName($selector[index].value);
         if(RdumpPerk.radLevel < RdumpPerk.max) {
             for(price = RAutoPerks.calculatePrice(RdumpPerk, RdumpPerk.radLevel); price < radon && RdumpPerk.radLevel < RdumpPerk.max; price = RAutoPerks.calculatePrice(RdumpPerk, RdumpPerk.radLevel)) {
                 radon -= price;
@@ -1187,7 +1187,7 @@ RAutoPerks.spendRadon2 = function(radon) {
     if ($selector != null && $selector.value != "None") {
         var heb4dump = radon;
         var index = $selector.selectedIndex;
-        var RdumpPerk = RAutoPerks.getPerkByName($selector[index].innerHTML);
+        var RdumpPerk = RAutoPerks.getPerkByName($selector[index].value);
         if(RdumpPerk.radLevel < RdumpPerk.max) {
             for(price = RAutoPerks.calculatePrice(RdumpPerk, RdumpPerk.radLevel); price < radon && RdumpPerk.radLevel < RdumpPerk.max; price = RAutoPerks.calculatePrice(RdumpPerk, RdumpPerk.radLevel)) {
                 radon -= price;
