@@ -1975,21 +1975,45 @@ function updateCustomButtons() {
         if (item.type == 'value' || item.type == 'valueNegative' || item.type == 'multitoggle' || item.type == 'multiValue' || item.type == 'textValue') {
             var elem = document.getElementById(item.id);
             if (elem != null) {
-                if (item.type == 'multitoggle')
-                    elem.textContent = item.name[item.value];
+                if (item.type == 'multitoggle'){
+					if (elem.dataset["oritext"] != item.name[item.value]){
+						elem.dataset["oritext"] = item.name[item.value];
+						elem.textContent = item.name[item.value];
+					}
+				}
                 else if (item.type == 'multiValue') {
-                    if (Array.isArray(item.value) && item.value.length == 1 && item.value[0] == -1)
-                        elem.innerHTML = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
-                    else
-                        elem.textContent = item.name + ': ' + item.value.toString();
+                    if (Array.isArray(item.value) && item.value.length == 1 && item.value[0] == -1){
+						if (elem.dataset["orihtml"] != item.name + ': ' + "<span class='icomoon icon-infinity'></span>"){
+							elem.dataset["orihtml"] = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
+							elem.innerHTML = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
+						}
+					}
+                    else {
+						if (elem.dataset["oritext"] != item.name + ': ' + item.value.toString()){
+							elem.dataset["oritext"] = item.name + ': ' + item.value.toString();
+							elem.textContent = item.name + ': ' + item.value.toString();
+						}
+					}
                 }
                 else if (item.type == 'textValue') {
-                    elem.textContent = item.name + ': ' + item.value;
+					if (elem.dataset["oritext"] != item.name + ': ' + item.value){
+						elem.dataset["oritext"] = item.name + ': ' + item.value;
+						elem.textContent = item.name + ': ' + item.value;
+					}
                 }
-                else if (item.value > -1 || item.type == 'valueNegative')
-                    elem.textContent = item.name + ': ' + prettify(item.value);
-                else
-                    elem.innerHTML = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
+                else if (item.value > -1 || item.type == 'valueNegative'){
+					let prettify_value = prettify(item.value)
+					if (elem.dataset["oritext"] != item.name + ': ' + prettify_value) {
+						elem.dataset["oritext"] = item.name + ': ' + prettify_value;
+						elem.textContent = item.name + ': ' + prettify_value;
+					}
+				}
+                else{
+					if (elem.dataset["orihtml"] != item.name + ': ' + "<span class='icomoon icon-infinity'></span>"){
+						elem.dataset["orihtml"] = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
+						elem.innerHTML = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
+					}
+				}
             }
         }
     }
