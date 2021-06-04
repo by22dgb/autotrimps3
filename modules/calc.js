@@ -692,17 +692,25 @@ function RcalcOurDmg(minMaxAvg, equality) {
     // Ob
     number *= game.portal.Observation.getMult();
 
+    // Champ
+    number *= game.portal.Championism.getMult();
+
     // Robotrimp
     number *= 1 + (0.2 * game.global.roboTrimpLevel);
     
     // Mayhem Completions
     number *= game.challenges.Mayhem.getTrimpMult();
     
+    // Panda Completions
+    number *= game.challenges.Pandemonium.getTrimpMult();
+
     // Heirloom
     number *= 1 + calcHeirloomBonus('Shield','trimpAttack',1,true) / 100;
     
     // Frenzy perk
-    //number *= (game.portal.Frenzy.frenzyTime) ? game.portal.Frenzy.getAttackMult() : 1;
+    if (getPageSetting('Rcalcfrenzy') == true) { 
+        number *= 1 + (0.5 * game.portal.Frenzy.radLevel);
+    }
 	
     // Golden Upgrade
     number *= 1 + game.goldenUpgrades.Battle.currentBonus;
@@ -740,6 +748,7 @@ function RcalcOurDmg(minMaxAvg, equality) {
     if (game.global.challengeActive == "Archaeology") {number *= game.challenges.Archaeology.getStatMult("attack");}
     if (game.global.challengeActive == "Berserk") {number *= game.challenges.Berserk.getAttackMult();}
     if (game.challenges.Nurture.boostsActive() == true) {number *= game.challenges.Nurture.getStatBoost();}   
+    if (game.global.challengeActive == "Alchemy") { number *= alchObj.getPotionEffect("Potion of Strength");}
 
     // Dailies
     var minDailyMod = 1;
@@ -772,6 +781,9 @@ function RcalcOurDmg(minMaxAvg, equality) {
 	    number *= dailyModifiers.rampage.getMult(game.global.dailyChallenge.rampage.strength, game.global.dailyChallenge.rampage.stacks);
 	}
     }
+
+    // AB
+    number *= autoBattle.bonuses.Stats.getMult();
 
     // Equality
     if (getPageSetting('Rcalcmaxequality') == 1 && !equality) {
@@ -820,6 +832,8 @@ function RcalcOurHealth() {
     if (game.buildings.Smithy.owned > 0) {
 		health *= Math.pow(1.25, game.buildings.Smithy.owned);
     }
+	//Antenna Array
+	health *= game.buildings.Antenna.owned >= 10 ? game.jobs.Meteorologist.getExtraMult() : 1;
     if (game.portal.Toughness.radLevel > 0) {
         health *= ((game.portal.Toughness.radLevel * game.portal.Toughness.modifier) + 1);
     }
@@ -828,6 +842,9 @@ function RcalcOurHealth() {
     }
     if (game.portal.Observation.radLevel > 0) {
     	health *= game.portal.Observation.getMult();
+    }
+    if (game.portal.Championism.radLevel > 0) {
+        health *= game.portal.Championism.getMult();
     }
     if (Fluffy.isRewardActive("healthy")) {
 		health *= 1.5;
@@ -848,6 +865,9 @@ function RcalcOurHealth() {
     if (game.global.mayhemCompletions > 0) {
 	health *= game.challenges.Mayhem.getTrimpMult();
     }
+    if (game.global.pandCompletions > 0) {
+	health *= game.challenges.Pandemonium.getTrimpMult();
+    }
     if (game.global.challengeActive == "Insanity") {
 	health *= game.challenges.Insanity.getHealthMult();
     }
@@ -862,13 +882,19 @@ function RcalcOurHealth() {
     if (game.challenges.Nurture.boostsActive() == true) {
 	health *= game.challenges.Nurture.getStatBoost();
     }
+
+	//Alchemy Mult
+	health *= alchObj.getPotionEffect('Potion of Strength');
+
+	//AutoBattle
+	health *= autoBattle.bonuses.Stats.getMult();
+
     if (typeof game.global.dailyChallenge.pressure !== 'undefined') {
         health *= (dailyModifiers.pressure.getMult(game.global.dailyChallenge.pressure.strength, game.global.dailyChallenge.pressure.stacks));
     }
 	
-    //Pris
-	
-    health *= (getEnergyShieldMult() + 1);
+	//Prismatic Shield and Shield Layer, scales with multiple Scruffy shield layers
+	health *= Fluffy.isRewardActive('shieldlayer') ? 1 + (getEnergyShieldMult() * (1 + Fluffy.isRewardActive('shieldlayer'))) : 1 + getEnergyShieldMult();
 	
     return health;
 }
@@ -919,6 +945,10 @@ function RcalcBadGuyDmg(enemy, attack, equality) {
 	number *= game.challenges.Mayhem.getEnemyMult();
 	number *= game.challenges.Mayhem.getBossMult();
     }
+    if (game.global.challengeActive == "Pandemonium") {
+	number *= game.challenges.Pandemonium.getEnemyMult();
+	number *= game.challenges.Pandemonium.getBossMult();
+    }
     if (game.global.challengeActive == "Storm") {
 	number *= game.challenges.Storm.getAttackMult();
     }
@@ -933,6 +963,9 @@ function RcalcBadGuyDmg(enemy, attack, equality) {
 	if (game.buildings.Laboratory.owned > 0) {
 	    number *= game.buildings.Laboratory.getEnemyMult();
 	}
+    }
+    if (game.global.challengeActive == "Alchemy") {
+	number *= ((alchObj.getEnemyStats(false, false)) + 1);
     }
     if (!enemy && game.global.usingShriek) {
         number *= game.mapUnlocks.roboTrimp.getShriekValue();
@@ -990,6 +1023,9 @@ function RcalcEnemyHealth(world) {
 	health *= game.challenges.Mayhem.getEnemyMult();
 	health *= game.challenges.Mayhem.getBossMult();
     }
+    if (game.global.challengeActive == "Pandemonium") {
+	health *= game.challenges.Pandemonium.getBossMult();
+    }
     if (game.global.challengeActive == "Storm") {
 	health *= game.challenges.Storm.getHealthMult();
     }
@@ -1004,6 +1040,9 @@ function RcalcEnemyHealth(world) {
 	if (game.buildings.Laboratory.owned > 0) {
 	    health *= game.buildings.Laboratory.getEnemyMult();
 	}
+    }
+    if (game.global.challengeActive == "Alchemy") {
+	health *= ((alchObj.getEnemyStats(false, false)) + 1);
     }
     return health;
 }
@@ -1027,6 +1066,9 @@ function RcalcEnemyHealthMod(world, cell, name) {
 	health *= game.challenges.Mayhem.getEnemyMult();
 	health *= game.challenges.Mayhem.getBossMult();
     }
+    if (game.global.challengeActive == "Pandemonium") {
+	health *= game.challenges.Pandemonium.getBossMult();
+    }
     if (game.global.challengeActive == "Storm") {
 	health *= game.challenges.Storm.getHealthMult();
     }
@@ -1037,10 +1079,13 @@ function RcalcEnemyHealthMod(world, cell, name) {
 	health *= game.challenges.Exterminate.getSwarmMult();
     }
     if (game.global.challengeActive == "Nurture") {
-	number *= 2;
+	health *= 2;
 	if (game.buildings.Laboratory.owned > 0) {
-	    number *= game.buildings.Laboratory.getEnemyMult();
+	    health *= game.buildings.Laboratory.getEnemyMult();
 	}
+    }
+    if (game.global.challengeActive == "Alchemy") {
+	health *= ((alchObj.getEnemyStats(false, false)) + 1);
     }
     return health;
 }
@@ -1063,6 +1108,7 @@ function getTotalHealthMod() {
     healthMulti *= 1 + (game.portal.Toughness.radLevel * game.portal.Toughness.modifier);
     healthMulti *= Math.pow(1 + game.portal.Resilience.modifier, game.portal.Resilience.radLevel);
     healthMulti *= game.portal.Observation.getMult();
+    healthMulti *= game.portal.Championism.getMult();
  
     // Scruffy's +50% health bonus
     healthMulti *= (Fluffy.isRewardActive("healthy") ? 1.5 : 1);
@@ -1084,12 +1130,19 @@ function getTotalHealthMod() {
         (game.challenges.Berserk.frenzyStacks > 0) ? 0.5 : game.challenges.Berserk.getHealthMult(true)
         : 1;
     healthMulti *= (game.challenges.Nurture.boostsActive() == true) ? game.challenges.Nurture.getStatBoost() : 1;
+    healthMulti *= (game.global.challengeActive == 'Alchemy') ? alchObj.getPotionEffect("Potion of Strength") : 1;
 
     // Daily mod
     healthMulti *= (typeof game.global.dailyChallenge.pressure !== 'undefined') ? dailyModifiers.pressure.getMult(game.global.dailyChallenge.pressure.strength, game.global.dailyChallenge.pressure.stacks) : 1;
  
     // Mayhem
     healthMulti *= game.challenges.Mayhem.getTrimpMult();
+	
+    // Panda
+    healthMulti *= game.challenges.Pandemonium.getTrimpMult();
+
+    // AB
+    healthMulti *= autoBattle.bonuses.Stats.getMult();
  
     // Prismatic
     healthMulti *= 1 + getEnergyShieldMult();
