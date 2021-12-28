@@ -571,7 +571,7 @@ function initializeAllSettings() {
     createSetting('Rfrozencastle', 'Frozen Castle', '-1 to disable. When to run the map Frozen Castle. Use it like this: 200,91. The first number is what zone Frozen Castle should be run at, the second number is what Cell to run it at. In this example AutoMaps would run Frozen Castle at z200 cell 91. Must define both values. Works in any challenge so be careful. ', 'multiValue', [-1], null, 'Maps');
     
     //Timefarm
-    document.getElementById('Rmeltpoint').parentNode.insertAdjacentHTML('afterend', '<br>');
+    document.getElementById('Rfrozencastle').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rtimefarm', 'Time Farm', 'Turn this on if you want to use Time Farming. ', 'boolean', false, null, 'Maps');
     createSetting('Rtimefarmzone', 'TF: Zone', 'Farms for specified minutes in TF: Time at zone according to this settings value. Can use 59,61,62. ', 'multiValue', [-1], null, 'Maps');
     createSetting('Rtimefarmcell', 'TF: Cell', 'Time Farm at this Cell. -1 to run them at the default value, which is 1. ', 'value', '-1', null, 'Maps');
@@ -702,14 +702,16 @@ function initializeAllSettings() {
     createSetting('Rchallengehidequag', 'Quag', 'Set this on if you wish to hide the Quagmire challenge settings. ', 'boolean', false, null, 'Challenges');
     createSetting('Rchallengehidearch', 'Arch', 'Set this on if you wish to hide the Archaeology challenge settings. ', 'boolean', false, null, 'Challenges');
     createSetting('Rchallengehidemayhem', 'Mayhem', 'Set this on if you wish to hide the Mayhem challenge settings. ', 'boolean', false, null, 'Challenges');
+    createSetting('Rchallengehidestorm', 'Storm', 'Set this on if you wish to hide the Storm challenge settings. ', 'boolean', false, null, 'Challenges');
     createSetting('Rchallengehideinsanity', 'Insanity', 'Set this on if you wish to hide the Insanity challenge settings. ', 'boolean', false, null, 'Challenges');
     createSetting('Rchallengehideexterminate', 'Exterminate', 'Set this on if you wish to hide the Exterminate challenge settings. ', 'boolean', false, null, 'Challenges');
     createSetting('Rchallengehidenurture', 'Nurture', 'Set this on if you wish to hide the Nurture challenge settings. ', 'boolean', false, null, 'Challenges');
+    createSetting('Rchallengehidepanda', 'Pandemonium', 'Set this on if you wish to hide the Pandemonium challenge settings. ', 'boolean', false, null, 'Challenges');
     createSetting('Rchallengehidealchemy', 'Alchemy', 'Set this on if you wish to hide the Alchemy challenge settings. ', 'boolean', false, null, 'Challenges');
     createSetting('Rchallengehidehypothermia', 'Hypothermia', 'Set this on if you wish to hide the Hypothermia challenge settings. ', 'boolean', false, null, 'Challenges');
 
     //Quagmire - Black Bogs
-    document.getElementById('Rchallengehidenurture').parentNode.insertAdjacentHTML('afterend', '<br>');
+    document.getElementById('Rchallengehidehypothermia').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rblackbog', 'Quagmire', 'Enable Bog Running for Quagmire. ', 'boolean', false, null, 'Challenges');
     createSetting('Rblackbogzone', 'Zone', 'What zones to run Black Bogs at. Can use 40,50,60. ', 'multiValue', [-1], null, 'Challenges');
     createSetting('Rblackbogamount', 'Amount', 'How many Black Bogs to at specified zones. Can use 8,9,10. I.e if BB: Zone had 40,50 and this setting had 8,10, It would run 8 Black Bogs at z40 and 10 Black Bogs at z50. ', 'multiValue', [-1], null, 'Challenges');
@@ -779,7 +781,7 @@ function initializeAllSettings() {
     createSetting('Rhypoon', 'Hypothermia', 'Turn on Hypothermia settings. This also controls the entireity of HF. If you turn this off it will not Hypothermia Farm. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rhypofarmzone', 'Hypothermia Farming', 'Farms for specified total bonfires in HF: Bonfire at zone according to this settings value. Can use 138,139,140. ', 'multiValue', [-1], null, 'Challenges');
     createSetting('Rhypofarmcell', 'HF: Cell', 'Hypothermia Farm at this Cell. -1 to run them at the default value, which is 1. ', 'value', '-1', null, 'Challenges');
-    createSetting('Rhypofarmstack', 'HF: Bonfire', 'How many Bonfires total you wish to have at the corrosponding level in Hypothermia Farming. ', 'multiValue', 'undefined', null, 'Challenges');
+    createSetting('Rhypofarmstack', 'HF: Bonfire', 'How many Bonfires total you have earned throughout the run you wish to have at the corrosponding level in Hypothermia Farming. You may have to keep on eye on bonfires at start of run to get this number. With packrat you normally get 5 total before storage is too small. So just start with 6\,7\,8\,9\,10... and so on then just add numbers all the way up to something like 30\, this would cover all scenarios anyway. ', 'multiValue', 'undefined', null, 'Challenges');
     createSetting('Rhypofarmlevel', 'HF: Map Level', 'What map level to use. Can use -1,1,2. -1 to use a level down from world, 0 to use world, 1 etc to use +maps. Using 0 by itself will use global level for all maps. ', 'multiValue', [0], null, 'Challenges');
     createSetting('Rhypofarmfrag', 'HF: Frags', 'Turn this on to farm fragments if you cannot afford the map you have selected for HF. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rhypocastle', 'Frozen Castle', 'What zone you wish you run frozen castle on to complete the challenge. Will run castle after voids so make sure thats set up right. ', 'value', '-1', null, 'Challenges');
@@ -1924,10 +1926,12 @@ function updateCustomButtons() {
     radonon ? turnOn("Rchallengehide"): turnOff("Rchallengehide");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidequag") : turnOff("Rchallengehidequag");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidearch") : turnOff("Rchallengehidearch");
-    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidemayhem") : turnOff("Rchallengehidemayhem"); 
+    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidemayhem") : turnOff("Rchallengehidemayhem");
+    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidestorm") : turnOff("Rchallengehidestorm");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehideinsanity") : turnOff("Rchallengehideinsanity"); 
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehideexterminate") : turnOff("Rchallengehideexterminate"); 
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidenurture") : turnOff("Rchallengehidenurture");
+    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidepanda") : turnOff("Rchallengehidepanda");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidealchemy") : turnOff("Rchallengehidealchemy"); 
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidehypothermia") : turnOff("Rchallengehidehypothermia"); 
 
@@ -1951,6 +1955,12 @@ function updateCustomButtons() {
             turnOff("Rmayhemhcut");
             turnOff("Rmayhemmap");
     }
+    if (getPageSetting('Rchallengehidestorm') == true) { 
+            turnOff("Rstormon");
+            turnOff("Rstormzone");
+            turnOff("RstormHD");
+            turnOff("Rstormmult");
+    }
     if (getPageSetting('Rchallengehideinsanity') == true) { 
             turnOff("Rinsanityon");
             turnOff("Rinsanityfarmzone");
@@ -1966,6 +1976,12 @@ function updateCustomButtons() {
     }
     if (getPageSetting('Rchallengehidenurture') == true) { 
             turnOff("Rnurtureon");
+    }
+    if (getPageSetting('Rchallengehidepanda') == true) { 
+            turnOff("Rpandaon");
+            turnOff("Rpandamaps");
+            turnOff("Rpandazone");
+            turnOff("Rpandahits");
     }
     if (getPageSetting('Rchallengehidealchemy') == true) { 
             turnOff("Ralchon");
