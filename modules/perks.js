@@ -735,7 +735,7 @@ MODULES["perks"].RshowDetails = true;
 var Rhead = document.getElementsByTagName('head')[0];
 var Rqueuescript = document.createElement('script');
 queuescript.type = 'text/javascript';
-queuescript.src = 'https://Zorn192.github.io/AutoTrimps/FastPriorityQueue.js';
+queuescript.src = '/autotrimps3/FastPriorityQueue.js';
 head.appendChild(queuescript);
 //[looting,toughness,power,motivation,pheromones,artisanistry,carpentry,prismal,equality,criticality,resilience,tenacity,greed,frenzy]
 var preset_Rspace = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
