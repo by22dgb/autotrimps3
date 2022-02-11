@@ -1,3 +1,12 @@
+function e2c_nature(original)
+{
+    switch (original){
+        case "Poison": return "毒";
+        case "Wind": return "风";
+        case "Ice": return "冰";
+    }
+}
+
 function autoNatureTokens() {
     var changed = false;
     var thresh = 0;
@@ -16,7 +25,7 @@ function autoNatureTokens() {
             empowerment.tokens -= cost;
             empowerment.level++;
             changed = true;
-            debug('Upgraded Empowerment of ' + nature, 'nature');
+            debug('升级了' + e2c_nature(nature) + '赋能', 'nature');
         }
         else if (setting == 'Transfer') {
             if (empowerment.retainLevel >= 80+thresh || empowerment.tokens < thresh)
@@ -26,7 +35,7 @@ function autoNatureTokens() {
             empowerment.tokens -= cost;
             empowerment.retainLevel++;
             changed = true;
-            debug('Upgraded ' + nature + ' transfer rate', 'nature');
+            debug('升级了' + e2c_nature(nature) + '层数传递率', 'nature');
         }
         else if (setting == 'Convert to Both') {
             if (empowerment.tokens < 20+thresh || empowerment.tokens < thresh) continue;
@@ -36,7 +45,7 @@ function autoNatureTokens() {
                 var convertRate = (game.talents.nature.purchased) ? ((game.talents.nature2.purchased) ? 8 : 6) : 5;
                 game.empowerments[targetNature].tokens += convertRate;
                 changed = true;
-                debug('Converted ' + nature + ' tokens to ' + targetNature, 'nature');
+                debug('已将' + e2c_nature(nature) + '符记转换为' + e2c_nature(targetNature) + '符记', 'nature');
             }
         }
         else {
@@ -49,7 +58,7 @@ function autoNatureTokens() {
             var convertRate = (game.talents.nature.purchased) ? ((game.talents.nature2.purchased) ? 8 : 6) : 5;
             game.empowerments[targetNature].tokens += convertRate;
             changed = true;
-            debug('Converted ' + nature + ' tokens to ' + targetNature, 'nature');
+            debug('已将' + e2c_nature(nature) + '符记转换为' + e2c_nature(targetNature) + '符记', 'nature');
         }
     }
     if (changed)

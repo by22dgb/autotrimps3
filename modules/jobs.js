@@ -1,3 +1,15 @@
+function e2c_jobs(original)
+{
+    switch (original){
+        case "Farmer": return "农民";
+        case "Lumberjack": return "伐木工";
+        case "Miner": return "矿工";
+        case "Scientist": return "科学家";
+        case "Trainer": return "训练师";
+        case "Explorer": return "探险家";
+    }
+}
+
 MODULES["jobs"] = {};
 
 //Helium
@@ -39,7 +51,7 @@ function safeBuyJob(jobTitle, amount) {
         }
     }
     if (result) {
-        debug((game.global.firing ? 'Firing ' : 'Hiring ') + prettify(game.global.buyAmt) + ' ' + jobTitle + 's', "jobs", "*users");
+        debug((game.global.firing ? '解雇' : '雇佣') + prettify(game.global.buyAmt) + e2c_jobs(jobTitle), "jobs", "*users");
         buyJob(jobTitle, true, true);
     }
     postBuy2(old);
@@ -226,7 +238,7 @@ function buyJobs() {
         game.global.maxSplit = MODULES["jobs"].magmamancerRatio;
         buyJob('Magmamancer', true, true);
         postBuy2(old);
-        debug("Bought " + (firesomedudes / inverse) + ' Magmamancers. Total Owned: ' + game.jobs['Magmamancer'].owned, "magmite", "*users");
+        debug("雇佣" + (firesomedudes / inverse) + '名岩浆巫师。目前有' + game.jobs['Magmamancer'].owned + '名岩浆巫师。', "magmite", "*users");
         tierMagmamancers += 1;
     } else if (stacks2 < tierMagmamancers) {
         tierMagmamancers = 0;
@@ -317,7 +329,7 @@ function RsafeBuyJob(jobTitle, amount) {
         }
     }
     if (result) {
-        debug((game.global.firing ? 'Firing ' : 'Hiring ') + prettify(game.global.buyAmt) + ' ' + jobTitle + 's', "jobs", "*users");
+        debug((game.global.firing ? '解雇' : '雇佣') + prettify(game.global.buyAmt) + e2c_jobs(jobTitle), "jobs", "*users");
         buyJob(jobTitle, true, true);
     }
     postBuy2(old);

@@ -2,7 +2,7 @@ MODULES["other"] = {};
 MODULES["other"].enableRoboTrimpSpam = true;
 var prestraid=!1,dprestraid=!1,failpraid=!1,dfailpraid=!1,bwraided=!1,dbwraided=!1,failbwraid=!1,dfailbwraid=!1,perked=!1,prestraidon=!1,dprestraidon=!1,mapbought=!1,dmapbought=!1,bwraidon=!1,dbwraidon=!1,presteps=null,minMaxMapCost,fMap,pMap,shouldFarmFrags=!1,praidDone=!1;
 function armydeath(){if(game.global.mapsActive)return!1;var e=game.global.lastClearedCell+1,l=game.global.gridArray[e].attack*dailyModifiers.empower.getMult(game.global.dailyChallenge.empower.strength,game.global.dailyChallenge.empower.stacks),a=game.global.soldierHealth+game.global.soldierEnergyShield;"Ice"==getEmpowerment()&&(l*=game.empowerments.Ice.getCombatModifier());var g=game.global.soldierCurrentBlock;return 3==game.global.formation?g/=4:"0"!=game.global.formation&&(g*=2),g>game.global.gridArray[e].attack?l*=getPierceAmt():l-=g*(1-getPierceAmt()),"Daily"==game.global.challengeActive&&void 0!==game.global.dailyChallenge.crits&&(l*=dailyModifiers.crits.getMult(game.global.dailyChallenge.crits.strength)),void 0!==game.global.dailyChallenge.bogged&&(a-=game.global.soldierHealthMax*dailyModifiers.bogged.getMult(game.global.dailyChallenge.bogged.strength)),void 0!==game.global.dailyChallenge.plague&&(a-=game.global.soldierHealthMax*dailyModifiers.plague.getMult(game.global.dailyChallenge.plague.strength,game.global.dailyChallenge.plague.stacks)),"Electricity"==game.global.challengeActive&&(a-=game.global.soldierHealth-=game.global.soldierHealthMax*(.1*game.challenges.Electricity.stacks)),"corruptCrit"==game.global.gridArray[e].corrupted?l*=5:"healthyCrit"==game.global.gridArray[e].corrupted?l*=7:"corruptBleed"==game.global.gridArray[e].corrupted?a*=.8:"healthyBleed"==game.global.gridArray[e].corrupted&&(a*=.7),(a-=l)<=1e3}
-function autoRoboTrimp(){if(!(0<game.global.roboTrimpCooldown)&&game.global.roboTrimpLevel){var a=parseInt(getPageSetting("AutoRoboTrimp"));0==a||game.global.world>=a&&!game.global.useShriek&&(magnetoShriek(),MODULES.other.enableRoboTrimpSpam&&debug("Activated Robotrimp MagnetoShriek Ability @ z"+game.global.world,"graphs","*podcast"))}}
+function autoRoboTrimp(){if(!(0<game.global.roboTrimpCooldown)&&game.global.roboTrimpLevel){var a=parseInt(getPageSetting("AutoRoboTrimp"));0==a||game.global.world>=a&&!game.global.useShriek&&(magnetoShriek(),MODULES.other.enableRoboTrimpSpam&&debug("在区域"+game.global.world+"激活了小脆皮机器人的电磁尖啸","graphs","*podcast"))}}
 function isBelowThreshold(a){return a!=game.global.world}
 function buyWeps(){if(!((getPageSetting('BuyWeaponsNew')==1)||(getPageSetting('BuyWeaponsNew')==3)))return;preBuy(),game.global.buyAmt=getPageSetting('gearamounttobuy'),game.equipment.Dagger.level<getPageSetting('CapEquip2')&&canAffordBuilding('Dagger',null,null,!0)&&buyEquipment('Dagger',!0,!0),game.equipment.Mace.level<getPageSetting('CapEquip2')&&canAffordBuilding('Mace',null,null,!0)&&buyEquipment('Mace',!0,!0),game.equipment.Polearm.level<getPageSetting('CapEquip2')&&canAffordBuilding('Polearm',null,null,!0)&&buyEquipment('Polearm',!0,!0),game.equipment.Battleaxe.level<getPageSetting('CapEquip2')&&canAffordBuilding('Battleaxe',null,null,!0)&&buyEquipment('Battleaxe',!0,!0),game.equipment.Greatsword.level<getPageSetting('CapEquip2')&&canAffordBuilding('Greatsword',null,null,!0)&&buyEquipment('Greatsword',!0,!0),!game.equipment.Arbalest.locked&&game.equipment.Arbalest.level<getPageSetting('CapEquip2')&&canAffordBuilding('Arbalest',null,null,!0)&&buyEquipment('Arbalest',!0,!0),postBuy()}
 function buyArms(){if(!((getPageSetting('BuyArmorNew')==1)||(getPageSetting('BuyArmorNew')==3)))return;preBuy(),game.global.buyAmt=10,game.equipment.Shield.level<getPageSetting('CapEquiparm')&&canAffordBuilding('Shield',null,null,!0)&&buyEquipment('Shield',!0,!0),game.equipment.Boots.level<getPageSetting('CapEquiparm')&&canAffordBuilding('Boots',null,null,!0)&&buyEquipment('Boots',!0,!0),game.equipment.Helmet.level<getPageSetting('CapEquiparm')&&canAffordBuilding('Helmet',null,null,!0)&&buyEquipment('Helmet',!0,!0),game.equipment.Pants.level<getPageSetting('CapEquiparm')&&canAffordBuilding('Pants',null,null,!0)&&buyEquipment('Pants',!0,!0),game.equipment.Shoulderguards.level<getPageSetting('CapEquiparm')&&canAffordBuilding('Shoulderguards',null,null,!0)&&buyEquipment('Shoulderguards',!0,!0),game.equipment.Breastplate.level<getPageSetting('CapEquiparm')&&canAffordBuilding('Breastplate',null,null,!0)&&buyEquipment('Breastplate',!0,!0),!game.equipment.Gambeson.locked&&game.equipment.Gambeson.level<getPageSetting('CapEquiparm')&&canAffordBuilding('Gambeson',null,null,!0)&&buyEquipment('Gambeson',!0,!0),postBuy()}
@@ -1107,35 +1107,35 @@ function Praiding() {
                 }
             }
             if (game.global.preMapsActive && !game.global.mapsActive && mapbought1 && pMap1 != undefined && !prestraid) {
-		    debug("running map 1");
+		    debug("运行地图1");
                 selectMap(pMap1);
                 runMap();
 		repMap1 = pMap1;
                 pMap1 = undefined;
             }
             if (game.global.preMapsActive && !game.global.mapsActive && mapbought2 && pMap2 != undefined && !prestraid) {
-		    debug("running map 2");
+		    debug("运行地图2");
                 selectMap(pMap2);
                 runMap();
 		repMap2 = pMap2;
                 pMap2 = undefined;
             }
             if (game.global.preMapsActive && !game.global.mapsActive && mapbought3 && pMap3 != undefined && !prestraid) {
-		    debug("running map 3");
+		    debug("运行地图3");
                 selectMap(pMap3);
                 runMap();
 		repMap3 = pMap3;
                 pMap3 = undefined;
             }
             if (game.global.preMapsActive && !game.global.mapsActive && mapbought4 && pMap4 != undefined && !prestraid) {
-		    debug("running map 4");
+		    debug("运行地图4");
                 selectMap(pMap4);
                 runMap();
 		repMap4 = pMap4;
                 pMap4 = undefined;
             }
             if (game.global.preMapsActive && !game.global.mapsActive && mapbought5 && pMap5 != undefined && !prestraid) {
-		    debug("running map 5");
+		    debug("运行地图5");
                 selectMap(pMap5);
                 runMap();
 		repMap5 = pMap5;
@@ -1613,35 +1613,35 @@ function dailyPraiding() {
                 }
             }
             if (game.global.preMapsActive && !game.global.mapsActive && dmapbought1 && dpMap1 != undefined && !dprestraid) {
-		    debug("running map 1");
+		    debug("运行地图1");
                 selectMap(dpMap1);
                 runMap();
 		drepMap1 = dpMap1;
                 dpMap1 = undefined;
             }
             if (game.global.preMapsActive && !game.global.mapsActive && dmapbought2 && dpMap2 != undefined && !dprestraid) {
-		    debug("running map 2");
+		    debug("运行地图2");
                 selectMap(dpMap2);
                 runMap();
 		drepMap2 = dpMap2;
                 dpMap2 = undefined;
             }
             if (game.global.preMapsActive && !game.global.mapsActive && dmapbought3 && dpMap3 != undefined && !dprestraid) {
-		    debug("running map 3");
+		    debug("运行地图3");
                 selectMap(dpMap3);
                 runMap();
 		drepMap3 = dpMap3;
                 dpMap3 = undefined;
             }
             if (game.global.preMapsActive && !game.global.mapsActive && dmapbought4 && dpMap4 != undefined && !dprestraid) {
-		    debug("running map 4");
+		    debug("运行地图4");
                 selectMap(dpMap4);
                 runMap();
 		drepMap4 = dpMap4;
                 dpMap4 = undefined;
             }
             if (game.global.preMapsActive && !game.global.mapsActive && dmapbought5 && dpMap5 != undefined && !dprestraid) {
-		    debug("running map 5");
+		    debug("运行地图5");
                 selectMap(dpMap5);
                 runMap();
 		drepMap5 = dpMap5;
@@ -1954,7 +1954,7 @@ function RPraiding() {
             Rprestraidon = false;
             Rmapbought = false;
             RpraidDone = true;
-            debug("Failed to prestige raid. Looks like you can't afford to..");
+            debug("Failed to prestige raid. Looks like you can't afford to.");
           }
           return;
         }
@@ -3587,22 +3587,22 @@ function shipfrag() {
 var fastimps =
     [
 	"Snimp",
-    	"Kittimp",
-    	"Gorillimp",
-    	"Squimp",
-    	"Shrimp",
-    	"Chickimp",
-    	"Frimp",
-    	"Slagimp",
-    	"Lavimp",
-    	"Kangarimp",
-    	"Entimp",
-    	"Fusimp",
-    	"Carbimp",
-    	"Shadimp",
-    	"Voidsnimp",
-    	"Prismimp",
-    	"Sweltimp",
+	"Kittimp",
+	"Gorillimp",
+	"Squimp",
+	"Shrimp",
+	"Chickimp",
+	"Frimp",
+	"Slagimp",
+	"Lavimp",
+	"Kangarimp",
+	"Entimp",
+	"Fusimp",
+	"Carbimp",
+	"Shadimp",
+	"Voidsnimp",
+	"Prismimp",
+	"Sweltimp",
 	"Indianimp",
 	"Improbability",
 	"Neutrimp",
@@ -3617,7 +3617,7 @@ var fastimps =
 	"Arachnimp",
 	"Beetlimp",
 	"Mantimp",
-        "Butterflimp",
+	"Butterflimp",
 	"Frosnimp",
 	"Turkimp"
     ];

@@ -28,7 +28,7 @@ function autoPortal() {
                     OKtoPortal = false;
                 if (OKtoPortal && zonePostpone == 0) {
                     zonePostpone += 1;
-                    debug("My HeliumHr was: " + myHeliumHr + " & the Best HeliumHr was: " + bestHeHr + " at zone: " + bestHeHrZone, "portal");
+                    debug("当前的氦每小时为" + myHeliumHr + "，本周目最高的氦每小时为区域" + bestHeHrZone + "时的" + bestHeHr, "portal");
                     cancelTooltip();
                     tooltip('confirm', null, 'update', '<b>Auto Portaling NOW!</b><p>Hit Delay Portal to WAIT 1 more zone.', 'zonePostpone+=1', '<b>NOTICE: Auto-Portaling in 5 seconds....</b>', 'Delay Portal');
                     setTimeout(cancelTooltip, MODULES["portal"].timeout);
@@ -98,7 +98,7 @@ function dailyAutoPortal() {
                     OKtoPortal = false;
                 if (OKtoPortal && zonePostpone == 0) {
                     zonePostpone += 1;
-                    debug("My HeliumHr was: " + myHeliumHr + " & the Best HeliumHr was: " + bestHeHr + " at zone: " + bestHeHrZone, "portal");
+                    debug("当前的氦每小时为" + myHeliumHr + "，本周目最高的氦每小时为区域" + bestHeHrZone + "时的" + bestHeHr, "portal");
                     cancelTooltip();
                     tooltip('confirm', null, 'update', '<b>Auto Portaling NOW!</b><p>Hit Delay Portal to WAIT 1 more zone.', 'zonePostpone+=1', '<b>NOTICE: Auto-Portaling in 5 seconds....</b>', 'Delay Portal');
                     setTimeout(cancelTooltip, MODULES["portal"].timeout);
@@ -268,7 +268,7 @@ function doPortal(challenge) {
             selectChallenge(challenge || 0);
         } else {
             getDailyChallenge(lastUndone);
-            debug("Portaling into Daily for: " + getDailyTimeString(lastUndone, true) + " now!", "portal");
+            debug("传送后进行" + getDailyTimeString(lastUndone, true) + "的日常挑战！", "portal");
         }
     }
     else if(portalWindowOpen && challenge && c2done) {
@@ -287,7 +287,7 @@ function doPortal(challenge) {
     lastHeliumZone = 0; zonePostpone = 0;
 }
 
-function finishChallengeSquared(){var a=getPageSetting("FinishC2");game.global.world>=a&&(abandonChallenge(),debug("Finished challenge2 because we are on zone "+game.global.world,"other","oil"))}
+function finishChallengeSquared(){var a=getPageSetting("FinishC2");game.global.world>=a&&(abandonChallenge(),debug("到达了区域"+game.global.world+"，该挑战²即将结束。","other","oil"))}
 function findOutCurrentPortalLevel(){var a=-1,b=!1,d=getPageSetting("AutoPortal");switch(d){case"Off":break;case"Custom":"Daily"!=game.global.challengeActive&&(a=getPageSetting("CustomAutoPortal")+1),"Daily"==game.global.challengeActive&&(a=getPageSetting("Dailyportal")+1),b=!("Lead"!=getPageSetting("HeliumHourChallenge"));break;default:var e={Balance:41,Decay:56,Electricity:82,Crushed:126,Nom:146,Toxicity:166,Lead:181,Watch:181,Corrupted:191}[d];e&&(a=e);}return{level:a,lead:b}}
 
 //Radon
@@ -321,7 +321,7 @@ function RautoPortal() {
                     OKtoPortal = false;
                 if (OKtoPortal && zonePostpone == 0) {
                     zonePostpone += 1;
-                    debug("My RadonHr was: " + myHeliumHr + " & the Best RadonHr was: " + bestHeHr + " at zone: " + bestHeHrZone, "portal");
+                    debug("当前的氡每小时为" + myHeliumHr + "，本周目最高的氦每小时为区域" + bestHeHrZone + "时的" + bestHeHr, "portal");
                     cancelTooltip();
                     tooltip('confirm', null, 'update', '<b>Auto Portaling NOW!</b><p>Hit Delay Portal to WAIT 1 more zone.', 'zonePostpone+=1', '<b>NOTICE: Auto-Portaling in 5 seconds....</b>', 'Delay Portal');
                     setTimeout(cancelTooltip, MODULES["portal"].Rtimeout);
@@ -385,7 +385,7 @@ function RdailyAutoPortal() {
                     OKtoPortal = false;
                 if (OKtoPortal && zonePostpone == 0) {
                     zonePostpone += 1;
-                    debug("My RadonHr was: " + myHeliumHr + " & the Best RadonHr was: " + bestHeHr + " at zone: " + bestHeHrZone, "portal");
+                    debug("当前的氡每小时为" + myHeliumHr + "，本周目最高的氦每小时为区域" + bestHeHrZone + "时的" + bestHeHr, "portal");
                     cancelTooltip();
                     tooltip('confirm', null, 'update', '<b>Auto Portaling NOW!</b><p>Hit Delay Portal to WAIT 1 more zone.', 'zonePostpone+=1', '<b>NOTICE: Auto-Portaling in 5 seconds....</b>', 'Delay Portal');
                     setTimeout(cancelTooltip, MODULES["portal"].Rtimeout);
@@ -477,7 +477,7 @@ function RdoPortal(challenge) {
             selectChallenge(challenge || 0);
         } else {
             getDailyChallenge(lastUndone);
-            debug("Portaling into Daily for: " + getDailyTimeString(lastUndone, true) + " now!", "portal");
+            debug("传送后进行" + getDailyTimeString(lastUndone, true) + "的日常挑战！", "portal");
         }
     }
     else if(portalWindowOpen && challenge) {

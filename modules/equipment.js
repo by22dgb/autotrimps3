@@ -1,3 +1,36 @@
+function e2c_equipments(original)
+{
+    switch (original){
+        case "Dagger": return "匕首";
+        case "Dagadder": return "诗歌匕首";
+        case "Mace": return "狼牙棒";
+        case "Megamace": return "巨型狼牙棒";
+        case "Polearm": return "战戟";
+        case "Polierarm": return "画戟";
+        case "Battleaxe": return "战斧";
+        case "Axeidic": return "强酸战斧";
+        case "Greatsword": return "巨剑";
+        case "Greatersword": return "双手巨剑";
+        case "Boots": return "靴子";
+        case "Bootboost": return "神行靴";
+        case "Helmet": return "头盔";
+        case "Hellishmet": return "地狱头盔";
+        case "Pants": return "裤子";
+        case "Pantastic": return "护腿";
+        case "Shoulderguards": return "护肩";
+        case "Smoldershoulder": return "闷火护肩";
+        case "Breastplate": return "胸铠";
+        case "Bestplate": return "精良胸铠";
+        case "Arbalest": return "强弩";
+        case "Harmbalest": return "高强弩";
+        case "Gambeson": return "棉甲";
+        case "GambesOP": return "强棉甲";
+        case "Shield": return "盾牌";
+        case "Supershield": return "超级盾牌";
+        case "Gymystic": return "健身学";
+    }
+}
+
 //Helium
 
 MODULES["equipment"] = {};
@@ -344,9 +377,9 @@ function autoLevelEquipment() {
                 {
                     var upgrade = equipmentList[equipName].Upgrade;
                     if (upgrade != "Gymystic")
-                        debug('Upgrading ' + upgrade + " - Prestige " + game.equipment[equipName].prestige, "equips", '*upload');
+                        debug('第' + game.equipment[equipName].prestige + '次重铸' + e2c_equipments(upgrade), "equips", '*upload');
                     else
-                        debug('Upgrading ' + upgrade + " # " + game.upgrades[upgrade].allowed, "equips", '*upload');
+                        debug('第' + game.upgrades[upgrade].allowed + '次升级' + e2c_equipments(upgrade), "equips", '*upload');
                     buyUpgrade(upgrade, true, true);
                 } else {
                     $equipName.style.color = 'orange';
@@ -376,7 +409,7 @@ function autoLevelEquipment() {
             if (BuyArmorLevels && (DaThing.Stat == 'health' || DaThing.Stat == 'block') && (!enoughHealthE || maxmap)) {
                 game.global.buyAmt = gearamounttobuy;
                 if (DaThing.Equip && !Best[stat].Wall && canAffordBuilding(eqName, null, null, true)) {
-                    debug('Leveling equipment ' + eqName, "equips", '*upload3');
+                    debug('升级装备' + e2c_equipments(eqName), "equips", '*upload3');
                     buyEquipment(eqName, null, true);
                 }
             }
@@ -384,14 +417,14 @@ function autoLevelEquipment() {
             if (BuyArmorLevels && (DaThing.Stat == 'health') && aalvl2 && game.equipment[eqName].level < 2) {
                 game.global.buyAmt = 1;
                 if (DaThing.Equip && !Best[stat].Wall && canAffordBuilding(eqName, null, null, true)) {
-                    debug('Leveling equipment ' + eqName + " (AlwaysLvl2)", "equips", '*upload3');
+                    debug('升级装备' + e2c_equipments(eqName) + "(常时等级2)", "equips", '*upload3');
                     buyEquipment(eqName, null, true);
                 }
             }
             if (windstackingprestige() && BuyWeaponLevels && DaThing.Stat == 'attack' && (!enoughDamageE || enoughHealthE || maxmap)) {
                 game.global.buyAmt = gearamounttobuy;
                 if (DaThing.Equip && !Best[stat].Wall && canAffordBuilding(eqName, null, null, true)) {
-                    debug('Leveling equipment ' + eqName, "equips", '*upload3');
+                    debug('升级装备' + e2c_equipments(eqName), "equips", '*upload3');
                     buyEquipment(eqName, null, true);
                 }
             }
@@ -684,7 +717,7 @@ function RautoLevelEquipment() {
 
                 {
                     var upgrade = RequipmentList[equipName].Upgrade;
-                    debug('Upgrading ' + upgrade + " - Prestige " + game.equipment[equipName].prestige, "equips", '*upload');
+                    debug('第' + game.equipment[equipName].prestige + '次重铸' + e2c_equipments(upgrade), "equips", '*upload');
                     buyUpgrade(upgrade, true, true);
                 } else {
                     $equipName.style.color = 'orange';
@@ -708,7 +741,7 @@ function RautoLevelEquipment() {
             if (BuyArmorLevels && DaThing.Stat == 'health' && (!enoughHealthE || maxmap)) {
                 game.global.buyAmt = Rgearamounttobuy
                 if (smithylogic(eqName, 'metal', true) && DaThing.Equip && !RBest[stat].Wall && canAffordBuilding(eqName, null, null, true)) {
-                    debug('Leveling equipment ' + eqName, "equips", '*upload3');
+                    debug('升级装备' + e2c_equipments(eqName), "equips", '*upload3');
                     buyEquipment(eqName, null, true);
                 }
             }
@@ -716,14 +749,14 @@ function RautoLevelEquipment() {
             if (BuyArmorLevels && (DaThing.Stat == 'health') && aalvl2 && game.equipment[eqName].level < 2) {
                 game.global.buyAmt = 1;
                 if (smithylogic(eqName, 'metal', true) && DaThing.Equip && !RBest[stat].Wall && canAffordBuilding(eqName, null, null, true)) {
-                    debug('Leveling equipment ' + eqName + " (AlwaysLvl2)", "equips", '*upload3');
+                    debug('升级装备' + e2c_equipments(eqName) + "(常时等级2)", "equips", '*upload3');
                     buyEquipment(eqName, null, true);
                 }
             }
             if (BuyWeaponLevels && DaThing.Stat == 'attack' && (!enoughDamageE || enoughHealthE || maxmap)) {
                 game.global.buyAmt = Rgearamounttobuy
                 if (smithylogic(eqName, 'metal', true) && DaThing.Equip && !RBest[stat].Wall && canAffordBuilding(eqName, null, null, true)) {
-                    debug('Leveling equipment ' + eqName, "equips", '*upload3');
+                    debug('升级装备' + e2c_equipments(eqName), "equips", '*upload3');
                     buyEquipment(eqName, null, true);
                 }
             }

@@ -1,3 +1,33 @@
+function e2c_fightinfo(original)
+{
+    switch (original){
+        case "Mutimp": return "脆皮变异者";
+        case "Hulking Mutimp": return "脆皮大型变异者";
+        case "Feyimp": return "脆皮小妖";
+        case "Tauntimp": return "脆皮咚咚";
+        case "Venimp": return "脆皮爱神";
+        case "Whipimp": return "脆皮鞭者";
+        case "Magnimp": return "脆皮磁王";
+        case "Goblimp": return "脆皮地精";
+        case "Flutimp": return "脆皮飘兽";
+        case "Jestimp": return "脆皮弄臣";
+        case "Titimp": return "脆皮泰坦";
+        case "Chronoimp": return "脆皮时者";
+        case "Snimp": return "脆皮蛇";
+        case "Kittimp": return "脆皮小猫";
+        case "Gorillimp": return "脆皮大猩猩";
+        case "Squimp": return "脆皮乌贼";
+        case "Shrimp": return "脆皮虾";
+        case "Chickimp": return "脆皮小鸡";
+        case "Frimp": return "脆皮森精";
+        case "Slagimp": return "脆皮炉渣怪";
+        case "Lavimp": return "脆皮火岩怪";
+        case "Kangarimp": return "脆皮袋鼠";
+        case "Entimp": return "脆皮树人";
+        case "Carbimp": return "脆皮碳怪";
+    }
+}
+
 ;(function(M)
 {
 	M["fightinfo"] = {};
@@ -32,17 +62,17 @@
 	M["fightinfo"].fast =
 	[
 		"Snimp",
-    		"Kittimp",
-    		"Gorillimp",
-    		"Squimp",
-    		"Shrimp",
-    		"Chickimp",
-    		"Frimp",
-    		"Slagimp",
-    		"Lavimp",
-    		"Kangarimp",
-    		"Entimp",
-    		"Carbimp",
+		"Kittimp",
+		"Gorillimp",
+		"Squimp",
+		"Shrimp",
+		"Chickimp",
+		"Frimp",
+		"Slagimp",
+		"Lavimp",
+		"Kangarimp",
+		"Entimp",
+		"Carbimp",
 	];
 
 	//Colors for special imps (This has been disabled)
@@ -51,7 +81,7 @@
 		bone: '#ffffff',
 		exotic: '#000000',
 		powerful: '#000000',
-    		fast : '#000000'
+		fast : '#000000'
 	}
 
 	M["fightinfo"].lastProcessedWorld = null;
@@ -127,7 +157,7 @@
 				if(cell.special.length === 0)
 					$cell.innerHTML = "<span class=\"glyphicon glyphicon-sunglasses\"></span> ";
 
-				$cell.title = cell.name;
+				$cell.title = e2c_fightinfo(cell.name);
 				//$cell.style.color = M["fightinfo"].colors.exotic; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
 				$cell.style.textShadow = '0px 0px 10px #fb753f';
 			}
@@ -137,7 +167,7 @@
 				if(cell.special.length === 0)
 					$cell.innerHTML = "<span class=\"glyphicon glyphicon-hazard\"></span> ";
 
-				$cell.title = cell.name;
+				$cell.title = e2c_fightinfo(cell.name);
 				//$cell.style.color = M["fightinfo"].colors.powerful; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
 				$cell.style.textShadow = '0px 0px 10px #8c0000';
 			}
@@ -147,7 +177,7 @@
 				//if(cell.special.length === 0)
 					$cell.innerHTML = "<span class=\"glyphicon glyphicon-forward\"></span> ";
 
-				$cell.title = cell.name;
+				$cell.title = e2c_fightinfo(cell.name);
 				//$cell.style.color = M["fightinfo"].colors.fast; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
 				$cell.style.textShadow = '0px 0px 10px #ffffff';
 			}

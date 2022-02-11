@@ -1,3 +1,19 @@
+function e2c_magmite(original)
+{
+    switch (original){
+        case "Efficiency": return "效率";
+        case "Capacity": return "容量";
+        case "Supply": return "供给";
+        case "Overclocker": return "超频";
+        case "Hybridization": return "混合";
+        case "Storage": return "存储";
+        case "Shielding": return "防护";
+        case "Slowburn": return "慢烧";
+        case "Supervision": return "管理";
+        case "Simulacrum": return "复制";
+    }
+}
+
 MODULES["magmite"] = {};
 MODULES["magmite"].algorithm = 2;
 
@@ -81,7 +97,7 @@ function autoMagmiteSpender() {
         var tospend = miRatio();
         var upgrader = game.generatorUpgrades[tospend];
         if (game.global.magmite >= upgrader.cost()) {
-            debug("Auto Spending " + upgrader.cost() + " Magmite on: " + tospend + " #" + (game.generatorUpgrades[tospend].upgrades + 1), "magmite");
+            debug("自动分配" + upgrader.cost() + "岩浆岩第" + (game.generatorUpgrades[tospend].upgrades + 1) + "次升级" + e2c_magmite(tospend), "magmite");
             buyGeneratorUpgrade(tospend);
         }
     } else {
@@ -98,14 +114,14 @@ function autoMagmiteSpender() {
                 var cost = upgrade.cost;
                 if (game.global.magmite >= cost) {
                     buyPermanentGeneratorUpgrade(item);
-                    debug("Auto Spending " + cost + " Magmite on: " + item, "magmite");
+                    debug("自动分配" + cost + "岩浆岩升级" + e2c_magmite(item), "magmite");
                     didSpend = true;
                 }
             }
             var hasOv = game.permanentGeneratorUpgrades.Hybridization.owned && game.permanentGeneratorUpgrades.Storage.owned;
             var ovclock = game.generatorUpgrades.Overclocker;
             if (hasOv && ((getPageSetting('spendmagmitesetting') == 0 || getPageSetting('spendmagmitesetting') == 3) || !ovclock.upgrades) && (game.global.magmite >= ovclock.cost())) {
-                debug("Auto Spending " + ovclock.cost() + " Magmite on: Overclocker" + (ovclock.upgrades ? " #" + (ovclock.upgrades + 1) : ""), "magmite");
+                debug("自动分配" + ovclock.cost() + "岩浆岩" + (ovclock.upgrades ? "第" + (ovclock.upgrades + 1) + "次升级超频" : "升级超频"), "magmite");
                 buyGeneratorUpgrade('Overclocker');
             }
 
@@ -152,7 +168,7 @@ function autoMagmiteSpender() {
                     }
                     upgrade = game.generatorUpgrades[item];
                     if (game.global.magmite >= upgrade.cost()) {
-                        debug("Auto Spending " + upgrade.cost() + " Magmite on: " + item + " #" + (game.generatorUpgrades[item].upgrades + 1), "magmite");
+                        debug("自动分配" + upgrade.cost() + "岩浆岩第" + (game.generatorUpgrades[item].upgrades + 1) + "次升级" + e2c_magmite(item), "magmite");
                         buyGeneratorUpgrade(item);
                         didSpend = true;
                     } else
@@ -164,7 +180,7 @@ function autoMagmiteSpender() {
             debug("AutoSpendMagmite Error encountered: " + err.message, "magmite");
         }
         if (didSpend)
-            debug("Leftover magmite: " + game.global.magmite, "magmite");
+            debug("剩余岩浆岩：" + game.global.magmite, "magmite");
     }
 }
 

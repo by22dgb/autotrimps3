@@ -92,7 +92,7 @@ function confirmedSwitchNow() {
         });
         if (results.length > 0) {
             resetAutoTrimps(results[0].data,profname);
-            debug("Successfully loaded existing profile: " + profname, "profile");
+            debug("成功载入现有的设置：" + profname, "profile");
         }
     }
 }
@@ -121,8 +121,8 @@ function nameAndSaveNewProfile() {
     var presetlists = [profile];
     //add the two arrays together, string them, and store them.
     safeSetItems('ATSelectedSettingsProfile', JSON.stringify(oldpresets.concat(presetlists)));
-    debug("Successfully created new profile: " + profile.name, "profile");
-    ImportExportTooltip('message', 'Successfully created new profile: ' + profile.name);
+    debug("成功创建新的设置：" + profile.name, "profile");
+    ImportExportTooltip('message', '成功创建新的设置：' + profile.name);
     //Update dropdown menu to reflect new name:
     let optionElementReference = new Option(profile.name);
     optionElementReference.id = 'customProfileRead';
@@ -150,7 +150,7 @@ function onDeleteProfile() {
     var target = (index-3); //subtract the 3 default choices out
     oldpresets.splice(target, 1);
     safeSetItems('ATSelectedSettingsProfile', JSON.stringify(oldpresets));
-    debug("Successfully deleted profile #: " + target, "profile");
+    debug("成功删除设置-编号：" + target, "profile");
 }
 
 function ImportExportTooltip(what, event) {
@@ -554,7 +554,7 @@ function ImportExportTooltip(what, event) {
             <tr>
                 <td>Name</td>
                 <td>Difficulty</td>
-                <td>%C2</td>
+                <td>挑战2加成</td>
                 <td>Zone</td>
                 <td>%HZE</td>
             </tr>
@@ -712,9 +712,9 @@ function ImportExportTooltip(what, event) {
                 </td>
             </tr>
             <tr>
-                <td>C3s</td>
+                <td>挑战3</td>
                 <td>Difficulty</td>
-                <td>%C3</td>
+                <td>挑战3加成%</td>
                 <td>Zone</td>
                 <td>%HZE</td>
             </tr>
@@ -834,7 +834,7 @@ function ImportExportTooltip(what, event) {
         costText = "<div class='maxCenter'><div id='confirmTooltipBtn' class='btn btn-info' style='width: 10vw' onclick='cancelTooltip(); confirmedSwitchNow();'>Confirm and Switch Profiles</div><div style='margin-left: 15%' class='btn btn-info' style='margin-left: 5vw' onclick='cancelTooltip();'>Cancel</div></div>";
     } else if (what == 'ResetDefaultSettingsProfiles') {
         titleText = '<b>Loading AutoTrimps Default Profile...</b><p>Current Settings will be lost!';
-        tooltipText = '<b>NOTICE:</b> Switching to Default AutoTrimps settings profile!!!! <br>All current settings <b>WILL</b> be lost after this point. <br>You might want to cancel, to go back and save your existing settings first.... <br>This will <b><u>Reset</u></b> the script to factory settings.';
+        tooltipText = '<b>NOTICE:</b> Switching to Default AutoTrimps settings profile!!!! <br>All current settings <b>WILL</b> be lost after this point. <br>You might want to cancel, to go back and save your existing settings first....<br>This will <b><u>Reset</u></b> the script to factory settings.';
         costText = "<div class='maxCenter'><div id='confirmTooltipBtn' class='btn btn-info' style='width: 10vw' onclick='cancelTooltip(); resetAutoTrimps(); settingsProfiles.selectedIndex = 1;'>Reset to Default Profile</div><div style='margin-left: 15%' class='btn btn-info' style='margin-left: 5vw' onclick='cancelTooltip();'>Cancel</div></div>";
     } else if (what == 'NameSettingsProfiles') {
         titleText = "Enter New Settings Profile Name";
@@ -863,7 +863,7 @@ function ImportExportTooltip(what, event) {
         ondisplay();
 }
 
-function resetAutoTrimps(a,b){ATrunning=!1,setTimeout(function(d){localStorage.removeItem("autoTrimpSettings"),autoTrimpSettings=d?d:{};var e=document.getElementById("settingsRow");e.removeChild(document.getElementById("autoSettings")),e.removeChild(document.getElementById("autoTrimpsTabBarMenu")),automationMenuSettingsInit(),initializeAllTabs(),initializeAllSettings(),initializeSettingsProfiles(),updateCustomButtons(),saveSettings(),checkPortalSettings(),ATrunning=!0}(a),101),a?(debug("Successfully imported new AT settings...","profile"),b?ImportExportTooltip("message","Successfully Imported Autotrimps Settings File!: "+b):ImportExportTooltip("NameSettingsProfiles")):(debug("Successfully reset AT settings to Defaults...","profile"),ImportExportTooltip("message","Autotrimps has been successfully reset to its defaults!"))}
+function resetAutoTrimps(a,b){ATrunning=!1,setTimeout(function(d){localStorage.removeItem("autoTrimpSettings"),autoTrimpSettings=d?d:{};var e=document.getElementById("settingsRow");e.removeChild(document.getElementById("autoSettings")),e.removeChild(document.getElementById("autoTrimpsTabBarMenu")),automationMenuSettingsInit(),initializeAllTabs(),initializeAllSettings(),initializeSettingsProfiles(),updateCustomButtons(),saveSettings(),checkPortalSettings(),ATrunning=!0}(a),101),a?(debug("Successfully imported new AT settings...","profile"),b?ImportExportTooltip("message","成功导入脚本设置文件！："+b):ImportExportTooltip("NameSettingsProfiles")):(debug("Successfully reset AT settings to Defaults...","profile"),ImportExportTooltip("message","Autotrimps has been successfully reset to its defaults!"))}
 function loadAutoTrimps(){try{var a=document.getElementById("importBox").value.replace(/[\n\r]/gm,""),b=JSON.parse(a);if(null==b)return void debug("Error importing AT settings, the string is empty.","profile")}catch(c){return void debug("Error importing AT settings, the string is bad."+c.message,"profile")}debug("Importing new AT settings file...","profile"),resetAutoTrimps(b)}
 function cleanupAutoTrimps(){for(var a in autoTrimpSettings){var b=document.getElementById(autoTrimpSettings[a].id);null==b&&delete autoTrimpSettings[a]}}
 function exportModuleVars(){return JSON.stringify(compareModuleVars())}

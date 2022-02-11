@@ -176,7 +176,7 @@ function autoStance() {
         } else if (game.upgrades.Barrier.done && surviveB) {
             if (game.global.formation != 3) {
                 setFormation(3);
-                debug("AutoStance B/3","other");
+                debug("自动阵型B/3","other");
             }
         } else {
             if (game.global.formation != 1)

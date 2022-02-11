@@ -1,3 +1,30 @@
+function e2c_buildings(original)
+{
+    switch (original){
+        case "Antenna": return "气象天线";
+        case "Barn": return "谷仓";
+        case "Collector": return "汲能设施";
+        case "Forge": return "锻造厂";
+        case "Gateway": return "维度裂隙";
+        case "Gym": return "健身房";
+        case "Hotel": return "宾馆";
+        case "House": return "宅院";
+        case "Hub": return "中心枢纽";
+        case "Hut": return "小屋";
+        case "Laboratory": return "实验室";
+        case "Mansion": return "豪宅";
+        case "Microchip": return "微型芯片";
+        case "Nursery": return "托儿所";
+        case "Resort": return "度假村";
+        case "Shed": return "窝棚";
+        case "Smithy": return "铁匠铺";
+        case "Trap": return "陷阱";
+        case "Tribute": return "贡品";
+        case "Warpstation": return "跃迁核心";
+        case "Wormhole": return "虫洞";
+    }
+}
+
 MODULES["buildings"] = {};
 MODULES["buildings"].storageMainCutoff = 0.85;
 MODULES["buildings"].storageLowlvlCutoff1 = 0.7;
@@ -47,11 +74,11 @@ function safeBuyBuilding(building) {
             game.global.buyAmt = 1;
         }
         buyBuilding(building, true, true);
-        debug('Building ' + game.global.buyAmt + ' ' + building + 's', "buildings", '*rocket');
+        debug('建造' + game.global.buyAmt + '个跃迁核心', "buildings", '*rocket');
         postBuy2(oldBuy);
         return;
     }
-    debug('Building ' + building, "buildings", '*hammer2');
+    debug('建造' + e2c_buildings(building), "buildings", '*hammer2');
     if (!game.buildings[building].locked && canAffordBuilding(building)) {
 	buyBuilding(building, true, true);
     }
@@ -269,7 +296,7 @@ function RsafeBuyBuilding(building) {
 
     game.global.firing = false;
 	
-    debug('Building ' + building, "buildings", '*hammer2');
+    debug('建造' + e2c_buildings(building), "buildings", '*hammer2');
     if (!game.buildings[building].locked && canAffordBuilding(building)) {
 	    buyBuilding(building, true, true);
     }

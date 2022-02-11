@@ -87,17 +87,17 @@
 
 	// Zone
 	M["performance"].AFKOverlayZone = document.createElement('p');
-	M["performance"].AFKOverlayZone.innerText = 'Current zone: -';
+	M["performance"].AFKOverlayZone.innerText = '当前区域：-';
 	M["performance"].AFKOverlayZone.className = 'at-afk-zone'
 
 	// Helium
 	M["performance"].AFKOverlayHelium = document.createElement('p');
-	M["performance"].AFKOverlayHelium.innerText = 'Current helium: -';
+	M["performance"].AFKOverlayHelium.innerText = '当前氦：-';
 	M["performance"].AFKOverlayHelium.className = 'at-afk-helium'
 
 	// Status
 	M["performance"].AFKOverlayStatus = document.createElement('p');
-	M["performance"].AFKOverlayStatus.innerText = 'Status: -';
+	M["performance"].AFKOverlayStatus.innerText = '状态：-';
 	M["performance"].AFKOverlayStatus.className = 'at-afk-status'
 
 	// Disable(Back) button
@@ -141,14 +141,14 @@
 
 	M["performance"].UpdateAFKOverlay = function UpdateAFKOverlay()
 	{
-		M["performance"].AFKOverlayZone.innerText = 'Current Zone: ' + game.global.world;
+		M["performance"].AFKOverlayZone.innerText = '当前区域：' + game.global.world;
 		if (game.global.universe == 1) {
-		    M["performance"].AFKOverlayHelium.innerText = 'Current Helium: ' + prettify(Math.floor(game.resources.helium.owned));
-		    M["performance"].AFKOverlayStatus.innerHTML = 'Current Status: ' + updateAutoMapsStatus(true)[0];
+		    M["performance"].AFKOverlayHelium.innerText = '当前氦：' + prettify(Math.floor(game.resources.helium.owned));
+		    M["performance"].AFKOverlayStatus.innerHTML = '当前状态：' + updateAutoMapsStatus(true)[0];
 		}
 		if (game.global.universe == 2) {
-		    M["performance"].AFKOverlayHelium.innerText = 'Current Radon: ' + prettify(Math.floor(game.resources.radon.owned));
-		    M["performance"].AFKOverlayStatus.innerHTML = 'Current Status: ' + RupdateAutoMapsStatus(true)[0];
+		    M["performance"].AFKOverlayHelium.innerText = '当前氡：' + prettify(Math.floor(game.resources.radon.owned));
+		    M["performance"].AFKOverlayStatus.innerHTML = '当前状态：' + RupdateAutoMapsStatus(true)[0];
 		}
 	}
 

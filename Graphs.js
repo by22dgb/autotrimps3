@@ -48,7 +48,7 @@ function escapeATWindows(){var a=document.getElementById('tooltipDiv');if('none'
 function getTotalDarkEssenceCount(){return game.global.spentEssence+game.global.essence}
 
 function pushData() {
-    debug('Starting Zone ' + game.global.world, "graphs");
+    debug('进入区域' + game.global.world, "graphs");
     var getPercent = (game.stats.heliumHour.value() / (game.global.totalHeliumEarned - (game.global.heliumLeftover + game.resources.helium.owned)))*100;
     var lifetime = (game.resources.helium.owned / (game.global.totalHeliumEarned-game.resources.helium.owned))*100;
     var RgetPercent = (game.stats.heliumHour.value() / (game.global.totalRadonEarned - (game.global.radonLeftover + game.resources.radon.owned)))*100;
@@ -179,7 +179,7 @@ function setGraphData(graph) {
                         theChallenge = allSaveData[i].challenge;
                         currentPortal = allSaveData[i].totalPortals;
                         graphData.push({
-                            name: 'Void Maps',
+                            name: '虚空地图',
                             data: [],
                             type: 'column'
                         });
@@ -214,7 +214,7 @@ function setGraphData(graph) {
                         theChallenge = allSaveData[i].challenge;
                         currentPortal = allSaveData[i].totalPortals;
                         graphData.push({
-                            name: 'Nullifium Gained',
+                            name: '虚空物质获取量',
                             data: [],
                             type: 'column'
                         });
@@ -233,9 +233,10 @@ function setGraphData(graph) {
                 }
             }
             averagenulli = sumnulli / count;
-            title = 'Nullifium Gained Per Portal';
+            title = '每次传送虚空物质';
             if (averagenulli)
-                title = "Average " + title + " = " + averagenulli;
+                title = title + "平均获取量" + " = " + averagenulli;
+            else title += '获取量';
             xTitle = 'Portal';
             yTitle = 'Nullifium Gained';
             yType = 'Linear';
@@ -292,7 +293,7 @@ function setGraphData(graph) {
             xTitle = 'Zone';
             yTitle = 'Clear Time';
             yType = 'Linear';
-            valueSuffix = ' Seconds';
+            valueSuffix = '秒';
             yminFloor = 0;
             break;
         case 'Cumulative Clear Time #2':
@@ -439,7 +440,7 @@ function setGraphData(graph) {
         case 'Fluffy XP':
             graphData = allPurposeGraph('fluffy', true, "number");
             title = 'Fluffy XP (Lifetime Total)';
-            xTitle = 'Zone (starts at 300)';
+            xTitle = '区域(从区域300开始)';
             yTitle = 'Fluffy XP';
             yType = 'Linear';
             xminFloor = 300;
@@ -452,7 +453,7 @@ function setGraphData(graph) {
             for (var i in allSaveData) {
                 if (allSaveData[i].totalPortals != currentPortal) {
                     graphData.push({
-                        name: 'Portal ' + allSaveData[i].totalPortals + ': ' + allSaveData[i].challenge,
+                        name: '传送门' + allSaveData[i].totalPortals + "<i></i>" + allSaveData[i].challenge,
                         data: []
                     });
                     currentPortal = allSaveData[i].totalPortals;
@@ -493,7 +494,7 @@ function setGraphData(graph) {
             for (var i in allSaveData) {
                 if (allSaveData[i].totalPortals != currentPortal) {
                     graphData.push({
-                        name: 'Portal ' + allSaveData[i].totalPortals + ': ' + allSaveData[i].challenge,
+                        name: '传送门' + allSaveData[i].totalPortals + "<i></i>" + allSaveData[i].challenge,
                         data: []
                     });
                     currentPortal = allSaveData[i].totalPortals;
@@ -524,7 +525,7 @@ function setGraphData(graph) {
             for (var i in allSaveData) {
                 if (allSaveData[i].totalPortals != currentPortal) {
                     graphData.push({
-                        name: 'Portal ' + allSaveData[i].totalPortals + ': ' + allSaveData[i].challenge,
+                        name: '传送门' + allSaveData[i].totalPortals + "<i></i>" + allSaveData[i].challenge,
                         data: []
                     });
                     currentPortal = allSaveData[i].totalPortals;
@@ -563,7 +564,7 @@ function setGraphData(graph) {
                 continue;
             if (allSaveData[i].totalPortals != currentPortal) {
                 graphData.push({
-                    name: 'Portal ' + allSaveData[i].totalPortals + ': ' + allSaveData[i].challenge,
+                    name: '传送门' + allSaveData[i].totalPortals + "<i></i>" + allSaveData[i].challenge,
                     data: []
                 });
                 currentPortal = allSaveData[i].totalPortals;

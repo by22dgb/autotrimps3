@@ -12,7 +12,7 @@ function automationMenuInit() {
     settingbarRow.insertBefore(newItem, settingbarRow.childNodes[10]);
 
     var newContainer = document.createElement("DIV");
-    newContainer.setAttribute("style", "margin-top: 0.2vw; display: block; font-size: 1.1vw; height: 1.5em; text-align: center; border-radius: 4px");
+    newContainer.setAttribute("style", "margin-top: 0.2vw; display: block; font-size: 0.9vw; height: 1.5em; text-align: center; border-radius: 4px");
     newContainer.setAttribute("id", "autoMapBtn");
     newContainer.setAttribute("class", "noselect settingsBtn");
     newContainer.setAttribute("onClick", "toggleAutoMaps()");
@@ -26,7 +26,7 @@ function automationMenuInit() {
     fightButtonCol.appendChild(newContainer);
 
     newContainer = document.createElement("DIV");
-    newContainer.setAttribute("style", "display: block; font-size: 1.1vw; text-align: center; background-color: rgba(0,0,0,0.3);");
+    newContainer.setAttribute("style", "display: block; font-size: 0.75vw; text-align: center; background-color: rgba(0,0,0,0.3);");
     if (game.global.universe == 1) {
         newContainer.setAttribute("onmouseover", 'tooltip(\"Health to Damage ratio\", \"customText\", event, \"This status box displays the current mode Automaps is in. The number usually shown here during Farming or Want more Damage modes is the \'HDratio\' meaning EnemyHealth to YourDamage Ratio (in X stance). Above 16 will trigger farming, above 4 will trigger going for Map bonus up to 10 stacks.<p><b>enoughHealth: </b>\" + enoughHealth + \"<br><b>enoughDamage: </b>\" + enoughDamage +\"<br><b>shouldFarm: </b>\" + shouldFarm +\"<br><b>H:D ratio = </b>\" + calcHDratio() + \"<br>\")');
     }
@@ -40,7 +40,7 @@ function automationMenuInit() {
     fightButtonCol.appendChild(newContainer);
 
     newContainer = document.createElement("DIV");
-    newContainer.setAttribute("style", "display: block; font-size: 1vw; text-align: center; margin-top: 2px; background-color: rgba(0,0,0,0.3);");
+    newContainer.setAttribute("style", "display: block; font-size: 0.75vw; text-align: center; margin-top: 2px; background-color: rgba(0,0,0,0.3);");
     if (game.global.universe == 1) 
     newContainer.setAttribute("onmouseover", 'tooltip(\"Helium/Hr Info\", \"customText\", event, \"1st is Current He/hr % out of Lifetime He(not including current+unspent).<br> 0.5% is an ideal peak target. This can tell you when to portal... <br>2nd is Current run Total He earned / Lifetime He(not including current)<br>\" + getDailyHeHrStats())');
     else if (game.global.universe == 2) 
@@ -161,7 +161,7 @@ function initializeAllTabs() {
     createTabs("Spire", "Spire - Settings for Spires");
     createTabs("Raiding", "Raiding - Settings for Raiding");
     createTabs("Daily", "Dailies - Settings for Dailies");
-    createTabs("C2", "C2 - Settings for C2s");
+    createTabs("C2", "挑战²和³ - 挑战²和³相关的设置");
     createTabs("Challenges", "Challenges - Settings for Specific Challenges");
     createTabs("Combat", "Combat & Stance Settings");
     createTabs("Windstacking", "Windstacking Settings");
@@ -222,9 +222,9 @@ function initializeAllSettings() {
     createSetting('gathermetal', 'Metal Only', 'For use with Mining/Gather Only. Only gathers Metal if you have foremany unlocked. ', 'boolean', false, null, "Core");
     createSetting('BuyUpgradesNew', ['Manual Upgrades', 'Buy All Upgrades', 'Upgrades no Coords'], 'Autobuys non-equipment upgrades (equipment is controlled in the Gear tab). The second option does NOT buy coordination (use this <b>ONLY</b> if you know what you\'re doing).', 'multitoggle', 1, null, "Core");
     createSetting('amalcoord', 'Amal Boost', 'Boost your Amal count for more Mi. Will not buy coords until your H:D ratio is below a certain value. This means that you will get amals quicker. Will not activate higher than your Amal Boost End Zone Setting! ', 'boolean', false, null, "Core");
-    createSetting('amalcoordt', 'Amal Target', 'Set the amount of Amals you wish to aim for. Once this target is reached, it will buy coords below your Amal ratio regardless of your H:D, just enough to keep the Amal. -1 to disable and use H:D for entire boost. ', 'value', -1, null, "Core");
-    createSetting('amalcoordhd', 'Amal Boost H:D', 'Set your H:D for Amal Boost here. The higher it is the less coords AT will buy. 0.0000025 is the default. ', 'value', 0.0000025, null, "Core");
-    createSetting('amalcoordz', 'Amal Boost End Z', 'Amal Boost End Zone. Set the zone you want to stop Amal Boosting. -1 to do it infinitely. ', 'value', -1, null, "Core");
+    createSetting('amalcoordt', '合并者目标', 'Set the amount of Amals you wish to aim for. Once this target is reached, it will buy coords below your Amal ratio regardless of your H:D, just enough to keep the Amal. -1 to disable and use H:D for entire boost. ', 'value', -1, null, "Core");
+    createSetting('amalcoordhd', '合升命攻比', 'Set your H:D for Amal Boost here. The higher it is the less coords AT will buy. 0.0000025 is the default. ', 'value', 0.0000025, null, "Core");
+    createSetting('amalcoordz', '合升结束区域', 'Amal Boost End Zone. Set the zone you want to stop Amal Boosting. -1 to do it infinitely. ', 'value', -1, null, "Core");
     createSetting('AutoAllocatePerks', ['Auto Allocate Off', 'Auto Allocate On', 'Dump into Looting II'], 'Uses the AutoPerks ratio based preset system to automatically allocate your perks to spend whatever helium you have when you AutoPortal. Does not change Fixed Perks: siphonology, anticipation, meditation, relentlessness, range, agility, bait, trumps, packrat, capable. NEW: Dump into Looting II, dumps all loot gained from previous portal at specified zone', 'multitoggle', 0, null, 'Core');
 
     //Line 2
@@ -244,20 +244,20 @@ function initializeAllSettings() {
     
     
     //Portal
-    createSetting('AutoPortal', 'AutoPortal', 'Automatically portal. Will NOT auto-portal if you have a challenge active, the challenge setting dictates which challenge it will select for the next run. All challenge settings will portal right after the challenge ends, regardless. Helium Per Hour only <b>portals at cell 1</b> of the first level where your He/Hr went down even slightly compared to the current runs Best He/Hr. Take note, there is a Buffer option, which is like a grace percentage of how low it can dip without triggering. Setting a buffer will portal mid-zone if you exceed 5x of the buffer.  CAUTION: Selecting He/hr may immediately portal you if its lower-(use Pause AutoTrimps button to pause the script first to avoid this)', 'dropdown', 'Off', ['Off', 'Helium Per Hour', 'Balance', 'Decay', 'Electricity', 'Life', 'Crushed', 'Nom', 'Toxicity', 'Watch', 'Lead', 'Corrupted', 'Domination', 'Experience', 'Custom'], "Core");
+    createSetting('AutoPortal', 'AutoPortal', 'Automatically portal. Will NOT auto-portal if you have a challenge active, the challenge setting dictates which challenge it will select for the next run. All challenge settings will portal right after the challenge ends, regardless. Helium Per Hour only <b>格子1传送</b> of the first level where your He/Hr went down even slightly compared to the current runs Best He/Hr. Take note, there is a Buffer option, which is like a grace percentage of how low it can dip without triggering. Setting a buffer will portal mid-zone if you exceed 5x of the buffer.  CAUTION: Selecting He/hr may immediately portal you if its lower-(use Pause AutoTrimps button to pause the script first to avoid this)', 'dropdown', 'Off', ['Off', 'Helium Per Hour', 'Balance', 'Decay', 'Electricity', 'Life', 'Crushed', 'Nom', 'Toxicity', 'Watch', 'Lead', 'Corrupted', 'Domination', 'Experience', 'Custom'], "Core");
     createSetting('HeliumHourChallenge', 'Portal Challenge', 'Automatically portal into this challenge when using helium per hour or custom autoportal. Custom portals after cell 100 of the zone specified. Do not choose a challenge if you havent unlocked it. ', 'dropdown', 'None', ['None', 'Balance', 'Decay', 'Electricity', 'Life', 'Crushed', 'Nom', 'Toxicity', 'Watch', 'Lead', 'Corrupted', 'Domination', 'Experience'], "Core");
     document.getElementById("HeliumHourChallengeLabel").innerHTML = "Portal Challenge:";
-    createSetting('CustomAutoPortal', 'Custom Portal', 'Automatically portal AFTER clearing this level.(ie: setting to 200 would portal when you first reach level 201)', 'value', '999', null, "Core");
-    createSetting('HeHrDontPortalBefore', 'Don\'t Portal Before', 'Do NOT allow Helium per Hour AutoPortal setting to portal BEFORE this level is reached. It is an additional check that prevents drops in helium/hr from triggering autoportal. Set to 0 or -1 to completely disable this check. (only shows up with Helium per Hour set)', 'value', '999', null, "Core");
-    createSetting('HeliumHrBuffer', 'He/Hr Portal Buffer %', 'IMPORTANT SETTING. When using the He/Hr Autoportal, it will portal if your He/Hr drops by this amount of % lower than your best for current run, default is 0% (ie: set to 5 to portal at 95% of your best). Now with stuck protection - Allows portaling midzone if we exceed set buffer amount by 5x. (ie a normal 2% buffer setting would now portal mid-zone you fall below 10% buffer).', 'value', '0', null, 'Core');
+    createSetting('CustomAutoPortal', '自定义传送', '在通过相应区域*后*自动传送。(例：设为200后，将在到达区域201时传送)', 'value', '999', null, "Core");
+    createSetting('HeHrDontPortalBefore', '自动传送区域', 'Do NOT allow Helium per Hour AutoPortal setting to portal BEFORE this level is reached. It is an additional check that prevents drops in helium/hr from triggering autoportal. Set to 0 or -1 to completely disable this check. (only shows up with Helium per Hour set)', 'value', '999', null, "Core");
+    createSetting('HeliumHrBuffer', '氦/小时缓冲值%', 'IMPORTANT SETTING. When using the He/Hr Autoportal, it will portal if your He/Hr drops by this amount of % lower than your best for current run, default is 0% (ie: set to 5 to portal at 95% of your best). Now with stuck protection - Allows portaling midzone if we exceed set buffer amount by 5x. (ie a normal 2% buffer setting would now portal mid-zone you fall below 10% buffer).', 'value', '0', null, 'Core');
 
     //RPortal
     document.getElementById('Rdumpgreed').parentNode.insertAdjacentHTML('afterend', '<br>');
-    createSetting('RAutoPortal', 'AutoPortal', 'Automatically portal. Will NOT auto-portal if you have a challenge active, the challenge setting dictates which challenge it will select for the next run. All challenge settings will portal right after the challenge ends, regardless. Radon Per Hour only <b>portals at cell 1</b> of the first level where your Rn/Hr went down even slightly compared to the current runs Best Rn/Hr. Take note, there is a Buffer option, which is like a grace percentage of how low it can dip without triggering. Setting a buffer will portal mid-zone if you exceed 5x of the buffer.  CAUTION: Selecting Rn/hr may immediately portal you if its lower-(use Pause AutoTrimps button to pause the script first to avoid this)', 'dropdown', 'Off', ['Off', 'Radon Per Hour','Bublé','Melt','Quagmire','Archaeology','Insanity','Nurture','Alchemy','Hypothermia','Custom'], "Core");
+    createSetting('RAutoPortal', 'AutoPortal', 'Automatically portal. Will NOT auto-portal if you have a challenge active, the challenge setting dictates which challenge it will select for the next run. All challenge settings will portal right after the challenge ends, regardless. Radon Per Hour only <b>格子1传送</b> of the first level where your Rn/Hr went down even slightly compared to the current runs Best Rn/Hr. Take note, there is a Buffer option, which is like a grace percentage of how low it can dip without triggering. Setting a buffer will portal mid-zone if you exceed 5x of the buffer.  CAUTION: Selecting Rn/hr may immediately portal you if its lower-(use Pause AutoTrimps button to pause the script first to avoid this)', 'dropdown', 'Off', ['Off', 'Radon Per Hour','Bublé','Melt','Quagmire','Archaeology','Insanity','Nurture','Alchemy','Hypothermia','Custom'], "Core");
     createSetting('RadonHourChallenge', 'Portal Challenge', 'Automatically portal into this challenge when using radon per hour or custom autoportal. Custom portals after cell 100 of the zone specified. Do not choose a challenge if you havent unlocked it. ', 'dropdown', 'None', ['None','Bublé','Melt','Quagmire','Archaeology','Insanity','Nurture', 'Alchemy','Hypothermia'], "Core");
-    createSetting('RCustomAutoPortal', 'Custom Portal', 'Automatically portal AFTER clearing this level.(ie: setting to 200 would portal when you first reach level 201)', 'value', '999', null, "Core");
-    createSetting('RnHrDontPortalBefore', 'Don\'t Portal Before', 'Do NOT allow Radon per Hour AutoPortal setting to portal BEFORE this level is reached. It is an additional check that prevents drops in radon/hr from triggering autoportal. Set to 0 or -1 to completely disable this check. (only shows up with Radon per Hour set)', 'value', '999', null, "Core");
-    createSetting('RadonHrBuffer', 'Rn/Hr Portal Buffer %', 'IMPORTANT SETTING. When using the Rn/Hr Autoportal, it will portal if your Rn/Hr drops by this amount of % lower than your best for current run, default is 0% (ie: set to 5 to portal at 95% of your best). Now with stuck protection - Allows portaling midzone if we exceed set buffer amount by 5x. (ie a normal 2% buffer setting would now portal mid-zone you fall below 10% buffer).', 'value', '0', null, 'Core');
+    createSetting('RCustomAutoPortal', '自定义传送', '在通过相应区域*后*自动传送。(例：设为200后，将在到达区域201时传送)', 'value', '999', null, "Core");
+    createSetting('RnHrDontPortalBefore', '自动传送区域', 'Do NOT allow Radon per Hour AutoPortal setting to portal BEFORE this level is reached. It is an additional check that prevents drops in radon/hr from triggering autoportal. Set to 0 or -1 to completely disable this check. (only shows up with Radon per Hour set)', 'value', '999', null, "Core");
+    createSetting('RadonHrBuffer', '氡/小时缓冲值%', 'IMPORTANT SETTING. When using the Rn/Hr Autoportal, it will portal if your Rn/Hr drops by this amount of % lower than your best for current run, default is 0% (ie: set to 5 to portal at 95% of your best). Now with stuck protection - Allows portaling midzone if we exceed set buffer amount by 5x. (ie a normal 2% buffer setting would now portal mid-zone you fall below 10% buffer).', 'value', '0', null, 'Core');
 
     
     //Pause + Switch
@@ -266,7 +266,7 @@ function initializeAllSettings() {
     $pauseScript.parentNode.style.setProperty('float', 'right');
     $pauseScript.parentNode.style.setProperty('margin-right', '1vw');
     $pauseScript.parentNode.style.setProperty('margin-left', '0');
-    createSetting('radonsettings', ['Helium', 'Radon'], 'Switch between Helium (U1) and Radon (U2) settings. ', 'multitoggle', 0, null, 'Core');
+    createSetting('radonsettings', ['氦(宇宙1)', '氡(宇宙2)'], 'Switch between Helium (U1) and Radon (U2) settings. ', 'multitoggle', 0, null, 'Core');
     var $radonsettings = document.getElementById('radonsettings');
     $radonsettings.parentNode.style.setProperty('float', 'right');
     $radonsettings.parentNode.style.setProperty('margin-right', '1vw');
@@ -398,47 +398,47 @@ function initializeAllSettings() {
     createSetting('BuyBuildingsNew', ['Buy Neither', 'Buy Buildings & Storage', 'Buy Buildings', 'Buy Storage'], 'AutoBuys Storage when it is almost full (it even anticipates Jestimp) and Non-Storage Buildings (As soon as they are available). Takes cost efficiency into account before buying Non-Storage Buildings.', 'multitoggle', 1, null, "Buildings");
     createSetting('WarpstationCap', 'Warpstation Cap', 'Do not level Warpstations past Basewarp+DeltaGiga **. Without this, if a Giga wasnt available, it would level infinitely (wastes metal better spent on prestiges instead.) **The script bypasses this cap each time a new giga is bought, when it insta-buys as many as it can afford (since AT keeps available metal/gems to a low, overbuying beyond the cap to what is affordable at that first moment is not a bad thing). ', 'boolean', true, null, 'Buildings');
     createSetting('WarpstationCoordBuy', 'Buy Warp to Hit Coord', 'If we are very close to hitting the next coordination, and we can afford the warpstations it takes to do it, Do it! (even if we are over the Cap/Wall). Recommended with WarpCap/WarpWall. (has no point otherwise) ', 'boolean', true, null, 'Buildings');
-    createSetting('MaxHut', 'Max Huts', 'Huts', 'value', '100', null, "Buildings");
-    createSetting('MaxHouse', 'Max Houses', 'Houses', 'value', '100', null, "Buildings");
-    createSetting('MaxMansion', 'Max Mansions', 'Mansions', 'value', '100', null, "Buildings");
-    createSetting('MaxHotel', 'Max Hotels', 'Hotels', 'value', '100', null, "Buildings");
+    createSetting('MaxHut', '小屋上限', 'Huts', 'value', '100', null, "Buildings");
+    createSetting('MaxHouse', '宅院上限', 'Houses', 'value', '100', null, "Buildings");
+    createSetting('MaxMansion', '豪宅上限', 'Mansions', 'value', '100', null, "Buildings");
+    createSetting('MaxHotel', '宾馆上限', 'Hotels', 'value', '100', null, "Buildings");
 
     //Line 2
-    createSetting('MaxResort', 'Max Resorts', 'Resorts', 'value', '100', null, "Buildings");
-    createSetting('MaxGateway', 'Max Gateways', 'Gateways', 'value', '25', null, "Buildings");
-    createSetting('MaxWormhole', 'Max Wormholes', 'WARNING: Wormholes cost helium! Values below 0 do nothing.', 'value', '0', null, "Buildings");
-    createSetting('MaxCollector', 'Max Collectors', 'recommend: -1', 'value', '-1', null, "Buildings");
-    createSetting('MaxGym', 'Max Gyms', 'Advanced. recommend: -1', 'value', '-1', null, "Buildings");
-    createSetting('MaxTribute', 'Max Tributes', 'Advanced. recommend: -1 ', 'value', '-1', null, "Buildings");
-    createSetting('GymWall', 'Gym Wall', 'Conserves Wood. Only buys 1 Gym when you can afford <b>X</b> gyms wood cost (at the first one\'s price, simple math). -1 or 0 to disable. In other words, only allows gyms that cost less than 1/nth your currently owned wood. (to save wood for nurseries for new z230+ Magma nursery strategy). Takes decimal numbers. (Identical to the Warpstation wall setting which is why its called that). Setting to 1 does nothing besides stopping gyms from being bought 2 at a time due to the mastery.', 'value', -1, null, 'Buildings'); //remove?
+    createSetting('MaxResort', '度假村上限', 'Resorts', 'value', '100', null, "Buildings");
+    createSetting('MaxGateway', '维度裂隙上限', 'Gateways', 'value', '25', null, "Buildings");
+    createSetting('MaxWormhole', '虫洞上限', 'WARNING: Wormholes cost helium! Values below 0 do nothing.', 'value', '0', null, "Buildings");
+    createSetting('MaxCollector', '汲能设施上限', 'recommend: -1', 'value', '-1', null, "Buildings");
+    createSetting('MaxGym', '健身房上限', 'Advanced. recommend: -1', 'value', '-1', null, "Buildings");
+    createSetting('MaxTribute', '贡品上限', 'Advanced. recommend: -1 ', 'value', '-1', null, "Buildings");
+    createSetting('GymWall', '健身房墙', 'Conserves Wood. Only buys 1 Gym when you can afford <b>该选项数值数量</b> gyms wood cost (at the first one\'s price, simple math). -1 or 0 to disable. In other words, only allows gyms that cost less than 1/nth your currently owned wood. (to save wood for nurseries for new z230+ Magma nursery strategy). Takes decimal numbers. (Identical to the Warpstation wall setting which is why its called that). Setting to 1 does nothing besides stopping gyms from being bought 2 at a time due to the mastery.', 'value', -1, null, 'Buildings'); //remove?
 
     //Line 3
-    createSetting('FirstGigastation', 'First Gigastation', 'How many warpstations to buy before your first gigastation', 'value', '20', null, "Buildings");
-    createSetting('DeltaGigastation', 'Delta Gigastation', '<b>YOU MUST HAVE BUY UPGRADES ENABLED!</b><br> How many extra warpstations to buy for each gigastation. Supports decimal values. For example 2.5 will buy +2/+3/+2/+3...', 'value', '2', null, "Buildings");
-    createSetting('WarpstationWall3', 'Warpstation Wall', 'Conserves Metal. Only buys 1 Warpstation when you can afford <b>X</b> warpstations metal cost (at the first one\'s price, simple math). -1, 0, 1 = disable. In other words, only allows warps that cost less than 1/nth your currently owned metal. (to save metal for prestiges)', 'value', -1, null, 'Buildings');
-    createSetting('MaxNursery', 'Max Nurseries', 'Advanced. Recommend: -1 until you reach Magma (z230+)', 'value', '-1', null, "Buildings");
-    createSetting('NoNurseriesUntil', 'No Nurseries Until z', 'Builds Nurseries starting from this zone. -1 to build from when they are unlocked. ', 'value', '-1', null, 'Buildings');
+    createSetting('FirstGigastation', '基础跃迁核心数', 'How many warpstations to buy before your first gigastation', 'value', '20', null, "Buildings");
+    createSetting('DeltaGigastation', '千兆核心变量', '<b>YOU MUST HAVE BUY UPGRADES ENABLED!</b><br> How many extra warpstations to buy for each gigastation. Supports decimal values. For example 2.5 will buy +2/+3/+2/+3...', 'value', '2', null, "Buildings");
+    createSetting('WarpstationWall3', '跃迁核心墙', 'Conserves Metal. Only buys 1 Warpstation when you can afford <b>该选项数值数量</b> warpstations metal cost (at the first one\'s price, simple math). -1, 0, 1 = disable. In other words, only allows warps that cost less than 1/nth your currently owned metal. (to save metal for prestiges)', 'value', -1, null, 'Buildings');
+    createSetting('MaxNursery', '托儿所上限', 'Advanced. Recommend: -1 until you reach Magma (z230+)', 'value', '-1', null, "Buildings");
+    createSetting('NoNurseriesUntil', '托儿所初始建造区域', 'Builds Nurseries starting from this zone. -1 to build from when they are unlocked. ', 'value', '-1', null, 'Buildings');
 
     //RBuildings
 
     //Line 1
     createSetting('RBuyBuildingsNew', 'AutoBuildings', 'Buys buildings in an efficient way. Also enables Vanilla AutoStorage if its off. ', 'boolean', 'true', null, "Buildings");
-    createSetting('RMaxHut', 'Max Huts', 'Huts', 'value', '100', null, "Buildings");
-    createSetting('RMaxHouse', 'Max Houses', 'Houses', 'value', '100', null, "Buildings");
-    createSetting('RMaxMansion', 'Max Mansions', 'Mansions', 'value', '100', null, "Buildings");
-    createSetting('RMaxHotel', 'Max Hotels', 'Hotels', 'value', '100', null, "Buildings");
-    createSetting('RMaxResort', 'Max Resorts', 'Resorts', 'value', '100', null, "Buildings");
-    createSetting('RMaxGateway', 'Max Gateways', 'Gateways', 'value', '25', null, "Buildings");
+    createSetting('RMaxHut', '小屋上限', 'Huts', 'value', '100', null, "Buildings");
+    createSetting('RMaxHouse', '宅院上限', 'Houses', 'value', '100', null, "Buildings");
+    createSetting('RMaxMansion', '豪宅上限', 'Mansions', 'value', '100', null, "Buildings");
+    createSetting('RMaxHotel', '宾馆上限', 'Hotels', 'value', '100', null, "Buildings");
+    createSetting('RMaxResort', '度假村上限', 'Resorts', 'value', '100', null, "Buildings");
+    createSetting('RMaxGateway', '维度裂隙上限', 'Gateways', 'value', '25', null, "Buildings");
 
     //Line 2
-    createSetting('RMaxCollector', 'Max Collectors', 'recommend: -1', 'value', '-1', null, "Buildings");
-    createSetting('RMaxTribute', 'Max Tributes', 'Advanced. recommend: -1 ', 'value', '-1', null, "Buildings");
-    createSetting('RMaxLabs', 'Max Labs', 'It is about 10 labs per level at level 10 plus. ', 'value', '0', null, "Buildings");
-    createSetting('Rmeltsmithy', 'Melt Smithy', 'Run the Melting Point Map to gain one extra Smithy when at or above this value. ', 'value', '-1', null, "Buildings");
+    createSetting('RMaxCollector', '汲能设施上限', 'recommend: -1', 'value', '-1', null, "Buildings");
+    createSetting('RMaxTribute', '贡品上限', 'Advanced. recommend: -1 ', 'value', '-1', null, "Buildings");
+    createSetting('RMaxLabs', '实验室上限', 'It is about 10 labs per level at level 10 plus. ', 'value', '0', null, "Buildings");
+    createSetting('Rmeltsmithy', '熔点铁匠铺', 'Run the Melting Point Map to gain one extra Smithy when at or above this value. ', 'value', '-1', null, "Buildings");
     createSetting('Rsmithylogic', 'Smithy Savings', '<b>ABSOLUTELY WILL NOT WORK IN TESTING!</b><br>Uses Smithy Saving logic when this is turned on. Make sure every SS setting is set above 0 or it wont work. This feature will stop using resources on items needed for Smithy when you have reached the targets you have selected.', 'boolean', 'false', null, "Buildings");
-    createSetting('Rsmithynumber', 'SS: Number', 'Start SS at this number of Smithys. I.e 9, will buy anything regardless of Smithy before having 9 Smithys. After 9 has been reached will start to save up for them. ', 'value', '-1', null, "Buildings");
-    createSetting('Rsmithypercent', 'SS: Percent', 'If you have SS enabled this value will allow items below this value to be purchased. I.e if this is set to 1, it will only buy items if that item is 1% of Smithys cost or lower. ', 'value', '-1', null, "Buildings");
-    createSetting('Rsmithyseconds', 'SS: Seconds', 'How many seconds SS starts activating at. I.e 120, if your Smithy is 120 seconds away from being purchased SS will kick in. ', 'value', '-1', null, "Buildings");
+    createSetting('Rsmithynumber', '节铁：数值', 'Start SS at this number of Smithys. I.e 9, will buy anything regardless of Smithy before having 9 Smithys. After 9 has been reached will start to save up for them. ', 'value', '-1', null, "Buildings");
+    createSetting('Rsmithypercent', '节铁：百分比', 'If you have SS enabled this value will allow items below this value to be purchased. I.e if this is set to 1, it will only buy items if that item is 1% of Smithys cost or lower. ', 'value', '-1', null, "Buildings");
+    createSetting('Rsmithyseconds', '节铁：秒数', 'How many seconds SS starts activating at. I.e 120, if your Smithy is 120 seconds away from being purchased SS will kick in. ', 'value', '-1', null, "Buildings");
 
 
     
@@ -1142,7 +1142,7 @@ function createSetting(id, name, description, type, defaultValue, list, containe
         btn.value = autoTrimpSettings[id].selected;
          var dropdownLabel = document.createElement("Label");
         dropdownLabel.id = id + "Label";
-        dropdownLabel.innerHTML = name + ":";
+        dropdownLabel.innerHTML = name + "：";
         dropdownLabel.setAttribute('style', 'margin-right: 0.3vw; font-size: 0.8vw;');
         btnParent.appendChild(dropdownLabel);
         btnParent.appendChild(btn);
@@ -1331,12 +1331,12 @@ function autoSetValue(id,negative, multi) {
     autoTrimpSettings[id].value = num;
     if (Array.isArray(num)) {
         // In here
-        document.getElementById(id).textContent = ranstring + ': ' + num[0] + '+';    
+        document.getElementById(id).textContent = ranstring + '：' + num[0] + '+';    
     }
     else if (num > -1 || negative)
-        document.getElementById(id).textContent = ranstring + ': ' + prettify(num);
+        document.getElementById(id).textContent = ranstring + '：' + prettify(num);
     else
-        document.getElementById(id).innerHTML = ranstring + ': ' + "<span class='icomoon icon-infinity'></span>";
+        document.getElementById(id).innerHTML = ranstring + '：' + "<span class='icomoon icon-infinity'></span>";
     saveSettings();
     checkPortalSettings();
 }
@@ -1351,7 +1351,7 @@ function autoSetText(id) {
     } else return;
     autoTrimpSettings[id].value = textVal;
     if (textVal != undefined) {
-        document.getElementById(id).textContent = ranstring + ': ' + textVal;
+        document.getElementById(id).textContent = ranstring + '：' + textVal;
     }
     saveSettings();
     checkPortalSettings();
@@ -2238,33 +2238,33 @@ function updateCustomButtons() {
 				}
                 else if (item.type == 'multiValue') {
                     if (Array.isArray(item.value) && item.value.length == 1 && item.value[0] == -1){
-						if (elem.dataset["orihtml"] != item.name + ': ' + "<span class='icomoon icon-infinity'></span>"){
-							elem.dataset["orihtml"] = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
-							elem.innerHTML = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
+						if (elem.dataset["orihtml"] != item.name + '：' + "<span class='icomoon icon-infinity'></span>"){
+							elem.dataset["orihtml"] = item.name + '：' + "<span class='icomoon icon-infinity'></span>";
+							elem.innerHTML = item.name + '：' + "<span class='icomoon icon-infinity'></span>";
 						}
 					}
                     else {
-						if (elem.dataset["oritext"] != item.name + ': ' + item.value.toString()){
-							elem.dataset["oritext"] = item.name + ': ' + item.value.toString();
-							elem.textContent = item.name + ': ' + item.value.toString();
+						if (elem.dataset["oritext"] != item.name + '：' + item.value.toString()){
+							elem.dataset["oritext"] = item.name + '：' + item.value.toString();
+							elem.textContent = item.name + '：' + item.value.toString();
 						}
 					}
                 }
                 else if (item.type == 'textValue') {
-                    if (item == autoTrimpSettings.RABfarmstring) elem.innerHTML = item.name + ': ' + item.value[0] + '+';
-                    else elem.textContent = item.name + ': ' + item.value;
+                    if (item == autoTrimpSettings.RABfarmstring) elem.innerHTML = item.name + '：' + item.value[0] + '+';
+                    else elem.textContent = item.name + '：' + item.value;
                 }
                 else if (item.value > -1 || item.type == 'valueNegative'){
 					let prettify_value = prettify(item.value)
-					if (elem.dataset["oritext"] != item.name + ': ' + prettify_value) {
-						elem.dataset["oritext"] = item.name + ': ' + prettify_value;
-						elem.textContent = item.name + ': ' + prettify_value;
+					if (elem.dataset["oritext"] != item.name + '：' + prettify_value) {
+						elem.dataset["oritext"] = item.name + '：' + prettify_value;
+						elem.textContent = item.name + '：' + prettify_value;
 					}
 				}
                 else{
-					if (elem.dataset["orihtml"] != item.name + ': ' + "<span class='icomoon icon-infinity'></span>"){
-						elem.dataset["orihtml"] = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
-						elem.innerHTML = item.name + ': ' + "<span class='icomoon icon-infinity'></span>";
+					if (elem.dataset["orihtml"] != item.name + '：' + "<span class='icomoon icon-infinity'></span>"){
+						elem.dataset["orihtml"] = item.name + '：' + "<span class='icomoon icon-infinity'></span>";
+						elem.innerHTML = item.name + '：' + "<span class='icomoon icon-infinity'></span>";
 					}
 				}
             }
@@ -2286,7 +2286,7 @@ function checkPortalSettings() {
     voidmaps = getPageSetting('dVoidMaps');
     }
     if (voidmaps >= portalLevel)
-        tooltip('confirm', null, 'update', 'WARNING: Your void maps are set to complete after your autoPortal, and therefore will not be done at all! Please Change Your Settings Now. This Box Will Not Go away Until You do. Remember you can choose \'Custom\' autoPortal along with challenges for complete control over when you portal. <br><br> Estimated autoPortal level: ' + portalLevel, 'cancelTooltip()', 'Void Maps Conflict');
+        tooltip('confirm', null, 'update', 'WARNING: Your void maps are set to complete after your autoPortal, and therefore will not be done at all! Please Change Your Settings Now. This Box Will Not Go away Until You do. Remember you can choose \'Custom\' autoPortal along with challenges for complete control over when you portal. <br><br>预计自动传送区域：' + portalLevel, 'cancelTooltip()', 'Void Maps Conflict');
     return portalLevel;
 }
 

@@ -1,3 +1,21 @@
+function e2c_maps(original)
+{
+    switch (original){
+        case "Fast Attacks": return "快速攻击";
+        case "Large Cache": return "大储藏箱";
+        case "Small Savory Cache": return "小美味储藏箱";
+        case "Small Wooden Cache": return "小木头储藏箱";
+        case "Small Metal Cache": return "小金属储藏箱";
+        case "Small Research Cache": return "小研究储藏箱";
+        case "Prestigious": return "重铸";
+        case "Huge Cache": return "巨大储藏箱";
+        case "Large Savory Cache": return "大美味储藏箱";
+        case "Large Wooden Cache": return "大木头储藏箱";
+        case "Large Metal Cache": return "大金属储藏箱";
+        case "Large Research Cache": return "大研究储藏箱";
+    }
+}
+
 //Helium
 
 MODULES.maps = {};
@@ -38,12 +56,12 @@ function updateAutoMapsStatus(get) {
     var minSp = getPageSetting('MinutestoFarmBeforeSpire');
 
     //Fail Safes
-    if (getPageSetting('AutoMaps') == 0) status = 'Off';
-    else if (game.global.challengeActive == "Mapology" && game.challenges.Mapology.credits < 1) status = 'Out of Map Credits';
+    if (getPageSetting('AutoMaps') == 0) status = '关闭';
+    else if (game.global.challengeActive == "Mapology" && game.challenges.Mapology.credits < 1) status = '地图代币花完了';
 
     //Raiding
-    else if (game.global.mapsActive && getCurrentMapObject().level > game.global.world && getCurrentMapObject().location != "Void" && getCurrentMapObject().location != "Bionic") status = 'Prestige Raiding';
-    else if (game.global.mapsActive && getCurrentMapObject().level > game.global.world && getCurrentMapObject().location == "Bionic") status = 'BW Raiding';
+    else if (game.global.mapsActive && getCurrentMapObject().level > game.global.world && getCurrentMapObject().location != "Void" && getCurrentMapObject().location != "Bionic") status = '重铸劫掠';
+    else if (game.global.mapsActive && getCurrentMapObject().level > game.global.world && getCurrentMapObject().location == "Bionic") status = '仿生劫掠';
 
     //Spire
     else if (preSpireFarming) {
@@ -51,32 +69,32 @@ function updateAutoMapsStatus(get) {
         var mins = Math.floor(minSp - spireTime).toFixed(0);
         var hours = ((minSp - spireTime) / 60).toFixed(2);
         var spiretimeStr = (minSp - spireTime >= 60) ?
-            (hours + 'h') : (mins + 'm:' + (secs >= 10 ? secs : ('0' + secs)) + 's');
-        status = 'Farming for Spire ' + spiretimeStr + ' left';
+            (hours + '小时') : (mins + '分' + (secs >= 10 ? secs : ('0' + secs)) + '秒');
+        status = '尖塔前刷资源，剩余' + spiretimeStr;
     }
 
-    else if (spireMapBonusFarming) status = 'Getting Spire Map Bonus';
-    else if (getPageSetting('SkipSpires') == 1 && ((game.global.challengeActive != 'Daily' && isActiveSpireAT()) || (game.global.challengeActive == 'Daily' && disActiveSpireAT()))) status = 'Skipping Spire';
-    else if (doMaxMapBonus) status = 'Max Map Bonus After Zone';
+    else if (spireMapBonusFarming) status = '尖塔前获得地图奖励';
+    else if (getPageSetting('SkipSpires') == 1 && ((game.global.challengeActive != 'Daily' && isActiveSpireAT()) || (game.global.challengeActive == 'Daily' && disActiveSpireAT()))) status = '跳过尖塔';
+    else if (doMaxMapBonus) status = '该区域起获得最大地图奖励';
     else if (!game.global.mapsUnlocked) status = '&nbsp;';
-    else if (needPrestige && !doVoids) status = 'Prestige';
+    else if (needPrestige && !doVoids) status = '重铸';
     else if (doVoids) {
         var stackedMaps = Fluffy.isRewardActive('void') ? countStackedVoidMaps() : 0;
-        status = 'Void Maps: ' + game.global.totalVoidMaps + ((stackedMaps) ? " (" + stackedMaps + " stacked)" : "") + ' remaining';
+        status = '虚空地图：剩余' + game.global.totalVoidMaps + ((stackedMaps) ? "张(融合后有" + stackedMaps + "张)" : "张");
     }
-    else if (shouldFarm && !doVoids) status = 'Farming: ' + calcHDratio().toFixed(4) + 'x';
-    else if (!enoughHealth && !enoughDamage) status = 'Want Health & Damage';
-    else if (!enoughDamage) status = 'Want ' + calcHDratio().toFixed(4) + 'x &nbspmore damage';
-    else if (!enoughHealth) status = 'Want more health';
-    else if (enoughHealth && enoughDamage) status = 'Advancing';
+    else if (shouldFarm && !doVoids) status = '刷资源：' + calcHDratio().toFixed(4);
+    else if (!enoughHealth && !enoughDamage) status = '需要生命值和攻击力';
+    else if (!enoughDamage) status = '需要' + calcHDratio().toFixed(4) + '倍&nbsp攻击力';
+    else if (!enoughHealth) status = '需要生命值';
+    else if (enoughHealth && enoughDamage) status = '前进中';
 
     if (skippedPrestige)
-        status += '<br><b style="font-size:.8em;color:pink;margin-top:0.2vw">Prestige Skipped</b>';
+        status += '<br><b style="font-size:.8em;color:pink;margin-top:0.2vw">跳过重铸</b>';
 
     //hider he/hr% status
     var getPercent = (game.stats.heliumHour.value() / (game.global.totalHeliumEarned - (game.global.heliumLeftover + game.resources.helium.owned))) * 100;
     var lifetime = (game.resources.helium.owned / (game.global.totalHeliumEarned - game.resources.helium.owned)) * 100;
-    var hiderStatus = 'He/hr: ' + getPercent.toFixed(3) + '%<br>&nbsp;&nbsp;&nbsp;He: ' + lifetime.toFixed(3) + '%';
+    var hiderStatus = '氦/小时：' + getPercent.toFixed(3) + '%<br>&nbsp;&nbsp;&nbsp;氦：' + lifetime.toFixed(3) + '%';
 
     if (get) {
         return [status, getPercent, lifetime];
@@ -108,7 +126,7 @@ function testMapSpecialModController() {
                 }
                 var d = updateMapCost(!0),
                     e = game.resources.fragments.owned;
-                "0" != c.value && debug("Set the map special modifier to: " + mapSpecialModifierConfig[c.value].name + ". Cost: " + (100 * (d / e)).toFixed(2) + "% of your fragments.");
+                "0" != c.value && debug("制造拥有特殊词缀" + e2c_maps(mapSpecialModifierConfig[c.value].name) + "的地图。花费" + (100 * (d / e)).toFixed(2) + "%的碎片。");
             }
             var g = getSpecialModifierSetting(),
                 h = 109 <= game.global.highestLevelCleared,
@@ -694,17 +712,17 @@ function autoMap() {
             var maplvlpicked = parseInt($mapLevelInput.value) + (getPageSetting('AdvMapSpecialModifier') ? getExtraMapLevels() : 0);
             if (updateMapCost(true) > game.resources.fragments.owned) {
                 selectMap(game.global.mapsOwnedArray[highestMap].id);
-                debug("Can't afford the map we designed, #" + maplvlpicked, "maps", '*crying2');
-                debug("...selected our highest map instead # " + game.global.mapsOwnedArray[highestMap].id + " Level: " + game.global.mapsOwnedArray[highestMap].level, "maps", '*happy2');
+                debug("碎片不够，无法制造所需的" + maplvlpicked + "级地图", "maps", '*crying2');
+                debug("……转而选择等级最高的" + game.global.mapsOwnedArray[highestMap].level + "级地图(" + game.global.mapsOwnedArray[highestMap].id + ")", "maps", '*happy2');
                 runMap();
                 lastMapWeWereIn = getCurrentMapObject();
             } else {
-                debug("Buying a Map, level: #" + maplvlpicked, "maps", 'th-large');
+                debug("制造一张" + maplvlpicked + "级的地图", "maps", 'th-large');
                 var result = buyMap();
                 if (result == -2) {
                     debug("Too many maps, recycling now: ", "maps", 'th-large');
                     recycleBelow(true);
-                    debug("Retrying, Buying a Map, level: #" + maplvlpicked, "maps", 'th-large');
+                    debug("重新尝试制造一张" + maplvlpicked + "级的地图", "maps", 'th-large');
                     result = buyMap();
                     if (result == -2) {
                         recycleMap(lowestMap);
@@ -719,9 +737,9 @@ function autoMap() {
         } else {
             selectMap(selectedMap);
             var themapobj = game.global.mapsOwnedArray[getMapIndex(selectedMap)];
-            var levelText = " Level: " + themapobj.level;
-            var voidorLevelText = themapobj.location == "Void" ? " Void: " : levelText;
-            debug("Running selected " + selectedMap + voidorLevelText + " Name: " + themapobj.name, "maps", 'th-large');
+            var levelText = themapobj.level + "级";
+            var voidorLevelText = themapobj.location == "Void" ? "虚空地图" : levelText;
+            debug("运行所选择的" + voidorLevelText + "<i></i>" + themapobj.name + "<i></i>(" + selectedMap + ")", "maps", 'th-large');
             runMap();
             lastMapWeWereIn = getCurrentMapObject();
         }
@@ -743,13 +761,13 @@ function autoMap() {
             } else if (!game.global.mapsActive) {
                 selectedMap = "create"
                 maplvlpicked = game.global.world
-                debug("Buying a Map, level: #" + maplvlpicked, "maps", 'th-large');
+                debug("制造一张" + maplvlpicked + "级的地图", "maps", 'th-large');
                 mapsClicked(true)
                 var result = buyMap();
                 if (result == -2) {
                     debug("Too many maps, recycling now: ", "maps", 'th-large');
                     recycleBelow(true);
-                    debug("Retrying, Buying a Map, level: #" + maplvlpicked, "maps", 'th-large');
+                    debug("重新尝试制造一张" + maplvlpicked + "级的地图", "maps", 'th-large');
                     result = buyMap();
                     if (result == -2) {
                         recycleMap(lowestMap);
@@ -862,43 +880,43 @@ function RupdateAutoMapsStatus(get) {
     var status;
 
     //Fail Safes
-    if (getPageSetting('RAutoMaps') == 0) status = 'Off';
+    if (getPageSetting('RAutoMaps') == 0) status = '关闭';
 
-    else if (Rshouldcastle && game.global.totalVoidMaps <= 0) status = 'Frozen Castle';
-    else if (contractVoid) status = 'Contract';
-    else if (Rshouldshipfarm) status = 'Ship Farming';
-    else if (Rshouldequipfarm) status = 'Equip Farming to ' + equipfarmdynamicHD().toFixed(2) + " and " + estimateEquipsForZone()[2] + " Equality";
-    else if (Rshouldstormfarm) status = 'Storm Farming to ' + stormdynamicHD().toFixed(2);
-    else if (Rshouldinsanityfarm) status = 'Insanity Farming';
-    else if (Rshouldalchfarm) status = 'Alchemy Farming';
-    else if (Rshouldhypofarm) status = 'Hypo Farming';
-    else if (Rshouldmayhem == 1) status = 'Mayhem Attack';
-    else if (Rshouldmayhem == 2) status = 'Mayhem Health';
-    else if (Rshouldpanda) status = 'Pandemonium';
-    else if (Rshoulddopraid) status = 'Praiding';
-    else if (Rshoulddoquest) status = 'Questing';
-    else if (Rshouldtimefarm) status = 'Time Farming';
-    else if (Rshouldtributefarm) status = 'Tribute Farming';
-    else if (Rshoulddobogs) status = 'Black Bogs';
-    else if (RdoMaxMapBonus) status = 'Max Map Bonus After Zone';
+    else if (Rshouldcastle && game.global.totalVoidMaps <= 0) status = '冻结城堡';
+    else if (contractVoid) status = '合约';
+    else if (Rshouldshipfarm) status = '刷崇信者';
+    else if (Rshouldequipfarm) status = '刷装备资源至' + equipfarmdynamicHD().toFixed(2) + "及" + estimateEquipsForZone()[2] + "层平等";
+    else if (Rshouldstormfarm) status = '刷风暴资源至' + stormdynamicHD().toFixed(2);
+    else if (Rshouldinsanityfarm) status = '刷失智层数';
+    else if (Rshouldalchfarm) status = '刷炼金术药草';
+    else if (Rshouldhypofarm) status = '刷失温资源';
+    else if (Rshouldmayhem == 1) status = '暴乱攻击力';
+    else if (Rshouldmayhem == 2) status = '暴乱生命值';
+    else if (Rshouldpanda) status = '群魔乱舞';
+    else if (Rshoulddopraid) status = '宇宙2重铸劫掠';
+    else if (Rshoulddoquest) status = '运行任务';
+    else if (Rshouldtimefarm) status = '定时刷图';
+    else if (Rshouldtributefarm) status = '刷贡品';
+    else if (Rshoulddobogs) status = '黑之泥沼';
+    else if (RdoMaxMapBonus) status = '该区域起获得最大地图奖励';
     else if (!game.global.mapsUnlocked) status = '&nbsp;';
-    else if (RneedPrestige && !RdoVoids) status = 'Prestige';
+    else if (RneedPrestige && !RdoVoids) status = '重铸';
     else if (RdoVoids) {
         var stackedMaps = Fluffy.isRewardActive('void') ? countStackedVoidMaps() : 0;
-        status = 'Void Maps: ' + game.global.totalVoidMaps + ((stackedMaps) ? " (" + stackedMaps + " stacked)" : "") + ' remaining';
+        status = '虚空地图：剩余' + game.global.totalVoidMaps + ((stackedMaps) ? "张(融合后有" + stackedMaps + "张)" : "张");
     }
-    else if (RshouldFarm && !RdoVoids) status = 'Farming: ' + RcalcHDratio().toFixed(4) + 'x';
-    else if (!RenoughHealth && !RenoughDamage) status = 'Want Health & Damage';
-    else if (!RenoughDamage) status = 'Want ' + RcalcHDratio().toFixed(4) + 'x &nbspmore damage';
-    else if (!RenoughHealth) status = 'Want more health';
-    else if (RenoughHealth && RenoughDamage) status = 'Advancing';
+    else if (RshouldFarm && !RdoVoids) status = '刷资源：' + RcalcHDratio().toFixed(4) + 'x';
+    else if (!RenoughHealth && !RenoughDamage) status = '需要生命值和攻击力';
+    else if (!RenoughDamage) status = '需要' + RcalcHDratio().toFixed(4) + '倍&nbsp攻击力';
+    else if (!RenoughHealth) status = '需要生命值';
+    else if (RenoughHealth && RenoughDamage) status = '前进中';
 
     if (RskippedPrestige)
-        status += '<br><b style="font-size:.8em;color:pink;margin-top:0.2vw">Prestige Skipped</b>';
+        status += '<br><b style="font-size:.8em;color:pink;margin-top:0.2vw">跳过重铸</b>';
 
     var getPercent = (game.stats.heliumHour.value() / (game.global.totalRadonEarned - (game.global.radonLeftover + game.resources.radon.owned))) * 100;
     var lifetime = (game.resources.radon.owned / (game.global.totalRadonEarned - game.resources.radon.owned)) * 100;
-    var hiderStatus = 'Rn/hr: ' + getPercent.toFixed(3) + '%<br>&nbsp;&nbsp;&nbsp;Rn: ' + lifetime.toFixed(3) + '%';
+    var hiderStatus = '氡/小时：' + getPercent.toFixed(3) + '%<br>&nbsp;&nbsp;&nbsp;氡：' + lifetime.toFixed(3) + '%';
 
     if (get) {
         return [status, getPercent, lifetime];
@@ -2262,7 +2280,7 @@ function RautoMap() {
                 autoTrimpSettings["RAutoMaps"].value = 0;
             }
             if (RAMPfragcheck && game.global.preMapsActive && !game.global.mapsActive && RAMPmapbought1 && RAMPpMap1 != undefined && Rshoulddopraid) {
-                debug("running map 1");
+                debug("运行地图1");
                 selectedMap = RAMPpMap1;
                 selectMap(RAMPpMap1);
                 runMap();
@@ -2271,7 +2289,7 @@ function RautoMap() {
                 RAMPpMap1 = undefined;
             }
             if (RAMPfragcheck && game.global.preMapsActive && !game.global.mapsActive && RAMPmapbought2 && RAMPpMap2 != undefined && Rshoulddopraid) {
-                debug("running map 2");
+                debug("运行地图2");
                 selectedMap = RAMPpMap2;
                 selectMap(RAMPpMap2);
                 runMap();
@@ -2280,7 +2298,7 @@ function RautoMap() {
                 RAMPpMap2 = undefined;
             }
             if (RAMPfragcheck && game.global.preMapsActive && !game.global.mapsActive && RAMPmapbought3 && RAMPpMap3 != undefined && Rshoulddopraid) {
-                debug("running map 3");
+                debug("运行地图3");
                 selectedMap = RAMPpMap3;
                 selectMap(RAMPpMap3);
                 runMap();
@@ -2289,7 +2307,7 @@ function RautoMap() {
                 RAMPpMap3 = undefined;
             }
             if (RAMPfragcheck && game.global.preMapsActive && !game.global.mapsActive && RAMPmapbought4 && RAMPpMap4 != undefined && Rshoulddopraid) {
-                debug("running map 4");
+                debug("运行地图4");
                 selectedMap = RAMPpMap4;
                 selectMap(RAMPpMap4);
                 runMap();
@@ -2298,7 +2316,7 @@ function RautoMap() {
                 RAMPpMap4 = undefined;
             }
             if (RAMPfragcheck && game.global.preMapsActive && !game.global.mapsActive && RAMPmapbought5 && RAMPpMap5 != undefined && Rshoulddopraid) {
-                debug("running map 5");
+                debug("运行地图5");
                 selectedMap = RAMPpMap5;
                 selectMap(RAMPpMap5);
                 runMap();
@@ -2840,17 +2858,17 @@ function RautoMap() {
             var maplvlpicked = parseInt(document.getElementById("mapLevelInput").value);
             if (updateMapCost(true) > game.resources.fragments.owned) {
                 selectMap(game.global.mapsOwnedArray[highestMap].id);
-                debug("Can't afford the map we designed, #" + maplvlpicked, "maps", '*crying2');
-                debug("...selected our highest map instead # " + game.global.mapsOwnedArray[highestMap].id + " Level: " + game.global.mapsOwnedArray[highestMap].level, "maps", '*happy2');
+                debug("碎片不够，无法制造所需的" + maplvlpicked + "级地图", "maps", '*crying2');
+                debug("……转而选择等级最高的" + game.global.mapsOwnedArray[highestMap].level + "级地图(" + game.global.mapsOwnedArray[highestMap].id + ")", "maps", '*happy2');
                 runMap();
                 RlastMapWeWereIn = getCurrentMapObject();
             } else {
-                debug("Buying a Map, level: #" + maplvlpicked, "maps", 'th-large');
+                debug("制造一张" + maplvlpicked + "级的地图", "maps", 'th-large');
                 var result = buyMap();
                 if (result == -2) {
                     debug("Too many maps, recycling now: ", "maps", 'th-large');
                     recycleBelow(true);
-                    debug("Retrying, Buying a Map, level: #" + maplvlpicked, "maps", 'th-large');
+                    debug("重新尝试制造一张" + maplvlpicked + "级的地图", "maps", 'th-large');
                     result = buyMap();
                     if (result == -2) {
                         recycleMap(lowestMap);
@@ -2867,12 +2885,12 @@ function RautoMap() {
             var themapobj = game.global.mapsOwnedArray[getMapIndex(selectedMap)];
             var levelText;
             if (themapobj.level > 0) {
-                levelText = " Level: " + themapobj.level;
+                levelText = themapobj.level + "级";
             } else {
-                levelText = " Level: " + game.global.world;
+                levelText = game.global.world + "级";
             }
-            var voidorLevelText = themapobj.location == "Void" ? " Void: " : levelText;
-            debug("Running selected " + selectedMap + voidorLevelText + " Name: " + themapobj.name, "maps", 'th-large');
+            var voidorLevelText = themapobj.location == "Void" ? "虚空地图" : levelText;
+            debug("运行所选择的" + voidorLevelText + "<i></i>" + themapobj.name + "<i></i>(" + selectedMap + ")", "maps", 'th-large');
             runMap();
             RlastMapWeWereIn = getCurrentMapObject();
         }

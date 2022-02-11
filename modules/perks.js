@@ -14,8 +14,8 @@ var preset_Zek059 = [7, 0.6, 3, 0.8, 0.3, 3, 25, 0.6, 0, 0, 0, 0, 0, 0];
 var preset_Zek100 = [9.8, 1.8, 3.2, 2.6, 0.7, 2.9, 25, 1.8, 0, 0, 0, 0, 0, 0];
 var preset_Zek180 = [13, 1.3, 4, 2.6, 0.7, 2.9, 25, 1.3, 37, 0.05, 1, 0, 0, 0];
 var preset_Zek229 = [11.2, 0.58, 2.37, 1.464, 0.3, 2.02, 12.2, 0.58, 39, 0.22, 2.2, 0, 0, 0];
-var preset_Zek299 = [16.8, 3, 1.9, 1.1, 1.2, 1, 17.1, 3, 105, 0.06, 0.8, 0, 0];
-var preset_Zek399 = [135, 6.1, 18.5, 6.5, 2.5, 6, 17, 6.1, 28, 0.08, 1, 0, 0];
+var preset_Zek299 = [16.8, 3, 1.9, 1.1, 1.2, 1, 17.1, 3, 105, 0.06, 0.8, 0, 0, 0];
+var preset_Zek399 = [135, 6.1, 18.5, 6.5, 2.5, 6, 17, 6.1, 28, 0.08, 1, 0, 0, 0];
 var preset_Zek449 = [245, 5.85, 29, 1.95, 2.8, 6, 6.1, 5.85, 18, 0.05, 1, 57, 0, 0];
 var preset_Zek450 = [450, 0.9, 48, 3.35, 1, 2.8, 7.8, 1.95, 10, 0.03, 1, 120, 175, 0];
 var preset_Zek500 = [600, 2.4, 60, 2, 1, 2.5, 8, 2.4, 8, 0.02, 1, 145, 180, 130];
@@ -141,7 +141,7 @@ AutoPerks.populateDumpPerkList = function() {
     var dumpperks = AutoPerks.getVariablePerks();
     for(var i in dumpperks)
         html += "<option id='"+dumpperks[i].name+"Dump' value='"+AutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"'>"+AutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"</option>"
-    html += "<option id='none'>None</option></select>";
+    html += "<option id='none' value='None'>None</option></select>";
     $dumpDropdown.innerHTML = html;
     var loadLastDump = localStorage.getItem('AutoperkSelectedDumpPresetID');
     if (loadLastDump != null)
@@ -236,7 +236,7 @@ AutoPerks.clickAllocate = function() {
         preSpentHe += price;
     }
     if (preSpentHe)
-        debug("AutoPerks: Your existing fixed-perks reserve Helium: " + prettify(preSpentHe), "perks");
+        debug("自动特权：为当前脚本忽略的特权保留" + prettify(preSpentHe) + "氦。", "perks");
 
     var remainingHelium = 0;
     if (!Number.isSafeInteger(helium)) {
@@ -303,7 +303,7 @@ AutoPerks.calculateIncrease = function(perk, level) {
 }
 
 AutoPerks.spendHelium = function(helium) {
-    debug("Beginning AutoPerks1 calculate how to spend " + prettify(helium) + " Helium... This could take a while...","perks");
+    debug("自动特权1开始计算如何分配" + prettify(helium) + "氦……请稍等……","perks");
     if(helium < 0) {
         debug("AutoPerks: Major Error - Not enough helium to buy fixed perks.","perks");
         return false;
@@ -353,7 +353,7 @@ AutoPerks.spendHelium = function(helium) {
             effQueue.add(mostEff);
         }
     }
-    debug("AutoPerks1: Pass One Complete. Loops ran: " + i, "perks");
+    debug("自动特权1：第一轮计算完成。执行了" + i + "次循环。", "perks");
 
     var $selector = document.getElementById('dumpPerk');
     if ($selector != null && $selector.value != "None") {
@@ -368,7 +368,7 @@ AutoPerks.spendHelium = function(helium) {
             }
         }
         var dumpresults = heb4dump - helium;
-        debug("AutoPerks1: Dump Perk " + AutoPerks.capitaliseFirstLetter(dumpPerk.name) + " level post-dump: "+ dumpPerk.level + " Helium Dumped: " + prettify(dumpresults) + " He.", "perks");        
+        debug("自动特权1：主加特权<i></i>" + AutoPerks.capitaliseFirstLetter(dumpPerk.name) + "<i></i>，分配后等级为"+ dumpPerk.level + "，主加特权花费了" + prettify(dumpresults) + "氦。", "perks");        
     }
     
     var heB4round2 = helium;
@@ -386,11 +386,11 @@ AutoPerks.spendHelium = function(helium) {
         effQueue.add(mostEff);
     }
     var r2results = heB4round2 - helium;
-    debug("AutoPerks1: Pass two complete. Round 2 cleanup spend of : " + prettify(r2results),"perks");
+    debug("自动特权1：第二轮计算完成。第二轮使用了剩下的" + prettify(r2results) + "氦。","perks");
 }
 
 AutoPerks.spendHelium2 = function(helium) {
-    debug("Beginning AutoPerks2 calculate how to spend " + prettify(helium) + " Helium... This could take a while...","perks");
+    debug("自动特权2开始计算如何分配" + prettify(helium) + "氦……请稍等……","perks");
     if(helium < 0) {
         debug("AutoPerks: Major Error - Not enough helium to buy fixed perks.","perks");
         return false;
@@ -451,7 +451,7 @@ AutoPerks.spendHelium2 = function(helium) {
             effQueue.add(mostEff);
         }
     }
-    debug("AutoPerks2: Pass One Complete. Loops ran: " + i, "perks");
+    debug("自动特权2：第一轮计算完成。执行了" + i + "次循环。", "perks");
 
     var $selector = document.getElementById('dumpPerk');
     if ($selector != null && $selector.value != "None") {
@@ -466,7 +466,7 @@ AutoPerks.spendHelium2 = function(helium) {
             }
         }
         var dumpresults = heb4dump - helium;
-        debug("AutoPerks2: Dump Perk " + AutoPerks.capitaliseFirstLetter(dumpPerk.name) + " level post-dump: "+ dumpPerk.level + " Helium Dumped: " + prettify(dumpresults) + " He.", "perks");        
+        debug("自动特权2：主加特权<i></i>" + AutoPerks.capitaliseFirstLetter(dumpPerk.name) + "<i></i>，分配后等级为"+ dumpPerk.level + "，主加特权花费了" + prettify(dumpresults) + "氦。", "perks");        
     }
     
     var heB4round2 = helium;
@@ -484,7 +484,7 @@ AutoPerks.spendHelium2 = function(helium) {
         effQueue.add(mostEff);
     }
     var r2results = heB4round2 - helium;
-    debug("AutoPerks2: Pass Two Complete. Cleanup Spent Any Leftover Helium: " + prettify(r2results) + " He.","perks");
+    debug("自动特权2：第二轮计算完成。第二轮使用了剩下的" + prettify(r2results) + "氦。","perks");
 }
 
 
@@ -502,11 +502,11 @@ AutoPerks.applyCalculationsRespec = function(perks,remainingHelium){
             game.global.buyAmt = perks[i].level;
             if (getPortalUpgradePrice(capitalized) <= remainingHelium || perks[i].fixed) {
                 if (MODULES["perks"].showDetails)
-                    debug("AutoPerks-Respec Buying: " + capitalized + " " + perks[i].level, "perks");
+                    debug("自动特权-洗点后购买共" + perks[i].level + "级<i></i>" + capitalized + "<i></i>特权。", "perks");
                 buyPortalUpgrade(capitalized);
             } else
                 if (MODULES["perks"].showDetails)
-                    debug("AutoPerks-Respec Error Couldn't Afford Asked Perk: " + capitalized + " " + perks[i].level, "perks");
+                    debug("自动特权-洗点错误，氦不够，无法购买" + perks[i].level + "级的<i></i>" + capitalized + "<i></i>特权。", "perks");
         }
         game.global.buyAmt = preBuyAmt;
         numTab(1,true);
@@ -529,12 +529,12 @@ AutoPerks.applyCalculations = function(perks,remainingHelium){
         if (game.global.buyAmt < 0) {
             needsRespec = true;
             if (MODULES["perks"].showDetails)
-                debug("AutoPerks RESPEC Required for: " + capitalized + " " + game.global.buyAmt, "perks");
+                debug("自动特权需要洗点<i></i>" + capitalized + "<i></i>特权，并使它的等级" + game.global.buyAmt + "级", "perks");
             //break;
         }
         else if (game.global.buyAmt > 0) {
             if (MODULES["perks"].showDetails)
-                debug("AutoPerks-NoRespec Adding: " + capitalized + " " + game.global.buyAmt, "perks");
+                debug("自动特权-无需洗点，使<i></i>" + capitalized + "<i></i>特权增加" + game.global.buyAmt + "级", "perks");
             buyPortalUpgrade(capitalized);
         }
     }
@@ -663,7 +663,7 @@ AutoPerks.initializePerks = function () {
     var capable = new AutoPerks.FixedPerk("capable", 100000000, 0, 10, "fluffy");
     var cunning = new AutoPerks.VariablePerk("cunning", 100000000000, false,      11, 0.05);
     var curious = new AutoPerks.VariablePerk("curious", 100000000000000, false,   12, 0.05);
-    var classy = new AutoPerks.VariablePerk("classy", 100000000000000000, false,   13, 0.05, 75);
+    var classy = new AutoPerks.VariablePerk("classy", 100000000000000000, false,  13, 0.05, 75);
     //tier2
     var toughness_II = new AutoPerks.ArithmeticPerk("toughness_II", 20000, 500, 0.01, toughness);
     var power_II = new AutoPerks.ArithmeticPerk("power_II", 20000, 500, 0.01, power);
@@ -737,11 +737,11 @@ var Rqueuescript = document.createElement('script');
 queuescript.type = 'text/javascript';
 queuescript.src = '/autotrimps3/FastPriorityQueue.js';
 head.appendChild(queuescript);
-//[looting,toughness,power,motivation,pheromones,artisanistry,carpentry,prismal,equality,criticality,resilience,tenacity,greed,frenzy]
-var preset_Rspace = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-var preset_RZek059 = [7, 10, 5, 1, 0.5, 2, 12, 9, 0.5, 2, 5, 0, 0, 0];
-var preset_RZekmelt = [10, 0.5, 2, 0.5, 0.3, 1.2, 3, 0.5, 1, 3, 6, 18, 20, 0];
-var preset_RZekquag = [8, 0.7, 1.8, 0.8, 0.2, 1.3, 3.3, 0.6, 0.8, 2.8, 6.2, 18, 27, 12];
+////[looting,toughness,power,motivation,pheromones,artisanistry,carpentry,prismal,equality,criticality,resilience,tenacity,greed,frenzy,championism]
+var preset_Rspace = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var preset_RZek059 = [7, 10, 5, 1, 0.5, 2, 12, 9, 0.5, 2, 5, 0, 0, 0, 0];
+var preset_RZekmelt = [10, 0.5, 2, 0.5, 0.3, 1.2, 3, 0.5, 1, 3, 6, 18, 20, 0, 0];
+var preset_RZekquag = [8, 0.7, 1.8, 0.8, 0.2, 1.3, 3.3, 0.6, 0.8, 2.8, 6.2, 18, 27, 12, 0];
 var RpresetList = [preset_RZek059,preset_RZekmelt,preset_RZekquag,preset_Rspace];
 var RpresetListHtml = "\
 <option id='preset_RZek059'>Zek (z1-59)</option>\
@@ -863,8 +863,8 @@ RAutoPerks.populateDumpPerkList = function() {
     var html = "";
     var dumpperks = RAutoPerks.getVariablePerks();
     for(var i in dumpperks)
-        html += "<option id='"+dumpperks[i].name+"Dump value='"+RAutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"'>"+RAutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"</option>"
-    html += "<option id='none'>None</option></select>";
+        html += "<option id='"+dumpperks[i].name+"Dump' value='"+RAutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"'>"+RAutoPerks.capitaliseFirstLetter(dumpperks[i].name)+"</option>"
+    html += "<option id='none' value='None'>None</option></select>";
     $dumpDropdown.innerHTML = html;
     var loadLastDump = localStorage.getItem('RAutoperkSelectedDumpPresetID');
     if (loadLastDump != null)
@@ -966,7 +966,7 @@ RAutoPerks.clickAllocate = function() {
         preSpentRn += price;
     }
     if (preSpentRn)
-        debug("RAutoPerks: Your existing fixed-perks reserve Radon: " + prettify(preSpentRn), "perks");
+        debug("宇宙2自动特权：为当前脚本忽略的特权保留" + prettify(preSpentRn) + "氡。", "perks");
 
     var remainingRadon = 0;
     if (!Number.isSafeInteger(radon)) {
@@ -1033,7 +1033,7 @@ RAutoPerks.calculateIncrease = function(perk, level) {
 };
 
 RAutoPerks.spendRadon = function(radon) {
-    debug("Beginning RAutoPerks1 calculate how to spend " + prettify(radon) + " Radon... This could take a while...","perks");
+    debug("宇宙2自动特权1开始计算如何分配" + prettify(radon) + "氡……请稍等……","perks");
     if(radon < 0) {
         debug("RAutoPerks: Major Error - Not enough radon to buy fixed perks.","perks");
         return false;
@@ -1083,7 +1083,7 @@ RAutoPerks.spendRadon = function(radon) {
             effQueue.add(mostEff);
         }
     }
-    debug("RAutoPerks1: Pass One Complete. Loops ran: " + i, "perks");
+    debug("宇宙2自动特权1：第一轮计算完成。执行了" + i + "次循环。", "perks");
 
     var $selector = document.getElementById('RdumpPerk');
     if ($selector != null && $selector.value != "None") {
@@ -1098,7 +1098,7 @@ RAutoPerks.spendRadon = function(radon) {
             }
         }
         var dumpresults = heb4dump - radon;
-        debug("RAutoPerks1: Dump Perk " + RAutoPerks.capitaliseFirstLetter(RdumpPerk.name) + " level post-dump: "+ RdumpPerk.radLevel + " Radon Dumped: " + prettify(dumpresults) + " Rn.", "perks");        
+        debug("宇宙2自动特权1：主加特权<i></i>" + RAutoPerks.capitaliseFirstLetter(RdumpPerk.name) + "<i></i>，分配后等级为"+ RdumpPerk.radLevel + "，主加特权花费了" + prettify(dumpresults) + "氡。", "perks");        
     }
     
     var heB4round2 = radon;
@@ -1116,11 +1116,11 @@ RAutoPerks.spendRadon = function(radon) {
         effQueue.add(mostEff);
     }
     var r2results = heB4round2 - radon;
-    debug("RAutoPerks1: Pass two complete. Round 2 cleanup spend of : " + prettify(r2results),"perks");
+    debug("宇宙2自动特权1：第二轮计算完成。第二轮使用了剩下的" + prettify(r2results) + "氡。","perks");
 };
 
 RAutoPerks.spendRadon2 = function(radon) {
-    debug("Beginning RAutoPerks2 calculate how to spend " + prettify(radon) + " Radon... This could take a while...","perks");
+    debug("宇宙2自动特权2开始计算如何分配" + prettify(radon) + "氡……请稍等……","perks");
     if(radon < 0) {
         debug("RAutoPerks: Major Error - Not enough radon to buy fixed perks.","perks");
         return false;
@@ -1181,7 +1181,7 @@ RAutoPerks.spendRadon2 = function(radon) {
             effQueue.add(mostEff);
         }
     }
-    debug("RAutoPerks2: Pass One Complete. Loops ran: " + i, "perks");
+    debug("宇宙2自动特权2：第一轮计算完成。执行了" + i + "次循环。", "perks");
 
     var $selector = document.getElementById('RdumpPerk');
     if ($selector != null && $selector.value != "None") {
@@ -1196,7 +1196,7 @@ RAutoPerks.spendRadon2 = function(radon) {
             }
         }
         var dumpresults = heb4dump - radon;
-        debug("RAutoPerks2: Dump Perk " + RAutoPerks.capitaliseFirstLetter(RdumpPerk.name) + " level post-dump: "+ RdumpPerk.radLevel + " Radon Dumped: " + prettify(dumpresults) + " Rn.", "perks");        
+        debug("宇宙2自动特权2：主加特权<i></i>" + RAutoPerks.capitaliseFirstLetter(RdumpPerk.name) + "<i></i>，分配后等级为"+ RdumpPerk.radLevel + "，主加特权花费了" + prettify(dumpresults) + "氡。", "perks");        
     }
     
     var heB4round2 = radon;
@@ -1214,7 +1214,7 @@ RAutoPerks.spendRadon2 = function(radon) {
         effQueue.add(mostEff);
     }
     var r2results = heB4round2 - radon;
-    debug("RAutoPerks2: Pass Two Complete. Cleanup Spent Any Leftover Radon: " + prettify(r2results) + " He.","perks");
+    debug("宇宙2自动特权2：第二轮计算完成。第二轮使用了剩下的" + prettify(r2results) + "氡。","perks");
 };
 
 
@@ -1232,11 +1232,11 @@ RAutoPerks.applyCalculationsRespec = function(perks,remainingRadon){
             game.global.buyAmt = perks[i].radLevel;
             if (getPortalUpgradePrice(capitalized) <= remainingRadon) {
                 if (MODULES["perks"].RshowDetails)
-                    debug("RAutoPerks-Respec Buying: " + capitalized + " " + perks[i].radLevel, "perks");
+                    debug("宇宙2自动特权-洗点后购买共" + perks[i].radLevel + "级<i></i>" + capitalized + "<i></i>特权。", "perks");
                 buyPortalUpgrade(capitalized);
             } else
                 if (MODULES["perks"].RshowDetails)
-                    debug("RAutoPerks-Respec Error Couldn't Afford Asked Perk: " + capitalized + " " + perks[i].radLevel, "perks");
+                    debug("宇宙2自动特权-洗点错误，氡不够，无法购买" + perks[i].radLevel + "级的<i></i>" + capitalized + "<i></i>特权。", "perks");
         }
         game.global.buyAmt = preBuyAmt;
         numTab(1,true);
@@ -1259,12 +1259,12 @@ RAutoPerks.applyCalculations = function(perks,remainingRadon){
         if (game.global.buyAmt < 0) {
             needsRespec = true;
             if (MODULES["perks"].RshowDetails)
-                debug("RAutoPerks RESPEC Required for: " + capitalized + " " + game.global.buyAmt, "perks");
+                debug("宇宙2自动特权需要洗点<i></i>" + capitalized + "<i></i>特权，并使它的等级" + game.global.buyAmt + "级", "perks");
             //break;
         }
         else if (game.global.buyAmt > 0) {
             if (MODULES["perks"].RshowDetails)
-                debug("RAutoPerks-NoRespec Adding: " + capitalized + " " + game.global.buyAmt, "perks");
+                debug("自动特权-无需洗点，使<i></i>" + capitalized + "<i></i>特权增加" + game.global.buyAmt + "级", "perks");
             buyPortalUpgrade(capitalized);
         }
     }
@@ -1379,7 +1379,7 @@ RAutoPerks.initializePerks = function () {
 	//no
     //tier2
 	//no
-    RAutoPerks.perkHolder = [range, agility, bait, trumps, packrat, hunger, /*overkill,*/ looting, toughness, power, motivation, pheromones, artisanistry, carpentry, prismal, resilience, criticality, tenacity, greed, frenzy, championism, equality];
+    RAutoPerks.perkHolder = [range, agility, bait, trumps, packrat, hunger, observation, looting, toughness, power, motivation, pheromones, artisanistry, carpentry, prismal, resilience, criticality, tenacity, greed, frenzy, championism, equality];
     for(var i in RAutoPerks.perkHolder) {
         RAutoPerks.perkHolder[i].radLevel = 0;
         RAutoPerks.perkHolder[i].spent = 0;

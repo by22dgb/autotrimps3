@@ -1,3 +1,48 @@
+function e2c_upgrades(original)
+{
+    switch (original){
+        case "Miners": return "矿工";
+        case "Scientists": return "科学家";
+        case "Coordination": return "协作";
+        case "Speedminer": return "采矿加速";
+        case "Speedlumber": return "砍伐加速";
+        case "Speedfarming": return "耕作加速";
+        case "Speedscience": return "研究加速";
+        case "Speedexplorer": return "探险家加速";
+        case "Megaminer": return "超级采矿";
+        case "Megalumber": return "超级砍伐";
+        case "Megafarming": return "超级耕作";
+        case "Megascience": return "超级研究";
+        case "Efficiency": return "效率";
+        case "TrainTacular": return "格挡提升";
+        case "Trainers": return "训练师";
+        case "Explorers": return "探险家";
+        case "Blockmaster": return "格挡大师";
+        case "Battle": return "战斗";
+        case "Bloodlust": return "嗜血";
+        case "Bounty": return "赏金";
+        case "Egg": return "蛋";
+        case "Anger": return "愤怒";
+        case "Rage": return "暴怒";
+        case "Prismatic": return "棱镜护盾";
+        case "Prismalicious": return "优质棱镜";
+        case "Formations": return "阵型";
+        case "Dominance": return "支配";
+        case "Barrier": return "屏障";
+        case "UberHut": return "超级小屋";
+        case "UberHouse": return "超级宅院";
+        case "UberMansion": return "超级豪宅";
+        case "UberHotel": return "超级宾馆";
+        case "UberResort": return "超级度假村";
+        case "Trapstorm": return "自动陷阱";
+        case "Gigastation": return "千兆核心";
+        case "Shieldblock": return "盾牌格挡";
+        case "Potency": return "繁殖效率";
+        case "Magmamancers": return "岩浆巫师";
+    }
+}
+
+
 //Helium
 
 var upgradeList = ['Miners', 'Scientists', 'Coordination', 'Speedminer', 'Speedlumber', 'Speedfarming', 'Speedscience', 'Speedexplorer', 'Megaminer', 'Megalumber', 'Megafarming', 'Megascience', 'Efficiency', 'TrainTacular', 'Trainers', 'Explorers', 'Blockmaster', 'Battle', 'Bloodlust', 'Bounty', 'Egg', 'Anger', 'Formations', 'Dominance', 'Barrier', 'UberHut', 'UberHouse', 'UberMansion', 'UberHotel', 'UberResort', 'Trapstorm', 'Gigastation', 'Shieldblock', 'Potency', 'Magmamancers'];
@@ -39,7 +84,7 @@ function buyUpgrades() {
         if (!available) continue;
         if (game.upgrades.Scientists.done < game.upgrades.Scientists.allowed && upgrade != 'Scientists') continue;
         buyUpgrade(upgrade, true, true);
-        debug('Upgraded ' + upgrade, "upgrades", "*upload2");
+        debug('购买了' + e2c_upgrades(upgrade) + '升级', "upgrades", "*upload2");
     }
 }
 
@@ -64,7 +109,7 @@ function RbuyUpgrades() {
         if (!available) continue;
         if (game.upgrades.Scientists.done < game.upgrades.Scientists.allowed && upgrade != 'Scientists') continue;
             buyUpgrade(upgrade, true, true);
-            debug('Upgraded ' + upgrade, "upgrades", "*upload2");
+            debug('购买了' + e2c_upgrades(upgrade) + '升级', "upgrades", "*upload2");
         }
 }
 
