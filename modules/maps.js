@@ -1117,14 +1117,14 @@ function RautoMap() {
 	if (getPageSetting('Rtributefarm') == true) {
 		var tributefarmcell;
 		tributefarmcell = ((getPageSetting('Rtributefarmcell') > 0) ? getPageSetting('Rtributefarmcell') : 1);
-		Rtimefarm = (getPageSetting('Rtributefarm') == true && ((tributefarmcell <= 1) || (tributefarmcell > 1 && (game.global.lastClearedCell + 1) >= tributefarmcell)) && game.global.world > 5 && (game.global.challengeActive != "Daily" && getPageSetting('Rtributefarmzone')[0] > 0 && getPageSetting('Rtributefarmtime')[0] > 0));
+		Rtimefarm = (getPageSetting('Rtributefarm') == true && ((tributefarmcell <= 1) || (tributefarmcell > 1 && (game.global.lastClearedCell + 1) >= tributefarmcell)) && game.global.world > 5 && (game.global.challengeActive != "Daily" && getPageSetting('Rtributefarmzone')[0] > 0 && getPageSetting('Rtributefarmamount')[0] > 0));
 		if (Rtimefarm) {
 			var tributefarmzone;
 			var tributefarmtribute;
 			var tributes = game.buildings.Tribute.owned;
 
 			tributefarmzone = getPageSetting('Rtributefarmzone');
-			tributefarmtribute = getPageSetting('Rtributefarmtime');
+			tributefarmtribute = getPageSetting('Rtributefarmamount');
 
 			var tributefarmindex = tributefarmzone.indexOf(game.global.world);
 			var tributezones = tributefarmtribute[tributefarmindex];

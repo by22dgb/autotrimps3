@@ -453,7 +453,7 @@ function setGraphData(graph) {
             for (var i in allSaveData) {
                 if (allSaveData[i].totalPortals != currentPortal) {
                     graphData.push({
-                        name: '传送门' + allSaveData[i].totalPortals + "<i></i>" + allSaveData[i].challenge,
+                        name: '传送门' + allSaveData[i].totalPortals + (allSaveData[i].challenge ? "：<i></i>" : "") + allSaveData[i].challenge,
                         data: []
                     });
                     currentPortal = allSaveData[i].totalPortals;
@@ -494,7 +494,7 @@ function setGraphData(graph) {
             for (var i in allSaveData) {
                 if (allSaveData[i].totalPortals != currentPortal) {
                     graphData.push({
-                        name: '传送门' + allSaveData[i].totalPortals + "<i></i>" + allSaveData[i].challenge,
+                        name: '传送门' + allSaveData[i].totalPortals + (allSaveData[i].challenge ? "：<i></i>" : "") + allSaveData[i].challenge,
                         data: []
                     });
                     currentPortal = allSaveData[i].totalPortals;
@@ -525,7 +525,7 @@ function setGraphData(graph) {
             for (var i in allSaveData) {
                 if (allSaveData[i].totalPortals != currentPortal) {
                     graphData.push({
-                        name: '传送门' + allSaveData[i].totalPortals + "<i></i>" + allSaveData[i].challenge,
+                        name: '传送门' + allSaveData[i].totalPortals + (allSaveData[i].challenge ? "：<i></i>" : "") + allSaveData[i].challenge,
                         data: []
                     });
                     currentPortal = allSaveData[i].totalPortals;
@@ -564,7 +564,7 @@ function setGraphData(graph) {
                 continue;
             if (allSaveData[i].totalPortals != currentPortal) {
                 graphData.push({
-                    name: '传送门' + allSaveData[i].totalPortals + "<i></i>" + allSaveData[i].challenge,
+                    name: '传送门' + allSaveData[i].totalPortals + (allSaveData[i].challenge ? "：<i></i>" : "") + allSaveData[i].challenge,
                     data: []
                 });
                 currentPortal = allSaveData[i].totalPortals;
@@ -605,7 +605,7 @@ function setGraphData(graph) {
     formatter = formatter || function() {
         var ser = this.series;
         return '<span style="color:' + ser.color + '" >●</span> ' +
-            ser.name + ': <b>' +
+            ser.name + '：<b>' +
             prettify(this.y) + valueSuffix + '</b><br>';
     };
     var additionalParams = {};
