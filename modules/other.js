@@ -1481,13 +1481,13 @@ function BWraiding() {
       bwraided = true;
       failbwraid = false;
       bwraidon = false;
+      repeatClicked();
       debug("...Successfully BW raided!");
     }
   }
 
   if (getPageSetting('AutoMaps') == 0 && game.global.preMapsActive && bwraided && !failbwraid) {
     autoTrimpSettings["AutoMaps"].value = 1;
-    repeatClicked();
     debug("Turning AutoMaps back on");
   }
 
