@@ -554,7 +554,7 @@ function ImportExportTooltip(what, event) {
             <tr>
                 <td>Name</td>
                 <td>Difficulty</td>
-                <td>挑战2加成</td>
+                <td>挑战²加成</td>
                 <td>Zone</td>
                 <td>%HZE</td>
             </tr>
@@ -712,9 +712,9 @@ function ImportExportTooltip(what, event) {
                 </td>
             </tr>
             <tr>
-                <td>挑战3</td>
+                <td>挑战³</td>
                 <td>Difficulty</td>
-                <td>挑战3加成%</td>
+                <td>挑战³加成</td>
                 <td>Zone</td>
                 <td>%HZE</td>
             </tr>

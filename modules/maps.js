@@ -84,7 +84,7 @@ function updateAutoMapsStatus(get) {
     }
     else if (shouldFarm && !doVoids) status = '刷资源：' + calcHDratio().toFixed(4);
     else if (!enoughHealth && !enoughDamage) status = '需要生命值和攻击力';
-    else if (!enoughDamage) status = '需要' + calcHDratio().toFixed(4) + '倍&nbsp攻击力';
+    else if (!enoughDamage) status = '需要' + calcHDratio().toFixed(4) + '倍攻击力';
     else if (!enoughHealth) status = '需要生命值';
     else if (enoughHealth && enoughDamage) status = '前进中';
 
@@ -94,7 +94,7 @@ function updateAutoMapsStatus(get) {
     //hider he/hr% status
     var getPercent = (game.stats.heliumHour.value() / (game.global.totalHeliumEarned - (game.global.heliumLeftover + game.resources.helium.owned))) * 100;
     var lifetime = (game.resources.helium.owned / (game.global.totalHeliumEarned - game.resources.helium.owned)) * 100;
-    var hiderStatus = '氦/小时：' + getPercent.toFixed(3) + '%<br>&nbsp;&nbsp;&nbsp;氦：' + lifetime.toFixed(3) + '%';
+    var hiderStatus = '氦/小时：' + getPercent.toFixed(3) + '%<br>氦：' + lifetime.toFixed(3) + '%';
 
     if (get) {
         return [status, getPercent, lifetime];
@@ -907,7 +907,7 @@ function RupdateAutoMapsStatus(get) {
     }
     else if (RshouldFarm && !RdoVoids) status = '刷资源：' + RcalcHDratio().toFixed(4) + 'x';
     else if (!RenoughHealth && !RenoughDamage) status = '需要生命值和攻击力';
-    else if (!RenoughDamage) status = '需要' + RcalcHDratio().toFixed(4) + '倍&nbsp攻击力';
+    else if (!RenoughDamage) status = '需要' + RcalcHDratio().toFixed(4) + '倍攻击力';
     else if (!RenoughHealth) status = '需要生命值';
     else if (RenoughHealth && RenoughDamage) status = '前进中';
 
@@ -916,7 +916,7 @@ function RupdateAutoMapsStatus(get) {
 
     var getPercent = (game.stats.heliumHour.value() / (game.global.totalRadonEarned - (game.global.radonLeftover + game.resources.radon.owned))) * 100;
     var lifetime = (game.resources.radon.owned / (game.global.totalRadonEarned - game.resources.radon.owned)) * 100;
-    var hiderStatus = '氡/小时：' + getPercent.toFixed(3) + '%<br>&nbsp;&nbsp;&nbsp;氡：' + lifetime.toFixed(3) + '%';
+    var hiderStatus = '氡/小时：' + getPercent.toFixed(3) + '%<br>氡：' + lifetime.toFixed(3) + '%';
 
     if (get) {
         return [status, getPercent, lifetime];
