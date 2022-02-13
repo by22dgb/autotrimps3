@@ -1757,6 +1757,7 @@ function dailyBWraiding() {
                  dbwraided = true;
             	 dfailbwraid = false;
 		 dbwraidon = false;
+         repeatClicked();
            	 debug("...Successfully Daily BW raided!");
 		 }
  	     if (getPageSetting('AutoMaps') == 0 && game.global.preMapsActive && game.global.world == getPageSetting('dBWraidingz') && dbwraided && !dfailbwraid) {
@@ -2269,6 +2270,7 @@ function RBWraiding() {
       Rbwraided = true;
       Rfailbwraid = false;
       Rbwraidon = false;
+      repeatClicked();
       debug("...Successfully BW raided!");
     }
   }
@@ -2390,6 +2392,7 @@ function RdailyBWraiding() {
                  Rdbwraided = true;
             	 Rdfailbwraid = false;
 		 Rdbwraidon = false;
+         repeatClicked();
            	 debug("...Successfully Daily BW raided!");
 		 }
  	     if (getPageSetting('RAutoMaps') == 0 && game.global.preMapsActive && game.global.world == getPageSetting('RdBWraidingz') && Rdbwraided && !Rdfailbwraid) {
