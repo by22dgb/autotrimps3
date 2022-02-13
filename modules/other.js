@@ -1487,7 +1487,7 @@ function BWraiding() {
 
   if (getPageSetting('AutoMaps') == 0 && game.global.preMapsActive && bwraided && !failbwraid) {
     autoTrimpSettings["AutoMaps"].value = 1;
-    game.options.menu.repeatUntil.enabled = 0;
+    repeatClicked();
     debug("Turning AutoMaps back on");
   }
 
