@@ -1063,6 +1063,7 @@ function RautoMap() {
     contractVoid = false;
     Rshouldmayhem = 0;
     Rshouldpanda = false;
+    Rshoulddomelt = false;
     if (ourBaseDamage > 0) {
         RshouldDoMaps = (!RenoughDamage || RshouldFarm || RscryerStuck);
     }
@@ -1670,8 +1671,12 @@ function RautoMap() {
                 if (getPageSetting('Rmeltpoint')[0] > 0 && getPageSetting('Rmeltpoint')[1] >= 0) meltingpoint = getPageSetting('Rmeltpoint');
                 if (theMap.name == 'Melting Point' && ((game.global.challengeActive == "Trappapalooza" && game.global.world >= meltingpoint[0] && ((game.global.lastClearedCell + 1) >= meltingpoint[1])) || (game.global.challengeActive == "Melt" && game.global.world >= meltingpoint[0] && ((game.global.lastClearedCell + 1) >= meltingpoint[1])) || (getPageSetting('Rmeltsmithy') > 0 && getPageSetting('Rmeltsmithy') <= game.buildings.Smithy.owned && game.mapUnlocks.SmithFree.canRunOnce))) {
                     if (game.global.world < 50 || (game.global.world == 50 && game.global.lastClearedCell < 55)) continue;
+                    Rshoulddomelt = true;
                     selectedMap = theMap.id;
-                    mapsClicked(true);
+                    if(Rshoulddomelt){
+                        mapsClicked(true);
+                        Rshoulddomelt = false;
+                    }
                     break;
                 }
                 if (game.global.challengeActive == "Hypothermia" && getPageSetting('Rhypocastle') > 0 && theMap.name == 'Frozen Castle' && game.global.world >= getPageSetting('Rhypocastle') && game.global.totalVoidMaps <= 0) {
