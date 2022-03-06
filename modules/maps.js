@@ -2130,7 +2130,7 @@ function RautoMap() {
     } else if (!game.global.preMapsActive && !game.global.mapsActive) {
         if (selectedMap != "world") {
             if (!game.global.switchToMaps) {
-                mapsClicked();
+                mapsClicked(true);
             }
             if (RdoVoids && game.global.switchToMaps &&
                 (RdoVoids ||
@@ -2152,7 +2152,7 @@ function RautoMap() {
         //Creating Map
     } else if (game.global.preMapsActive) {
         if (selectedMap == "world") {
-            mapsClicked();
+            mapsClicked(true);
         } else if (selectedMap == "createp") {
             RAMPdone = false;
             var RAMPfragcheck = true;
