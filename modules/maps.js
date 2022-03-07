@@ -2130,7 +2130,9 @@ function RautoMap() {
     } else if (!game.global.preMapsActive && !game.global.mapsActive) {
         if (selectedMap != "world") {
             if (!game.global.switchToMaps) {
+                if (RdoVoids || Rshouldtimefarm || Rshouldtributefarm || Rshoulddoquest > 0 || Rshouldmayhem > 0 || Rshouldpanda || Rshouldinsanityfarm || Rshouldstormfarm || Rshouldequipfarm || Rshouldshipfarm || Rshouldalchfarm || Rshouldhypofarm)
                 mapsClicked(true);
+                else mapsClicked();
             }
             if (RdoVoids && game.global.switchToMaps &&
                 (RdoVoids ||
