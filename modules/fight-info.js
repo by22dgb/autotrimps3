@@ -8,6 +8,8 @@ function e2c_fightinfo(original)
         case "Venimp": return "脆皮爱神";
         case "Whipimp": return "脆皮鞭者";
         case "Magnimp": return "脆皮磁王";
+		case "Skeletimp": return "脆皮骷髅";
+		case "Megaskeletimp": return "脆皮超级骷髅";
         case "Goblimp": return "脆皮地精";
         case "Flutimp": return "脆皮飘兽";
         case "Jestimp": return "脆皮弄臣";
@@ -147,7 +149,7 @@ function e2c_fightinfo(original)
 				if(cell.special.length === 0)
 					$cell.innerHTML = "<span class=\"glyphicon glyphicon-italic\"></span> ";
 
-				$cell.title = cell.name;
+				$cell.title = e2c_fightinfo(cell.name);
 				//$cell.style.color = M["fightinfo"].colors.bone; //(This changes the colour of the glyph - bad bc it overrides trimps and looks bad against corruption etc)
 				$cell.style.textShadow = '0px 0px 10px #ffffff';
 			}
