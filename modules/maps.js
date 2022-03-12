@@ -2129,11 +2129,10 @@ function RautoMap() {
         }
     } else if (!game.global.preMapsActive && !game.global.mapsActive) {
         if (selectedMap != "world") {
-            if (!game.global.switchToMaps) {
-                mapsClicked();
-            }
             if (RdoVoids || Rshouldtimefarm || Rshouldtributefarm || Rshoulddoquest > 0 || Rshouldmayhem > 0 || Rshouldpanda || Rshouldinsanityfarm || Rshouldstormfarm || Rshouldequipfarm || Rshouldshipfarm || Rshouldalchfarm || Rshouldhypofarm) {
                 mapsClicked(true);
+            } else if (!game.global.switchToMaps) {
+                mapsClicked();
             }
             if (RdoVoids && game.global.switchToMaps &&
                 (RdoVoids ||
