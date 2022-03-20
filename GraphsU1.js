@@ -1,4 +1,4 @@
-var basepath = '/autotrimps3/';
+var basepath = 'likexia.gitee.io/autotrimps3/';
 
 function safeSetItems1(name,data) {
     try {
