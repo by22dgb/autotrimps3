@@ -1326,7 +1326,7 @@ function autoSetValue(id,negative, multi) {
             num = num.split(',').map(parseNum);
             for(var x in num)
             {
-                if (!num[x] || isNumberBad(num[x]) && num[x] != -1)
+                if (isNumberBad(num[x]) && num[x] != -1)
                     return;
             }
         } else {
