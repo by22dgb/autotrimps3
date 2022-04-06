@@ -1024,6 +1024,10 @@ function RautoMap() {
     var enemyDamage = RcalcBadGuyDmg(null, RgetEnemyMaxAttack(game.global.world, 50, 'Snimp', 1.0));
     var enemyHealth = RcalcEnemyHealth(game.global.world);
 
+    if (game.global.challengeActive == "Pandemonium") {
+        enemyDamage /= game.challenges.Pandemonium.getPandMult();
+    }
+
     if (getPageSetting('RDisableFarm') > 0) {
         RshouldFarm = (RcalcHDratio() >= getPageSetting('RDisableFarm'));
         if (game.options.menu.repeatUntil.enabled == 1 && RshouldFarm)
