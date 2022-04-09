@@ -598,7 +598,7 @@ function initializeAllSettings() {
     
     //Line 1
     createSetting('MaxStacksForSpire', 'Max Map Bonus for Spire', 'Get max map bonus before running the Spire.', 'boolean', false, null, 'Spire');
-    createSetting('MinutestoFarmBeforeSpire', '进塔前刷资源', 'Farm level 200/199(or BW) maps for X minutes before continuing onto attempting Spire.<br><b>NOTE:</b> Set 0 to disable entirely (default). <br>Setting to -1/Infinite does not work here, set a very high number instead.', 'value', '0', null, 'Spire');
+    createSetting('MinutestoFarmBeforeSpire', '进塔前刷资源', 'Farm level 200/199(or BW) maps for X minutes before continuing onto attempting Spire.<br><b>NOTE:</b> Set 0 to disable entirely (default). <br>Setting to -1/Infinite does not work here, set a very high number instead. **PLEASE DO NOT USE THIS IT MAY NOT WORK AND I CANNOT FIX IT**', 'value', '0', null, 'Spire');
     createSetting('IgnoreSpiresUntil', '尖塔无效区域', 'Spire specific settings like end-at-cell are ignored until at least this zone is reached (0 to disable).<br>Does not work with Run Bionic Before Spire.', 'value', '200', null, 'Spire');
     createSetting('ExitSpireCell', '尖塔退出格子', 'Optional/Rare. Exits the Spire early, after completing cell X. example: 40 for Row 4. (use 0 or -1 to disable)', 'value', '-1', null, 'Spire');
     createSetting('SpireBreedTimer', '尖塔繁殖计时', '<b>ONLY USE IF YOU USE VANILLA GA</b>Set a time for your GA in spire. Recommend not touching GA during this time. ', 'value', -1, null, 'Spire');
@@ -785,6 +785,7 @@ function initializeAllSettings() {
     createSetting('Rhypofarmlevel', '刷失温：地图等级', 'What map level to use. Can use -1,1,2. -1 to use a level down from world, 0 to use world, 1 etc to use +maps. Using 0 by itself will use global level for all maps. ', 'multiValue', [0], null, 'Challenges');
     createSetting('Rhypofarmfrag', 'HF: Frags', 'Turn this on to farm fragments if you cannot afford the map you have selected for HF. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rhypocastle', '失温冻结城堡', 'What zone you wish you run frozen castle on to complete the challenge. Will run castle after voids so make sure thats set up right. ', 'value', '-1', null, 'Challenges');
+    createSetting('Rhypovoids', 'After Voids', 'Only run Frozen castle after all voids have been completed. ', 'boolean', true, null, 'Challenges');
     createSetting('Rhypostorage', '失温存储', 'Turn this on to disable buying sheds unless you need more wood for your HF: Bonfire target price. Essentially this means you wont get accidently bonfires but you may lose out on smithies and shield prestiges. ', 'boolean', 'false', null, 'Challenges');
 
 
@@ -1237,8 +1238,13 @@ function settingChanged(id) {
     }
     if (btn.type == 'dropdown') {
         btn.selected = document.getElementById(id).value;
-        if (id == "Prestige")
-            autoTrimpSettings["PrestigeBackup"].selected = document.getElementById(id).value;
+        if (id == "Prestige") {
+            autoTrimpSettings["PrestigeBackup"] = {
+              selected: document.getElementById(id).value,
+              name: "PrestigeBackup",
+              id: "PrestigeBackup"
+            };
+        }
     }
     updateCustomButtons();
     saveSettings();
@@ -1929,6 +1935,7 @@ function updateCustomButtons() {
     radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypofarmlevel") : turnOff("Rhypofarmlevel");
     radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypofarmfrag") : turnOff("Rhypofarmfrag");
     radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypocastle") : turnOff("Rhypocastle");
+    radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypovoids") : turnOff("Rhypovoids");
     radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypostorage") : turnOff("Rhypostorage");
 
     //Hide Challenges
@@ -2009,6 +2016,7 @@ function updateCustomButtons() {
             turnOff("Rhypofarmlevel");
             turnOff("Rhypofarmfrag");
             turnOff("Rhypocastle");
+            turnOff("Rhypovoids");
             turnOff("Rhypostorage");
     }
 

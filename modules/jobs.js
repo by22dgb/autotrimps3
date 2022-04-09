@@ -591,6 +591,9 @@ function RbuyJobs() {
     if (Rshouldshipfarm) {
 	allIn = "Farmer";
     }
+    else if (Rshouldhypofarm) {
+	allIn = "Lumberjack";
+    }
     var desiredRatios = [0,0,0,0];
     if (allIn != "") {
         desiredRatios[ratioWorkers.indexOf(allIn)] = 1;

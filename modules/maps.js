@@ -541,6 +541,9 @@ function autoMap() {
         for (var map in voidArraySorted) {
             var theMap = voidArraySorted[map];
             doVoids = true;
+            if (getPageSetting('novmsc2') == true && game.global.runningChallengeSquared) {
+		doVoids = false;
+	    }
             var eAttack = getEnemyMaxAttack(game.global.world, theMap.size, 'Voidsnimp', theMap.difficulty);
             if (game.global.world >= 181 || (game.global.challengeActive == "Corrupted" && game.global.world >= 60))
                 eAttack *= (getCorruptScale("attack") / 2).toFixed(1);
@@ -651,6 +654,7 @@ function autoMap() {
             }
         }
     } else if (game.global.preMapsActive) {
+        var minFragmentsNeeded = Math.floor((((game.global.world / 150) * (Math.pow(1.14, game.global.world - 1))) * game.global.world * 2) * Math.pow((1.03 + (game.global.world / 50000)), game.global.world))*2;
         if (selectedMap == "world") {
             mapsClicked();
         } else if (selectedMap == "create") {
@@ -711,11 +715,16 @@ function autoMap() {
                 testMapSpecialModController();
             var maplvlpicked = parseInt($mapLevelInput.value) + (getPageSetting('AdvMapSpecialModifier') ? getExtraMapLevels() : 0);
             if (updateMapCost(true) > game.resources.fragments.owned) {
-                selectMap(game.global.mapsOwnedArray[highestMap].id);
-                debug("碎片不够，无法制造所需的" + maplvlpicked + "级地图", "maps", '*crying2');
-                debug("……转而选择等级最高的" + game.global.mapsOwnedArray[highestMap].level + "级地图(" + game.global.mapsOwnedArray[highestMap].id + ")", "maps", '*happy2');
-                runMap();
-                lastMapWeWereIn = getCurrentMapObject();
+		if (game.jobs.Explorer.owned > 0 || game.unlocks.imps.Flutimp == true) {
+                    selectMap(game.global.mapsOwnedArray[highestMap].id);
+                    debug("碎片不够，无法制造所需的" + maplvlpicked + "级地图", "maps", '*crying2');
+                    debug("……转而选择等级最高的" + game.global.mapsOwnedArray[highestMap].level + "级地图(" + game.global.mapsOwnedArray[highestMap].id + ")", "maps", '*happy2');
+                    runMap();
+                    lastMapWeWereIn = getCurrentMapObject();
+		}
+		else {
+		    selectedMap == "world";
+		}
             } else {
                 debug("制造一张" + maplvlpicked + "级的地图", "maps", 'th-large');
                 var result = buyMap();
@@ -1099,7 +1108,7 @@ function RautoMap() {
 	if (getPageSetting('Rtimefarm') == true) {
 		var timefarmcell;
 		timefarmcell = ((getPageSetting('Rtimefarmcell') > 0) ? getPageSetting('Rtimefarmcell') : 1);
-		Rtimefarm = (getPageSetting('Rtimefarm') == true && ((timefarmcell <= 1) || (timefarmcell > 1 && (game.global.lastClearedCell + 1) >= timefarmcell)) && game.global.world > 5 && (game.global.challengeActive != "Daily" && getPageSetting('Rtimefarmzone')[0] > 0 && getPageSetting('Rtimefarmtime')[0] > 0));
+		Rtimefarm = (getPageSetting('Rtimefarm') == true && ((timefarmcell <= 1) || (timefarmcell > 1 && (game.global.lastClearedCell + 1) >= timefarmcell)) && game.global.world > 5 && (getPageSetting('Rtimefarmzone')[0] > 0 && getPageSetting('Rtimefarmtime')[0] > 0));
 		if (Rtimefarm) {
 			var timefarmzone;
 			var timefarmtime;
@@ -1678,9 +1687,15 @@ function RautoMap() {
                     if (!game.global.mapsActive && !game.global.preMapsActive) mapsClicked(true);
                     break;
                 }
-                if (game.global.challengeActive == "Hypothermia" && getPageSetting('Rhypocastle') > 0 && theMap.name == 'Frozen Castle' && game.global.world >= getPageSetting('Rhypocastle') && game.global.totalVoidMaps <= 0) {
+                if (game.global.challengeActive == "Hypothermia" && getPageSetting('Rhypocastle') > 0 && theMap.name == 'Frozen Castle' && game.global.world >= getPageSetting('Rhypocastle')) {
+		    if (getPageSetting('Rhypovoids') == true && game.global.totalVoidMaps <= 0) {
                     selectedMap = theMap.id;
                     break;
+		    }
+                    if (getPageSetting('Rhypovoids') == false) {
+                    selectedMap = theMap.id;
+                    break;
+		    }
                 }
 		if (game.global.challengeActive != "Hypothermia" && getPageSetting('Rfrozencastle') != -1 && theMap.name == 'Frozen Castle' && game.global.world >= getPageSetting('Rfrozencastle')[0] && ((game.global.lastClearedCell + 1) >= getPageSetting('Rfrozencastle')[1])) {
                     selectedMap = theMap.id;
