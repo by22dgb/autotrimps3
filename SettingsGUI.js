@@ -1030,8 +1030,8 @@ function initializeAllSettings() {
     createSetting('ImportAutoTrimps', 'Import AutoTrimps', 'Import your AutoTrimps Settings. Asks you to name it as a profile afterwards.', 'infoclick', 'ImportAutoTrimps', null, 'Import Export');
     createSetting('ExportAutoTrimps', 'Export AutoTrimps', 'Export your AutoTrimps Settings as a output string text formatted in JSON.', 'infoclick', 'ExportAutoTrimps', null, 'Import Export');
     createSetting('DefaultAutoTrimps', 'Reset to Default', 'Reset everything to the way it was when you first installed the script. ', 'infoclick', 'ResetDefaultSettingsProfiles', null, 'Import Export');
-    createSetting('Export60', '区域60以下的脚本设置', 'Gives you an AT settings String that you can use to import. Use if you are less than z60. ', 'infoclick', 'Export60', null, 'Import Export');
-    createSetting('Export550', '550+ AT Settings', 'Gives you an AT settings String that you can use to import. Use if you are z550+ ', 'infoclick', 'Export550', null, 'Import Export');
+    createSetting('Export60', '区域60以下的脚本设置', 'Gives you an AT settings String that you can use to import. Use if you are less than z60. May not work for you perfectly, should really only be used as an example!', 'infoclick', 'Export60', null, 'Import Export');
+    createSetting('Export550', '550+ AT Settings', 'Gives you an AT settings String that you can use to import. Use if you are z550+. May not work for you perfectly, should really only be used as an example! ', 'infoclick', 'Export550', null, 'Import Export');
     createSetting('CleanupAutoTrimps', 'Cleanup Saved Settings ', 'Deletes old values from previous versions of the script from your AutoTrimps Settings file.', 'infoclick', 'CleanupAutoTrimps', null, 'Import Export');
     settingsProfileMakeGUI();
 }
@@ -1604,8 +1604,8 @@ function updateCustomButtons() {
     !radonon ? turnOn("BuyBuildingsNew"): turnOff("BuyBuildingsNew");
     !radonon ? turnOn("MaxGym"): turnOff("MaxGym");
     !radonon ? turnOn("GymWall"): turnOff("GymWall");
-    var fuckbuilding = (bwRewardUnlocked("AutoStructure") == true && game.talents.deciBuild.purchased && getPageSetting('hidebuildings')==true && getPageSetting('BuyBuildingsNew')==0);
-    (!radonon && bwRewardUnlocked("AutoStructure") == true && game.talents.deciBuild.purchased) ? turnOn("hidebuildings") : turnOff("hidebuildings");
+    var fuckbuilding = (bwRewardUnlocked("AutoStructure") == true && bwRewardUnlocked("DecaBuild") && getPageSetting('hidebuildings')==true && getPageSetting('BuyBuildingsNew')==0);
+    (!radonon && bwRewardUnlocked("AutoStructure") == true && bwRewardUnlocked("DecaBuild")) ? turnOn("hidebuildings") : turnOff("hidebuildings");
     (!radonon && !fuckbuilding) ? turnOn("MaxHut") : turnOff("MaxHut");
     (!radonon && !fuckbuilding) ? turnOn("MaxHouse") : turnOff("MaxHouse");
     (!radonon && !fuckbuilding) ? turnOn("MaxMansion") : turnOff("MaxMansion");
