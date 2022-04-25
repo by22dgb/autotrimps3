@@ -1,4 +1,4 @@
-var basepath = 'https://likexia.gitee.io/autotrimps3/';
+var basepath = 'https://by22dgb.github.io/autotrimps3/';
 
 function safeSetItems1(name,data) {
     try {

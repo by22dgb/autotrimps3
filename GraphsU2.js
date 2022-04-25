@@ -1,4 +1,4 @@
-var basepath = 'https://likexia.gitee.io/autotrimps3/';
+var basepath = 'https://by22dgb.github.io/autotrimps3/';
 var allSaveData2 = [];
 var graph2Data2 = [];
 var tmpGraphData2 = JSON.parse(localStorage.getItem('allSaveData2'));
