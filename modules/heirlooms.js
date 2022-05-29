@@ -86,10 +86,10 @@ function evaluateHeirloomMods2(loom, location) {
         eff *= 4;
     }
     if (rarity >= raretokeep) {
-       eff *= 100;
+       eff *= 10000;
     }
     else if (rarity < raretokeep) {
-       eff /= 100;
+       eff /= 10000;
     }
   }
   return eff;

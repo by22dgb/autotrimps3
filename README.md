@@ -9,7 +9,7 @@ Discord is a chat program. Come to talk about AutoTrimps, for help, or suggestio
 
 
 ## Current Version - Ongoing Development!
-- Zek Fork. All changes made by Zek using GenBTC as base. Currently up-to-date as of 03/2022.
+- Zek Fork. All changes made by Zek using GenBTC as base. Currently up-to-date as of 06/2022.
 
 
 

@@ -19,7 +19,7 @@ function automationMenuInit() {
     newContainer.setAttribute("onmouseover", 'tooltip(\"Toggle Automapping\", \"customText\", event, \"Toggle automapping on and off.\")');
     newContainer.setAttribute("onmouseout", 'tooltip("hide")');
     var abutton = document.createElement("SPAN");
-    abutton.appendChild(document.createTextNode("Auto Maps"));    
+    abutton.appendChild(document.createTextNode("Auto Maps"));
     abutton.setAttribute("id", "autoMapLabel");
     var fightButtonCol = document.getElementById("battleBtnsColumn");
     newContainer.appendChild(abutton);
@@ -40,11 +40,11 @@ function automationMenuInit() {
     fightButtonCol.appendChild(newContainer);
 
     newContainer = document.createElement("DIV");
-    newContainer.setAttribute("style", "display: block; font-size: 0.75vw; text-align: center; margin-top: 2px; background-color: rgba(0,0,0,0.3);");
-    if (game.global.universe == 1) 
-    newContainer.setAttribute("onmouseover", 'tooltip(\"Helium/Hr Info\", \"customText\", event, \"1st is Current He/hr % out of Lifetime He(not including current+unspent).<br> 0.5% is an ideal peak target. This can tell you when to portal... <br>2nd is Current run Total He earned / Lifetime He(not including current)<br>\" + getDailyHeHrStats())');
-    else if (game.global.universe == 2) 
-    newContainer.setAttribute("onmouseover", 'tooltip(\"Radon/Hr Info\", \"customText\", event, \"1st is Current Rn/hr % out of Lifetime Rn(not including current+unspent).<br> 0.5% is an ideal peak target. This can tell you when to portal... <br>2nd is Current run Total Rn earned / Lifetime Rn(not including current)<br>\" + getDailyRnHrStats())');
+    newContainer.setAttribute("style", "display: block; font-size: 1vw; text-align: center; margin-top: 2px; background-color: rgba(0,0,0,0.3);");
+    if (game.global.universe == 1)
+        newContainer.setAttribute("onmouseover", 'tooltip(\"Helium/Hr Info\", \"customText\", event, \"1st is Current He/hr % out of Lifetime He(not including current+unspent).<br> 0.5% is an ideal peak target. This can tell you when to portal... <br>2nd is Current run Total He earned / Lifetime He(not including current)<br>\" + getDailyHeHrStats())');
+    else if (game.global.universe == 2)
+        newContainer.setAttribute("onmouseover", 'tooltip(\"Radon/Hr Info\", \"customText\", event, \"1st is Current Rn/hr % out of Lifetime Rn(not including current+unspent).<br> 0.5% is an ideal peak target. This can tell you when to portal... <br>2nd is Current run Total Rn earned / Lifetime Rn(not including current)<br>\" + getDailyRnHrStats())');
     newContainer.setAttribute("onmouseout", 'tooltip("hide")');
     abutton = document.createElement("SPAN");
     abutton.id = 'hiderStatus';
@@ -62,13 +62,66 @@ function automationMenuInit() {
 }
 automationMenuInit();
 
-function automationMenuSettingsInit(){var a=document.getElementById("settingsRow"),b=document.createElement("DIV");b.id="autoSettings",b.setAttribute("style","display: none; max-height: 92.5vh;overflow: auto;"),b.setAttribute("class","niceScroll"),a.appendChild(b)}
+function modifyParentNode(setting, id) {
+    var elem = document.getElementById(id).parentNode.parentNode.children;
+    for (i = 0; i < elem.length; i++) {
+        if (document.getElementById(id).parentNode.parentNode.children[i].children[0] === undefined) {
+            continue
+        } else {
+            if (document.getElementById(id).parentNode.parentNode.children[i].children[0].id === id) {
+                if (autoTrimpSettings[setting].enabled) {
+                    if (elem.length > (i + 1)) {
+                        if (document.getElementById(id).parentNode.parentNode.children[(i + 1)].style.length == 0) {
+                            document.getElementById(id).parentNode.parentNode.children[(i + 1)].remove()
+                            break;
+                        }
+                    }
+                } else {
+                    document.getElementById(id).parentNode.parentNode.children[i].insertAdjacentHTML('afterend', '<br>');
+                }
+            }
+
+        }
+    }
+}
+
+function automationMenuSettingsInit() {
+    var a = document.getElementById("settingsRow"),
+        b = document.createElement("DIV");
+    b.id = "autoSettings", b.setAttribute("style", "display: none; max-height: 92.5vh;overflow: auto;"), b.setAttribute("class", "niceScroll"), a.appendChild(b)
+}
 automationMenuSettingsInit();
-var link1=document.createElement("link");link1.rel="stylesheet",link1.type="text/css",link1.href=basepath+"tabs.css",document.head.appendChild(link1);function createTabs(a,b){var c=document.createElement("li"),d=document.createElement("a");d.className="tablinks",d.setAttribute("onclick","toggleTab(event, '"+a+"')"),d.href="#",d.appendChild(document.createTextNode(a)),c.id="tab"+a,c.appendChild(d),addtabsUL.appendChild(c),createTabContents(a,b)}
-function createTabContents(a,b){var c=document.createElement('div');c.className='tabcontent',c.id=a;var d=document.createElement('div');d.setAttribute('style','margin-left: 1vw; margin-right: 1vw;');var e=document.createElement('h4');e.setAttribute('style','font-size: 1.2vw;'),e.appendChild(document.createTextNode(b)),d.appendChild(e),c.appendChild(d),addTabsDiv.appendChild(c)}
-function toggleTab(a,b){-1<a.currentTarget.className.indexOf(" active")?(document.getElementById(b).style.display="none",a.currentTarget.className=a.currentTarget.className.replace(" active","")):(document.getElementById(b).style.display="block",a.currentTarget.className+=" active")}
-function minimizeAllTabs(){for(var a=document.getElementsByClassName("tabcontent"),b=0,c=a.length;b<c;b++)a[b].style.display="none";for(var d=document.getElementsByClassName("tablinks"),b=0,c=d.length;b<c;b++)d[b].className=d[b].className.replace(" active","")}
-function maximizeAllTabs(){for(var a=document.getElementsByClassName("tabcontent"),b=0,c=a.length;b<c;b++)a[b].style.display="block";for(var d=document.getElementsByClassName("tablinks"),b=0,c=d.length;b<c;b++)d[b].style.display="block",d[b].className.includes(" active")||(d[b].className+=" active")}
+var link1 = document.createElement("link");
+link1.rel = "stylesheet", link1.type = "text/css", link1.href = basepath + "tabs.css", document.head.appendChild(link1);
+
+function createTabs(a, b) {
+    var c = document.createElement("li"),
+        d = document.createElement("a");
+    d.className = "tablinks", d.setAttribute("onclick", "toggleTab(event, '" + a + "')"), d.href = "#", d.appendChild(document.createTextNode(a)), c.id = "tab" + a, c.appendChild(d), addtabsUL.appendChild(c), createTabContents(a, b)
+}
+
+function createTabContents(a, b) {
+    var c = document.createElement('div');
+    c.className = 'tabcontent', c.id = a;
+    var d = document.createElement('div');
+    d.setAttribute('style', 'margin-left: 1vw; margin-right: 1vw;');
+    var e = document.createElement('h4');
+    e.setAttribute('style', 'font-size: 1.2vw;'), e.appendChild(document.createTextNode(b)), d.appendChild(e), c.appendChild(d), addTabsDiv.appendChild(c)
+}
+
+function toggleTab(a, b) {
+    -1 < a.currentTarget.className.indexOf(" active") ? (document.getElementById(b).style.display = "none", a.currentTarget.className = a.currentTarget.className.replace(" active", "")) : (document.getElementById(b).style.display = "block", a.currentTarget.className += " active")
+}
+
+function minimizeAllTabs() {
+    for (var a = document.getElementsByClassName("tabcontent"), b = 0, c = a.length; b < c; b++) a[b].style.display = "none";
+    for (var d = document.getElementsByClassName("tablinks"), b = 0, c = d.length; b < c; b++) d[b].className = d[b].className.replace(" active", "")
+}
+
+function maximizeAllTabs() {
+    for (var a = document.getElementsByClassName("tabcontent"), b = 0, c = a.length; b < c; b++) a[b].style.display = "block";
+    for (var d = document.getElementsByClassName("tablinks"), b = 0, c = d.length; b < c; b++) d[b].style.display = "block", d[b].className.includes(" active") || (d[b].className += " active")
+}
 
 function nuloom(slot) {
     var nuloom = getPageSetting('heirloomnu');
@@ -145,6 +198,7 @@ function nuloom(slot) {
 
 var addTabsDiv;
 var addtabsUL;
+
 function initializeAllTabs() {
     addTabsDiv = document.createElement('div');
     addtabsUL = document.createElement('ul');
@@ -182,7 +236,7 @@ function initializeAllTabs() {
     a_0.appendChild(document.createTextNode("-"));
     li_0.appendChild(a_0);
     li_0.setAttribute("style", "float:right!important;");
-    li_0.setAttribute("onmouseover",'tooltip("Minimize all tabs", "customText", event, "Minimize all AT settings tabs.")');
+    li_0.setAttribute("onmouseover", 'tooltip("Minimize all tabs", "customText", event, "Minimize all AT settings tabs.")');
     li_0.setAttribute("onmouseout", 'tooltip("hide")');
     var li_1 = document.createElement('li');
     var a_1 = document.createElement('a');
@@ -192,7 +246,7 @@ function initializeAllTabs() {
     a_1.appendChild(document.createTextNode("+"));
     li_1.appendChild(a_1);
     li_1.setAttribute("style", "float:right!important;");
-    li_1.setAttribute("onmouseover",'tooltip("Maximize all tabs", "customText", event, "Maximize all AT settings tabs.")');
+    li_1.setAttribute("onmouseover", 'tooltip("Maximize all tabs", "customText", event, "Maximize all AT settings tabs.")');
     li_1.setAttribute("onmouseout", 'tooltip("hide")');
     var li_2 = document.createElement('li');
     var a_2 = document.createElement('a');
@@ -202,7 +256,7 @@ function initializeAllTabs() {
     a_2.appendChild(document.createTextNode("x"));
     li_2.appendChild(a_2);
     li_2.setAttribute("style", "float:right!important;");
-    li_2.setAttribute("onmouseover",'tooltip("Exit (duplicate)", "customText", event, "Closes/toggles/hides AutoTrimps (just a UI shortcut)")');
+    li_2.setAttribute("onmouseover", 'tooltip("Exit (duplicate)", "customText", event, "Closes/toggles/hides AutoTrimps (just a UI shortcut)")');
     li_2.setAttribute("onmouseout", 'tooltip("hide")');
     addtabsUL.appendChild(li_2);
     addtabsUL.appendChild(li_1);
@@ -232,17 +286,17 @@ function initializeAllSettings() {
     createSetting('TrapTrimps', 'Trap Trimps', 'Automatically trap trimps when needed, including building traps. (when you turn this off, you may aswell turn off the in-game autotraps button, think of the starving trimps that could eat that food!)', 'boolean', true, null, "Core");
     createSetting('AutoEggs', 'AutoEggs', 'Click easter egg if it exists, upon entering a new zone. Warning: Quite overpowered. Please solemnly swear that you are up to no good.', 'boolean', false, null, 'Core');
     document.getElementById('AutoEggs').parentNode.insertAdjacentHTML('afterend', '<br>');
-    
+
     //RCore
-    
+
     //Line 1
     createSetting('RManualGather2', ['Manual Gather/Build', 'Auto Gather/Build', 'Mining/Building Only'], 'Controls what you gather/build do. Manual does nothing<br>Auto Gathering of Food,Wood,Metal(w/turkimp) & Science. Auto speed-Builds your build queue. <br>Mining/Building only does exactly what it says. Only use if you are passed the early stages of the game and have the mastery foremany unlocked (No longer need to trap, food and wood are useless). ', 'multitoggle', 1, null, "Core");
     createSetting('RTrapTrimps', 'Trap Trimps', 'Automatically trap trimps when needed, including building traps. (when you turn this off, you may aswell turn off the in-game autotraps button, think of the starving trimps that could eat that food!)', 'boolean', true, null, "Core");
     createSetting('RBuyUpgradesNew', ['Manual Upgrades', 'Buy All Upgrades', 'Upgrades no Coords'], 'Autobuys non-equipment upgrades (equipment is controlled in the Gear tab). The second option does NOT buy coordination (use this <b>ONLY</b> if you know what you\'re doing).', 'multitoggle', 1, null, "Core");
     createSetting('RAutoAllocatePerks', ['Auto Allocate Off', 'Auto Allocate On', 'Dump into Looting'], 'Uses the AutoPerks ratio based preset system to automatically allocate your perks to spend whatever helium you have when you AutoPortal. Does not change Fixed Perks: siphonology, anticipation, meditation, relentlessness, range, agility, bait, trumps, packrat, capable. NEW: Dump into Looting, dumps all loot gained from previous portal at specified zone', 'multitoggle', 0, null, 'Core');
     createSetting('Rdumpgreed', 'Greed Dump', 'Dump Radon into Greed instead. ', 'boolean', false, null, "Core");
-    
-    
+
+
     //Portal
     createSetting('AutoPortal', 'AutoPortal', 'Automatically portal. Will NOT auto-portal if you have a challenge active, the challenge setting dictates which challenge it will select for the next run. All challenge settings will portal right after the challenge ends, regardless. Helium Per Hour only <b>格子1传送</b> of the first level where your He/Hr went down even slightly compared to the current runs Best He/Hr. Take note, there is a Buffer option, which is like a grace percentage of how low it can dip without triggering. Setting a buffer will portal mid-zone if you exceed 5x of the buffer.  CAUTION: Selecting He/hr may immediately portal you if its lower-(use Pause AutoTrimps button to pause the script first to avoid this)', 'dropdown', 'Off', ['Off', 'Helium Per Hour', 'Balance', 'Decay', 'Electricity', 'Life', 'Crushed', 'Nom', 'Toxicity', 'Watch', 'Lead', 'Corrupted', 'Domination', 'Experience', 'Custom'], "Core");
     createSetting('HeliumHourChallenge', 'Portal Challenge', 'Automatically portal into this challenge when using helium per hour or custom autoportal. Custom portals after cell 100 of the zone specified. Do not choose a challenge if you havent unlocked it. ', 'dropdown', 'None', ['None', 'Balance', 'Decay', 'Electricity', 'Life', 'Crushed', 'Nom', 'Toxicity', 'Watch', 'Lead', 'Corrupted', 'Domination', 'Experience'], "Core");
@@ -253,13 +307,13 @@ function initializeAllSettings() {
 
     //RPortal
     document.getElementById('Rdumpgreed').parentNode.insertAdjacentHTML('afterend', '<br>');
-    createSetting('RAutoPortal', 'AutoPortal', 'Automatically portal. Will NOT auto-portal if you have a challenge active, the challenge setting dictates which challenge it will select for the next run. All challenge settings will portal right after the challenge ends, regardless. Radon Per Hour only <b>格子1传送</b> of the first level where your Rn/Hr went down even slightly compared to the current runs Best Rn/Hr. Take note, there is a Buffer option, which is like a grace percentage of how low it can dip without triggering. Setting a buffer will portal mid-zone if you exceed 5x of the buffer.  CAUTION: Selecting Rn/hr may immediately portal you if its lower-(use Pause AutoTrimps button to pause the script first to avoid this)', 'dropdown', 'Off', ['Off', 'Radon Per Hour','Bublé','Melt','Quagmire','Archaeology','Insanity','Nurture','Alchemy','Hypothermia','Custom'], "Core");
-    createSetting('RadonHourChallenge', 'Portal Challenge', 'Automatically portal into this challenge when using radon per hour or custom autoportal. Custom portals after cell 100 of the zone specified. Do not choose a challenge if you havent unlocked it. ', 'dropdown', 'None', ['None','Bublé','Melt','Quagmire','Archaeology','Insanity','Nurture', 'Alchemy','Hypothermia'], "Core");
+    createSetting('RAutoPortal', 'AutoPortal', 'Automatically portal. Will NOT auto-portal if you have a challenge active, the challenge setting dictates which challenge it will select for the next run. All challenge settings will portal right after the challenge ends, regardless. Radon Per Hour only <b>格子1传送</b> of the first level where your Rn/Hr went down even slightly compared to the current runs Best Rn/Hr. Take note, there is a Buffer option, which is like a grace percentage of how low it can dip without triggering. Setting a buffer will portal mid-zone if you exceed 5x of the buffer.  CAUTION: Selecting Rn/hr may immediately portal you if its lower-(use Pause AutoTrimps button to pause the script first to avoid this)', 'dropdown', 'Off', ['Off', 'Radon Per Hour', 'Bublé', 'Melt', 'Quagmire', 'Archaeology', 'Insanity', 'Nurture', 'Alchemy', 'Hypothermia', 'Custom'], "Core");
+    createSetting('RadonHourChallenge', 'Portal Challenge', 'Automatically portal into this challenge when using radon per hour or custom autoportal. Custom portals after cell 100 of the zone specified. Do not choose a challenge if you havent unlocked it. ', 'dropdown', 'None', ['None', 'Bublé', 'Melt', 'Quagmire', 'Archaeology', 'Insanity', 'Nurture', 'Alchemy', 'Hypothermia'], "Core");
     createSetting('RCustomAutoPortal', '自定义传送', '在通过相应区域*后*自动传送。(例如：将数值设为200后，将在到达区域201时传送)', 'value', '999', null, "Core");
     createSetting('RnHrDontPortalBefore', '自动传送区域', 'Do NOT allow Radon per Hour AutoPortal setting to portal BEFORE this level is reached. It is an additional check that prevents drops in radon/hr from triggering autoportal. Set to 0 or -1 to completely disable this check. (only shows up with Radon per Hour set)', 'value', '999', null, "Core");
     createSetting('RadonHrBuffer', '氡/小时缓冲值百分比', 'IMPORTANT SETTING. When using the Rn/Hr Autoportal, it will portal if your Rn/Hr drops by this amount of % lower than your best for current run, default is 0% (ie: set to 5 to portal at 95% of your best). Now with stuck protection - Allows portaling midzone if we exceed set buffer amount by 5x. (ie a normal 2% buffer setting would now portal mid-zone you fall below 10% buffer).', 'value', '0', null, 'Core');
 
-    
+
     //Pause + Switch
     createSetting('PauseScript', 'Pause AutoTrimps', 'Pause AutoTrimps Script (not including the graphs module)', 'boolean', null, null, 'Core');
     var $pauseScript = document.getElementById('PauseScript');
@@ -271,9 +325,9 @@ function initializeAllSettings() {
     $radonsettings.parentNode.style.setProperty('float', 'right');
     $radonsettings.parentNode.style.setProperty('margin-right', '1vw');
     $radonsettings.parentNode.style.setProperty('margin-left', '0');
-        
-    
-    
+
+
+
     //Daily
 
     //Line 1
@@ -300,7 +354,7 @@ function initializeAllSettings() {
     createSetting('liqstack', 'Stack Liquification', 'Stack Wind zones during Wind Enlight during Liquification. ', 'boolean', false, null, 'Daily');
     createSetting('dwsmax', '日常风层数叠加上限', 'For maximising Windstacking an entire Daily. Withholds damage to try and get your max windstacks every wind zone. Not recommended for terrible Dailies. ', 'value', '-1', null, 'Daily');
     createSetting('dwsmaxhd', '日常风层数叠加上限命攻比', 'Fiddle with this to maximise your DWSM settings. Default is 0.00025. ', 'value', '-1', null, 'Daily');
-    
+
     //Raiding
     document.getElementById('dwsmaxhd').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('dPraidingzone', '日常重铸劫掠区域', 'Raids Maps for prestiges at zone specified in Dailies. Example: 495, will raid Maps at 501. Once all gear is obtained from the map, it will revert back to regular farming. Extremely helpful for spire. Best used in poison zones. <b>You can use multiple values like this 495,506,525! </b>', 'multiValue', [-1], null, 'Daily');
@@ -325,25 +379,35 @@ function initializeAllSettings() {
     createSetting('Rdfightforever', ['DFA: Off', 'DFA: Non-Empowered', 'DFA: All Dailies'], 'Daily Fight Always. Sends trimps to fight if they\'re not fighting in Daily challenges similar to Toxicity/Nom but not on Bloodthirst/Plagued/Bogged Dailies, regardless of BAF. Non-Empowered will only send to fight if the Daily is not Empowered. Essenitally the same as the one in combat, can use either if you wish, except this will only activate in these daily challenges (duh) ', 'multitoggle', '0', null, 'Daily');
     createSetting('Ravoidempower', 'Avoid Empower', 'Tries to avoid Empower stacks in Empower Dailies. No harm in this being on, so default is On. ', 'boolean', true, null, 'Daily');
     createSetting('Rdarmormagic', ['日常护甲：关闭', '日常护甲：超过80%', '日常护甲：命攻比', '日常护甲：常时'], 'Will buy Armor to try and prevent death on Bleed/Plague/Bogged Dailies under the 3 conditions. <br><b>超过80%：</b> Will activate at and above 80% of your HZE. <br><b>H:D:</b> Will activate at and above the H:D you have defined in maps. <br><b>Always</b> Will activate always. <br>All options will activate at or <b>below 25% of your health.</b> ', 'multitoggle', 0, null, "Daily");
-    createSetting('Rdscryvoidmaps', 'Daily VM Scryer', 'Only use in Dailies if you have Scryhard II, for er, obvious reasons. Works without the scryer options. ', 'boolean', false, null, 'Daily');
 
-    //Raiding
-    document.getElementById('Rdscryvoidmaps').parentNode.insertAdjacentHTML('afterend', '<br>');
-    createSetting('RdPraidingzone', '日常重铸劫掠区域', 'Raids Maps for prestiges at zone specified in Dailies. Example: 495, will raid Maps at 501. Once all gear is obtained from the map, it will revert back to regular farming. Extremely helpful for spire. Best used in poison zones. <b>You can use multiple values like this 495,506,525! </b>', 'multiValue', [-1], null, 'Daily');
-    createSetting('RdPraidHarder', 'Daily Hardcore P Raiding', '(EXPERIMENTAL) P Raid Harder: When enabled, always buys the highest prestige map we can afford when P raiding, with option to farm fragments for highest available prestige level.', 'boolean', false, null, 'Daily');
-    createSetting('RdMaxPraidZone', '日常重铸劫掠最大区域', 'List of maximum zones to Praid on Dailies corresponding to the list specified in Daily Praiding Z.  e.g. if Daily P raiding Z setting is 491,495 and this setting is 495,505, AT will P raid up to 495 from 491, and 505 from 495.  Set to -1 to always buy highest available prestige map.  If no corrsponding value, or value is invalid, defaults to max available (up to +10)', 'multiValue', [-1], null, 'Daily');
-    createSetting('RdPraidFarmFragsZ', '日常刷碎片区域', 'P Raiding harder: List of zones where we should farm fragments until we can afford the highest or target prestige map for P raiding. Set to -1 to never farm fragments. ', 'multiValue', [-1], null, 'Daily');
-    createSetting('RdPraidBeforeFarmZ', '日常刷碎片前劫掠区域', 'P Raiding harder: List of zones where we should P Raid as far as we can afford before trying to farm fragments to Praid the highest or target prestige map.  Only occasionally useful, e.g. if it picks up a Speedexplorer or farming fragments is slow due to low damage. Set to -1 to never raid prestiges before farming fragents.', 'multiValue', [-1], null, 'Daily');
-    createSetting('RDailybwraid', 'Daily BW Raid', 'Toggle for Daily BW Raid settings. ', 'boolean', false, null, 'Daily');
-    createSetting('RdBWraidingz', '日常仿生劫掠区域', 'Raids BWs at zone specified in dailys. Example: 495, will raid all BWs for all gear starting from 495. Will skip lower BWs if you have enough damage. Once all gear is obtained, will return to regular farming. Accepts comma separated lists, and raids up to the value in the corrsponding position in the Max BW to raid setting. So if this is set to 480,495 and Daily Max BW to Raid is set to 500,515 AT will BW raid up to 500 from 480, and 515 from 495. Make sure these lists are the same length or BW raiding may fail.', 'multiValue', [-1], null, 'Daily');
-    createSetting('RdBWraidingmax', '日常仿生劫掠最大区域', 'Raids BWs until zone specified in dailys. Example: 515, will raid all BWs for all gear until 515. Will skip lower BWs if you have enough damage. Once all gear is obtained, will return to regular farming. Now accepts comma separated lists - see description of Daily Z to BW raid setting for details.', 'multiValue', [-1], null, 'Daily');
+    //dRaiding
+    document.getElementById('Rdarmormagic').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('RdAMPraid', ['Daily Praiding Off', 'Daily Praiding On', 'DPR: Normal'], '<b>MASTER BUTTON</b><br>Toggle Daily Prestige Raiding. Use DPR: Zone, DPR: Raid and DPR: Cell to Raid Prestiges in higher Maps.<br> I.e: World is 95, DPR: Zone is [95,105], DPR: Raid is [105,115], DPR: Cell is 1. Will go into map creation at cell 1, create maps 101, 102, 103, 104, 105 with Prestige option. If you can\'t afford P maps, it will try without. If still unable to afford will buy the highest maps first without buying 101 and 102 for example. Raiding will take longer if you can\'t afford it. Once all maps are created it will run the lowest created then move onto the next till all created maps are finished. If you have enabled DPR: Recycle it will then recycle those maps. DPR: Normal will use the settings in Raiding tab so if they are the same you do not have to copy them over. ', 'multitoggle', 0, null, 'Daily');
+    createSetting('RdAMPraidmaz', 'Daily Praiding Settings', 'Click to open the Daily Praiding settings. ', 'infoclick', false, null, 'Daily');
+    createSetting('RdAMPraidzone', 'DPR: Zone', 'zone', 'multiValue', [-1], null, 'Daily');
+    createSetting('RdAMPraidraid', 'DPR: Raid', 'map', 'multiValue', [-1], null, 'Daily');
+    createSetting('RdAMPraidcell', 'DPR: Cell', 'cell', 'multiValue', [-1], null, 'Daily');
+    createSetting('RdAMPraidfrag', ['DPR: Frag', 'DPR: Frag Min', 'DPR: Frag Max'], 'Farm for fragments to afford the maps you want to create. DPR: Frag Min is used for absolute minimum frag costs (which includes no Prestige special, perfect sliders, random map and the difficulty and size options, however it will try to afford those options first!) and prioritises buying the most maps for a smoother sequential raid. DPR: Frag Max is used for the ultimate Raiding experience. This option will probably take the most time to farm but may save you time in the actual raid. I would recommend using Min Mode if you don\'t have frag drop or explorer effic on your heirloom and Max if you are confident in your Fragment gains. ', 'multitoggle', 0, null, 'Daily');
+    createSetting('RdAMPraidrecycle', 'DPR: Recycle', 'Recycle maps created in Daily Prestige Raiding. ', 'boolean', false, null, 'Daily');
 
-    
+    //dTimefarm
+    document.getElementById('RdAMPraidrecycle').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rdtimefarm', ['Daily Time Farm Off', 'Daily Time Farm On', 'DTF: Normal'], 'Turn this on if you want to use Daily Time Farming. Use DTF: Normal if you want to use the settings in the Maps tab if do not wish to copy them here. ', 'multitoggle', 0, null, 'Daily');
+    createSetting('Rdtimefarmmaz', 'DTM Settings', 'Click to open the Daily Time Farm settings. It will also put all your workers into what you are gathering. <br> <b>Zone:</b> What zone to start time farming. <br> <b>Cell:</b> What cell to start time farming at. <br> <b>Time:</b> How much time in Minutes to farm. <br> <b>Level:</b> How many map levels above your zone to use. <br> <b>Map:</b> What kind of map you want to use. <br> <b>Special:</b> What type of special you want to use. <br> <b>Gather:</b> What resource you would like to gather. <br> <b>Example:</b> If you put Zone: 60\, Cell: 10\, Time: 3\, Level: 5\, Map: Gardens\, Special: Large Metal Cache\, Gather: Metal\, while in a Daily you will farm at zone 60 at cell 10 for 3 minutes in a +5 Gardens map that has a Large Metal Cache while gathering metal. ', 'infoclick', false, null, 'Daily');
+    createSetting('Rdtimefarmzone', 'DTF: Zone', 'zone', 'multiValue', [-1], null, 'Daily');
+    createSetting('Rdtimefarmcell', 'DTF: Cell', 'cell', 'multiValue', [-1], null, 'Daily');
+    createSetting('Rdtimefarmtime', 'DTF: Time', 'time', 'multiValue', [-1], null, 'Daily');
+    createSetting('Rdtimefarmlevel', 'DTF: Map Level', 'level', 'multiValue', [0], null, 'Daily');
+    createSetting('Rdtimefarmmap', 'DTF: Map Selection', 'map', 'textValue', 'undefined', null, 'Daily');
+    createSetting('Rdtimefarmspecial', 'DTF: Special Selection', 'special', 'textValue', 'undefined', null, 'Daily');
+    createSetting('Rdtimefarmgather', 'DTF: Gather Selection', 'gather', 'textValue', 'undefined', null, 'Daily');
+
+
     //Heirloom
     createSetting('dhighdmg', '日常传家宝：高伤', '<b>HIGH DAMAGE HEIRLOOM</b><br><br>Enter the name of your high damage heirloom. This is your heirloom that you will use normally in dailies. ', 'textValue', 'undefined', null, 'Daily');
     createSetting('dlowdmg', '日常传家宝：低伤', '<b>LOW DAMAGE HEIRLOOM</b><br><br>Enter the name of your low damage heirloom. This is the heirloom that you will use for windstacking in dailies. ', 'textValue', 'undefined', null, 'Daily');
-    
-    
+
+
     //Portal Line
     document.getElementById('dlowdmg').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('AutoStartDaily', 'Auto Start Daily', 'Starts Dailies for you. When you portal with this on, it will select the oldest Daily and run it. Use the settings in this tab to decide whats next. ', 'boolean', false, null, 'Daily');
@@ -363,14 +427,14 @@ function initializeAllSettings() {
     createSetting('RAutoStartDaily', 'Auto Start Daily', 'Starts Dailies for you. When you portal with this on, it will select the oldest Daily and run it. Use the settings in this tab to decide whats next. ', 'boolean', false, null, 'Daily');
     createSetting('u1daily', '在宇宙1进行日常挑战', 'If this is on, you will do your daily in U1. ', 'boolean', false, null, 'Daily');
     createSetting('RAutoPortalDaily', ['Daily Portal Off', 'DP: Rn/Hr', 'DP: Custom'], '<b>DP: Rn/Hr:</b> Portals when your world zone is above the minium you set (if applicable) and the buffer falls below the % you have defined. <br><b>DP: Custom:</b> Portals after clearing the zone you have defined in Daily Custom Portal. ', 'multitoggle', '0', null, "Daily");
-    createSetting('RdHeliumHourChallenge', 'DP: Challenge', 'Automatically portal into this challenge when using radon per hour or custom autoportal in dailies when there are none left. Custom portals after cell 100 of the zone specified. Do not choose a challenge if you havent unlocked it. ', 'dropdown', 'None', ['None','Bublé','Melt','Quagmire','Archaeology','Insanity','Nurture','Alchemy','Hypothermia'], "Daily");
+    createSetting('RdHeliumHourChallenge', 'DP: Challenge', 'Automatically portal into this challenge when using radon per hour or custom autoportal in dailies when there are none left. Custom portals after cell 100 of the zone specified. Do not choose a challenge if you havent unlocked it. ', 'dropdown', 'None', ['None', 'Bublé', 'Melt', 'Quagmire', 'Archaeology', 'Insanity', 'Nurture', 'Alchemy', 'Hypothermia'], "Daily");
     createSetting('RdCustomAutoPortal', '日常自定义传送', '日常挑战中，在通过相应区域*后*自动传送。(例如：将数值设为200后，将在到达区域201时传送)', 'value', '999', null, "Daily");
     createSetting('RdHeHrDontPortalBefore', '日常自动传送区域', 'Do NOT allow Radon per Hour Daily AutoPortal setting to portal BEFORE this level is reached in dailies. It is an additional check that prevents drops in radon/hr from triggering autoportal in dailies. Set to 0 or -1 to completely disable this check. (only shows up with Radon per Hour set in dailies)', 'value', '999', null, "Daily");
     createSetting('RdHeliumHrBuffer', '日常氡/小时缓冲值百分比', 'IMPORTANT SETTING. When using the Daily Rn/Hr Autoportal, it will portal if your Rn/Hr drops by this amount of % lower than your best for current run in dailies, default is 0% (ie: set to 5 to portal at 95% of your best in dailies). Now with stuck protection - Allows portaling midzone if we exceed set buffer amount by 5x. (ie a normal 2% buffer setting would now portal mid-zone you fall below 10% buffer).', 'value', '0', null, 'Daily');
     createSetting('RDailyVoidMod', '日常虚空区域', '日常挑战中，运行所有虚空地图的区域。将数值设为-1则关闭该选项。', 'value', -1, null, 'Daily');
     createSetting('RdRunNewVoidsUntilNew', '日常新虚空变化值', '<b>0 to disable. Positive numbers are added to your Void Map zone. -1 for no cap.</b> This allows you to run new Void Maps in Dailies obtained after your Void Map zone by adding this number to your Void Map zone. <br> <b>Example</b> Void map zone=187 and This setting=10. New Voids run until 197).<br>This means that any new void maps gained until Z197. CAUTION: May severely slow you down by trying to do too-high level void maps. Default 0 (OFF).', 'value', '0', null, 'Daily');
-    
-    
+
+
 
     //C2
 
@@ -441,7 +505,7 @@ function initializeAllSettings() {
     createSetting('Rsmithyseconds', '节铁：秒数', 'How many seconds SS starts activating at. I.e 120, if your Smithy is 120 seconds away from being purchased SS will kick in. ', 'value', '-1', null, "Buildings");
 
 
-    
+
     //Jobs
 
     //Line 1
@@ -457,7 +521,7 @@ function initializeAllSettings() {
     //Line 2
     createSetting('MaxTrainers', '训练师上限', 'Advanced. Cap your trainers (This is an absolute number not a ratio). recommend: -1', 'value', '-1', null, "Jobs");
 
-    
+
     //RJobs
 
     //Line 1
@@ -466,7 +530,7 @@ function initializeAllSettings() {
     createSetting('RLumberjackRatio', '伐木工比例', '', 'value', '1', null, "Jobs");
     createSetting('RMinerRatio', '矿工比例', '', 'value', '1', null, "Jobs");
     createSetting('RMaxExplorers', '探险家上限', 'Advanced. Cap your explorers (This is an absolute number not a ratio). recommend: -1', 'value', '-1', null, "Jobs");
-	
+
     //Ships
     document.getElementById('RMaxExplorers').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rshipfarmon', 'Ship Farming', 'Turn Ship Farming off or on. ', 'boolean', 'false', null, "Jobs");
@@ -476,7 +540,7 @@ function initializeAllSettings() {
     createSetting('Rshipfarmlevel', '刷崇：地图等级', 'What map level to use for SF. Can use -1,1,2. -1 to use a level down from world (Map Reducer mastery gives loot equal to world one level down), 0 to use world, 1 etc to use +maps. Using 0 by itself will use global level for all maps. ', 'multiValue', [0], null, 'Jobs');
     createSetting('Rshipfarmfrag', 'SF: Frags', 'Turn this on to farm fragments if you cannot afford the map you have selected for SF. ', 'boolean', 'false', null, 'Jobs');
 
-    
+
     //Gear
 
     //Line 1
@@ -497,7 +561,7 @@ function initializeAllSettings() {
     createSetting('gearamounttobuy', '每次购买装备等级', 'Set the amount of Gear Levels to buy for AT. I.e if set to 1 will buy 1 level at a time. Recommended value 1. <b>MUST ALWAYS HAVE A VALUE GREATER THAN 0! </b>', 'value', 1, null, "Gear");
     createSetting('always2', '常时等级2', 'Always buys level 2 of weapons and armor regardless of efficiency', 'boolean', false, null, "Gear");
 
-    
+
     //RGear
 
     //Line 1
@@ -515,14 +579,24 @@ function initializeAllSettings() {
     createSetting('RequipfarmHD', '装刷：命攻比', 'What H:D to use for AEF target. ', 'value', '-1', null, 'Gear');
     createSetting('Requipfarmmult', '装刷：倍率', 'Starting from the zone above AEF: Zone, this setting will multiply the H:D you have set in AEF: H:D. So if AEF: Zone was 100, AEF: H:D was 10, AEF: Multiplier was 1.2, at z101 your H:D target will be 12, then at z102 it will be 14.4 and so on. This way you can account for the zones getting stronger and you will not waste time farming for a really low H:D. ', 'value', '-1', null, 'Gear');
     createSetting('Requipfarmhits', '装刷：次数', 'How many hits do you want to kill an enemy in a AEF map. ', 'value', '-1', null, 'Gear');
-    
-	
+
+
 
     //Maps
 
     //Line 1
-    createSetting('AutoMaps', ["Auto Maps Off", "Auto Maps On", "Auto Maps No Unique"], 'Automaps. The no unique setting will not run unique maps such as dimensions of anger. Recommended ON. Do not use MaZ, it will not work. ', 'multitoggle', 1, null, "Maps");
+    createSetting('AutoMaps', ["Auto Maps Off", "Auto Maps On", "Auto Maps: Unique"], 'Automaps. Recommended ON. Do not use MaZ, it will not work. Automaps: Unique will unlock settings for each unique map. Select which unique maps you would like to run\, but otherwise functions the same. ', 'multitoggle', 1, null, "Maps");
+    createSetting('AMUblock', 'AMU: The Block', 'Turn on to run this map every run. ', 'boolean', false, null, 'Maps');
+    createSetting('AMUwall', 'AMU: The Wall', 'Turn on to run this map every run. ', 'boolean', false, null, 'Maps');
+    createSetting('AMUanger', 'AMU: Dimension of Anger', 'Turn on to run this map every run. ', 'boolean', false, null, 'Maps');
+    createSetting('AMUtrimple', 'AMU: Trimple', 'Turn on to run this map every run. ', 'boolean', false, null, 'Maps');
+    createSetting('AMUprison', 'AMU: Prison', 'Turn on to run this map every run. ', 'boolean', false, null, 'Maps');
+    createSetting('AMUbw', 'AMU: BW', 'Turn on to run this map every run. ', 'boolean', false, null, 'Maps');
+    createSetting('AMUstar', 'AMU: Imploding Star', 'Turn on to run this map every run. ', 'boolean', false, null, 'Maps');
     createSetting('automapsportal', 'AM Portal', 'Makes sure Auto Maps is on after portalling. Turn this off to disable this and remember your choice. ', 'boolean', true, null, 'Maps');
+    document.getElementById('automapsportal').parentNode.insertAdjacentHTML('afterend', '<br>');
+    
+    //Line 2
     createSetting('DynamicSiphonology', 'Dynamic Siphonology', 'Recommended Always ON. Use the right level of siphonology based on your damage output. IE: Only uses  siphonology if you are weak. With this OFF it means it ALWAYS uses the lowest siphonology map you can create. Siphonology is a perk you get at level 115-125ish, and means you receive map bonus stacks for running maps below your current zone - Up to 3 zones below (1 per perk level).', 'boolean', true, null, 'Maps');
     createSetting('PreferMetal', 'Prefer Metal Maps', 'Always prefer metal maps, intended for manual use, such as pre-spire farming. Remember to turn it back off after you\'re done farming!', 'boolean', false, null, 'Maps');
     createSetting('mapselection', 'Map Selection', 'Select which you prefer to use. Recommend Plentiful (Gardens) if you have unlocked it. ', 'dropdown', 'Mountain', ["Random", "Mountain", "Forest", "Sea", "Depths", "Gardens"], 'Maps');
@@ -531,7 +605,7 @@ function initializeAllSettings() {
     createSetting('MaxMapBonushealth', '最大地图奖励生命值', 'Limit the amount of map bonuses you get when AutoMaps requires more health. Default is 10. ', 'value', '10', null, 'Maps');
     createSetting('mapcuntoff', '地图界限', 'Decides when to get max map bonus. 4 is default. This means it will take 1 hit to kill an enemy if in D stance. ', 'value', '4', null, 'Maps');
 
-    //Line 2
+    //Line 3
     createSetting('DisableFarm', '刷资源命攻比', 'If H:D goes above this value, it will farm for Damage & Health. The lower this setting, the more it will want to farm. Default is <b>16</b>。<b>将数值设为-1则关闭刷资源模式！</b>', 'value', -1, null, 'Maps');
     createSetting('LowerFarmingZone', 'Lower Farming Zone', 'Lowers the zone used during Farming mode. Uses the dynamic siphonology code, to Find the minimum map level you can successfully one-shot, and uses this level for any maps done after the first 10 map stacks. The difference being it goes LOWER than what Siphonology gives you map-bonus for, but after 10 stacks you dont need bonus, you just want to do maps that you can one-shot. Goes as low as 10 below current zone if your damage is that bad, but this is extreme and indicates you should probably portal.', 'boolean', true, null, 'Maps');
     createSetting('FarmWhenNomStacks7', 'Farm on >7 NOMstacks', 'Optional. If Improbability already has 5 NOMstacks, stack 30 Anticipation. If the Improbability has >7 NOMstacks on it, get +200% dmg from MapBonus. If we still cant kill it, enter Farming mode at 30 stacks, Even with DisableFarming On! (exits when we get under 10x). Farms if we hit 100 stacks in the world. If we ever hit (100) nomstacks in a map (likely a voidmap), farm, (exit the voidmap) and (prevent void from running, until situation is clear). Restarts any voidmaps if we hit 100 stacks. ', 'boolean', false, null, 'Maps');
@@ -541,14 +615,14 @@ function initializeAllSettings() {
     createSetting('runnewvoidspoison', 'New Voids Poison', 'Only run new voids in poison zones.', 'boolean', false, null, 'Maps');
     createSetting('onlystackedvoids', 'Stacked Voids Only', 'Only run stacked voids. ', 'boolean', false, null, 'Maps');
 
-    //Line 3
+    //Line 4
     createSetting('TrimpleZ', '末日神殿区域', 'I don\'t really think doing this automatically is a good idea. You might want to farm for a bit before this, but I\'m not sure if it\'s meaningful at all to make a \'farm X minutes before trimple\' parameter to go along with it. Set it to the zone you want and it will run Trimple of Doom for Ancient Treasure AFTER farming and getting map stacks. If it is a negative number, this will be disabled after a successful run so you can set it differently next time.', 'valueNegative', 0, null, 'Maps');
     createSetting('AdvMapSpecialModifier', 'Map Special Modifier', '<b>BELOW 300 ONLY</b><br>将尝试使用*最*合*适*的地图词缀。获取<b>Prestige</b>升级时将使用<i>Prestigious</i>词缀。<b>Farming</b>(升级装备)时将使用最好的金属储藏箱词缀。其他情况下(如获取地图奖励)将使用<i>Fast Attacks</i>词缀。总之，它将在满足花费的前提下使用最合适的词缀。', 'boolean', true, null, 'Maps');
     createSetting('scryvoidmaps', 'VM Scryer', 'Only use if you have Scryhard II, for er, obvious reasons. Works without the scryer options. ', 'boolean', false, null, 'Maps');
     createSetting('buywepsvoid', 'VM Buy Weps', 'Buys gear in Void maps regardless of your H:D ratio. Useful if you want to overkill as much as possible. ', 'boolean', false, null, 'Maps');
     createSetting('farmWonders', 'Farm Wonders', 'Farms wonders until the selected amount and does BW at given zone to finish the challenge', 'boolean', false, null, 'Maps')
     createSetting('wondersAmount', '奇物数量', 'Select the amount of Wonders you want to farm in each given run, <b> 0 to disable </b>', 'value', '0', null, "Maps");
-    
+
     //RMaps
 
     //Line 1
@@ -569,33 +643,35 @@ function initializeAllSettings() {
     createSetting('Rprispalace', 'Prismatic Palace', 'Run Prismatic Palace when its unlocked. ', 'boolean', true, null, 'Maps');
     createSetting('Rmeltpoint', '熔点', '将数值设为-1则关闭该选项。设置运行熔点地图的时机。可以输入两个数值，格式类似50,91这样。第一个数字用于设置运行熔点地图的区域，第二个数字用于设置运行熔点地图的格子。前面的例子中，脚本将在区域50的格子91运行熔点地图。必须设置两个数值才能生效。用于熔化挑战和捕手道达人挑战。', 'multiValue', [-1], null, 'Maps');
     createSetting('Rfrozencastle', '非失温冻结城堡', '将数值设为-1则关闭该选项。设置运行冻结城堡地图的时机。可以输入两个数值，格式类似200,91这样。第一个数字用于设置运行冻结城堡地图的区域，第二个数字用于设置运行冻结城堡地图的格子。前面的例子中，脚本将在区域200的格子91运行冻结城堡地图。必须设置两个数值才能生效。用于失温挑战以外的情况，请小心设置。', 'multiValue', [-1], null, 'Maps');
-    
+
     //Timefarm
     document.getElementById('Rfrozencastle').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rtimefarm', 'Time Farm', 'Turn this on if you want to use Time Farming. ', 'boolean', false, null, 'Maps');
-    createSetting('Rtimefarmzone', '时刷：区域', 'Farms for specified minutes in TF: Time at zone according to this settings value. Can use 59,61,62. ', 'multiValue', [-1], null, 'Maps');
-    createSetting('Rtimefarmcell', '时刷：格子', 'Time Farm at this Cell. -1 to run them at the default value, which is 1. ', 'value', '-1', null, 'Maps');
-    createSetting('Rtimefarmtime', '时刷：时间', 'How many minutes to farm at zone specified in TF. Can use 2,3,4. These values should match up to your TF zones. If using TF and TF: Times examples (59 and 2) it will farm at z59 for 2 minutes. ', 'multiValue', [-1], null, 'Maps');
-    createSetting('Rtimemaplevel', '时刷：地图等级', 'What map level to use. Can use -1,1,2. -1 to use a level down from world (Map Reducer mastery gives loot equal to world one level down), 0 to use world, 1 etc to use +maps. Using 0 by itself will use global level for all maps. ', 'multiValue', [0], null, 'Maps');
-    createSetting('Rtimemapselection', 'TF: Map Selection', 'Select which map you prefer to use.', 'dropdown', 'Sea', ["Random", "Mountain", "Forest", "Sea", "Depths", "Plentiful", "Farmlands"], 'Maps');
-    createSetting('Rtimespecialselection', 'TF: Special Selection', 'Select which Special to use. May bug out if you cannot afford selected. Also overrides your autojobs to buy workers relating to the resource you want to farm. I.e if LFC is chosen all workers will be hired as farmers and rest fired for the duration of farm. <br> 0 = None<br>fa = Fast Attacks<br>lc = Large Cache<br>ssc = Small Savory Cache<br>swc = Small Wooden Cache<br>smc = Small Metal Cache<br>src = Small Research Cache<br>p = Prestigous<br>hc = Huge Cache<br>lsc = Large Savory Cache<br>lwc = Large Wooden Cache<br>lmc = Large Metal Cache<br>lrc = Large Research Cache ', 'dropdown', '0', ["0", "fa", "lc", "ssc", "swc", "smc", "src", "p", "hc", "lsc", "lwc", "lmc", "lrc"], 'Maps');
-    createSetting('Rtimegatherselection', 'TF: Gather Selection', 'Select which resource to Gather. ', 'dropdown', '0', ["Default", "Food", "Wood", "Metal", "Science"], 'Maps');
+    createSetting('Rtimefarmmaz', 'Time Farm Settings', 'Click to open the Time Farm settings. It will also put all your workers into what you are gathering. <br> <b>Zone:</b> What zone to start time farming. <br> <b>Cell:</b> What cell to start time farming at. <br> <b>Time:</b> How much time in Minutes to farm. <br> <b>Level:</b> How many map levels above your zone to use. <br> <b>Map:</b> What kind of map you want to use. <br> <b>Special:</b> What type of special you want to use. <br> <b>Gather:</b> What resource you would like to gather. <br> <b>Example:</b> If you put Zone: 60\, Cell: 10\, Time: 3\, Level: 5\, Map: Gardens\, Special: Large Metal Cache\, Gather: Metal\, you will farm at zone 60 at cell 10 for 3 minutes in a +5 Gardens map that has a Large Metal Cache while gathering metal. ', 'infoclick', false, null, 'Maps');
+    createSetting('Rtimefarmzone', 'TF: Zone', 'zone', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rtimefarmcell', 'TF: Cell', 'cell', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rtimefarmtime', 'TF: Time', 'time', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rtimefarmlevel', 'TF: Map Level', 'level', 'multiValue', [0], null, 'Maps');
+    createSetting('Rtimefarmmap', 'TF: Map Selection', 'map', 'textValue', 'undefined', null, 'Maps');
+    createSetting('Rtimefarmspecial', 'TF: Special Selection', 'special', 'textValue', 'undefined', null, 'Maps');
+    createSetting('Rtimefarmgather', 'TF: Gather Selection', 'gather', 'textValue', 'undefined', null, 'Maps');
 
     //Tributefarm
-    document.getElementById('Rtimegatherselection').parentNode.insertAdjacentHTML('afterend', '<br>');
+    document.getElementById('Rtimefarmgather').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rtributefarm', 'Tribute Farm', 'Turn this on if you want to use Tribute Farming. ', 'boolean', false, null, 'Maps');
-    createSetting('Rtributefarmzone', '刷贡：区域', 'Farms for specified tributes in TrF: Tributes at zone according to this settings value. Can use 59,61,62. ', 'multiValue', [-1], null, 'Maps');
-    createSetting('Rtributefarmcell', '刷贡：格子', 'Tribute Farm at this Cell. -1 to run them at the default value, which is 1. ', 'value', '-1', null, 'Maps');
-    createSetting('Rtributefarmamount', '刷贡：贡品数', 'How many tributes to farm at zone specified in TrF. Can use 2,3,4. These values should match up to your TrF zones. If using TrF and TrF: Tributes examples (59 and 1200) it will farm at z59 for 1200 tributes. ', 'multiValue', [-1], null, 'Maps');
-    createSetting('Rtributemaplevel', '刷贡：地图等级', 'What map level to use. Can use -1,1,2. -1 to use a level down from world (Map Reducer mastery gives loot equal to world one level down), 0 to use world, 1 etc to use +maps. Using 0 by itself will use global level for all maps. ', 'multiValue', [0], null, 'Maps');
-    createSetting('Rtributemapselection', 'TrF: Map Selection', 'Select which map you prefer to use.', 'dropdown', 'Sea', ["Random", "Mountain", "Forest", "Sea", "Depths", "Plentiful", "Farmlands"], 'Maps');
-    createSetting('Rtributespecialselection', 'TrF: Special Selection', 'Select which Special to use. May bug out if you cannot afford selected. Also overrides your autojobs to buy workers relating to the resource you want to farm. I.e if LFC is chosen all workers will be hired as farmers and rest fired for the duration of farm. <br> 0 = None<br>fa = Fast Attacks<br>lc = Large Cache<br>ssc = Small Savory Cache<br>swc = Small Wooden Cache<br>smc = Small Metal Cache<br>src = Small Research Cache<br>p = Prestigous<br>hc = Huge Cache<br>lsc = Large Savory Cache<br>lwc = Large Wooden Cache<br>lmc = Large Metal Cache<br>lrc = Large Research Cache ', 'dropdown', '0', ["0", "fa", "lc", "ssc", "swc", "smc", "src", "p", "hc", "lsc", "lwc", "lmc", "lrc"], 'Maps');
-    createSetting('Rtributegatherselection', 'TrF: Gather Selection', 'Select which resource to Gather. ', 'dropdown', '0', ["Default", "Food", "Wood", "Metal", "Science"], 'Maps');
+    createSetting('Rtributefarmmaz', 'Tribute Farm Settings', 'Click to open the Tribute Farm settings. <br> <b>Zone:</b> What zone to start tribute farming. It will also put all your workers into farming. <br> <b>Cell:</b> What cell to start tribute farming at. <br> <b>Tributes:</b> How many tributes to farm. <br> <b>Level:</b> How many map levels above your zone to use. <br> <b>Map:</b> What kind of map you want to use. <br> <b>Special:</b> What type of special you want to use. <br> <b>Gather:</b> What resource you would like to gather. <br> <b>Example:</b> If you put Zone: 40\, Cell: 10\, Tributes: 1000\, Level: 5\, Map: Gardens\, Special: Large Savory Cache\, Gather: Food\, you will farm at zone 30 at cell 10 for 1000 tributes in a +5 Gardens map that has a Large Savory Cache while gathering food. ', 'infoclick', false, null, 'Maps');
+    createSetting('Rtributefarmzone', 'TrF: Zone', 'zone', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rtributefarmcell', 'TrF: Cell', 'cell', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rtributefarmamount', 'TrF: Tributes', 'tributes', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rtributefarmlevel', 'TrF: Map Level', 'level', 'multiValue', [0], null, 'Maps');
+    createSetting('Rtributemapselection', 'TrF: Map Selection', 'map', 'textValue', 'undefined', null, 'Maps');
+    createSetting('Rtributespecialselection', 'TrF: Special Selection', 'special', 'textValue', 'undefined', null, 'Maps');
+    createSetting('Rtributegatherselection', 'TrF: Gather Selection', 'gather', 'textValue', 'undefined', null, 'Maps');
 
 
-    
+
     //Spire
-    
+
     //Line 1
     createSetting('MaxStacksForSpire', 'Max Map Bonus for Spire', 'Get max map bonus before running the Spire.', 'boolean', false, null, 'Spire');
     createSetting('MinutestoFarmBeforeSpire', '进塔前刷资源', 'Farm level 200/199(or BW) maps for X minutes before continuing onto attempting Spire.<br><b>NOTE:</b> Set 0 to disable entirely (default). <br>Setting to -1/Infinite does not work here, set a very high number instead. **PLEASE DO NOT USE THIS IT MAY NOT WORK AND I CANNOT FIX IT**', 'value', '0', null, 'Spire');
@@ -624,26 +700,15 @@ function initializeAllSettings() {
     createSetting('BWraidingz', '仿生劫掠区域', 'Raids BWs at zone specified. Example: 495, will raid all BWs for all gear starting from 495. Will skip lower BWs if you have enough damage. Once all gear is obtained, will return to regular farming. Accepts comma separated lists, and raids up to the value in the corrsponding position in the Max BW to raid setting. So if this is set to 480,495 and Max BW to Raid is set to 500,515 AT will BW raid up to 500 from 480, and 515 from 495. Make sure these lists are the same length or BW raiding may fail.', 'multiValue', [-1], null, 'Raiding');
     createSetting('BWraidingmax', '仿生劫掠最大区域', 'Raids BWs until zone specified. Example: 515, will raid all BWs for all gear until 515. Will skip lower BWs if you have enough damage. Once all gear is obtained, will return to regular farming. Now accepts comma separated lists - see description of Z to BW raid setting for details.', 'multiValue', [-1], null, 'Raiding');
 
-    
+
     //RRaiding
 
     //Line 1
-    createSetting('RPraidingzone', '重铸劫掠区域', 'Raids Maps for prestiges at zone specified. Example: 495, will raid Maps at 501. Once all gear is obtained from the map, it will revert back to regular farming. Extremely helpful for spire. Best used in poison zones. <b>You can use multiple values like this 495,506,525! </b>', 'multiValue', [-1], null, 'Raiding');
-    createSetting('RPraidingcell', '重铸劫掠格子', 'What Cell to start P Raiding at. Recommend below your BW Raiding cell if used together. -1 to Raid at cell 1. ', 'value', -1, null, 'Raiding');
-    createSetting('RPraidHarder', 'Hardcore P Raiding', '(EXPERIMENTAL) P Raid Harder: When enabled, always buys the highest prestige map we can afford when P raiding, with option to farm fragments for highest available prestige level.', 'boolean', false, null, 'Raiding');
-    createSetting('RMaxPraidZone', '重铸劫掠最大区域', 'List of maximum zones to Praid corresponding to the list specified in Praiding zones.  e.g. if P raiding zones setting is 491,495 and this setting is 495,505, AT will P raid up to 495 from 491, and 505 from 495. Set to -1 to always buy highest available prestige map.  If no corrsponding value, or value is invalid, defaults to max available (up to +10)', 'multiValue', [-1], null, 'Raiding');
-    createSetting('RPraidFarmFragsZ', '刷碎片区域', 'P Raiding harder: List of zones where we should farm fragments until we can afford the highest or target prestige map for P raiding. Set to -1 to never farm fragments. ', 'multiValue', [-1], null, 'Raiding');
-    createSetting('RPraidBeforeFarmZ', '刷碎片前劫掠区域', 'P Raiding harder: List of zones where we should P Raid as far as we can afford before trying to farm fragments to Praid the highest or target prestige map.  Only occasionally useful, e.g. if it picks up a Speedexplorer or farming fragments is slow due to low damage. Set to -1 to never raid prestiges before farming fragents.', 'multiValue', [-1], null, 'Raiding');
-    createSetting('RBWraid', 'BW Raiding', 'Raids BW at zone specified in BW Raiding Z/max.', 'boolean', false, null, 'Raiding');
-    createSetting('RBWraidingz', '仿生劫掠区域', 'Raids BWs at zone specified. Example: 495, will raid all BWs for all gear starting from 495. Will skip lower BWs if you have enough damage. Once all gear is obtained, will return to regular farming. Accepts comma separated lists, and raids up to the value in the corrsponding position in the Max BW to raid setting. So if this is set to 480,495 and Max BW to Raid is set to 500,515 AT will BW raid up to 500 from 480, and 515 from 495. Make sure these lists are the same length or BW raiding may fail.', 'multiValue', [-1], null, 'Raiding');
-
-    //Line 2
-    createSetting('RBWraidingmax', '仿生劫掠最大区域', 'Raids BWs until zone specified. Example: 515, will raid all BWs for all gear until 515. Will skip lower BWs if you have enough damage. Once all gear is obtained, will return to regular farming. Now accepts comma separated lists - see description of Z to BW raid setting for details.', 'multiValue', [-1], null, 'Raiding');
-    document.getElementById('RBWraidingmax').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('RAMPraid', 'Praiding', '<b>MASTER BUTTON</b><br>Toggle Prestige Raiding. Use PR: Zone, PR: Raid and PR: Cell to Raid Prestiges in higher Maps.<br> I.e: World is 95, PR: Zone is [95,105], PR: Raid is [105,115], PR: Cell is 1. Will go into map creation at cell 1, create maps 101, 102, 103, 104, 105 with Prestige option. If you can\'t afford P maps, it will try without. If still unable to afford will buy the highest maps first without buying 101 and 102 for example. Raiding will take longer if you can\'t afford it. Once all maps are created it will run the lowest created then move onto the next till all created maps are finished. If you have enabled PR: Recycle it will then recycle those maps. There may be more options in the future depending on content added. ', 'boolean', false, null, 'Raiding');
-    createSetting('RAMPraidzone', '二劫：区域', 'Zones to Prestige Raid. Can use 95,105,115! ', 'multiValue', [-1], null, 'Raiding');
-    createSetting('RAMPraidraid', '二劫：地图', 'What Maps to Raid. Corrosponds to PR: Zone, so first value will corrospond to first value in PR: Zone. Can use 105,115,125! ', 'multiValue', [-1], null, 'Raiding');
-    createSetting('RAMPraidcell', '二劫：格子', 'What Cell to start Prestige Raiding at. Recommend below your BW Raiding cell if used together. -1 to Raid at cell 1. ', 'value', -1, null, 'Raiding');
+    createSetting('RAMPraidmaz', 'Praiding Settings', 'Click to open the Praiding settings. ', 'infoclick', false, null, 'Raiding');
+    createSetting('RAMPraidzone', 'PR: Zone', 'zone', 'multiValue', [-1], null, 'Raiding');
+    createSetting('RAMPraidraid', 'PR: Raid', 'raid', 'multiValue', [-1], null, 'Raiding');
+    createSetting('RAMPraidcell', 'PR: Cell', 'cell', 'multiValue', [-1], null, 'Raiding');
     createSetting('RAMPraidfrag', ['PR: Frag', 'PR: Frag Min', 'PR: Frag Max'], 'Farm for fragments to afford the maps you want to create. PR: Frag Min is used for absolute minimum frag costs (which includes no Prestige special, perfect sliders, random map and the difficulty and size options, however it will try to afford those options first!) and prioritises buying the most maps for a smoother sequential raid. PR: Frag Max is used for the ultimate Raiding experience. This option will probably take the most time to farm but may save you time in the actual raid. I would recommend using Min Mode if you don\'t have frag drop or explorer effic on your heirloom and Max if you are confident in your Fragment gains. ', 'multitoggle', 0, null, 'Raiding');
     createSetting('RAMPraidrecycle', 'PR: Recycle', 'Recycle maps created in Prestige Raiding. ', 'boolean', false, null, 'Raiding');
 
@@ -694,7 +759,7 @@ function initializeAllSettings() {
     createSetting('chATGA2timer', '遗传：困难挑战²', '<b>自动遗传学家计时：困难挑战²</b><br>ATGA will use this value in C2s that are considered Hard. Electricity, Nom, Toxicity. Overwrites Default, Before Z and After Z and C2 ATGA', 'value', '-1', null, 'ATGA');
 
 
-    
+
     //Challenges
 
     //Hide
@@ -710,21 +775,23 @@ function initializeAllSettings() {
     createSetting('Rchallengehidealchemy', 'Alchemy', 'Set this on if you wish to hide the Alchemy challenge settings. ', 'boolean', false, null, 'Challenges');
     createSetting('Rchallengehidehypothermia', 'Hypothermia', 'Set this on if you wish to hide the Hypothermia challenge settings. ', 'boolean', false, null, 'Challenges');
 
-    //Quagmire - Black Bogs
+    //Quagmire
     document.getElementById('Rchallengehidehypothermia').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rblackbog', 'Quagmire', 'Enable Bog Running for Quagmire. ', 'boolean', false, null, 'Challenges');
-    createSetting('Rblackbogzone', '区域', 'What zones to run Black Bogs at. Can use 40,50,60. ', 'multiValue', [-1], null, 'Challenges');
-    createSetting('Rblackbogamount', '数量', 'How many Black Bogs to at specified zones. Can use 8,9,10. I.e if BB: Zone had 40,50 and this setting had 8,10, It would run 8 Black Bogs at z40 and 10 Black Bogs at z50. ', 'multiValue', [-1], null, 'Challenges');
+    createSetting('Rblackbogmaz', 'Quagmire Settings', 'Click to open the Quagmire settings. <br> <b>Zone:</b> What zone to start bogging. <br> <b>Black Bogs:</b> How many Black Bogs to at specified zones. <br> <b>Example:</b> If you put Zone: 40\, Black Bogs: 10\, you will run 10 black bogs at zone 40. ', 'infoclick', false, null, 'Challenges');
+    createSetting('Rblackbogzone', 'Zone', 'zone', 'multiValue', [-1], null, 'Challenges');
+    createSetting('Rblackbogamount', 'Amount', 'black bogs', 'multiValue', [-1], null, 'Challenges');
+
+    //Nurture
+    createSetting('Rnurtureon', 'Nurture', 'Enables the Lab setting in Buildings and building labs through it. ', 'boolean', 'false', null, 'Challenges');
 
     //Arch
-    document.getElementById('Rblackbogamount').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rarchon', 'Archaeology', 'Turn on Archaeology settings. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rarchstring1', '第一字符串', 'First string to use in Archaeology. Put the zone you want to stop using this string and start using the second string (Make sure the second string has a value) at the start. I.e: 70,10a,10e ', 'textValue', 'undefined', null, 'Challenges');
     createSetting('Rarchstring2', '第二字符串', 'Second string to use in Archaeology. Put the zone you want to stop using this string and start using the third string (Make sure the third string has a value) at the start. I.e: 94,10a,10e ', 'textValue', 'undefined', null, 'Challenges');
     createSetting('Rarchstring3', '第三字符串', 'Third string to use in Archaeology. Make sure this is just your Archaeology string and nothing else. I.e: 10a,10e ', 'textValue', 'undefined', null, 'Challenges');
-    
+
     //Mayhem
-    document.getElementById('Rarchstring3').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rmayhemon', 'Mayhem', 'Turn on Mayhem settings. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rmayhemattack', 'M: Attack', 'Turn this on to ignore your farm settings so It will do maps if you cannot survive the hits you have defined in Maps. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rmayhemhealth', 'M: Health', 'Turn this on to ignore your farm settings so It will do maps if your HD is above the target you have defined in Maps. ', 'boolean', 'false', null, 'Challenges');
@@ -732,57 +799,50 @@ function initializeAllSettings() {
     createSetting('Rmayhemamcut', '暴乱：地图界限', 'What cut-off to use when farming maps using M: Attack and M: Smart Map. If this setting is 10, the script will do maps you can kill cells in 10 average hits. ', 'value', '-1', null, 'Challenges');
     createSetting('Rmayhemhcut', '暴乱：生命值界限', 'What cut-off to use when using M: Health. ', 'value', '-1', null, 'Challenges');
     createSetting('Rmayhemmap', ['M: Maps Off', 'M: Highest Map', 'M: Smart Map'], 'Control what maps you do to farm M: Attack and/or M: Health. M: Highest map always selects the highest map you have whether it be from Praiding, Time Farming or any you have manually created. M: Smart Map attempts to create a map best suited to the situation. Will calculate if you can survive and kill the map, and will try to buy all the necessary map attributes such as FA. ', 'multitoggle', 0, null, 'Challenges');
-    
+
     //Storm
-    document.getElementById('Rmayhemmap').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rstormon', 'Storm', 'Turn on Storm settings. This also controls the entireity of Storm settings. If you turn this off it will not do anything in Storm. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rstormzone', '风暴：区域', 'What zone to start S: H:D and S: Multiplier. ', 'value', '-1', null, 'Challenges');
     createSetting('RstormHD', '风暴：命攻比', 'What H:D to use inside Storm. ', 'value', '-1', null, 'Challenges');
     createSetting('Rstormmult', '风暴：倍率', 'Starting from the zone above S: Zone, this setting will multiply the H:D you have set in S: H:D. So if S: Zone was 100, S: H:D was 10, S: Multiplier was 1.2, at z101 your H:D target will be 12, then at z102 it will be 14.4 and so on. This way you can account for the zones getting stronger and you will not waste time farming for a really low H:D. ', 'value', '-1', null, 'Challenges');
-    
+
     //Insanity
-    document.getElementById('Rstormmult').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rinsanityon', 'Insanity', 'Turn on Insanity settings. This also controls the entireity of IF. If you turn this off it will not Insanity Farm. ', 'boolean', 'false', null, 'Challenges');
-    createSetting('Rinsanityfarmzone', '刷失智层数', 'Farms for specified stacks in IF: Stacks at zone according to this settings value. Can use 108,109,110. ', 'multiValue', [-1], null, 'Challenges');
-    createSetting('Rinsanityfarmcell', '刷失智层数：格子', 'Insanity Farm at this Cell. -1 to run them at the default value, which is 1. ', 'value', '-1', null, 'Challenges');
-    createSetting('Rinsanityfarmstack', '刷失智层数：层数', 'How many stacks to farm at zone specified in IF. Can use 300,400,500. These values should match up to your IF zones. If using IF and IF: Stacks examples (110 and 500) it will farm at z110 for 500 stacks of insanity. If stacks specified are above maximum Insanity Stacks, it will farm for maximum. ', 'multiValue', [-1], null, 'Challenges');
-    createSetting('Rinsanityfarmlevel', '刷失智层数：地图等级', 'What map level to use. Can use -1,1,2. -1 to use a level down from world (This is how to remove insanity stacks), 0 to use world, 1 etc to use +maps. Using 0 by itself will use global level for all maps. ', 'multiValue', [0], null, 'Challenges');
+    createSetting('Rinsanitymaz', 'Insanity Settings', 'Click to open the Insanity settings. <br> <b>Zone:</b> What zone to farm insanity stacks in.<br> <b>Cell:</b> What cell to start farming insanity stacks on.<br> <b>Stacks:</b> Number of stacks you want. <br> <b>Level:</b> How many map levels you want above zone. <br> <b>Example:</b> If you put Zone: 60\, Cell: 50\, Stacks: 500\, Level: 5\, you will farm at zone 60\, on cell 50 until you have 500 insanity stacks\, in a +5 map. ', 'infoclick', false, null, 'Challenges');
+    createSetting('Rinsanityfarmzone', 'Insanity Farming', 'zone', 'multiValue', [-1], null, 'Challenges');
+    createSetting('Rinsanityfarmcell', 'IF: Cell', 'cell', 'multiValue', '-1', null, 'Challenges');
+    createSetting('Rinsanityfarmstack', 'IF: Stacks', 'stacks', 'multiValue', [-1], null, 'Challenges');
+    createSetting('Rinsanityfarmlevel', 'IF: Map Level', 'level', 'multiValue', [0], null, 'Challenges');
     createSetting('Rinsanityfarmfrag', 'IF: Frags', 'Turn this on to farm fragments if you cannot afford the map you have selected for IF. ', 'boolean', 'false', null, 'Challenges');
-	
+
     //Exterminate
-    document.getElementById('Rinsanityfarmfrag').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rexterminateon', 'Exterminate', 'Turn on Exterminate settings. This also controls the entireity of Exterminate. If you turn this off it will not calculate Exterminate. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rexterminatecalc', 'E: Calc', 'Calculate Exterminate enemies instead of the usual ones. May improve your challenge experience. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rexterminateeq', 'E: Equality', 'Will manage your equality \'better\' inside the challenge. When you have the experienced buff it will turn it off, when you dont it will turn it on and let it build up. ', 'boolean', 'false', null, 'Challenges');
-	
-    //Nurture
-    document.getElementById('Rexterminateeq').parentNode.insertAdjacentHTML('afterend', '<br>');
-    createSetting('Rnurtureon', 'Nurture', 'Enables the Lab setting in Buildings and building labs through it. ', 'boolean', 'false', null, 'Challenges');
 
     //Panda
-    document.getElementById('Rnurtureon').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rpandaon', 'Pandemonium', 'Turn on Pandemonium settings. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rpandamaps', 'P: Mapping', 'Turn this on to automate mapping Pandemonium starting at the zone defined in P: Zone. Use the P: Attacks to define the maximum amount of hits an enemy in a map should take to kill. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rpandazone', '群魔乱舞：区域', 'What zone to start Pandemonium mapping at. Will ignore Pandemonium stacks below this zone. ', 'value', '-1', null, 'Challenges');
     createSetting('Rpandahits', '群魔乱舞：攻击次数', 'How many hits an enemy in a plus map should take to kill. Will select up to +6 levels. If you cannot kill an enemy in the maximum number of hits in any plus map, will try to run a +1 map anyway. ', 'value', '-1', null, 'Challenges');
-    
+
     //Alch
-    document.getElementById('Rpandahits').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Ralchon', 'Alchemy', 'Turn on Alchemy settings. This also controls the entireity of AF. If you turn this off it will not Alchemy Farm. ', 'boolean', 'false', null, 'Challenges');
-    createSetting('Ralchfarmzone', '刷炼金术', 'Farms for specified potion levels in AF: Potions at zone according to this settings value. Can use 138,139,140. ', 'multiValue', [-1], null, 'Challenges');
-    createSetting('Ralchfarmcell', '刷炼金术：格子', 'Alchemy Farm at this Cell. -1 to run them at the default value, which is 1. ', 'value', '-1', null, 'Challenges');
-    createSetting('Ralchfarmstack', '刷炼金术：药剂', 'How many levels of a potion to farm at zone specified in AF. You must pair a potion with a level here. Example: h15\,g20\,s15. This will farm Herby potion up to level 15 on the first AF zone\, Gaseous potion to level 20 and so on. It will also buy that potion so don\'t bother using the vanilla autobrew. Think of it like an Arch string\, you remember that challenge right?', 'textValue', 'undefined', null, 'Challenges');
-    createSetting('Ralchfarmlevel', '刷炼金术：地图等级', 'What map level to use. Can use -1,1,2. -1 to use a level down from world, 0 to use world, 1 etc to use +maps. Using 0 by itself will use global level for all maps. ', 'multiValue', [0], null, 'Challenges');
-    createSetting('Ralchfarmselection', '刷炼金术：选择地图', 'Select which map you prefer to use for AF. Use m = Mountains\, f = Forest\, s = Sea\, d = Depths\, g = Gardens\, l = farmLands. ', 'textValue', 'l', null, 'Challenges');
+    createSetting('Ralchfarmmaz', 'Alchemy Settings', 'Click to open the Alchemy settings. Do not use vanilla autobrew AF will buy potions for you. <br> <b>Zone:</b> What zone to farm herbs and potions in.<br> <b>Cell:</b> What cell to start farming herbs and potions on.<br> <b>Potion:</b> You must pair a potion with a level here. Example: h15\,g20\,s15. This will farm Herby potion up to level 15 on the first AF zone\, Gaseous potion to level 20 and so on. <br> <b>Level:</b> How many map levels you want above zone. <br> <b>Example:</b> If you put Zone: 81\, Cell: 50\, Potion: h15\, Level: 5\, Map: Farmlands\, you will farm at zone 81\, on cell 50 until you can afford 15 total herby potions\, in a +5 map\, using a farmlands map. ', 'infoclick', false, null, 'Challenges');
+    createSetting('Ralchfarmzone', 'Alchemy Farming', 'zone', 'multiValue', [-1], null, 'Challenges');
+    createSetting('Ralchfarmcell', 'AF: Cell', 'cell', 'multiValue', '[-1]', null, 'Challenges');
+    createSetting('Ralchfarmstack', 'AF: Potion', 'potion', 'textValue', 'undefined', null, 'Challenges');
+    createSetting('Ralchfarmlevel', 'AF: Map Level', 'level', 'multiValue', [0], null, 'Challenges');
+    createSetting('Ralchfarmselection', 'AF: Map Selection', 'map', 'textValue', 'l', null, 'Challenges');
     createSetting('Ralchfarmfrag', 'AF: Frags', 'Turn this on to farm fragments if you cannot afford the map you have selected for AF. ', 'boolean', 'false', null, 'Challenges');
 
     //Hypo
-    document.getElementById('Ralchfarmfrag').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rhypoon', 'Hypothermia', 'Turn on Hypothermia settings. This also controls the entireity of HF. If you turn this off it will not Hypothermia Farm. ', 'boolean', 'false', null, 'Challenges');
-    createSetting('Rhypofarmzone', '刷失温', 'Farms for specified total bonfires in HF: Bonfire at zone according to this settings value. Can use 138,139,140. ', 'multiValue', [-1], null, 'Challenges');
-    createSetting('Rhypofarmcell', '刷失温：格子', 'Hypothermia Farm at this Cell. -1 to run them at the default value, which is 1. ', 'value', '-1', null, 'Challenges');
-    createSetting('Rhypofarmstack', '刷失温：篝火', 'How many Bonfires total you have earned throughout the run you wish to have at the corrosponding level in Hypothermia Farming. You may have to keep on eye on bonfires at start of run to get this number. With packrat you normally get 5 total before storage is too small. So just start with 6\,7\,8\,9\,10... and so on then just add numbers all the way up to something like 30\, this would cover all scenarios anyway. ', 'multiValue', 'undefined', null, 'Challenges');
-    createSetting('Rhypofarmlevel', '刷失温：地图等级', 'What map level to use. Can use -1,1,2. -1 to use a level down from world, 0 to use world, 1 etc to use +maps. Using 0 by itself will use global level for all maps. ', 'multiValue', [0], null, 'Challenges');
+    createSetting('Rhypofarmmaz', 'Hypothermia Settings', 'Click to open the Hypothermia settings. HF will not spend wood on zones you are farming bonfires or until you have achieved your bonfire goal. <br> <b>Zone:</b> What zone to farm bonfires in.<br> <b>Cell:</b> What cell to start farming bonfires on.<br> <b>Bonfire:</b> The number of total bonfires in the run you want at that zone.<br> <b>Level:</b> How many map levels you want above zone. <br> <b>Example:</b> If you put Zone: 17\, Cell: 50\, Bonfire: 5\, Level: 5\, you will farm at zone 17\, on cell 50 until you can afford 5 total bonfires\, in a +5 map. ', 'infoclick', false, null, 'Challenges');
+    createSetting('Rhypofarmzone', 'Hypothermia Farming', 'zone', 'multiValue', [-1], null, 'Challenges');
+    createSetting('Rhypofarmcell', 'HF: Cell', 'cell', 'multiValue', [-1], null, 'Challenges');
+    createSetting('Rhypofarmstack', 'HF: Bonfire', 'bonfire', 'multiValue', 'undefined', null, 'Challenges');
+    createSetting('Rhypofarmlevel', 'HF: Map Level', 'level', 'multiValue', [0], null, 'Challenges');
     createSetting('Rhypofarmfrag', 'HF: Frags', 'Turn this on to farm fragments if you cannot afford the map you have selected for HF. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rhypocastle', '失温冻结城堡', 'What zone you wish you run frozen castle on to complete the challenge. Will run castle after voids so make sure thats set up right. ', 'value', '-1', null, 'Challenges');
     createSetting('Rhypovoids', 'After Voids', 'Only run Frozen castle after all voids have been completed. ', 'boolean', true, null, 'Challenges');
@@ -806,8 +866,8 @@ function initializeAllSettings() {
     createSetting('addpoison', 'Poison Calc', '<b>Experimental. </b><br>Adds poison to the battlecalc. May improve your poison zone speed. ', 'boolean', 'false', null, 'Combat');
     createSetting('fullice', 'Ice Calc', '<b>Experimental. </b><br>Always calculates your ice to be a consistent level instead of going by the enemy debuff. Stops H:D spazzing out. ', 'boolean', 'false', null, 'Combat');
     createSetting('45stacks', 'Antistack Calc', '<b>Experimental. </b><br>Always calcs your damage as having full antistacks. Useful for windstacking. ', 'boolean', 'false', null, 'Combat');
-    
-    
+
+
     //RCombat
     createSetting('Rfightforever', '常时战斗', 'U2: -1 to disable. Sends trimps to fight if they\'re not fighting, regardless of BAF. Has 2 uses. Set to 0 to always send out trimps. Or set a number higher than 0 to enable the H:D function. If the H:D ratio is below this number it will send them out. I.e, this is set to 1, it will send out trimps regardless with the H:D ratio is below 1. ', 'value', '-1', null, 'Combat');
     createSetting('Rcalcmaxequality', ['Equality Calc Off', 'EC: On', 'EC: Health'], '<b>Experimental. </b><br>Adds Equality Scaling levels to the battlecalc. Will always calculate equality based on actual scaling levels when its turned off by other settings. Assumes you use Equality Scaling. Turning this on allows in-game Equality Scaling to adjust your Health accordingly. EC: Health only decreases enemies attack in the calculation which may improve speed. ', 'multitoggle', 0, null, 'Combat');
@@ -871,20 +931,20 @@ function initializeAllSettings() {
     //Heirloom Swapping
     document.getElementById('lowdmg').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rhs', 'Heirloom Swapping', 'Heirloom swapping master button. Turn this on to allow heirloom swapping and its associated settings. ', 'boolean', false, null, 'Heirlooms');
-	
-	//Shield Swapping
-	document.getElementById('Rhs').parentNode.insertAdjacentHTML('afterend', '<br>');
-	createSetting('Rhsshield', 'Shields', 'Toggle to swap Shields', 'boolean', false, null, 'Heirlooms');
-	createSetting('Rhsz', '传换：区域', '切换盾牌的区域。例如：将该选项设为75，则在<b>区域75</b>之前使用“传换：切换前”名字的盾牌，之后使用“传换：切换后”名字的盾牌。', 'value', '-1', null, 'Heirlooms');
-	createSetting('Rhs1', '传换：切换前', '<b>First Heirloom to use</b><br><br>Enter the name of your first heirloom. This is the heirloom that you will use before swapping to the second heirloom at the zone you have defined in the HS: Zone. ', 'textValue', 'undefined', null, 'Heirlooms');
-	createSetting('Rhs2', '传换：切换后', '<b>Second Heirloom to use</b><br><br>Enter the name of your second heirloom. This is the heirloom that you will use after swapping from the first heirloom at the zone you have defined in the HS: Zone. ', 'textValue', 'undefined', null, 'Heirlooms');
 
-	//Staff Swapping
-	document.getElementById('Rhs2').parentNode.insertAdjacentHTML('afterend', '<br>');
-	createSetting('Rhsstaff', 'Staffs', 'Toggle to swap Staffs', 'boolean', false, null, 'Heirlooms');
-	createSetting('Rhsworldstaff', '传换：世界时', '<b>World Staff</b><br><br>Enter the name of your world staff.', 'textValue', 'undefined', null, 'Heirlooms');
-	createSetting('Rhsmapstaff', '传换：地图时', '<b>Mapping staff</b><br><br>Enter the name of your mapping staff.', 'textValue', 'undefined', null, 'Heirlooms');
-	createSetting('Rhstributestaff', '传换：刷贡品', '<b>Tribute farming staff</b><br><br>Enter the name of the staff you would like to equip during tribute farming.', 'textValue', 'undefined', null, 'Heirlooms');
+    //Shield Swapping
+    document.getElementById('Rhs').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rhsshield', 'Shields', 'Toggle to swap Shields', 'boolean', false, null, 'Heirlooms');
+    createSetting('Rhsz', '传换：区域', '切换盾牌的区域。例如：将该选项设为75，则在<b>区域75</b>之前使用“传换：切换前”名字的盾牌，之后使用“传换：切换后”名字的盾牌。', 'value', '-1', null, 'Heirlooms');
+    createSetting('Rhs1', '传换：切换前', '<b>First Heirloom to use</b><br><br>Enter the name of your first heirloom. This is the heirloom that you will use before swapping to the second heirloom at the zone you have defined in the HS: Zone. ', 'textValue', 'undefined', null, 'Heirlooms');
+    createSetting('Rhs2', '传换：切换后', '<b>Second Heirloom to use</b><br><br>Enter the name of your second heirloom. This is the heirloom that you will use after swapping from the first heirloom at the zone you have defined in the HS: Zone. ', 'textValue', 'undefined', null, 'Heirlooms');
+
+    //Staff Swapping
+    document.getElementById('Rhs2').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rhsstaff', 'Staffs', 'Toggle to swap Staffs', 'boolean', false, null, 'Heirlooms');
+    createSetting('Rhsworldstaff', '传换：世界时', '<b>World Staff</b><br><br>Enter the name of your world staff.', 'textValue', 'undefined', null, 'Heirlooms');
+    createSetting('Rhsmapstaff', '传换：地图时', '<b>Mapping staff</b><br><br>Enter the name of your mapping staff.', 'textValue', 'undefined', null, 'Heirlooms');
+    createSetting('Rhstributestaff', '传换：刷贡品', '<b>Tribute farming staff</b><br><br>Enter the name of the staff you would like to equip during tribute farming.', 'textValue', 'undefined', null, 'Heirlooms');
 
     //Heirloom Line
     document.getElementById('Rhstributestaff').parentNode.insertAdjacentHTML('afterend', '<br>');
@@ -913,7 +973,7 @@ function initializeAllSettings() {
     createSetting('slot5modst', '权杖：词缀5', 'Auto Heirlooms. Keeps Staffs with selected Mod. Modifier 5 is worth 3 points. ', 'dropdown', 'empty', ["empty", "metalDrop", "foodDrop", "woodDrop", "gemsDrop", "fragmentsDrop", "minerSpeed", "FarmerSpeed", "LumberjackSpeed", "DragimpSpeed", "ExplorerSpeed", "ScientistSpeed", "FluffyExp", "ParityPower"], 'Heirlooms');
     createSetting('slot6modst', '权杖：词缀6', 'Auto Heirlooms. Keeps Staffs with selected Mod. Modifier 6 is worth 2 points. ', 'dropdown', 'empty', ["empty", "metalDrop", "foodDrop", "woodDrop", "gemsDrop", "fragmentsDrop", "minerSpeed", "FarmerSpeed", "LumberjackSpeed", "DragimpSpeed", "ExplorerSpeed", "ScientistSpeed", "FluffyExp", "ParityPower"], 'Heirlooms');
     createSetting('slot7modst', '权杖：词缀7', 'Auto Heirlooms. Keeps Staffs with selected Mod. Modifier 7 is worth 1 points. ', 'dropdown', 'empty', ["empty", "metalDrop", "foodDrop", "woodDrop", "gemsDrop", "fragmentsDrop", "minerSpeed", "FarmerSpeed", "LumberjackSpeed", "DragimpSpeed", "ExplorerSpeed", "ScientistSpeed", "FluffyExp", "ParityPower"], 'Heirlooms');
-	
+
     //Core Line
     document.getElementById('slot7modst').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('keepcores', 'Cores', 'Auto Heirlooms. Enables in-depth core settings. ', 'boolean', false, null, 'Heirlooms');
@@ -936,8 +996,8 @@ function initializeAllSettings() {
     createSetting('dradonbattle', '日常氦战斗切换次数', '<b>设为-1则关闭该选项。</b><br> Buys Battle goldens instead of helium after this many helium goldens have been purchased and onwards in Dailies. This option only appears when selecting helium. ', 'value', -1, null, 'Golden');
     createSetting('battleradon', '战斗氦切换次数', '<b>设为-1则关闭该选项。</b><br> Buys helium goldens instead of Battle after this many Battle goldens have been purchased and onwards. This option only appears when selecting battle. ', 'value', -1, null, 'Golden');
     createSetting('dbattleradon', '日常战斗氦切换次数', '<b>设为-1则关闭该选项。</b><br> Buys helium goldens instead of Battle after this many battle goldens have been purchased and onwards in Dailies. This option only appears when selecting battle. ', 'value', -1, null, 'Golden');
-    
-    
+
+
     //RGolden
 
     createSetting('RAutoGoldenUpgrades', 'AutoGoldenUpgrades', 'Buys Golden Upgrades in Fillers. Radon buys all Radon golden upgrades. Battle buys all Battle golden upgrades. Void buys 8 Void golden upgrades (max number you can buy) then buys helium golden upgrades. Void + Battle buys 8 voids then battle. ', 'dropdown', 'Off', ["Off", "Radon", "Battle", "Void", "Void + Battle"], 'Golden');
@@ -961,7 +1021,7 @@ function initializeAllSettings() {
     createSetting('RABfarm', 'Save String', 'Saves your best Dust/s using SA level and your equipped items in a string. If this is on it will continously check your dust/s and generate a farm string if you beat your previous best. ', 'boolean', false, null, "SA");
     createSetting('RABfarmswitch', 'Switch', 'If this is on it will swtich directly to the SA level and equipped items. ', 'boolean', false, null, "SA");
     createSetting('RABfarmstring', '尖塔突击字符串', 'This is your best farming string. Feel free to share it with other AT users. If you do use a shared string I advise you to change the second value (the dust part) to 0 so it calcs the actual dust you get instead of the shared strings. ', 'textValue', '-1', null, "SA");
-    createSetting('RABsolve', 'Solver', 'Solves your current level including farming\, item levels\, and contracts. Currently does up to 23. ', 'boolean', false, null, "SA");
+    createSetting('RABsolve', 'Solver', 'Solves your current level including farming\, item levels\, and contracts. Currently does up to 10. ', 'boolean', false, null, "SA");
 
 
 
@@ -991,6 +1051,16 @@ function initializeAllSettings() {
     createSetting('ic2enlightthresh', '挑战²冰之启迪阈值', 'Activate Ice Enlight when Enlight cost is below this Thresh in C2s. Consumes Tokens. -1 to disable. ', 'value', -1, null, 'Nature');
 
 
+    //MAZ window Stuff
+    document.getElementById('Rtimefarmmaz').setAttribute('onclick', 'MAZLookalike("Time Farm", "Rtimefarm")');
+    document.getElementById('Rdtimefarmmaz').setAttribute('onclick', 'MAZLookalike("dTime Farm", "Rdtimefarm")');
+    document.getElementById('Rtributefarmmaz').setAttribute('onclick', 'MAZLookalike("Tribute Farm", "Rtributefarm")');
+    document.getElementById('Rblackbogmaz').setAttribute('onclick', 'MAZLookalike("Quagmire", "Rblackbog")');
+    document.getElementById('Rinsanitymaz').setAttribute('onclick', 'MAZLookalike("Insanity", "Rinsanityon")');
+    document.getElementById('Ralchfarmmaz').setAttribute('onclick', 'MAZLookalike("Alch", "Ralchon")');
+    document.getElementById('Rhypofarmmaz').setAttribute('onclick', 'MAZLookalike("Hypo", "Rhypoon")');
+    document.getElementById('RAMPraidmaz').setAttribute('onclick', 'MAZLookalike("Praid", "RAMPraid")');
+    document.getElementById('RdAMPraidmaz').setAttribute('onclick', 'MAZLookalike("dPraid", "RdAMPraid")');
 
     //Display
 
@@ -1033,7 +1103,33 @@ function initializeAllSettings() {
     createSetting('Export60', '区域60以下的脚本设置', 'Gives you an AT settings String that you can use to import. Use if you are less than z60. May not work for you perfectly, should really only be used as an example!', 'infoclick', 'Export60', null, 'Import Export');
     createSetting('Export550', '550+ AT Settings', 'Gives you an AT settings String that you can use to import. Use if you are z550+. May not work for you perfectly, should really only be used as an example! ', 'infoclick', 'Export550', null, 'Import Export');
     createSetting('CleanupAutoTrimps', 'Cleanup Saved Settings ', 'Deletes old values from previous versions of the script from your AutoTrimps Settings file.', 'infoclick', 'CleanupAutoTrimps', null, 'Import Export');
+
+    document.getElementById('Rchallengehidearch').setAttribute('onclick', 'settingChanged("Rchallengehidearch"), modifyParentNode("Rchallengehidearch", "Rarchstring3")');
+    modifyParentNode("Rchallengehidearch", "Rarchstring3");
+
+    document.getElementById('Rchallengehidemayhem').setAttribute('onclick', 'settingChanged("Rchallengehidemayhem"), modifyParentNode("Rchallengehidemayhem", "Rmayhemmap")');
+    modifyParentNode("Rchallengehidemayhem", "Rmayhemmap");
+
+    document.getElementById('Rchallengehidestorm').setAttribute('onclick', 'settingChanged("Rchallengehidestorm"), modifyParentNode("Rchallengehidestorm", "Rstormmult")');
+    modifyParentNode("Rchallengehidestorm", "Rstormmult");
+
+    document.getElementById('Rchallengehideinsanity').setAttribute('onclick', 'settingChanged("Rchallengehideinsanity"), modifyParentNode("Rchallengehideinsanity", "Rinsanityfarmfrag")');
+    modifyParentNode("Rchallengehideinsanity", "Rinsanityfarmfrag");
+
+    document.getElementById('Rchallengehideexterminate').setAttribute('onclick', 'settingChanged("Rchallengehideexterminate"), modifyParentNode("Rchallengehideexterminate", "Rexterminateeq")');
+    modifyParentNode("Rchallengehideexterminate", "Rexterminateeq");
+
+    document.getElementById('Rchallengehidepanda').setAttribute('onclick', 'settingChanged("Rchallengehidepanda"), modifyParentNode("Rchallengehidepanda", "Rpandahits")');
+    modifyParentNode("Rchallengehidepanda", "Rpandahits");
+
+    document.getElementById('Rchallengehidealchemy').setAttribute('onclick', 'settingChanged("Rchallengehidealchemy"), modifyParentNode("Rchallengehidealchemy", "Ralchfarmfrag")');
+    modifyParentNode("Rchallengehidealchemy", "Ralchfarmfrag");
+
+    document.getElementById('Rchallengehidehypothermia').setAttribute('onclick', 'settingChanged("Rchallengehidehypothermia"), modifyParentNode("Rchallengehidehypothermia", "Rhypostorage")');
+    modifyParentNode("Rchallengehidehypothermia", "Rhypostorage");
+
     settingsProfileMakeGUI();
+
 }
 
 initializeAllSettings();
@@ -1134,14 +1230,14 @@ function createSetting(id, name, description, type, defaultValue, list, containe
         btn.setAttribute("onmouseover", 'tooltip(\"' + name + '\", \"customText\", event, \"' + description + '\")');
         btn.setAttribute("onmouseout", 'tooltip("hide")');
         btn.setAttribute("onchange", 'settingChanged("' + id + '")');
-         for (var item in list) {
+        for (var item in list) {
             var option = document.createElement("option");
             option.value = list[item];
             option.text = list[item];
             btn.appendChild(option);
         }
         btn.value = autoTrimpSettings[id].selected;
-         var dropdownLabel = document.createElement("Label");
+        var dropdownLabel = document.createElement("Label");
         dropdownLabel.id = id + "Label";
         dropdownLabel.innerHTML = name + "：";
         dropdownLabel.setAttribute('style', 'margin-right: 0.3vw; font-size: 0.8vw;');
@@ -1150,13 +1246,12 @@ function createSetting(id, name, description, type, defaultValue, list, containe
         if (container) document.getElementById(container).appendChild(btnParent);
         else document.getElementById("autoSettings").appendChild(btnParent);
     } else if (type == 'infoclick') {
-        btn.setAttribute('class', 'btn btn-info');
+        btn.setAttribute('class', 'noselect settingsBtn settingBtn3');
         btn.setAttribute("onclick", 'ImportExportTooltip(\'' + defaultValue + '\', \'update\')');
         btn.setAttribute("onmouseover", 'tooltip(\"' + name + '\", \"customText\", event, \"' + description + '\")');
         btn.setAttribute("onmouseout", 'tooltip("hide")');
-        btn.setAttribute("style", "display: block; font-size: 0.8vw;");
+        btn.setAttribute("style", "background-color: #e1ade6; color: black; font-size: 1.1vw;");
         btn.textContent = name;
-        btnParent.style.width = '';
         btnParent.appendChild(btn);
         if (container) document.getElementById(container).appendChild(btnParent);
         else document.getElementById("autoSettings").appendChild(btnParent);
@@ -1179,9 +1274,7 @@ function createSetting(id, name, description, type, defaultValue, list, containe
         btnParent.appendChild(btn);
         if (container) document.getElementById(container).appendChild(btnParent);
         else document.getElementById("autoSettings").appendChild(btnParent);
-    }
-    else if(type === 'action')
-    {
+    } else if (type === 'action') {
         btn.setAttribute("style", "font-size: 1.1vw;");
         btn.setAttribute('class', 'noselect settingsBtn settingBtn3');
         btn.setAttribute('onclick', defaultValue);
@@ -1240,9 +1333,9 @@ function settingChanged(id) {
         btn.selected = document.getElementById(id).value;
         if (id == "Prestige") {
             autoTrimpSettings["PrestigeBackup"] = {
-              selected: document.getElementById(id).value,
-              name: "PrestigeBackup",
-              id: "PrestigeBackup"
+                selected: document.getElementById(id).value,
+                name: "PrestigeBackup",
+                id: "PrestigeBackup"
             };
         }
     }
@@ -1251,7 +1344,7 @@ function settingChanged(id) {
     checkPortalSettings();
 }
 
-function autoSetValueToolTip(id, text,negative, multi) {
+function autoSetValueToolTip(id, text, negative, multi) {
     ranstring = text;
     var elem = document.getElementById("tooltipDiv");
     var tooltipText = 'Type a number below. You can also use shorthand such as 2e5 or 200k.';
@@ -1260,7 +1353,7 @@ function autoSetValueToolTip(id, text,negative, multi) {
     else
         tooltipText += ' Put -1 for Infinite.';
     tooltipText += `<br/><br/><input id="customNumberBox" style="width: 50%" onkeypress="onKeyPressSetting(event, '${id}', ${negative}, ${multi})" value="${autoTrimpSettings[id].value}"></input>`;
-    var costText = '<div class="maxCenter"><div class="btn btn-info" onclick="autoSetValue(\'' + id + '\','+negative+','+multi+')">Apply</div><div class="btn btn-info" onclick="cancelTooltip()">Cancel</div></div>';
+    var costText = '<div class="maxCenter"><div class="btn btn-info" onclick="autoSetValue(\'' + id + '\',' + negative + ',' + multi + ')">Apply</div><div class="btn btn-info" onclick="cancelTooltip()">Cancel</div></div>';
     game.global.lockTooltip = true;
     elem.style.left = '32.5%';
     elem.style.top = '25%';
@@ -1277,7 +1370,7 @@ function autoSetValueToolTip(id, text,negative, multi) {
     box.focus();
 }
 
-function autoSetTextToolTip(id,text) {
+function autoSetTextToolTip(id, text) {
     ranstring = text;
     var elem = document.getElementById("tooltipDiv");
     var tooltipText = 'Type your input below';
@@ -1294,12 +1387,16 @@ function autoSetTextToolTip(id,text) {
     box.focus();
 }
 
-function onKeyPressSetting(event, id,negative, multi) {
+function onKeyPressSetting(event, id, negative, multi) {
     if (event.which == 13 || event.keyCode == 13) {
-        autoSetValue(id,negative, multi);
+        if (negative !== undefined && multi !== undefined)
+            autoSetValue(id, negative, multi);
+        else
+            autoSetText(id);
     }
 }
- function parseNum(num) {
+
+function parseNum(num) {
     if (num.split('e')[1]) {
         num = num.split('e');
         num = Math.floor(parseFloat(num[0]) * (Math.pow(10, parseInt(num[1]))));
@@ -1319,9 +1416,9 @@ function onKeyPressSetting(event, id,negative, multi) {
         if (!base) num = parseFloat(num);
     }
     return num;
- }
+}
 
-function autoSetValue(id,negative, multi) {
+function autoSetValue(id, negative, multi) {
     var num = 0;
     unlockTooltip();
     tooltip('hide');
@@ -1344,10 +1441,8 @@ function autoSetValue(id,negative, multi) {
     } else return;
     autoTrimpSettings[id].value = num;
     if (Array.isArray(num) && num.length > 1) {
-        // In here
-        document.getElementById(id).textContent = ranstring + '：' + num[0] + '+';    
-    }
-    else if (num > -1 || negative)
+        document.getElementById(id).textContent = ranstring + '：' + num[0] + '+';
+    } else if (num > -1 || negative)
         document.getElementById(id).textContent = ranstring + '：' + prettify(num);
     else
         document.getElementById(id).innerHTML = ranstring + '：' + "<span class='icomoon icon-infinity'></span>";
@@ -1413,11 +1508,12 @@ function autoPlusSettingsMenu() {
 
 function updateCustomButtons() {
     if (lastTheme && game.options.menu.darkTheme.enabled != lastTheme) {
-    if (typeof MODULES["graphs"] !== 'undefined')
-        MODULES["graphs"].themeChanged();
+        if (typeof MODULES["graphs"] !== 'undefined')
+            MODULES["graphs"].themeChanged();
         debug("Theme change - AutoTrimps styles updated.");
     }
     lastTheme = game.options.menu.darkTheme.enabled;
+
     function toggleElem(elem, showHide) {
         var $item = document.getElementById(elem);
         if ($item == null) return;
@@ -1426,9 +1522,11 @@ function updateCustomButtons() {
         $item.style.display = state;
         $item.parentNode.style.display = stateParent;
     }
+
     function turnOff(elem) {
         toggleElem(elem, false);
     }
+
     function turnOn(elem) {
         toggleElem(elem, true);
     }
@@ -1437,7 +1535,7 @@ function updateCustomButtons() {
 
     //Radon
     var radonon = getPageSetting('radonsettings') == 1;
-    
+
     //Tabs
     if (document.getElementById("tabSpire") != null) {
         document.getElementById("tabSpire").style.display = radonon ? "none" : "";
@@ -1464,23 +1562,23 @@ function updateCustomButtons() {
         document.getElementById("tabSA").style.display = !radonon ? "none" : "";
     }
 
-    
+
 
     //Core
     !radonon ? turnOn('ManualGather2') : turnOff("ManualGather2");
     !radonon ? turnOn('TrapTrimps') : turnOff("TrapTrimps");
     !radonon ? turnOn('BuyUpgradesNew') : turnOff("BuyUpgradesNew");
-    (!radonon && getPageSetting('ManualGather2')==2 && bwRewardUnlocked("Foremany")) ? turnOn("gathermetal"): turnOff("gathermetal");
-    !radonon ? turnOn("amalcoord"): turnOff("amalcoord");
-    !radonon && getPageSetting('amalcoord')==true ? turnOn("amalcoordt"): turnOff("amalcoordt");
-    !radonon && getPageSetting('amalcoord')==true ? turnOn("amalcoordhd"): turnOff("amalcoordhd");
-    !radonon && getPageSetting('amalcoord')==true ? turnOn("amalcoordz"): turnOff("amalcoordz");
-    !radonon ? turnOn("AutoAllocatePerks"): turnOff("AutoAllocatePerks");
-    !radonon && getPageSetting('AutoAllocatePerks')==1 ? turnOn("fastallocate"): turnOff("fastallocate");
+    (!radonon && getPageSetting('ManualGather2') == 2 && bwRewardUnlocked("Foremany")) ? turnOn("gathermetal"): turnOff("gathermetal");
+    !radonon ? turnOn("amalcoord") : turnOff("amalcoord");
+    !radonon && getPageSetting('amalcoord') == true ? turnOn("amalcoordt") : turnOff("amalcoordt");
+    !radonon && getPageSetting('amalcoord') == true ? turnOn("amalcoordhd") : turnOff("amalcoordhd");
+    !radonon && getPageSetting('amalcoord') == true ? turnOn("amalcoordz") : turnOff("amalcoordz");
+    !radonon ? turnOn("AutoAllocatePerks") : turnOff("AutoAllocatePerks");
+    !radonon && getPageSetting('AutoAllocatePerks') == 1 ? turnOn("fastallocate") : turnOff("fastallocate");
 
     //Portal
-    !radonon ? turnOn("AutoPortal"): turnOff("AutoPortal");
-    (!radonon && autoTrimpSettings.AutoPortal.selected == "Custom") ? turnOn("CustomAutoPortal") : turnOff("CustomAutoPortal");
+    !radonon ? turnOn("AutoPortal") : turnOff("AutoPortal");
+    (!radonon && autoTrimpSettings.AutoPortal.selected == "Custom") ? turnOn("CustomAutoPortal"): turnOff("CustomAutoPortal");
     var heHr = (autoTrimpSettings.AutoPortal.selected == "Helium Per Hour");
     !radonon && (heHr || autoTrimpSettings.AutoPortal.selected == "Custom") ? turnOn("HeliumHourChallenge") : turnOff("HeliumHourChallenge");
     !radonon && (heHr) ? turnOn("HeHrDontPortalBefore") : turnOff("HeHrDontPortalBefore");
@@ -1491,12 +1589,12 @@ function updateCustomButtons() {
     radonon ? turnOn('RManualGather2') : turnOff("RManualGather2");
     radonon ? turnOn('RTrapTrimps') : turnOff("RTrapTrimps");
     radonon ? turnOn('RBuyUpgradesNew') : turnOff("RBuyUpgradesNew");
-    radonon ? turnOn("RAutoAllocatePerks"): turnOff("RAutoAllocatePerks");
-    radonon && getPageSetting('RAutoAllocatePerks')==2 ? turnOn("Rdumpgreed"): turnOff("Rdumpgreed");
-    
+    radonon ? turnOn("RAutoAllocatePerks") : turnOff("RAutoAllocatePerks");
+    radonon && getPageSetting('RAutoAllocatePerks') == 2 ? turnOn("Rdumpgreed") : turnOff("Rdumpgreed");
+
     //RPortal
-    radonon ? turnOn("RAutoPortal"): turnOff("RAutoPortal");
-    (radonon && autoTrimpSettings.RAutoPortal.selected == "Custom") ? turnOn("RCustomAutoPortal") : turnOff("RCustomAutoPortal");
+    radonon ? turnOn("RAutoPortal") : turnOff("RAutoPortal");
+    (radonon && autoTrimpSettings.RAutoPortal.selected == "Custom") ? turnOn("RCustomAutoPortal"): turnOff("RCustomAutoPortal");
     var rnHr = (autoTrimpSettings.RAutoPortal.selected == "Radon Per Hour");
     radonon && (rnHr || autoTrimpSettings.RAutoPortal.selected == "Custom") ? turnOn("RadonHourChallenge") : turnOff("RadonHourChallenge");
     radonon && (rnHr) ? turnOn("RnHrDontPortalBefore") : turnOff("RnHrDontPortalBefore");
@@ -1505,127 +1603,141 @@ function updateCustomButtons() {
 
 
     //Daily
-    !radonon ? turnOn("buyheliumy"): turnOff("buyheliumy");
-    !radonon ? turnOn("dscryvoidmaps"): turnOff("dscryvoidmaps");
-    !radonon ? turnOn("dIgnoreSpiresUntil"): turnOff("dIgnoreSpiresUntil");
-    !radonon ? turnOn("dExitSpireCell"): turnOff("dExitSpireCell");
-    !radonon ? turnOn("dPreSpireNurseries"): turnOff("dPreSpireNurseries");
-    !radonon ? turnOn("DailyVoidMod"): turnOff("DailyVoidMod");
-    !radonon ? turnOn("dvoidscell"): turnOff("dvoidscell");
-    !radonon ? turnOn("dRunNewVoidsUntilNew"): turnOff("dRunNewVoidsUntilNew");
-    !radonon ? turnOn("drunnewvoidspoison"): turnOff("drunnewvoidspoison");
-    !radonon ? turnOn("avoidempower"): turnOff("avoidempower");
-    !radonon ? turnOn("dfightforever"): turnOff("dfightforever");
-    !radonon ? turnOn("darmormagic"): turnOff("darmormagic");
+    !radonon ? turnOn("buyheliumy") : turnOff("buyheliumy");
+    !radonon ? turnOn("dscryvoidmaps") : turnOff("dscryvoidmaps");
+    !radonon ? turnOn("dIgnoreSpiresUntil") : turnOff("dIgnoreSpiresUntil");
+    !radonon ? turnOn("dExitSpireCell") : turnOff("dExitSpireCell");
+    !radonon ? turnOn("dPreSpireNurseries") : turnOff("dPreSpireNurseries");
+    !radonon ? turnOn("DailyVoidMod") : turnOff("DailyVoidMod");
+    !radonon ? turnOn("dvoidscell") : turnOff("dvoidscell");
+    !radonon ? turnOn("dRunNewVoidsUntilNew") : turnOff("dRunNewVoidsUntilNew");
+    !radonon ? turnOn("drunnewvoidspoison") : turnOff("drunnewvoidspoison");
+    !radonon ? turnOn("avoidempower") : turnOff("avoidempower");
+    !radonon ? turnOn("dfightforever") : turnOff("dfightforever");
+    !radonon ? turnOn("darmormagic") : turnOff("darmormagic");
 
     //DRaid
     !radonon ? turnOn("dPraidingzone") : turnOff("dPraidingzone");
     !radonon ? turnOn("dPraidingcell") : turnOff("dPraidingcell");
+    !radonon ? turnOn("dPraidingHD") : turnOff("dPraidingHD");
+    !radonon ? turnOn("dPraidingP") : turnOff("dPraidingP");
+    !radonon ? turnOn("dPraidingI") : turnOff("dPraidingI");
     !radonon && getPageSetting('dPraidingzone') != -1 ? turnOn('dPraidHarder') : turnOff('dPraidHarder');
     !radonon && getPageSetting('dPraidHarder') ? turnOn('dPraidFarmFragsZ') : turnOff('dPraidFarmFragsZ');
     !radonon && getPageSetting('dPraidHarder') ? turnOn('dPraidBeforeFarmZ') : turnOff('dPraidBeforeFarmZ');
     !radonon && getPageSetting('dPraidHarder') ? turnOn('dMaxPraidZone') : turnOff('dMaxPraidZone');
-    !radonon ? turnOn("Dailybwraid"): turnOff("Dailybwraid");
-    !radonon && getPageSetting('Dailybwraid')==true ? turnOn("dbwraidcell"): turnOff("dbwraidcell");
-    !radonon && getPageSetting('Dailybwraid')==true ? turnOn("dBWraidingz"): turnOff("dBWraidingz");
-    !radonon && getPageSetting('Dailybwraid')==true ? turnOn("dBWraidingmax"): turnOff("dBWraidingmax");
+    !radonon ? turnOn("Dailybwraid") : turnOff("Dailybwraid");
+    !radonon && getPageSetting('Dailybwraid') == true ? turnOn("dbwraidcell") : turnOff("dbwraidcell");
+    !radonon && getPageSetting('Dailybwraid') == true ? turnOn("dBWraidingz") : turnOff("dBWraidingz");
+    !radonon && getPageSetting('Dailybwraid') == true ? turnOn("dBWraidingmax") : turnOff("dBWraidingmax");
 
     //DWind
-    !radonon ? turnOn("use3daily"): turnOff("use3daily");
-    !radonon ? turnOn("liqstack"): turnOff("liqstack");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dwindhealthy"): turnOff("dwindhealthy");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dusebstance"): turnOff("dusebstance");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dWindStackingMin"): turnOff("dWindStackingMin");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dWindStackingMinHD"): turnOff("dWindStackingMinHD");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dWindStackingMax"): turnOff("dWindStackingMax");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dwindcutoff"): turnOff("dwindcutoff");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dwindcutoffmap"): turnOff("dwindcutoffmap");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dwsmax"): turnOff("dwsmax");
-    !radonon && getPageSetting('use3daily')==true ? turnOn("dwsmaxhd"): turnOff("dwsmaxhd");
+    !radonon ? turnOn("use3daily") : turnOff("use3daily");
+    !radonon ? turnOn("liqstack") : turnOff("liqstack");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dwindhealthy") : turnOff("dwindhealthy");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dusebstance") : turnOff("dusebstance");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dWindStackingMin") : turnOff("dWindStackingMin");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dWindStackingMinHD") : turnOff("dWindStackingMinHD");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dWindStackingMax") : turnOff("dWindStackingMax");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dwindcutoff") : turnOff("dwindcutoff");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dwindcutoffmap") : turnOff("dwindcutoffmap");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dwsmax") : turnOff("dwsmax");
+    !radonon && getPageSetting('use3daily') == true ? turnOn("dwsmaxhd") : turnOff("dwsmaxhd");
 
     //DLoom
     !radonon && getPageSetting('dloomswap') > 0 ? turnOn('dloomswaphd') : turnOff('dloomswaphd');
+    !radonon && getPageSetting('dloomswap') > 0 ? turnOn('dhighdmg') : turnOff('dhighdmg');
+    !radonon && getPageSetting('dloomswap') > 0 ? turnOn('dlowdmg') : turnOff('dlowdmg');
 
     //DPortal
-    !radonon ? turnOn("AutoStartDaily"): turnOff("AutoStartDaily");
-    !radonon ? turnOn("u2daily"): turnOff("u2daily");
-    !radonon ? turnOn("AutoPortalDaily"): turnOff("AutoPortalDaily");
-    !radonon && getPageSetting('AutoPortalDaily')==2 ? turnOn("dCustomAutoPortal") : turnOff("dCustomAutoPortal");
-    !radonon && getPageSetting('AutoPortalDaily')==1 ? turnOn("dHeHrDontPortalBefore") : turnOff("dHeHrDontPortalBefore");
-    !radonon && getPageSetting('AutoPortalDaily')==1 ? turnOn("dHeliumHrBuffer") : turnOff("dHeliumHrBuffer");
-    !radonon && getPageSetting('AutoPortalDaily')>0 ? turnOn("dHeliumHourChallenge") : turnOff("dHeliumHourChallenge");
-    
-    
+    !radonon ? turnOn("AutoStartDaily") : turnOff("AutoStartDaily");
+    !radonon ? turnOn("u2daily") : turnOff("u2daily");
+    !radonon ? turnOn("AutoPortalDaily") : turnOff("AutoPortalDaily");
+    !radonon && getPageSetting('AutoPortalDaily') == 2 ? turnOn("dCustomAutoPortal") : turnOff("dCustomAutoPortal");
+    !radonon && getPageSetting('AutoPortalDaily') == 1 ? turnOn("dHeHrDontPortalBefore") : turnOff("dHeHrDontPortalBefore");
+    !radonon && getPageSetting('AutoPortalDaily') == 1 ? turnOn("dHeliumHrBuffer") : turnOff("dHeliumHrBuffer");
+    !radonon && getPageSetting('AutoPortalDaily') > 0 ? turnOn("dHeliumHourChallenge") : turnOff("dHeliumHourChallenge");
+
+
     //RDaily
-    radonon ? turnOn("buyradony"): turnOff("buyradony");
-    radonon ? turnOn("Rdscryvoidmaps"): turnOff("Rdscryvoidmaps");
-    radonon ? turnOn("RdIgnoreSpiresUntil"): turnOff("RdIgnoreSpiresUntil");
-    radonon ? turnOn("RDailyVoidMod"): turnOff("RDailyVoidMod");
-    radonon ? turnOn("RdRunNewVoidsUntilNew"): turnOff("RdRunNewVoidsUntilNew");
-    radonon ? turnOn("Ravoidempower"): turnOff("Ravoidempower");
-    radonon ? turnOn("Rdfightforever"): turnOff("Rdfightforever");
-    radonon ? turnOn("Rdarmormagic"): turnOff("Rdarmormagic");
+    radonon ? turnOn("buyradony") : turnOff("buyradony");
+    radonon ? turnOn("Rdscryvoidmaps") : turnOff("Rdscryvoidmaps");
+    radonon ? turnOn("RdIgnoreSpiresUntil") : turnOff("RdIgnoreSpiresUntil");
+    radonon ? turnOn("RDailyVoidMod") : turnOff("RDailyVoidMod");
+    radonon ? turnOn("RdRunNewVoidsUntilNew") : turnOff("RdRunNewVoidsUntilNew");
+    radonon ? turnOn("Ravoidempower") : turnOff("Ravoidempower");
+    radonon ? turnOn("Rdfightforever") : turnOff("Rdfightforever");
+    radonon ? turnOn("Rdarmormagic") : turnOff("Rdarmormagic");
 
     //RDRaid
-    radonon ? turnOn("RdPraidingzone"): turnOff("RdPraidingzone");
-    radonon && getPageSetting('RdPraidingzone') != -1 ? turnOn('RdPraidHarder') : turnOff('RdPraidHarder');
-    radonon && getPageSetting('RdPraidHarder') ? turnOn('RdPraidFarmFragsZ') : turnOff('RdPraidFarmFragsZ');
-    radonon && getPageSetting('RdPraidHarder') ? turnOn('RdPraidBeforeFarmZ') : turnOff('RdPraidBeforeFarmZ');
-    radonon && getPageSetting('RdPraidHarder') ? turnOn('RdMaxPraidZone') : turnOff('RdMaxPraidZone');
-    radonon ? turnOn("RDailybwraid"): turnOff("RDailybwraid");
-    radonon && getPageSetting('RDailybwraid')==true ? turnOn("RdBWraidingz"): turnOff("RdBWraidingz");
-    radonon && getPageSetting('RDailybwraid')==true ? turnOn("RdBWraidingmax"): turnOff("RdBWraidingmax");
+    radonon ? turnOn("RdAMPraid") : turnOff("RdAMPraid");
+    radonon && getPageSetting('RdAMPraid') == 1 ? turnOn("RdAMPraidmaz") : turnOff("RdAMPraidmaz");
+    turnOff("RdAMPraidzone");
+    turnOff("RdAMPraidraid");
+    turnOff("RdAMPraidcell");
+    radonon && getPageSetting('RdAMPraid') == 1 ? turnOn("RdAMPraidfrag") : turnOff("RdAMPraidfrag");
+    radonon && getPageSetting('RdAMPraid') == 1 ? turnOn("RdAMPraidrecycle") : turnOff("RdAMPraidrecycle");
+
+    //RDTime Farm
+    radonon ? turnOn("Rdtimefarm") : turnOff("Rdtimefarm");
+    (radonon && getPageSetting('Rdtimefarm') == true) ? turnOn("Rdtimefarmmaz"): turnOff("Rdtimefarmmaz");
+    turnOff("Rdtimefarmzone");
+    turnOff("Rdtimefarmcell");
+    turnOff("Rdtimefarmtime");
+    turnOff("Rdtimefarmlevel");
+    turnOff("Rdtimefarmmap");
+    turnOff("Rdtimefarmspecial");
+    turnOff("Rdtimefarmgather");
 
     //RDPortal
-    radonon ? turnOn("RAutoStartDaily"): turnOff("RAutoStartDaily");
-    radonon ? turnOn("u1daily"): turnOff("u1daily");
-    radonon ? turnOn("RAutoPortalDaily"): turnOff("RAutoPortalDaily");
-    radonon && getPageSetting('RAutoPortalDaily')==2 ? turnOn("RdCustomAutoPortal") : turnOff("RdCustomAutoPortal");
-    radonon && getPageSetting('RAutoPortalDaily')==1 ? turnOn("RdHeHrDontPortalBefore") : turnOff("RdHeHrDontPortalBefore");
-    radonon && getPageSetting('RAutoPortalDaily')==1 ? turnOn("RdHeliumHrBuffer") : turnOff("RdHeliumHrBuffer");
-    radonon && getPageSetting('RAutoPortalDaily')>0 ? turnOn("RdHeliumHourChallenge") : turnOff("RdHeliumHourChallenge");
-    
+    radonon ? turnOn("RAutoStartDaily") : turnOff("RAutoStartDaily");
+    radonon ? turnOn("u1daily") : turnOff("u1daily");
+    radonon ? turnOn("RAutoPortalDaily") : turnOff("RAutoPortalDaily");
+    radonon && getPageSetting('RAutoPortalDaily') == 2 ? turnOn("RdCustomAutoPortal") : turnOff("RdCustomAutoPortal");
+    radonon && getPageSetting('RAutoPortalDaily') == 1 ? turnOn("RdHeHrDontPortalBefore") : turnOff("RdHeHrDontPortalBefore");
+    radonon && getPageSetting('RAutoPortalDaily') == 1 ? turnOn("RdHeliumHrBuffer") : turnOff("RdHeliumHrBuffer");
+    radonon && getPageSetting('RAutoPortalDaily') > 0 ? turnOn("RdHeliumHourChallenge") : turnOff("RdHeliumHourChallenge");
 
-    
+
+
     //C2
-    !radonon ? turnOn("FinishC2"): turnOff("FinishC2");
-    !radonon ? turnOn("buynojobsc"): turnOff("buynojobsc");
-    !radonon ? turnOn("cfightforever"): turnOff("cfightforever");
-    !radonon ? turnOn("carmormagic"): turnOff("carmormagic");
-    !radonon ? turnOn("mapc2hd"): turnOff("mapc2hd");
-    !radonon ? turnOn("novmsc2"): turnOff("novmsc2");
-    !radonon ? turnOn("c2runnerstart"): turnOff("c2runnerstart");
-    !radonon && getPageSetting('c2runnerstart') == true ? turnOn("c2runnerportal"): turnOff("c2runnerportal");
-    !radonon && getPageSetting('c2runnerstart') == true ? turnOn("c2runnerpercent"): turnOff("c2runnerpercent");
+    !radonon ? turnOn("FinishC2") : turnOff("FinishC2");
+    !radonon ? turnOn("buynojobsc") : turnOff("buynojobsc");
+    !radonon ? turnOn("cfightforever") : turnOff("cfightforever");
+    !radonon ? turnOn("mapc2hd") : turnOff("mapc2hd");
+    !radonon ? turnOn("novmsc2") : turnOff("novmsc2");
+    !radonon ? turnOn("c2runnerstart") : turnOff("c2runnerstart");
+    !radonon && getPageSetting('c2runnerstart') == true ? turnOn("c2runnerportal") : turnOff("c2runnerportal");
+    !radonon && getPageSetting('c2runnerstart') == true ? turnOn("c2runnerpercent") : turnOff("c2runnerpercent");
 
 
-    
+
     //Buildings
-    !radonon ? turnOn("BuyBuildingsNew"): turnOff("BuyBuildingsNew");
-    !radonon ? turnOn("MaxGym"): turnOff("MaxGym");
-    !radonon ? turnOn("GymWall"): turnOff("GymWall");
-    var fuckbuilding = (bwRewardUnlocked("AutoStructure") == true && bwRewardUnlocked("DecaBuild") && getPageSetting('hidebuildings')==true && getPageSetting('BuyBuildingsNew')==0);
-    (!radonon && bwRewardUnlocked("AutoStructure") == true && bwRewardUnlocked("DecaBuild")) ? turnOn("hidebuildings") : turnOff("hidebuildings");
-    (!radonon && !fuckbuilding) ? turnOn("MaxHut") : turnOff("MaxHut");
-    (!radonon && !fuckbuilding) ? turnOn("MaxHouse") : turnOff("MaxHouse");
-    (!radonon && !fuckbuilding) ? turnOn("MaxMansion") : turnOff("MaxMansion");
-    (!radonon && !fuckbuilding) ? turnOn("MaxHotel") : turnOff("MaxHotel");
-    (!radonon && !fuckbuilding) ? turnOn("MaxResort") : turnOff("MaxResort");
-    (!radonon && !fuckbuilding) ? turnOn("MaxGateway") : turnOff("MaxGateway");
-    (!radonon && !fuckbuilding) ? turnOn("MaxWormhole") : turnOff("MaxWormhole");
-    (!radonon && !fuckbuilding) ? turnOn("MaxCollector") : turnOff("MaxCollector");
-    (!radonon && !fuckbuilding) ? turnOn("MaxTribute") : turnOff("MaxTribute");
-    (!radonon && !fuckbuilding) ? turnOn("MaxNursery") : turnOff("MaxNursery");
-    (!radonon && !fuckbuilding) ? turnOn("NoNurseriesUntil") : turnOff("NoNurseriesUntil");
-    (!radonon && !fuckbuilding) ? turnOn("WarpstationCap") : turnOff("WarpstationCap");
-    (!radonon && !fuckbuilding) ? turnOn("WarpstationCoordBuy") : turnOff("WarpstationCoordBuy");
-    (!radonon && !fuckbuilding) ? turnOn("FirstGigastation") : turnOff("FirstGigastation");
-    (!radonon && !fuckbuilding) ? turnOn("DeltaGigastation") : turnOff("DeltaGigastation");
-    (!radonon && !fuckbuilding) ? turnOn("WarpstationWall3") : turnOff("WarpstationWall3");
+    !radonon ? turnOn("BuyBuildingsNew") : turnOff("BuyBuildingsNew");
+    !radonon ? turnOn("MaxGym") : turnOff("MaxGym");
+    !radonon ? turnOn("GymWall") : turnOff("GymWall");
+    var fuckbuilding = (bwRewardUnlocked("AutoStructure") == true && bwRewardUnlocked("DecaBuild") && getPageSetting('hidebuildings') == true && getPageSetting('BuyBuildingsNew') == 0);
+    (!radonon && bwRewardUnlocked("AutoStructure") == true && bwRewardUnlocked("DecaBuild")) ? turnOn("hidebuildings"): turnOff("hidebuildings");
+    (!radonon && !fuckbuilding) ? turnOn("MaxHut"): turnOff("MaxHut");
+    (!radonon && !fuckbuilding) ? turnOn("MaxHouse"): turnOff("MaxHouse");
+    (!radonon && !fuckbuilding) ? turnOn("MaxMansion"): turnOff("MaxMansion");
+    (!radonon && !fuckbuilding) ? turnOn("MaxHotel"): turnOff("MaxHotel");
+    (!radonon && !fuckbuilding) ? turnOn("MaxResort"): turnOff("MaxResort");
+    (!radonon && !fuckbuilding) ? turnOn("MaxGateway"): turnOff("MaxGateway");
+    (!radonon && !fuckbuilding) ? turnOn("MaxWormhole"): turnOff("MaxWormhole");
+    (!radonon && !fuckbuilding) ? turnOn("MaxCollector"): turnOff("MaxCollector");
+    (!radonon && !fuckbuilding) ? turnOn("MaxTribute"): turnOff("MaxTribute");
+    (!radonon && !fuckbuilding) ? turnOn("MaxNursery"): turnOff("MaxNursery");
+    (!radonon && !fuckbuilding) ? turnOn("NoNurseriesUntil"): turnOff("NoNurseriesUntil");
+    (!radonon && !fuckbuilding) ? turnOn("WarpstationCap"): turnOff("WarpstationCap");
+    (!radonon && !fuckbuilding) ? turnOn("WarpstationCoordBuy"): turnOff("WarpstationCoordBuy");
+    (!radonon && !fuckbuilding) ? turnOn("FirstGigastation"): turnOff("FirstGigastation");
+    (!radonon && !fuckbuilding) ? turnOn("DeltaGigastation"): turnOff("DeltaGigastation");
+    (!radonon && !fuckbuilding) ? turnOn("WarpstationWall3"): turnOff("WarpstationWall3");
 
-    
+
     //RBuildings
-    radonon ? turnOn("RBuyBuildingsNew"): turnOff("RBuyBuildingsNew");
+    radonon ? turnOn("RBuyBuildingsNew") : turnOff("RBuyBuildingsNew");
     radonon ? turnOn("RMaxHut") : turnOff("RMaxHut");
     radonon ? turnOn("RMaxHouse") : turnOff("RMaxHouse");
     radonon ? turnOn("RMaxMansion") : turnOff("RMaxMansion");
@@ -1634,35 +1746,35 @@ function updateCustomButtons() {
     radonon ? turnOn("RMaxGateway") : turnOff("RMaxGateway");
     radonon ? turnOn("RMaxCollector") : turnOff("RMaxCollector");
     radonon ? turnOn("RMaxTribute") : turnOff("RMaxTribute");
-    (radonon && getPageSetting('Rnurtureon') == true) ? turnOn("RMaxLabs") : turnOff("RMaxLabs");
+    (radonon && getPageSetting('Rnurtureon') == true) ? turnOn("RMaxLabs"): turnOff("RMaxLabs");
     radonon ? turnOn("Rmeltsmithy") : turnOff("Rmeltsmithy");
     radonon ? turnOn("Rsmithylogic") : turnOff("Rsmithylogic");
-    (radonon && getPageSetting('Rsmithylogic') == true) ? turnOn("Rsmithynumber") : turnOff("Rsmithynumber");
-    (radonon && getPageSetting('Rsmithylogic') == true) ? turnOn("Rsmithypercent") : turnOff("Rsmithypercent");
-    (radonon && getPageSetting('Rsmithylogic') == true) ? turnOn("Rsmithyseconds") : turnOff("Rsmithyseconds");
+    (radonon && getPageSetting('Rsmithylogic') == true) ? turnOn("Rsmithynumber"): turnOff("Rsmithynumber");
+    (radonon && getPageSetting('Rsmithylogic') == true) ? turnOn("Rsmithypercent"): turnOff("Rsmithypercent");
+    (radonon && getPageSetting('Rsmithylogic') == true) ? turnOn("Rsmithyseconds"): turnOff("Rsmithyseconds");
 
 
 
     //Jobs
-    !radonon ? turnOn("BuyJobsNew"): turnOff("BuyJobsNew");
-    !radonon ? turnOn("AutoMagmamancers"): turnOff("AutoMagmamancers");
-    var fuckjobbies = (bwRewardUnlocked("AutoJobs") && getPageSetting('fuckjobs')==true && getPageSetting('BuyJobsNew')==0);
-    (!radonon && bwRewardUnlocked("AutoJobs")) ? turnOn("fuckjobs") : turnOff("fuckjobs");
-    (!radonon && !fuckjobbies) ? turnOn("FarmerRatio") : turnOff("FarmerRatio");
-    (!radonon && !fuckjobbies) ? turnOn("LumberjackRatio") : turnOff("LumberjackRatio");
-    (!radonon && !fuckjobbies) ? turnOn("MinerRatio") : turnOff("MinerRatio");
-    (!radonon && !fuckjobbies) ? turnOn("MaxScientists") : turnOff("MaxScientists");
-    (!radonon && !fuckjobbies) ? turnOn("MaxExplorers") : turnOff("MaxExplorers");
-    (!radonon && !fuckjobbies) ? turnOn("MaxTrainers") : turnOff("MaxTrainers");
+    !radonon ? turnOn("BuyJobsNew") : turnOff("BuyJobsNew");
+    !radonon ? turnOn("AutoMagmamancers") : turnOff("AutoMagmamancers");
+    var fuckjobbies = (bwRewardUnlocked("AutoJobs") && getPageSetting('fuckjobs') == true && getPageSetting('BuyJobsNew') == 0);
+    (!radonon && bwRewardUnlocked("AutoJobs")) ? turnOn("fuckjobs"): turnOff("fuckjobs");
+    (!radonon && !fuckjobbies) ? turnOn("FarmerRatio"): turnOff("FarmerRatio");
+    (!radonon && !fuckjobbies) ? turnOn("LumberjackRatio"): turnOff("LumberjackRatio");
+    (!radonon && !fuckjobbies) ? turnOn("MinerRatio"): turnOff("MinerRatio");
+    (!radonon && !fuckjobbies) ? turnOn("MaxScientists"): turnOff("MaxScientists");
+    (!radonon && !fuckjobbies) ? turnOn("MaxExplorers"): turnOff("MaxExplorers");
+    (!radonon && !fuckjobbies) ? turnOn("MaxTrainers"): turnOff("MaxTrainers");
 
-    
+
     //RJobs
-    radonon ? turnOn("RBuyJobsNew"): turnOff("RBuyJobsNew");
+    radonon ? turnOn("RBuyJobsNew") : turnOff("RBuyJobsNew");
     radonon ? turnOn("RFarmerRatio") : turnOff("RFarmerRatio");
     radonon ? turnOn("RLumberjackRatio") : turnOff("RLumberjackRatio");
     radonon ? turnOn("RMinerRatio") : turnOff("RMinerRatio");
     radonon ? turnOn("RMaxExplorers") : turnOff("RMaxExplorers");
-    radonon ? turnOn("Rshipfarmon"): turnOff("Rshipfarmon");
+    radonon ? turnOn("Rshipfarmon") : turnOff("Rshipfarmon");
     (radonon && getPageSetting('Rshipfarmon') == true) ? turnOn("Rshipfarmzone"): turnOff("Rshipfarmzone");
     (radonon && getPageSetting('Rshipfarmon') == true) ? turnOn("Rshipfarmcell"): turnOff("Rshipfarmcell");
     (radonon && getPageSetting('Rshipfarmon') == true) ? turnOn("Rshipfarmamount"): turnOff("Rshipfarmamount");
@@ -1672,25 +1784,25 @@ function updateCustomButtons() {
 
 
     //Gear
-    !radonon ? turnOn("BuyArmorNew"): turnOff("BuyArmorNew");
-    !radonon ? turnOn("BuyWeaponsNew"): turnOff("BuyWeaponsNew");
-    !radonon ? turnOn("CapEquip2"): turnOff("CapEquip2");
-    !radonon ? turnOn("CapEquiparm"): turnOff("CapEquiparm");
-    !radonon ? turnOn("dmgcuntoff"): turnOff("dmgcuntoff");
-    !radonon ? turnOn("DynamicPrestige2"): turnOff("DynamicPrestige2");
-    !radonon ? turnOn("Prestige"): turnOff("Prestige");
-    !radonon ? turnOn("ForcePresZ"): turnOff("ForcePresZ");
-    !radonon ? turnOn("PrestigeSkip1_2"): turnOff("PrestigeSkip1_2");
-    !radonon ? turnOn("DelayArmorWhenNeeded"): turnOff("DelayArmorWhenNeeded");
-    !radonon ? turnOn("BuyShieldblock"): turnOff("BuyShieldblock");
-    !radonon ? turnOn("trimpsnotdie"): turnOff("trimpsnotdie");
-    !radonon ? turnOn("gearamounttobuy"): turnOff("gearamounttobuy");
-    !radonon ? turnOn("always2"): turnOff("always2");
-    
-    
+    !radonon ? turnOn("BuyArmorNew") : turnOff("BuyArmorNew");
+    !radonon ? turnOn("BuyWeaponsNew") : turnOff("BuyWeaponsNew");
+    !radonon ? turnOn("CapEquip2") : turnOff("CapEquip2");
+    !radonon ? turnOn("CapEquiparm") : turnOff("CapEquiparm");
+    !radonon ? turnOn("dmgcuntoff") : turnOff("dmgcuntoff");
+    !radonon ? turnOn("DynamicPrestige2") : turnOff("DynamicPrestige2");
+    !radonon ? turnOn("Prestige") : turnOff("Prestige");
+    !radonon ? turnOn("ForcePresZ") : turnOff("ForcePresZ");
+    !radonon ? turnOn("PrestigeSkip1_2") : turnOff("PrestigeSkip1_2");
+    !radonon ? turnOn("DelayArmorWhenNeeded") : turnOff("DelayArmorWhenNeeded");
+    !radonon ? turnOn("BuyShieldblock") : turnOff("BuyShieldblock");
+    !radonon ? turnOn("trimpsnotdie") : turnOff("trimpsnotdie");
+    !radonon ? turnOn("gearamounttobuy") : turnOff("gearamounttobuy");
+    !radonon ? turnOn("always2") : turnOff("always2");
+
+
     //RGear
-	
-    radonon ? turnOn("Requipon"): turnOff("Requipon");
+
+    radonon ? turnOn("Requipon") : turnOff("Requipon");
     (radonon && getPageSetting('Requipon') == true) ? turnOn("Requipamount"): turnOff("Requipamount");
     (radonon && getPageSetting('Requipon') == true) ? turnOn("Requipcapattack"): turnOff("Requipcapattack");
     (radonon && getPageSetting('Requipon') == true) ? turnOn("Requipcaphealth"): turnOff("Requipcaphealth");
@@ -1698,124 +1810,127 @@ function updateCustomButtons() {
     (radonon && getPageSetting('Requipon') == true) ? turnOn("Requippercent"): turnOff("Requippercent");
     (radonon && getPageSetting('Requipon') == true) ? turnOn("Requip2"): turnOff("Requip2");
     (radonon && getPageSetting('Requipon') == true) ? turnOn("Rdmgcuntoff"): turnOff("Rdmgcuntoff");
-	
-    radonon ? turnOn("Requipfarmon"): turnOff("Requipfarmon");
+
+    radonon ? turnOn("Requipfarmon") : turnOff("Requipfarmon");
     (radonon && getPageSetting('Requipfarmon') == true) ? turnOn("Requipfarmzone"): turnOff("Requipfarmzone");
     (radonon && getPageSetting('Requipfarmon') == true) ? turnOn("RequipfarmHD"): turnOff("RequipfarmHD");
     (radonon && getPageSetting('Requipfarmon') == true) ? turnOn("Requipfarmmult"): turnOff("Requipfarmmult");
     (radonon && getPageSetting('Requipfarmon') == true) ? turnOn("Requipfarmhits"): turnOff("Requipfarmhits");
 
-    
+
 
     //Maps
-    !radonon ? turnOn("AutoMaps"): turnOff("AutoMaps");
-    !radonon ? turnOn("automapsportal"): turnOff("automapsportal");
-    !radonon ? turnOn("mapselection"): turnOff("mapselection");
-    !radonon ? turnOn("DynamicSiphonology"): turnOff("DynamicSiphonology");
-    !radonon ? turnOn("PreferMetal"): turnOff("PreferMetal");
-    !radonon ? turnOn("MaxMapBonusAfterZone"): turnOff("MaxMapBonusAfterZone");
-    !radonon ? turnOn("MaxMapBonuslimit"): turnOff("MaxMapBonuslimit");
-    !radonon ? turnOn("MaxMapBonushealth"): turnOff("MaxMapBonushealth");
-    !radonon ? turnOn("mapcuntoff"): turnOff("mapcuntoff");
-    !radonon ? turnOn("DisableFarm"): turnOff("DisableFarm");
-    !radonon ? turnOn("LowerFarmingZone"): turnOff("LowerFarmingZone");
-    !radonon ? turnOn("FarmWhenNomStacks7"): turnOff("FarmWhenNomStacks7");
-    !radonon ? turnOn("VoidMaps"): turnOff("VoidMaps");
-    !radonon ? turnOn("voidscell"): turnOff("voidscell");
-    !radonon ? turnOn("RunNewVoidsUntilNew"): turnOff("RunNewVoidsUntilNew");
-    !radonon ? turnOn("runnewvoidspoison"): turnOff("runnewvoidspoison");
-    !radonon ? turnOn("onlystackedvoids"): turnOff("onlystackedvoids");
-    !radonon ? turnOn("TrimpleZ"): turnOff("TrimpleZ");
-    !radonon ? turnOn("AdvMapSpecialModifier"): turnOff("AdvMapSpecialModifier");
-    !radonon ? turnOn("scryvoidmaps"): turnOff("scryvoidmaps");
-    !radonon ? turnOn("buywepsvoid"): turnOff("buywepsvoid");
+    !radonon ? turnOn("AutoMaps") : turnOff("AutoMaps");
+    (!radonon && getPageSetting('AutoMaps') == 2) ? turnOn("AMUblock") : turnOff("AMUblock");
+    (!radonon && getPageSetting('AutoMaps') == 2) ? turnOn("AMUwall") : turnOff("AMUwall");
+    (!radonon && getPageSetting('AutoMaps') == 2) ? turnOn("AMUanger") : turnOff("AMUanger");
+    (!radonon && getPageSetting('AutoMaps') == 2) ? turnOn("AMUtrimple") : turnOff("AMUtrimple");
+    (!radonon && getPageSetting('AutoMaps') == 2) ? turnOn("AMUprison") : turnOff("AMUprison");
+    (!radonon && getPageSetting('AutoMaps') == 2) ? turnOn("AMUbw") : turnOff("AMUbw");
+    (!radonon && getPageSetting('AutoMaps') == 2) ? turnOn("AMUstar") : turnOff("AMUstar");
+    !radonon ? turnOn("automapsportal") : turnOff("automapsportal");
+    
+    
+    !radonon ? turnOn("mapselection") : turnOff("mapselection");
+    !radonon ? turnOn("DynamicSiphonology") : turnOff("DynamicSiphonology");
+    !radonon ? turnOn("PreferMetal") : turnOff("PreferMetal");
+    !radonon ? turnOn("MaxMapBonusAfterZone") : turnOff("MaxMapBonusAfterZone");
+    !radonon ? turnOn("MaxMapBonuslimit") : turnOff("MaxMapBonuslimit");
+    !radonon ? turnOn("MaxMapBonushealth") : turnOff("MaxMapBonushealth");
+    !radonon ? turnOn("mapcuntoff") : turnOff("mapcuntoff");
+    !radonon ? turnOn("DisableFarm") : turnOff("DisableFarm");
+    !radonon ? turnOn("LowerFarmingZone") : turnOff("LowerFarmingZone");
+    !radonon ? turnOn("FarmWhenNomStacks7") : turnOff("FarmWhenNomStacks7");
+    !radonon ? turnOn("VoidMaps") : turnOff("VoidMaps");
+    !radonon ? turnOn("voidscell") : turnOff("voidscell");
+    !radonon ? turnOn("RunNewVoidsUntilNew") : turnOff("RunNewVoidsUntilNew");
+    !radonon ? turnOn("runnewvoidspoison") : turnOff("runnewvoidspoison");
+    !radonon ? turnOn("onlystackedvoids") : turnOff("onlystackedvoids");
+    !radonon ? turnOn("TrimpleZ") : turnOff("TrimpleZ");
+    !radonon ? turnOn("AdvMapSpecialModifier") : turnOff("AdvMapSpecialModifier");
+    !radonon ? turnOn("scryvoidmaps") : turnOff("scryvoidmaps");
+    !radonon ? turnOn("buywepsvoid") : turnOff("buywepsvoid");
     game.global.highestLevelCleared > 600 && !radonon ? turnOn("farmWonders") : turnOff("farmWonders");
     game.global.highestLevelCleared > 600 && !radonon ? turnOn("wondersAmount") : turnOff("wondersAmount");
-    
+
     //RMaps
-    radonon ? turnOn("RAutoMaps"): turnOff("RAutoMaps");
-    radonon ? turnOn("Rautomapsportal"): turnOff("Rautomapsportal");
-    radonon ? turnOn("Rmapselection"): turnOff("Rmapselection");
-    radonon ? turnOn("RMaxMapBonusAfterZone"): turnOff("RMaxMapBonusAfterZone");
-    radonon ? turnOn("RMaxMapBonuslimit"): turnOff("RMaxMapBonuslimit");
-    radonon ? turnOn("RMaxMapBonushealth"): turnOff("RMaxMapBonushealth");
-    radonon ? turnOn("Rhitssurvived"): turnOff("Rhitssurvived");
-    radonon ? turnOn("Rmapcuntoff"): turnOff("Rmapcuntoff");
-    radonon ? turnOn("RDisableFarm"): turnOff("RDisableFarm");
-    radonon ? turnOn("Rtimefarm"): turnOff("Rtimefarm");
-    (radonon && getPageSetting('Rtimefarm') == true) ? turnOn("Rtimefarmzone"): turnOff("Rtimefarmzone");
-    (radonon && getPageSetting('Rtimefarm') == true) ? turnOn("Rtimefarmcell"): turnOff("Rtimefarmcell");
-    (radonon && getPageSetting('Rtimefarm') == true) ? turnOn("Rtimefarmtime"): turnOff("Rtimefarmtime");
-    (radonon && getPageSetting('Rtimefarm') == true) ? turnOn("Rtimemaplevel"): turnOff("Rtimemaplevel");
-    (radonon && getPageSetting('Rtimefarm') == true) ? turnOn("Rtimemapselection"): turnOff("Rtimemapselection");
-    (radonon && getPageSetting('Rtimefarm') == true) ? turnOn("Rtimespecialselection"): turnOff("Rtimespecialselection");
-    (radonon && getPageSetting('Rtimefarm') == true) ? turnOn("Rtimegatherselection"): turnOff("Rtimegatherselection");
-    radonon ? turnOn("Rtributefarm"): turnOff("Rtributefarm");
-    (radonon && getPageSetting('Rtributefarm') == true) ? turnOn("Rtributefarmzone"): turnOff("Rtributefarmzone");
-    (radonon && getPageSetting('Rtributefarm') == true) ? turnOn("Rtributefarmcell"): turnOff("Rtributefarmcell");
-    (radonon && getPageSetting('Rtributefarm') == true) ? turnOn("Rtributefarmamount"): turnOff("Rtributefarmamount");
-    (radonon && getPageSetting('Rtributefarm') == true) ? turnOn("Rtributemaplevel"): turnOff("Rtributemaplevel");
-    (radonon && getPageSetting('Rtributefarm') == true) ? turnOn("Rtributemapselection"): turnOff("Rtributemapselection");
-    (radonon && getPageSetting('Rtributefarm') == true) ? turnOn("Rtributespecialselection"): turnOff("Rtributespecialselection");
-    (radonon && getPageSetting('Rtributefarm') == true) ? turnOn("Rtributegatherselection"): turnOff("Rtributegatherselection");
-    radonon ? turnOn("RVoidMaps"): turnOff("RVoidMaps");
-    radonon ? turnOn("Rvoidscell"): turnOff("Rvoidscell");
-    radonon ? turnOn("RRunNewVoidsUntilNew"): turnOff("RRunNewVoidsUntilNew");
-    radonon ? turnOn("Rprispalace"): turnOff("Rprispalace");
-    radonon ? turnOn("Rmeltpoint"): turnOff("Rmeltpoint");
-    radonon ? turnOn("Rfrozencastle"): turnOff("Rfrozencastle");
-    
+    radonon ? turnOn("RAutoMaps") : turnOff("RAutoMaps");
+    radonon ? turnOn("Rautomapsportal") : turnOff("Rautomapsportal");
+    radonon ? turnOn("Rmapselection") : turnOff("Rmapselection");
+    radonon ? turnOn("RMaxMapBonusAfterZone") : turnOff("RMaxMapBonusAfterZone");
+    radonon ? turnOn("RMaxMapBonuslimit") : turnOff("RMaxMapBonuslimit");
+    radonon ? turnOn("RMaxMapBonushealth") : turnOff("RMaxMapBonushealth");
+    radonon ? turnOn("Rhitssurvived") : turnOff("Rhitssurvived");
+    radonon ? turnOn("Rmapcuntoff") : turnOff("Rmapcuntoff");
+    radonon ? turnOn("RDisableFarm") : turnOff("RDisableFarm");
+
+    radonon ? turnOn("Rtimefarm") : turnOff("Rtimefarm");
+    (radonon && getPageSetting('Rtimefarm') == true) ? turnOn("Rtimefarmmaz"): turnOff("Rtimefarmmaz");
+    turnOff("Rtimefarmzone");
+    turnOff("Rtimefarmcell");
+    turnOff("Rtimefarmtime");
+    turnOff("Rtimefarmlevel");
+    turnOff("Rtimefarmmap");
+    turnOff("Rtimefarmspecial");
+    turnOff("Rtimefarmgather");
+
+    radonon ? turnOn("Rtributefarm") : turnOff("Rtributefarm");
+    (radonon && getPageSetting('Rtributefarm') == true) ? turnOn("Rtributefarmmaz"): turnOff("Rtributefarmmaz");
+    turnOff("Rtributefarmzone");
+    turnOff("Rtributefarmcell");
+    turnOff("Rtributefarmamount");
+    turnOff("Rtributefarmlevel");
+    turnOff("Rtributemapselection");
+    turnOff("Rtributespecialselection");
+    turnOff("Rtributegatherselection");
+
+    radonon ? turnOn("RVoidMaps") : turnOff("RVoidMaps");
+    radonon ? turnOn("Rvoidscell") : turnOff("Rvoidscell");
+    radonon ? turnOn("RRunNewVoidsUntilNew") : turnOff("RRunNewVoidsUntilNew");
+    radonon ? turnOn("Rprispalace") : turnOff("Rprispalace");
+    radonon ? turnOn("Rmeltpoint") : turnOff("Rmeltpoint");
+    radonon ? turnOn("Rfrozencastle") : turnOff("Rfrozencastle");
+
     //Spire
-    !radonon ? turnOn("MaxStacksForSpire"): turnOff("MaxStacksForSpire");
-    !radonon ? turnOn("MinutestoFarmBeforeSpire"): turnOff("MinutestoFarmBeforeSpire");
-    !radonon ? turnOn("IgnoreSpiresUntil"): turnOff("IgnoreSpiresUntil");
-    !radonon ? turnOn("ExitSpireCell"): turnOff("ExitSpireCell");
-    !radonon ? turnOn("SpireBreedTimer"): turnOff("SpireBreedTimer");
-    !radonon ? turnOn("PreSpireNurseries"): turnOff("PreSpireNurseries");
-    !radonon ? turnOn("spireshitbuy"): turnOff("spireshitbuy");
-    !radonon ? turnOn("SkipSpires"): turnOff("SkipSpires");
-    
-    
+    !radonon ? turnOn("MaxStacksForSpire") : turnOff("MaxStacksForSpire");
+    !radonon ? turnOn("MinutestoFarmBeforeSpire") : turnOff("MinutestoFarmBeforeSpire");
+    !radonon ? turnOn("IgnoreSpiresUntil") : turnOff("IgnoreSpiresUntil");
+    !radonon ? turnOn("ExitSpireCell") : turnOff("ExitSpireCell");
+    !radonon ? turnOn("SpireBreedTimer") : turnOff("SpireBreedTimer");
+    !radonon ? turnOn("PreSpireNurseries") : turnOff("PreSpireNurseries");
+    !radonon ? turnOn("spireshitbuy") : turnOff("spireshitbuy");
+    !radonon ? turnOn("SkipSpires") : turnOff("SkipSpires");
+
+
 
     //Raiding
-    !radonon ? turnOn("Praidingzone"): turnOff("Praidingzone");
+    !radonon ? turnOn("Praidingzone") : turnOff("Praidingzone");
     !radonon ? turnOn("Praidingcell") : turnOff("Praidingcell");
-    !radonon ? turnOn("PraidingHD"): turnOff("PraidingHD");
-    !radonon ? turnOn("PraidingP"): turnOff("PraidingP");
-    !radonon ? turnOn("PraidingI"): turnOff("PraidingI");
+    !radonon ? turnOn("PraidingHD") : turnOff("PraidingHD");
+    !radonon ? turnOn("PraidingP") : turnOff("PraidingP");
+    !radonon ? turnOn("PraidingI") : turnOff("PraidingI");
     !radonon && getPageSetting('Praidingzone') != -1 ? turnOn('PraidHarder') : turnOff('PraidHarder');
     !radonon && getPageSetting('PraidHarder') ? turnOn('PraidFarmFragsZ') : turnOff('PraidFarmFragsZ');
     !radonon && getPageSetting('PraidHarder') ? turnOn('PraidBeforeFarmZ') : turnOff('PraidBeforeFarmZ');
     !radonon && getPageSetting('PraidHarder') ? turnOn('MaxPraidZone') : turnOff('MaxPraidZone');
-    !radonon ? turnOn("BWraid"): turnOff("BWraid");
-    !radonon && getPageSetting('BWraid')==true ? turnOn("bwraidcell"): turnOff("bwraidcell");
-    !radonon && getPageSetting('BWraid')==true ? turnOn("BWraidingz"): turnOff("BWraidingz");
-    !radonon && getPageSetting('BWraid')==true ? turnOn("BWraidingmax"): turnOff("BWraidingmax");
+    !radonon ? turnOn("BWraid") : turnOff("BWraid");
+    !radonon && getPageSetting('BWraid') == true ? turnOn("bwraidcell") : turnOff("bwraidcell");
+    !radonon && getPageSetting('BWraid') == true ? turnOn("BWraidingz") : turnOff("BWraidingz");
+    !radonon && getPageSetting('BWraid') == true ? turnOn("BWraidingmax") : turnOff("BWraidingmax");
 
-    
-    //RRaiding
-    radonon ? turnOn("RPraidingzone"): turnOff("RPraidingzone");
-    radonon ? turnOn("RPraidingcell") : turnOff("RPraidingcell");
-    radonon && getPageSetting('RPraidingzone') != -1 ? turnOn('RPraidHarder') : turnOff('RPraidHarder');
-    radonon && getPageSetting('RPraidHarder') ? turnOn('RPraidFarmFragsZ') : turnOff('RPraidFarmFragsZ');
-    radonon && getPageSetting('RPraidHarder') ? turnOn('RPraidBeforeFarmZ') : turnOff('RPraidBeforeFarmZ');
-    radonon && getPageSetting('RPraidHarder') ? turnOn('RMaxPraidZone') : turnOff('RMaxPraidZone');
-    radonon ? turnOn("RBWraid"): turnOff("RBWraid");
-    radonon && getPageSetting('RBWraid')==true ? turnOn("RBWraidingz"): turnOff("RBWraidingz");
-    radonon && getPageSetting('RBWraid')==true ? turnOn("RBWraidingmax"): turnOff("RBWraidingmax");
-    
-    //RPR
-    radonon ? turnOn("RAMPraid"): turnOff("RAMPraid");
-    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidzone"): turnOff("RAMPraidzone");
-    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidraid"): turnOff("RAMPraidraid");
-    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidcell"): turnOff("RAMPraidcell");
-    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidfrag"): turnOff("RAMPraidfrag");
-    radonon && getPageSetting('RAMPraid')==true ? turnOn("RAMPraidrecycle"): turnOff("RAMPraidrecycle");
+    //RPraiding
+    radonon ? turnOn("RAMPraid") : turnOff("RAMPraid");
+    radonon && getPageSetting('RAMPraid') == true ? turnOn("RAMPraidmaz") : turnOff("RAMPraidmaz");
+    turnOff("RAMPraidzone");
+    turnOff("RAMPraidraid");
+    turnOff("RAMPraidcell");
+    radonon && getPageSetting('RAMPraid') == true ? turnOn("RAMPraidfrag") : turnOff("RAMPraidfrag");
+    radonon && getPageSetting('RAMPraid') == true ? turnOn("RAMPraidrecycle") : turnOff("RAMPraidrecycle");
 
-    
-    
+
+
     //Windstacking
-    var wson = (getPageSetting('AutoStance')==3);
+    var wson = (getPageSetting('AutoStance') == 3);
     (!radonon && !wson) ? turnOn("turnwson"): turnOff("turnwson");
     (!radonon && wson) ? turnOn("windhealthy"): turnOff("windhealthy");
     (!radonon && wson) ? turnOn("usebstance"): turnOff("usebstance");
@@ -1827,60 +1942,61 @@ function updateCustomButtons() {
     (!radonon && wson) ? turnOn("wsmax"): turnOff("wsmax");
     (!radonon && wson) ? turnOn("wsmaxhd"): turnOff("wsmaxhd");
 
-    
-    //ATGA
-    !radonon ? turnOn("ATGA2"): turnOff("ATGA2");
-    !radonon && getPageSetting('ATGA2') == true ? turnOn("ATGA2timer"): turnOff("ATGA2timer");
-    !radonon && getPageSetting('ATGA2') == true ? turnOn("ATGA2gen"): turnOff("ATGA2gen");
-    var ATGAon = (getPageSetting('ATGA2') == true && getPageSetting('ATGA2timer') > 0);
-    (!radonon && ATGAon) ? turnOn("zATGA2timer") : turnOff("zATGA2timer");
-    (!radonon && ATGAon && getPageSetting('zATGA2timer') > 0) ? turnOn("ztATGA2timer") : turnOff("ztATGA2timer");
-    (!radonon && ATGAon) ? turnOn("ATGA2timerz") : turnOff("ATGA2timerz");
-    (!radonon && ATGAon && getPageSetting('ATGA2timerz') > 0) ? turnOn("ATGA2timerzt") : turnOff("ATGA2timerzt");
-    (!radonon && ATGAon) ? turnOn("sATGA2timer") : turnOff("sATGA2timer");
-    (!radonon && ATGAon) ? turnOn("dsATGA2timer") : turnOff("dsATGA2timer");
-    (!radonon && ATGAon) ? turnOn("dATGA2timer") : turnOff("dATGA2timer");
-    (!radonon && ATGAon) ? turnOn("dhATGA2timer") : turnOff("dhATGA2timer");
-    (!radonon && ATGAon) ? turnOn("cATGA2timer") : turnOff("cATGA2timer");
-    (!radonon && ATGAon) ? turnOn("chATGA2timer") : turnOff("chATGA2timer");
-    (!radonon && ATGAon) ? turnOn("dATGA2Auto") : turnOff("dATGA2Auto");
 
-    
-    
+    //ATGA
+    !radonon ? turnOn("ATGA2") : turnOff("ATGA2");
+    !radonon && getPageSetting('ATGA2') == true ? turnOn("ATGA2timer") : turnOff("ATGA2timer");
+    !radonon && getPageSetting('ATGA2') == true ? turnOn("ATGA2gen") : turnOff("ATGA2gen");
+    var ATGAon = (getPageSetting('ATGA2') == true && getPageSetting('ATGA2timer') > 0);
+    (!radonon && ATGAon) ? turnOn("zATGA2timer"): turnOff("zATGA2timer");
+    (!radonon && ATGAon && getPageSetting('zATGA2timer') > 0) ? turnOn("ztATGA2timer"): turnOff("ztATGA2timer");
+    (!radonon && ATGAon) ? turnOn("ATGA2timerz"): turnOff("ATGA2timerz");
+    (!radonon && ATGAon && getPageSetting('ATGA2timerz') > 0) ? turnOn("ATGA2timerzt"): turnOff("ATGA2timerzt");
+    (!radonon && ATGAon) ? turnOn("sATGA2timer"): turnOff("sATGA2timer");
+    (!radonon && ATGAon) ? turnOn("dsATGA2timer"): turnOff("dsATGA2timer");
+    (!radonon && ATGAon) ? turnOn("dATGA2timer"): turnOff("dATGA2timer");
+    (!radonon && ATGAon) ? turnOn("dhATGA2timer"): turnOff("dhATGA2timer");
+    (!radonon && ATGAon) ? turnOn("cATGA2timer"): turnOff("cATGA2timer");
+    (!radonon && ATGAon) ? turnOn("chATGA2timer"): turnOff("chATGA2timer");
+    (!radonon && ATGAon) ? turnOn("dATGA2Auto"): turnOff("dATGA2Auto");
+
+
+
     //Combat
-    !radonon ? turnOn("AutoStance"): turnOff("AutoStance");
-    !radonon ? turnOn("AutoStanceNew"): turnOff("AutoStanceNew");
-    !radonon ? turnOn("DynamicGyms"): turnOff("DynamicGyms");
-    !radonon ? turnOn("AutoRoboTrimp"): turnOff("AutoRoboTrimp");
-    !radonon ? turnOn("fightforever"): turnOff("fightforever");
-    !radonon ? turnOn("addpoison"): turnOff("addpoison");
-    !radonon ? turnOn("fullice"): turnOff("fullice");
-    !radonon ? turnOn("45stacks"): turnOff("45stacks");
-    !radonon ? turnOn("ForceAbandon"): turnOff("ForceAbandon");
-    !radonon && getPageSetting('AutoStance')!=3 ? turnOn("IgnoreCrits") : turnOff("IgnoreCrits");
-    
+    !radonon ? turnOn("AutoStance") : turnOff("AutoStance");
+    !radonon ? turnOn("AutoStanceNew") : turnOff("AutoStanceNew");
+    !radonon ? turnOn("DynamicGyms") : turnOff("DynamicGyms");
+    !radonon ? turnOn("AutoRoboTrimp") : turnOff("AutoRoboTrimp");
+    !radonon ? turnOn("fightforever") : turnOff("fightforever");
+    !radonon ? turnOn("addpoison") : turnOff("addpoison");
+    !radonon ? turnOn("fullice") : turnOff("fullice");
+    !radonon ? turnOn("45stacks") : turnOff("45stacks");
+    !radonon ? turnOn("ForceAbandon") : turnOff("ForceAbandon");
+    !radonon && getPageSetting('AutoStance') != 3 ? turnOn("IgnoreCrits") : turnOff("IgnoreCrits");
+
 
     //RCombat
-    radonon ? turnOn("Rfightforever"): turnOff("Rfightforever");
-    radonon ? turnOn("Rcalcmaxequality"): turnOff("Rcalcmaxequality");
-    radonon ? turnOn("Rmanageequality"): turnOff("Rmanageequality");
-    radonon ? turnOn("Rcalcfrenzy"): turnOff("Rcalcfrenzy");
-    
-    
-    
+    radonon ? turnOn("Rfightforever") : turnOff("Rfightforever");
+    radonon ? turnOn("Rcalcmaxequality") : turnOff("Rcalcmaxequality");
+    radonon ? turnOn("Rmanageequality") : turnOff("Rmanageequality");
+    radonon ? turnOn("Rcalcfrenzy") : turnOff("Rcalcfrenzy");
+
+
+
     //Challenges
 
     //Quagmire
-    radonon ? turnOn("Rblackbog"): turnOff("Rblackbog");
-    (radonon && getPageSetting('Rblackbog') == true) ? turnOn("Rblackbogzone"): turnOff("Rblackbogzone");
-    (radonon && getPageSetting('Rblackbog') == true) ? turnOn("Rblackbogamount"): turnOff("Rblackbogamount");
-    
+    radonon ? turnOn("Rblackbog") : turnOff("Rblackbog");
+    (radonon && getPageSetting('Rblackbog') == true) ? turnOn("Rblackbogmaz"): turnOff("Rblackbogmaz");
+    turnOff("Rblackbogzone");
+    turnOff("Rblackbogamount");
+
     //Arch
     radonon ? turnOn("Rarchon") : turnOff("Rarchon");
     radonon && getPageSetting('Rarchon') == true ? turnOn("Rarchstring1") : turnOff("Rarchstring1");
     radonon && getPageSetting('Rarchon') == true ? turnOn("Rarchstring2") : turnOff("Rarchstring2");
     radonon && getPageSetting('Rarchon') == true ? turnOn("Rarchstring3") : turnOff("Rarchstring3");
-    
+
     //Mayhem
     radonon ? turnOn("Rmayhemon") : turnOff("Rmayhemon");
     radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemattack") : turnOff("Rmayhemattack");
@@ -1889,7 +2005,7 @@ function updateCustomButtons() {
     radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemamcut") : turnOff("Rmayhemamcut");
     radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemhcut") : turnOff("Rmayhemhcut");
     radonon && getPageSetting('Rmayhemon') == true ? turnOn("Rmayhemmap") : turnOff("Rmayhemmap");
-    
+
     //Storm
     radonon ? turnOn("Rstormon") : turnOff("Rstormon");
     radonon && getPageSetting('Rstormon') == true ? turnOn("Rstormzone") : turnOff("Rstormzone");
@@ -1898,17 +2014,18 @@ function updateCustomButtons() {
 
     //Insanity
     radonon ? turnOn("Rinsanityon") : turnOff("Rinsanityon");
-    radonon && getPageSetting('Rinsanityon') == true ? turnOn("Rinsanityfarmzone") : turnOff("Rinsanityfarmzone");
-    radonon && getPageSetting('Rinsanityon') == true ? turnOn("Rinsanityfarmcell") : turnOff("Rinsanityfarmcell");
-    radonon && getPageSetting('Rinsanityon') == true ? turnOn("Rinsanityfarmstack") : turnOff("Rinsanityfarmstack");
-    radonon && getPageSetting('Rinsanityon') == true ? turnOn("Rinsanityfarmlevel") : turnOff("Rinsanityfarmlevel");
+    radonon && getPageSetting('Rinsanityon') == true ? turnOn("Rinsanitymaz") : turnOff("Rinsanitymaz");
+    turnOff("Rinsanityfarmzone");
+    turnOff("Rinsanityfarmcell");
+    turnOff("Rinsanityfarmstack");
+    turnOff("Rinsanityfarmlevel");
     radonon && getPageSetting('Rinsanityon') == true ? turnOn("Rinsanityfarmfrag") : turnOff("Rinsanityfarmfrag");
 
     //Exterminate
     radonon ? turnOn("Rexterminateon") : turnOff("Rexterminateon");
     radonon && getPageSetting('Rexterminateon') == true ? turnOn("Rexterminatecalc") : turnOff("Rexterminatecalc");
     radonon && getPageSetting('Rexterminateon') == true ? turnOn("Rexterminateeq") : turnOff("Rexterminateeq");
-	
+
     //Nurture
     radonon ? turnOn("Rnurtureon") : turnOff("Rnurtureon");
 
@@ -1920,139 +2037,145 @@ function updateCustomButtons() {
 
     //Alch
     radonon ? turnOn("Ralchon") : turnOff("Ralchon");
-    radonon && getPageSetting('Ralchon') == true ? turnOn("Ralchfarmzone") : turnOff("Ralchfarmzone");
-    radonon && getPageSetting('Ralchon') == true ? turnOn("Ralchfarmcell") : turnOff("Ralchfarmcell");
-    radonon && getPageSetting('Ralchon') == true ? turnOn("Ralchfarmstack") : turnOff("Ralchfarmstack");
-    radonon && getPageSetting('Ralchon') == true ? turnOn("Ralchfarmlevel") : turnOff("Ralchfarmlevel");
-    radonon && getPageSetting('Ralchon') == true ? turnOn("Ralchfarmselection") : turnOff("Ralchfarmselection");
+    radonon && getPageSetting('Ralchon') == true ? turnOn("Ralchfarmmaz") : turnOff("Ralchfarmmaz");
+    turnOff("Ralchfarmzone");
+    turnOff("Ralchfarmcell");
+    turnOff("Ralchfarmstack");
+    turnOff("Ralchfarmlevel");
+    turnOff("Ralchfarmselection");
     radonon && getPageSetting('Ralchon') == true ? turnOn("Ralchfarmfrag") : turnOff("Ralchfarmfrag");
 
     //Hypo
     radonon ? turnOn("Rhypoon") : turnOff("Rhypoon");
-    radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypofarmzone") : turnOff("Rhypofarmzone");
-    radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypofarmcell") : turnOff("Rhypofarmcell");
-    radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypofarmstack") : turnOff("Rhypofarmstack");
-    radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypofarmlevel") : turnOff("Rhypofarmlevel");
+    radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypofarmmaz") : turnOff("Rhypofarmmaz");
+    turnOff("Rhypofarmzone");
+    turnOff("Rhypofarmcell");
+    turnOff("Rhypofarmstack");
+    turnOff("Rhypofarmlevel");
     radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypofarmfrag") : turnOff("Rhypofarmfrag");
     radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypocastle") : turnOff("Rhypocastle");
     radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypovoids") : turnOff("Rhypovoids");
     radonon && getPageSetting('Rhypoon') == true ? turnOn("Rhypostorage") : turnOff("Rhypostorage");
 
     //Hide Challenges
-    radonon ? turnOn("Rchallengehide"): turnOff("Rchallengehide");
+    radonon ? turnOn("Rchallengehide") : turnOff("Rchallengehide");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidequag") : turnOff("Rchallengehidequag");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidearch") : turnOff("Rchallengehidearch");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidemayhem") : turnOff("Rchallengehidemayhem");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidestorm") : turnOff("Rchallengehidestorm");
-    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehideinsanity") : turnOff("Rchallengehideinsanity"); 
-    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehideexterminate") : turnOff("Rchallengehideexterminate"); 
+    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehideinsanity") : turnOff("Rchallengehideinsanity");
+    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehideexterminate") : turnOff("Rchallengehideexterminate");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidenurture") : turnOff("Rchallengehidenurture");
     radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidepanda") : turnOff("Rchallengehidepanda");
-    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidealchemy") : turnOff("Rchallengehidealchemy"); 
-    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidehypothermia") : turnOff("Rchallengehidehypothermia"); 
+    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidealchemy") : turnOff("Rchallengehidealchemy");
+    radonon && getPageSetting('Rchallengehide') == true ? turnOn("Rchallengehidehypothermia") : turnOff("Rchallengehidehypothermia");
 
     if (getPageSetting('Rchallengehidequag') == true) {
-            turnOff("Rblackbog");
-            turnOff("Rblackbogzone");
-            turnOff("Rblackbogamount");
+        turnOff("Rblackbog");
+        turnOff("Rblackbogmaz");
+        turnOff("Rblackbogzone");
+        turnOff("Rblackbogamount");
     }
-    if (getPageSetting('Rchallengehidearch') == true) { 
-            turnOff("Rarchon");
-            turnOff("Rarchstring1");
-            turnOff("Rarchstring2");
-            turnOff("Rarchstring3");
+    if (getPageSetting('Rchallengehidearch') == true) {
+        turnOff("Rarchon");
+        turnOff("Rarchstring1");
+        turnOff("Rarchstring2");
+        turnOff("Rarchstring3");
     }
-    if (getPageSetting('Rchallengehidemayhem') == true) { 
-            turnOff("Rmayhemon");
-            turnOff("Rmayhemattack");
-            turnOff("Rmayhemhealth");
-            turnOff("Rmayhemabcut");
-            turnOff("Rmayhemamcut");
-            turnOff("Rmayhemhcut");
-            turnOff("Rmayhemmap");
+    if (getPageSetting('Rchallengehidemayhem') == true) {
+        turnOff("Rmayhemon");
+        turnOff("Rmayhemattack");
+        turnOff("Rmayhemhealth");
+        turnOff("Rmayhemabcut");
+        turnOff("Rmayhemamcut");
+        turnOff("Rmayhemhcut");
+        turnOff("Rmayhemmap");
     }
-    if (getPageSetting('Rchallengehidestorm') == true) { 
-            turnOff("Rstormon");
-            turnOff("Rstormzone");
-            turnOff("RstormHD");
-            turnOff("Rstormmult");
+    if (getPageSetting('Rchallengehidestorm') == true) {
+        turnOff("Rstormon");
+        turnOff("Rstormzone");
+        turnOff("RstormHD");
+        turnOff("Rstormmult");
     }
-    if (getPageSetting('Rchallengehideinsanity') == true) { 
-            turnOff("Rinsanityon");
-            turnOff("Rinsanityfarmzone");
-            turnOff("Rinsanityfarmcell");
-            turnOff("Rinsanityfarmstack");
-            turnOff("Rinsanityfarmlevel");
-            turnOff("Rinsanityfarmfrag");
+    if (getPageSetting('Rchallengehideinsanity') == true) {
+        turnOff("Rinsanityon");
+        turnOff("Rinsanitymaz");
+        turnOff("Rinsanityfarmzone");
+        turnOff("Rinsanityfarmcell");
+        turnOff("Rinsanityfarmstack");
+        turnOff("Rinsanityfarmlevel");
+        turnOff("Rinsanityfarmfrag");
     }
-    if (getPageSetting('Rchallengehideexterminate') == true) { 
-            turnOff("Rexterminateon");
-            turnOff("Rexterminatecalc");
-            turnOff("Rexterminateeq");
+    if (getPageSetting('Rchallengehideexterminate') == true) {
+        turnOff("Rexterminateon");
+        turnOff("Rexterminatecalc");
+        turnOff("Rexterminateeq");
     }
-    if (getPageSetting('Rchallengehidenurture') == true) { 
-            turnOff("Rnurtureon");
+    if (getPageSetting('Rchallengehidenurture') == true) {
+        turnOff("Rnurtureon");
     }
-    if (getPageSetting('Rchallengehidepanda') == true) { 
-            turnOff("Rpandaon");
-            turnOff("Rpandamaps");
-            turnOff("Rpandazone");
-            turnOff("Rpandahits");
+    if (getPageSetting('Rchallengehidepanda') == true) {
+        turnOff("Rpandaon");
+        turnOff("Rpandamaps");
+        turnOff("Rpandazone");
+        turnOff("Rpandahits");
     }
-    if (getPageSetting('Rchallengehidealchemy') == true) { 
-            turnOff("Ralchon");
-            turnOff("Ralchfarmzone");
-            turnOff("Ralchfarmcell");
-            turnOff("Ralchfarmstack");
-            turnOff("Ralchfarmlevel");
-            turnOff("Ralchfarmselection");
-            turnOff("Ralchfarmfrag");
+    if (getPageSetting('Rchallengehidealchemy') == true) {
+        turnOff("Ralchon");
+        turnOff("Ralchfarmmaz");
+        turnOff("Ralchfarmzone");
+        turnOff("Ralchfarmcell");
+        turnOff("Ralchfarmstack");
+        turnOff("Ralchfarmlevel");
+        turnOff("Ralchfarmselection");
+        turnOff("Ralchfarmfrag");
     }
-    if (getPageSetting('Rchallengehidehypothermia') == true) { 
-            turnOff("Rhypoon");
-            turnOff("Rhypofarmzone");
-            turnOff("Rhypofarmcell");
-            turnOff("Rhypofarmstack");
-            turnOff("Rhypofarmlevel");
-            turnOff("Rhypofarmfrag");
-            turnOff("Rhypocastle");
-            turnOff("Rhypovoids");
-            turnOff("Rhypostorage");
+    if (getPageSetting('Rchallengehidehypothermia') == true) {
+        turnOff("Rhypoon");
+        turnOff("Rhypofarmmaz");
+        turnOff("Rhypofarmzone");
+        turnOff("Rhypofarmcell");
+        turnOff("Rhypofarmstack");
+        turnOff("Rhypofarmlevel");
+        turnOff("Rhypofarmfrag");
+        turnOff("Rhypocastle");
+        turnOff("Rhypovoids");
+        turnOff("Rhypostorage");
     }
 
-    
-    
+
+
     //Scryer
-    !radonon ? turnOn("UseScryerStance"): turnOff("UseScryerStance");
-    !radonon ? turnOn("ScryerUseWhenOverkill"): turnOff("ScryerUseWhenOverkill");
-    !radonon ? turnOn("ScryerMinZone"): turnOff("ScryerMinZone");
-    !radonon ? turnOn("ScryerMaxZone"): turnOff("ScryerMaxZone");
-    !radonon ? turnOn("onlyminmaxworld"): turnOff("onlyminmaxworld");
-    !radonon ? turnOn("ScryerUseinMaps2"): turnOff("ScryerUseinMaps2");
-    !radonon ? turnOn("ScryerUseinVoidMaps2"): turnOff("ScryerUseinVoidMaps2");
-    !radonon ? turnOn("ScryerUseinPMaps"): turnOff("ScryerUseinPMaps");
-    !radonon ? turnOn("ScryerUseinBW"): turnOff("ScryerUseinBW");
-    !radonon ? turnOn("ScryerUseinSpire2"): turnOff("ScryerUseinSpire2");
-    !radonon ? turnOn("ScryerSkipBoss2"): turnOff("ScryerSkipBoss2");
-    !radonon ? turnOn("ScryerSkipCorrupteds2"): turnOff("ScryerSkipCorrupteds2");
-    !radonon ? turnOn("ScryerSkipHealthy"): turnOff("ScryerSkipHealthy");
-    !radonon ? turnOn("ScryUseinPoison"): turnOff("ScryUseinPoison");
-    !radonon ? turnOn("ScryUseinWind"): turnOff("ScryUseinWind");
-    !radonon ? turnOn("ScryUseinIce"): turnOff("ScryUseinIce");
-    !radonon ? turnOn("ScryerDieZ"): turnOff("ScryerDieZ");
-    !radonon ? turnOn("screwessence"): turnOff("screwessence");
+    !radonon ? turnOn("UseScryerStance") : turnOff("UseScryerStance");
+    !radonon ? turnOn("ScryerUseWhenOverkill") : turnOff("ScryerUseWhenOverkill");
+    !radonon ? turnOn("ScryerMinZone") : turnOff("ScryerMinZone");
+    !radonon ? turnOn("ScryerMaxZone") : turnOff("ScryerMaxZone");
+    !radonon ? turnOn("onlyminmaxworld") : turnOff("onlyminmaxworld");
+    !radonon ? turnOn("ScryerUseinMaps2") : turnOff("ScryerUseinMaps2");
+    !radonon ? turnOn("ScryerUseinVoidMaps2") : turnOff("ScryerUseinVoidMaps2");
+    !radonon ? turnOn("ScryerUseinPMaps") : turnOff("ScryerUseinPMaps");
+    !radonon ? turnOn("ScryerUseinBW") : turnOff("ScryerUseinBW");
+    !radonon ? turnOn("ScryerUseinSpire2") : turnOff("ScryerUseinSpire2");
+    !radonon ? turnOn("ScryerSkipBoss2") : turnOff("ScryerSkipBoss2");
+    !radonon ? turnOn("ScryerSkipCorrupteds2") : turnOff("ScryerSkipCorrupteds2");
+    !radonon ? turnOn("ScryerSkipHealthy") : turnOff("ScryerSkipHealthy");
+    !radonon ? turnOn("ScryUseinPoison") : turnOff("ScryUseinPoison");
+    !radonon ? turnOn("ScryUseinWind") : turnOff("ScryUseinWind");
+    !radonon ? turnOn("ScryUseinIce") : turnOff("ScryUseinIce");
+    !radonon ? turnOn("ScryerDieZ") : turnOff("ScryerDieZ");
+    !radonon ? turnOn("screwessence") : turnOff("screwessence");
 
 
     //Magma
-    !radonon ? turnOn("UseAutoGen"): turnOff("UseAutoGen");
-    !radonon ? turnOn("beforegen"): turnOff("beforegen");
-    !radonon ? turnOn("fuellater"): turnOff("fuellater");
-    !radonon ? turnOn("fuelend"): turnOff("fuelend");
-    !radonon ? turnOn("defaultgen"): turnOff("defaultgen");
-    !radonon ? turnOn("AutoGenDC"): turnOff("AutoGenDC");
-    !radonon ? turnOn("AutoGenC2"): turnOff("AutoGenC2");
-    !radonon ? turnOn("spendmagmite"): turnOff("spendmagmite");
-    !radonon ? turnOn("ratiospend"): turnOff("ratiospend");
+    !radonon ? turnOn("UseAutoGen") : turnOff("UseAutoGen");
+    !radonon ? turnOn("beforegen") : turnOff("beforegen");
+    !radonon ? turnOn("fuellater") : turnOff("fuellater");
+    !radonon ? turnOn("fuelend") : turnOff("fuelend");
+    !radonon ? turnOn("defaultgen") : turnOff("defaultgen");
+    !radonon ? turnOn("AutoGenDC") : turnOff("AutoGenDC");
+    !radonon ? turnOn("AutoGenC2") : turnOff("AutoGenC2");
+    !radonon ? turnOn("spendmagmite") : turnOff("spendmagmite");
+    !radonon ? turnOn("ratiospend") : turnOff("ratiospend");
     var ratiospend = getPageSetting('ratiospend');
     (!radonon && !ratiospend) ? turnOn("SupplyWall"): turnOff("SupplyWall");
     (!radonon && !ratiospend) ? turnOn("spendmagmitesetting"): turnOff("spendmagmitesetting");
@@ -2061,23 +2184,23 @@ function updateCustomButtons() {
     (!radonon && ratiospend) ? turnOn("capratio"): turnOff("capratio");
     (!radonon && ratiospend) ? turnOn("supratio"): turnOff("supratio");
     (!radonon && ratiospend) ? turnOn("ocratio"): turnOff("ocratio");
-    
+
 
     //Golden
-    !radonon ? turnOn("AutoGoldenUpgrades"): turnOff("AutoGoldenUpgrades");
-    !radonon ? turnOn("dAutoGoldenUpgrades"): turnOff("dAutoGoldenUpgrades");
-    !radonon ? turnOn("cAutoGoldenUpgrades"): turnOff("cAutoGoldenUpgrades");
+    !radonon ? turnOn("AutoGoldenUpgrades") : turnOff("AutoGoldenUpgrades");
+    !radonon ? turnOn("dAutoGoldenUpgrades") : turnOff("dAutoGoldenUpgrades");
+    !radonon ? turnOn("cAutoGoldenUpgrades") : turnOff("cAutoGoldenUpgrades");
     !radonon && getPageSetting('AutoGoldenUpgrades') == "Void" ? turnOn('voidheliumbattle') : turnOff('voidheliumbattle');
     !radonon && getPageSetting('dAutoGoldenUpgrades') == "Void" ? turnOn('dvoidheliumbattle') : turnOff('dvoidheliumbattle');
     !radonon && getPageSetting('AutoGoldenUpgrades') == "Helium" ? turnOn('radonbattle') : turnOff('radonbattle');
     !radonon && getPageSetting('dAutoGoldenUpgrades') == "Helium" ? turnOn('dradonbattle') : turnOff('dradonbattle');
     !radonon && getPageSetting('AutoGoldenUpgrades') == "Battle" ? turnOn('battleradon') : turnOff('battleradon');
     !radonon && getPageSetting('dAutoGoldenUpgrades') == "Battle" ? turnOn('dbattleradon') : turnOff('dbattleradon');
-    
+
     //RGolden
-    radonon ? turnOn("RAutoGoldenUpgrades"): turnOff("RAutoGoldenUpgrades");
-    radonon ? turnOn("RdAutoGoldenUpgrades"): turnOff("RdAutoGoldenUpgrades");
-    radonon ? turnOn("RcAutoGoldenUpgrades"): turnOff("RcAutoGoldenUpgrades");
+    radonon ? turnOn("RAutoGoldenUpgrades") : turnOff("RAutoGoldenUpgrades");
+    radonon ? turnOn("RdAutoGoldenUpgrades") : turnOff("RdAutoGoldenUpgrades");
+    radonon ? turnOn("RcAutoGoldenUpgrades") : turnOff("RcAutoGoldenUpgrades");
     radonon && getPageSetting('RAutoGoldenUpgrades') == "Void" ? turnOn('Rvoidheliumbattle') : turnOff('Rvoidheliumbattle');
     radonon && getPageSetting('RdAutoGoldenUpgrades') == "Void" ? turnOn('Rdvoidheliumbattle') : turnOff('Rdvoidheliumbattle');
     radonon && getPageSetting('RAutoGoldenUpgrades') == "Radon" ? turnOn('Rradonbattle') : turnOff('Rradonbattle');
@@ -2085,97 +2208,97 @@ function updateCustomButtons() {
     radonon && getPageSetting('RAutoGoldenUpgrades') == "Battle" ? turnOn('Rbattleradon') : turnOff('Rbattleradon');
     radonon && getPageSetting('RdAutoGoldenUpgrades') == "Battle" ? turnOn('Rdbattleradon') : turnOff('Rdbattleradon');
 
-	
+
     //AB
-    radonon ? turnOn("RAB"): turnOff("RAB");
-    radonon && getPageSetting('RAB') == true ? turnOn("RABpreset"): turnOff("RABpreset");
-    radonon && getPageSetting('RAB') == true ? turnOn("RABdustsimple"): turnOff("RABdustsimple");
-    radonon && getPageSetting('RAB') == true ? turnOn("RABfarm"): turnOff("RABfarm");
-    radonon && getPageSetting('RAB') == true ? turnOn("RABfarmswitch"): turnOff("RABfarmswitch");
-    radonon && getPageSetting('RAB') == true ? turnOn("RABfarmstring"): turnOff("RABfarmstring");
-    radonon && getPageSetting('RAB') == true ? turnOn("RABsolve"): turnOff("RABsolve");
+    radonon ? turnOn("RAB") : turnOff("RAB");
+    radonon && getPageSetting('RAB') == true ? turnOn("RABpreset") : turnOff("RABpreset");
+    radonon && getPageSetting('RAB') == true ? turnOn("RABdustsimple") : turnOff("RABdustsimple");
+    radonon && getPageSetting('RAB') == true ? turnOn("RABfarm") : turnOff("RABfarm");
+    radonon && getPageSetting('RAB') == true ? turnOn("RABfarmswitch") : turnOff("RABfarmswitch");
+    radonon && getPageSetting('RAB') == true ? turnOn("RABfarmstring") : turnOff("RABfarmstring");
+    radonon && getPageSetting('RAB') == true ? turnOn("RABsolve") : turnOff("RABsolve");
 
 
     //Nature
-    !radonon ? turnOn("AutoNatureTokens"): turnOff("AutoNatureTokens");
-    !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("tokenthresh"): turnOff("tokenthresh");
-    !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("AutoPoison"): turnOff("AutoPoison");
-    !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("AutoWind"): turnOff("AutoWind");
-    !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("AutoIce"): turnOff("AutoIce");
+    !radonon ? turnOn("AutoNatureTokens") : turnOff("AutoNatureTokens");
+    !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("tokenthresh") : turnOff("tokenthresh");
+    !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("AutoPoison") : turnOff("AutoPoison");
+    !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("AutoWind") : turnOff("AutoWind");
+    !radonon && getPageSetting('AutoNatureTokens') == true ? turnOn("AutoIce") : turnOff("AutoIce");
 
-    
+
     //Enlight
-    !radonon ? turnOn("autoenlight"): turnOff("autoenlight");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("pfillerenlightthresh"): turnOff("pfillerenlightthresh");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("wfillerenlightthresh"): turnOff("wfillerenlightthresh");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("ifillerenlightthresh"): turnOff("ifillerenlightthresh");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("pdailyenlightthresh"): turnOff("pdailyenlightthresh");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("wdailyenlightthresh"): turnOff("wdailyenlightthresh");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("idailyenlightthresh"): turnOff("idailyenlightthresh");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("pc2enlightthresh"): turnOff("pc2enlightthresh");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("wc2enlightthresh"): turnOff("wc2enlightthresh");
-    !radonon && getPageSetting('autoenlight') == true ? turnOn("ic2enlightthresh"): turnOff("ic2enlightthresh");
+    !radonon ? turnOn("autoenlight") : turnOff("autoenlight");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("pfillerenlightthresh") : turnOff("pfillerenlightthresh");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("wfillerenlightthresh") : turnOff("wfillerenlightthresh");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("ifillerenlightthresh") : turnOff("ifillerenlightthresh");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("pdailyenlightthresh") : turnOff("pdailyenlightthresh");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("wdailyenlightthresh") : turnOff("wdailyenlightthresh");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("idailyenlightthresh") : turnOff("idailyenlightthresh");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("pc2enlightthresh") : turnOff("pc2enlightthresh");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("wc2enlightthresh") : turnOff("wc2enlightthresh");
+    !radonon && getPageSetting('autoenlight') == true ? turnOn("ic2enlightthresh") : turnOff("ic2enlightthresh");
 
-    
+
     //Display
-    (game.worldUnlocks.easterEgg.locked == false) ? turnOn('AutoEggs') : turnOff('AutoEggs');
+    (game.worldUnlocks.easterEgg.locked == false) ? turnOn('AutoEggs'): turnOff('AutoEggs');
 
 
     //Memory
-    if (getPageSetting('showbreedtimer')==false) turnOff("hiddenBreedTimer");
-    if (getPageSetting('showautomapstatus')==false) turnOff("autoMapStatus");
-    !radonon ? turnOn("showautomapstatus"): turnOff("showautomapstatus");
-    radonon ? turnOn("Rshowautomapstatus"): turnOff("Rshowautomapstatus");
+    if (getPageSetting('showbreedtimer') == false) turnOff("hiddenBreedTimer");
+    if (getPageSetting('showautomapstatus') == false) turnOff("autoMapStatus");
+    !radonon ? turnOn("showautomapstatus") : turnOff("showautomapstatus");
+    radonon ? turnOn("Rshowautomapstatus") : turnOff("Rshowautomapstatus");
 
-	
-	//Heirloom Swapping
-	radonon ? turnOn('Rhs') : turnOff('Rhs');
-	var hson = (getPageSetting('Rhs') == true);
-	
-	//Shields
-	radonon && hson ? turnOn('Rhsshield') : turnOff('Rhsshield');
-	var hsshieldon = (getPageSetting('Rhsshield') == true);
-	radonon && hson && hsshieldon ? turnOn('Rhsz') : turnOff('Rhsz');
-	radonon && hson && hsshieldon ? turnOn('Rhs1') : turnOff('Rhs1');
-	radonon && hson && hsshieldon ? turnOn('Rhs2') : turnOff('Rhs2');
-	
-	//Staffs
-	radonon && hson ? turnOn('Rhsstaff') : turnOff('Rhsstaff');
-	var hsstaffon = (getPageSetting('Rhsstaff') == true);
-	radonon && hson && hsstaffon ? turnOn('Rhsworldstaff') : turnOff('Rhsworldstaff');
-	radonon && hson && hsstaffon ? turnOn('Rhsmapstaff') : turnOff('Rhsmapstaff');
-	radonon && hson && hsstaffon ? turnOn('Rhstributestaff') : turnOff('Rhstributestaff');
-	
+
+    //Heirloom Swapping
+    radonon ? turnOn('Rhs') : turnOff('Rhs');
+    var hson = (getPageSetting('Rhs') == true);
+
+    //Shields
+    radonon && hson ? turnOn('Rhsshield') : turnOff('Rhsshield');
+    var hsshieldon = (getPageSetting('Rhsshield') == true);
+    radonon && hson && hsshieldon ? turnOn('Rhsz') : turnOff('Rhsz');
+    radonon && hson && hsshieldon ? turnOn('Rhs1') : turnOff('Rhs1');
+    radonon && hson && hsshieldon ? turnOn('Rhs2') : turnOff('Rhs2');
+
+    //Staffs
+    radonon && hson ? turnOn('Rhsstaff') : turnOff('Rhsstaff');
+    var hsstaffon = (getPageSetting('Rhsstaff') == true);
+    radonon && hson && hsstaffon ? turnOn('Rhsworldstaff') : turnOff('Rhsworldstaff');
+    radonon && hson && hsstaffon ? turnOn('Rhsmapstaff') : turnOff('Rhsmapstaff');
+    radonon && hson && hsstaffon ? turnOn('Rhstributestaff') : turnOff('Rhstributestaff');
+
     var autoheirloomenable = (getPageSetting('autoheirlooms') == true);
     var keepshieldenable = (autoheirloomenable && getPageSetting('keepshields') == true);
     var keepstaffenable = (autoheirloomenable && getPageSetting('keepstaffs') == true);
     var keepcoreenable = (autoheirloomenable && getPageSetting('keepcores') == true);
 
-    (autoheirloomenable) ? turnOn('typetokeep') : turnOff('typetokeep');
-    (autoheirloomenable) ? turnOn('raretokeep') : turnOff('raretokeep');
-    (autoheirloomenable) ? turnOn('keepshields') : turnOff('keepshields');
-    (autoheirloomenable) ? turnOn('keepstaffs') : turnOff('keepstaffs');
+    (autoheirloomenable) ? turnOn('typetokeep'): turnOff('typetokeep');
+    (autoheirloomenable) ? turnOn('raretokeep'): turnOff('raretokeep');
+    (autoheirloomenable) ? turnOn('keepshields'): turnOff('keepshields');
+    (autoheirloomenable) ? turnOn('keepstaffs'): turnOff('keepstaffs');
 
-    (keepshieldenable) ? turnOn('slot1modsh') : turnOff('slot1modsh');
-    (keepshieldenable) ? turnOn('slot2modsh') : turnOff('slot2modsh');
-    (keepshieldenable) ? turnOn('slot3modsh') : turnOff('slot3modsh');
-    (keepshieldenable) ? turnOn('slot4modsh') : turnOff('slot4modsh');
-    (keepshieldenable) ? turnOn('slot5modsh') : turnOff('slot5modsh');
-    (keepshieldenable) ? turnOn('slot6modsh') : turnOff('slot6modsh');
-    (keepshieldenable) ? turnOn('slot7modsh') : turnOff('slot7modsh');
+    (keepshieldenable) ? turnOn('slot1modsh'): turnOff('slot1modsh');
+    (keepshieldenable) ? turnOn('slot2modsh'): turnOff('slot2modsh');
+    (keepshieldenable) ? turnOn('slot3modsh'): turnOff('slot3modsh');
+    (keepshieldenable) ? turnOn('slot4modsh'): turnOff('slot4modsh');
+    (keepshieldenable) ? turnOn('slot5modsh'): turnOff('slot5modsh');
+    (keepshieldenable) ? turnOn('slot6modsh'): turnOff('slot6modsh');
+    (keepshieldenable) ? turnOn('slot7modsh'): turnOff('slot7modsh');
 
-    (keepstaffenable) ? turnOn('slot1modst') : turnOff('slot1modst');
-    (keepstaffenable) ? turnOn('slot2modst') : turnOff('slot2modst');
-    (keepstaffenable) ? turnOn('slot3modst') : turnOff('slot3modst');
-    (keepstaffenable) ? turnOn('slot4modst') : turnOff('slot4modst');
-    (keepstaffenable) ? turnOn('slot5modst') : turnOff('slot5modst');
-    (keepstaffenable) ? turnOn('slot6modst') : turnOff('slot6modst');
-    (keepstaffenable) ? turnOn('slot7modst') : turnOff('slot7modst');
+    (keepstaffenable) ? turnOn('slot1modst'): turnOff('slot1modst');
+    (keepstaffenable) ? turnOn('slot2modst'): turnOff('slot2modst');
+    (keepstaffenable) ? turnOn('slot3modst'): turnOff('slot3modst');
+    (keepstaffenable) ? turnOn('slot4modst'): turnOff('slot4modst');
+    (keepstaffenable) ? turnOn('slot5modst'): turnOff('slot5modst');
+    (keepstaffenable) ? turnOn('slot6modst'): turnOff('slot6modst');
+    (keepstaffenable) ? turnOn('slot7modst'): turnOff('slot7modst');
 
-    (keepcoreenable) ? turnOn('slot1modcr') : turnOff('slot1modcr');
-    (keepcoreenable) ? turnOn('slot2modcr') : turnOff('slot2modcr');
-    (keepcoreenable) ? turnOn('slot3modcr') : turnOff('slot3modcr');
-    (keepcoreenable) ? turnOn('slot4modcr') : turnOff('slot4modcr');
+    (keepcoreenable) ? turnOn('slot1modcr'): turnOff('slot1modcr');
+    (keepcoreenable) ? turnOn('slot2modcr'): turnOff('slot2modcr');
+    (keepcoreenable) ? turnOn('slot3modcr'): turnOff('slot3modcr');
+    (keepcoreenable) ? turnOn('slot4modcr'): turnOff('slot4modcr');
 
 
     //Dropdowns
@@ -2187,12 +2310,6 @@ function updateCustomButtons() {
     document.getElementById('RdHeliumHourChallenge').value = autoTrimpSettings.RdHeliumHourChallenge.selected;
     document.getElementById('mapselection').value = autoTrimpSettings.mapselection.selected;
     document.getElementById('Rmapselection').value = autoTrimpSettings.Rmapselection.selected;
-    document.getElementById('Rtimemapselection').value = autoTrimpSettings.Rtimemapselection.selected;
-    document.getElementById('Rtimespecialselection').value = autoTrimpSettings.Rtimespecialselection.selected;
-    document.getElementById('Rtimegatherselection').value = autoTrimpSettings.Rtimegatherselection.selected;
-    document.getElementById('Rtributemapselection').value = autoTrimpSettings.Rtributemapselection.selected;
-    document.getElementById('Rtributespecialselection').value = autoTrimpSettings.Rtributespecialselection.selected;
-    document.getElementById('Rtributegatherselection').value = autoTrimpSettings.Rtributegatherselection.selected;
     document.getElementById('Prestige').value = autoTrimpSettings.Prestige.selected;
     document.getElementById('AutoGoldenUpgrades').value = autoTrimpSettings.AutoGoldenUpgrades.selected;
     document.getElementById('dAutoGoldenUpgrades').value = autoTrimpSettings.dAutoGoldenUpgrades.selected;
@@ -2226,11 +2343,11 @@ function updateCustomButtons() {
     document.getElementById('slot4modcr').value = autoTrimpSettings.slot4modcr.selected;
 
     if (game.global.universe == 1)
-    document.getElementById('autoMapBtn').setAttribute('class','noselect settingsBtn settingBtn'+autoTrimpSettings.AutoMaps.value);
+        document.getElementById('autoMapBtn').setAttribute('class', 'noselect settingsBtn settingBtn' + autoTrimpSettings.AutoMaps.value);
     if (game.global.universe == 2)
-    document.getElementById('autoMapBtn').setAttribute('class','noselect settingsBtn settingBtn'+autoTrimpSettings.RAutoMaps.value);
+        document.getElementById('autoMapBtn').setAttribute('class', 'noselect settingsBtn settingBtn' + autoTrimpSettings.RAutoMaps.value);
 
-    
+
     if (game.global.universe == 1 && getPageSetting('DisableFarm') <= 0)
         shouldFarm = false;
     if (game.global.universe == 2 && getPageSetting('RDisableFarm') <= 0)
@@ -2272,19 +2389,18 @@ function updateCustomButtons() {
                             elem.textContent = item.name + '：' + item.value.toString().split(",")[0] + '+';
                         }
                     }
-                }
-                else if (item.type == 'textValue') {
-                    if (item == autoTrimpSettings.RABfarmstring) elem.innerHTML = item.name + '：' + item.value[0] + '+';
-                    else elem.textContent = item.name + '：' + item.value;
-                }
-                else if (item.value > -1 || item.type == 'valueNegative'){
-					let prettify_value = prettify(item.value)
+                } else if (item.type == 'textValue' && item.value.substring !== undefined) {
+                    if (item.value.length > 18)
+                        elem.textContent = item.name + '：' + item.value.substring(0, 21) + '……';
+                    else
+                        elem.textContent = item.name + '：' + item.value.substring(0, 21);
+                } else if (item.value > -1 || item.type == 'valueNegative'){
+                    let prettify_value = prettify(item.value)
 					if (elem.dataset["oritext"] != item.name + '：' + prettify_value) {
 						elem.dataset["oritext"] = item.name + '：' + prettify_value;
 						elem.textContent = item.name + '：' + prettify_value;
 					}
-				}
-                else{
+                } else{
 					if (elem.dataset["orihtml"] != item.name + '：' + "<span class='icomoon icon-infinity'></span>"){
 						elem.dataset["orihtml"] = item.name + '：' + "<span class='icomoon icon-infinity'></span>";
 						elem.innerHTML = item.name + '：' + "<span class='icomoon icon-infinity'></span>";
@@ -2303,36 +2419,51 @@ function checkPortalSettings() {
         return portalLevel;
     var voidmaps = 0;
     if (game.global.challengeActive != "Daily") {
-    voidmaps = getPageSetting('VoidMaps');
+        voidmaps = getPageSetting('VoidMaps');
     }
     if (game.global.challengeActive == "Daily") {
-    voidmaps = getPageSetting('dVoidMaps');
+        voidmaps = getPageSetting('dVoidMaps');
     }
     if (voidmaps >= portalLevel)
         tooltip('confirm', null, 'update', 'WARNING: Your void maps are set to complete after your autoPortal, and therefore will not be done at all! Please Change Your Settings Now. This Box Will Not Go away Until You do. Remember you can choose \'Custom\' autoPortal along with challenges for complete control over when you portal. <br><br>预计自动传送区域：' + portalLevel, 'cancelTooltip()', 'Void Maps Conflict');
     return portalLevel;
 }
 
-function getDailyHeHrStats(){var a="";if("Daily"==game.global.challengeActive){var b=game.stats.heliumHour.value()/(game.global.totalHeliumEarned-(game.global.heliumLeftover+game.resources.helium.owned));b*=100+getDailyHeliumValue(countDailyWeight()),a="<b>After Daily He/Hr: "+b.toFixed(3)+"%"}return a}
-function getDailyRnHrStats(){var a="";if("Daily"==game.global.challengeActive){var b=game.stats.heliumHour.value()/(game.global.totalRadonEarned-(game.global.radonLeftover+game.resources.radon.owned));b*=100+getDailyHeliumValue(countDailyWeight()),a="<b>After Daily Rn/Hr: "+b.toFixed(3)+"%"}return a}
-function settingsProfileMakeGUI(){}
+function getDailyHeHrStats() {
+    var a = "";
+    if ("Daily" == game.global.challengeActive) {
+        var b = game.stats.heliumHour.value() / (game.global.totalHeliumEarned - (game.global.heliumLeftover + game.resources.helium.owned));
+        b *= 100 + getDailyHeliumValue(countDailyWeight()), a = "<b>After Daily He/Hr: " + b.toFixed(3) + "%"
+    }
+    return a
+}
+
+function getDailyRnHrStats() {
+    var a = "";
+    if ("Daily" == game.global.challengeActive) {
+        var b = game.stats.heliumHour.value() / (game.global.totalRadonEarned - (game.global.radonLeftover + game.resources.radon.owned));
+        b *= 100 + getDailyHeliumValue(countDailyWeight()), a = "<b>After Daily Rn/Hr: " + b.toFixed(3) + "%"
+    }
+    return a
+}
+
+function settingsProfileMakeGUI() {}
+
 function toggleAutoMaps() {
     if (game.global.universe == 1) {
-         if (getPageSetting('AutoMaps')) {
-             setPageSetting('AutoMaps',0);
-         }
-         else {
-             setPageSetting('AutoMaps',1);
-         }
-         document.getElementById('autoMapBtn').setAttribute('class','noselect settingsBtn settingBtn'+autoTrimpSettings.AutoMaps.value);
+        if (getPageSetting('AutoMaps')) {
+            setPageSetting('AutoMaps', 0);
+        } else {
+            setPageSetting('AutoMaps', 1);
+        }
+        document.getElementById('autoMapBtn').setAttribute('class', 'noselect settingsBtn settingBtn' + autoTrimpSettings.AutoMaps.value);
     }
     if (game.global.universe == 2) {
-         if (getPageSetting('RAutoMaps')) {
-             setPageSetting('RAutoMaps',0);
-         }
-         else {
-             setPageSetting('RAutoMaps',1);
-         }
-         document.getElementById('autoMapBtn').setAttribute('class','noselect settingsBtn settingBtn'+autoTrimpSettings.RAutoMaps.value);
+        if (getPageSetting('RAutoMaps')) {
+            setPageSetting('RAutoMaps', 0);
+        } else {
+            setPageSetting('RAutoMaps', 1);
+        }
+        document.getElementById('autoMapBtn').setAttribute('class', 'noselect settingsBtn settingBtn' + autoTrimpSettings.RAutoMaps.value);
     }
 }

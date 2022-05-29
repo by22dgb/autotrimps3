@@ -1,13 +1,24 @@
 MODULES["breedtimer"] = {};
 MODULES["breedtimer"].voidCheckPercent = 95;
 
+function trimpsEffectivelyEmployed() {
+    //Init
+    var employedTrimps = game.resources.trimps.employed;
+
+    //Multitasking
+    if (game.permaBoneBonuses.multitasking.owned)
+        employedTrimps *= (1 - game.permaBoneBonuses.multitasking.mult());
+
+    return employedTrimps;
+}
+
 var DecimalBreed = Decimal.clone({precision: 30, rounding: 4});
 var missingTrimps = new DecimalBreed(0);
 function ATGA2() {
 	if (game.jobs.Geneticist.locked == false && getPageSetting('ATGA2') == true && getPageSetting('ATGA2timer') > 0 && game.global.challengeActive != "Trapper"){
 		var trimps = game.resources.trimps;
 		var trimpsMax = trimps.realMax();
-		var maxBreedable = new DecimalBreed(trimpsMax).minus(trimps.employed);
+		var maxBreedable = new DecimalBreed(trimpsMax).minus(trimpsEffectivelyEmployed());
 		var potencyMod = new DecimalBreed(trimps.potency);
 		if (game.upgrades.Potency.done > 0) potencyMod = potencyMod.mul(Math.pow(1.1, game.upgrades.Potency.done));
 		if (game.buildings.Nursery.owned > 0) potencyMod = potencyMod.mul(Math.pow(1.01, game.buildings.Nursery.owned));
@@ -33,7 +44,7 @@ function ATGA2() {
 		if (game.jobs.Geneticist.owned > 0) potencyMod = potencyMod.mul(Math.pow(.98, game.jobs.Geneticist.owned));
 		potencyMod = potencyMod.div(10).add(1);
 		var decimalOwned = missingTrimps.add(trimps.owned);
-		var timeRemaining = DecimalBreed.log10(maxBreedable.div(decimalOwned.minus(trimps.employed))).div(DecimalBreed.log10(potencyMod)).div(10);
+		var timeRemaining = DecimalBreed.log10(maxBreedable.div(decimalOwned.minus(trimpsEffectivelyEmployed()))).div(DecimalBreed.log10(potencyMod)).div(10);
 		var currentSend = game.resources.trimps.getCurrentSend();
 		var totalTime = DecimalBreed.log10(maxBreedable.div(maxBreedable.minus(currentSend))).div(DecimalBreed.log10(potencyMod)).div(10);
 
