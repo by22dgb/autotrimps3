@@ -40,7 +40,7 @@ function automationMenuInit() {
     fightButtonCol.appendChild(newContainer);
 
     newContainer = document.createElement("DIV");
-    newContainer.setAttribute("style", "display: block; font-size: 1vw; text-align: center; margin-top: 2px; background-color: rgba(0,0,0,0.3);");
+    newContainer.setAttribute("style", "display: block; font-size: 0.75vw; text-align: center; margin-top: 2px; background-color: rgba(0,0,0,0.3);");
     if (game.global.universe == 1)
         newContainer.setAttribute("onmouseover", 'tooltip(\"Helium/Hr Info\", \"customText\", event, \"1st is Current He/hr % out of Lifetime He(not including current+unspent).<br> 0.5% is an ideal peak target. This can tell you when to portal... <br>2nd is Current run Total He earned / Lifetime He(not including current)<br>\" + getDailyHeHrStats())');
     else if (game.global.universe == 2)
