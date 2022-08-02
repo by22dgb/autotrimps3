@@ -1,4 +1,4 @@
-var ATversion = 'Zek v5.0.0',
+var ATversion = 'Zek v5.1.0',
     atscript = document.getElementById('AutoTrimps-script'),
     basepath = 'https://by22dgb.github.io/autotrimps3/', //Link to your own Github here if you forked!
     modulepath = 'modules/';
@@ -31,21 +31,21 @@ function initializeAutoTrimps() {
 
 var changelogList = [];
 changelogList.push({
+    date: "01/08/2022",
+    version: "v5.1.0",
+    description: "<b>Trimps v5.8.0</b> Calc updated for 5.8. Some Mutation settings in combat. A few changes to ship farming so it always uses a LSC. ",
+    isNew: true
+});
+changelogList.push({
     date: "16/05/2022",
     version: "v5.0.0",
     description: "<b>Trimps v5.7.1</b> Daily versions of settings added. Daily BW Raiding for U2 removed. Old Praiding for U2 removed. Added MaZ like inputs for various settings. Please check your settings in Maps\, Jobs\, and Daily tabs! Various bug fixes. Huge thanks to <b>August</b> for the base code for the MaZ like inputs! ",
-    isNew: true
+    isNew: false
 });
 changelogList.push({
     date: "06/12/2021", 
     version: "v4.6.0", 
     description: "<b>Trimps v5.6.0</b> Hypothermia settings added. Calc updated. Heirlooms updated. Experience on portal added", 
-    isNew: false
-});
-changelogList.push({
-    date: "15/05/2021",
-    version: "v4.5.0",
-    description: "<b>Trimps v5.5.0</b> Seperated Tribute and Time farm. Added automation for Pandemonium\, Alchemy and Spire Assault. Updated calcs. Added an option to calc frenzy. Credits to August for adding Staff swap and fixing a few bugs. ",
     isNew: false
 });
 

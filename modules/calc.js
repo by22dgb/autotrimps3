@@ -652,7 +652,7 @@ function RcalcOurDmg(minMaxAvg, equality) {
     number *= game.resources.trimps.maxSoldiers;
 
     // Smithies
-    number *= Math.pow(1.25, game.buildings.Smithy.owned);
+    number *= game.buildings.Smithy.getMult();
 
     // Achievement bonus
     number *= 1 + (game.global.achievementBonus / 100);
@@ -720,6 +720,13 @@ function RcalcOurDmg(minMaxAvg, equality) {
     if (game.global.sugarRush) {
         number *= sugarRush.getAttackStrength();
     }
+    
+    if (u2Mutations.tree.Attack.purchased) {
+	number *= 1.5;
+    }
+    if (game.global.world > 200) {
+       number *= game.global.novaMutStacks > 0 ? (u2Mutations.types.Nova.trimpAttackMult() * 0.98) : 1;
+    }
 
     // Challenges
     if (game.global.challengeActive == "Melt") {
@@ -748,6 +755,9 @@ function RcalcOurDmg(minMaxAvg, equality) {
     }
     if (game.global.challengeActive == "Alchemy") {
         number *= alchObj.getPotionEffect("Potion of Strength");
+    }
+    if (game.global.challengeActive === 'Smithless') {
+	if (game.challenges.Smithless.fakeSmithies > 0) number *= Math.pow(1.25, game.challenges.Smithless.fakeSmithies);
     }
 
     // Dailies
@@ -862,6 +872,9 @@ function RcalcOurHealth() {
     if (game.global.pandCompletions > 0) {
         health *= game.challenges.Pandemonium.getTrimpMult();
     }
+    if (u2Mutations.tree.Health.purchased)	{
+		health *= 1.5;
+    }
     if (game.global.challengeActive == "Insanity") {
         health *= game.challenges.Insanity.getHealthMult();
     }
@@ -879,6 +892,10 @@ function RcalcOurHealth() {
 
     //Alchemy Mult
     health *= alchObj.getPotionEffect('Potion of Strength');
+	
+    if (game.global.challengeActive === 'Smithless') {
+	if (game.challenges.Smithless.fakeSmithies > 0) health *= Math.pow(1.25, game.challenges.Smithless.fakeSmithies);
+    }
 
     //AutoBattle
     health *= autoBattle.bonuses.Stats.getMult();
@@ -921,6 +938,20 @@ function RcalcBadGuyDmg(enemy, attack, equality) {
         number *= game.portal.Equality.getMult();
     } else if (game.portal.Equality.radLevel > 0 && getPageSetting('Rcalcmaxequality') >= 1 && game.portal.Equality.scalingCount > 0 && !equality) {
         number *= Math.pow(game.portal.Equality.modifier, game.portal.Equality.scalingCount);
+    }
+    if (game.global.world > 200) {
+        number *= Math.pow(1.01, (game.global.world - 201));
+	number *= game.global.novaMutStacks > 0 ? (u2Mutations.types.Nova.enemyAttackMult() * 1.2) : 1;
+	var nova = false;
+        for (var x = 0; x < game.global.gridArray.length; x++) {
+            if (game.global.gridArray[x].u2Mutation.length > 0 && (game.global.gridArray[x].u2Mutation.indexOf('NVX') != -1)) {
+                nova = true;
+            }
+        }
+        if (getPageSetting('Rmutecalc') > 0 && game.global.world >= getPageSetting('Rmutecalc') && getPageSetting('Rmutecalcattack') != "Off") {
+            if (getPageSetting('Rmutecalcattack') == "x5 Half Nova") number *= 5;
+            else if (nova && getPageSetting('Rmutecalcattack') == "x10 Full Nova") number *= 10;
+        }
     }
     if (game.global.challengeActive == "Daily") {
         number = RcalcDailyAttackMod(number);
@@ -1002,6 +1033,10 @@ function RcalcEnemyBaseHealth(world, level, name) {
 function RcalcEnemyHealth(world) {
     if (world == false) world = game.global.world;
     var health = RcalcEnemyBaseHealth(world, 50, "Snimp");
+    if (game.global.world > 200) {
+        health *= 2;
+        health *= Math.pow(1.02, (game.global.world - 201));
+    }
     if (getPageSetting('Rexterminateon') == true && getPageSetting('Rexterminatecalc') == true) {
         health = RcalcEnemyBaseHealth(world, 90, "Beetlimp");
     }
@@ -1099,6 +1134,9 @@ function RcalcEnemyHealthMod(world, cell, name) {
         health *= 0.01;
         health *= game.challenges.Glass.healthMult();
     }
+    if (game.global.challengeActive === 'Smithless') {
+	if (game.challenges.Smithless.fakeSmithies > 0) health *= Math.pow(1.25, game.challenges.Smithless.fakeSmithies);
+    }
     return health;
 }
 
@@ -1153,6 +1191,11 @@ function getTotalHealthMod() {
     // Panda
     healthMulti *= game.challenges.Pandemonium.getTrimpMult();
 
+    //Mutations
+    if (u2Mutations.tree.Health.purchased)	{
+		healthMulti *= 1.5;
+    }
+    
     // AB
     healthMulti *= autoBattle.bonuses.Stats.getMult();
 

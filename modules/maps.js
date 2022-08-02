@@ -46,7 +46,7 @@ var spireMapBonusFarming = !1;
 var spireTime = 0;
 var doMaxMapBonus = !1;
 var vanillaMapatZone = !1;
-var shouldFarmWonder = false;
+var farmingWonder = !1;
 var additionalCritMulti = 2 < getPlayerCritChance() ? 25 : 5;
 
 function updateAutoMapsStatus(get) {
@@ -82,6 +82,7 @@ function updateAutoMapsStatus(get) {
     else if (!enoughHealth && !enoughDamage) status = '需要生命值和攻击力';
     else if (!enoughDamage) status = '需要' + calcHDratio().toFixed(4) + '倍攻击力';
     else if (!enoughHealth) status = '需要生命值';
+    else if (farmingWonder) status = '经历奇物中';
     else if (enoughHealth && enoughDamage) status = '前进中';
 
     if (skippedPrestige)
@@ -535,6 +536,10 @@ function autoMap() {
     }
 
     //Voids
+    if (getPageSetting('novmsc2') == true && game.global.runningChallengeSquared) {
+        needToVoid = false;
+    }
+   
     if (needToVoid) {
         var voidArray = [];
         var prefixlist = {
@@ -803,14 +808,28 @@ function autoMap() {
     }
 
     // Experience Challenge
-    if (getPageSetting('farmWonders') && game.global.challengeActive == "Experience") {
-        if (game.global.world >= game.challenges.Experience.nextWonder && getPageSetting('wondersAmount') > game.challenges.Experience.wonders) {
-            shouldFarmWonder = true
-            if (!game.global.mapsActive && game.global.mapsOwnedArray.filter(function(map) {
-                    return map.level == game.global.world;
-                }).length >= 1) {
-                var mapID = game.global.mapsOwnedArray.find(function(map) {
-                    return map.level == game.global.world;
+    if (game.global.challengeActive == "Experience" && getPageSetting('farmWonders')) {
+        var wondersFromZ = getPageSetting('maxExpZone');
+        var wondersAmount = getPageSetting('wondersAmount');
+        var wondersFloorZ = wondersFromZ - ((getPageSetting('wondersAmount') - 1) * 5);
+        var finishOnBw = (() => {
+            var pageSetting = getPageSetting('finishExpOnBw');
+            pageSetting = pageSetting < 125 ? 125 : pageSetting;
+            pageSetting = pageSetting != -1 ? (Math.floor((pageSetting - 125) / 15) * 15) + 125 : -1;
+            return pageSetting;
+        })();
+        var bionics = game.global.mapsOwnedArray
+            .filter((map) => map.location == "Bionic")
+            .sort((a, b) => b.level - a.level)
+        if (game.global.world >= game.challenges.Experience.nextWonder
+            && wondersAmount > game.challenges.Experience.wonders
+            && game.global.world >= wondersFloorZ) {
+            farmingWonder = true;
+            if (!game.global.mapsActive && game.global.mapsOwnedArray.filter(function (map) {
+                return map.level == game.global.world && map.location != 'Bionic';
+            }).length >= 1) {
+                var mapID = game.global.mapsOwnedArray.find(function (map) {
+                    return map.level == game.global.world && map.location != 'Bionic';
                 }).id;
                 selectedMap = mapID;
                 selectMap(mapID);
@@ -836,9 +855,26 @@ function autoMap() {
                     }
                 }
             }
-        } else if (shouldFarmWonder) {
-            shouldFarmWonder = false
-            selectedMap = "world"
+        } else if (game.global.world > 600 && !game.global.mapsActive && game.global.world != 700
+            && wondersFromZ != -1 && game.global.world >= wondersFromZ && finishOnBw != -1) {
+            // Finish challenge with target BW. If for some reason we've raided past it, pick the lowest BW available.
+            // If we somehow did not raid for it, pick the highest available which will climb if necessary to 605.
+            // If at 700, clear the zone to complete instead.
+            farmingWonder = true;
+            var finishBw = bionics.find(map => map.level == finishOnBw);
+            if (finishBw) {
+                selectMap(finishBw.id);
+            } else {
+                if (bionics.every((map) => map.level > finishOnBw)) {
+                    selectMap(bionics[bionics.length - 1].id);
+                } else {
+                    selectMap(bionics[0].id);
+                }
+            }
+            runMap();
+        } else {
+            farmingWonder = false;
+            selectedMap = "world";
         }
     }
 
@@ -1838,7 +1874,7 @@ function RautoMap() {
 
     //Uniques
     var runUniques = (getPageSetting('RAutoMaps') == 1);
-    if (runUniques || Rshoulddobogs || Rshouldtimefarmbogs || Rshouldcastle) {
+    if (runUniques || Rshoulddobogs || Rshouldcastle) {
         for (var map in game.global.mapsOwnedArray) {
             var theMap = game.global.mapsOwnedArray[map];
             if (Rshoulddobogs && theMap.name == 'The Black Bog') {
@@ -2145,7 +2181,7 @@ function RautoMap() {
                     var shiplevelzones = shipfarmlevel[shipfarmlevelindex];
                     if (shiplevelzones > 0) {
                         for (var map in game.global.mapsOwnedArray) {
-                            if (!game.global.mapsOwnedArray[map].noRecycle && ((game.global.world + shiplevelzones) == game.global.mapsOwnedArray[map].level)) {
+                            if (!game.global.mapsOwnedArray[map].noRecycle && ((game.global.world + shiplevelzones) == game.global.mapsOwnedArray[map].level) && game.global.mapsOwnedArray[map].bonus == "lsc") {
                                 selectedMap = game.global.mapsOwnedArray[map].id;
                                 break;
                             } else {
@@ -2154,7 +2190,7 @@ function RautoMap() {
                         }
                     } else if (shiplevelzones == 0) {
                         for (var map in game.global.mapsOwnedArray) {
-                            if (!game.global.mapsOwnedArray[map].noRecycle && game.global.world == game.global.mapsOwnedArray[map].level) {
+                            if (!game.global.mapsOwnedArray[map].noRecycle && game.global.world == game.global.mapsOwnedArray[map].level && game.global.mapsOwnedArray[map].bonus == "lsc") {
                                 selectedMap = game.global.mapsOwnedArray[map].id;
                                 break;
                             } else {
@@ -2163,7 +2199,7 @@ function RautoMap() {
                         }
                     } else if (shiplevelzones < 0) {
                         for (var map in game.global.mapsOwnedArray) {
-                            if (!game.global.mapsOwnedArray[map].noRecycle && ((game.global.world + shiplevelzones) == game.global.mapsOwnedArray[map].level)) {
+                            if (!game.global.mapsOwnedArray[map].noRecycle && ((game.global.world + shiplevelzones) == game.global.mapsOwnedArray[map].level) && game.global.mapsOwnedArray[map].bonus == "lsc") {
                                 selectedMap = game.global.mapsOwnedArray[map].id;
                                 break;
                             } else {
@@ -2259,16 +2295,6 @@ function RautoMap() {
                     }
                 }
             } else if (Rshouldtributefarm && !Rshouldequipfarm) {
-                if (getPageSetting('Rtributefarmlevel') == 0) {
-                    for (var map in game.global.mapsOwnedArray) {
-                        if (!game.global.mapsOwnedArray[map].noRecycle && game.global.world == game.global.mapsOwnedArray[map].level) {
-                            selectedMap = game.global.mapsOwnedArray[map].id;
-                            break;
-                        } else {
-                            selectedMap = "create";
-                        }
-                    }
-                } else if (getPageSetting('Rtributefarmlevel') != 0) {
                     var tributefarmzone = getPageSetting('Rtributefarmzone');
                     var tributefarmlevel = getPageSetting('Rtributefarmlevel');
                     var tributefarmlevelindex = tributefarmzone.indexOf(game.global.world);
@@ -2301,7 +2327,6 @@ function RautoMap() {
                             }
                         }
                     }
-                }
             } else if (Rshouldequipfarm) {
                 for (var map in game.global.mapsOwnedArray) {
                     if (!game.global.mapsOwnedArray[map].noRecycle && equipminus <= 0 && ((game.global.world + equipminus) == game.global.mapsOwnedArray[map].level)) {

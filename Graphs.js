@@ -59,6 +59,7 @@ var $u2Graph = document.getElementById("graphFooterLine1"),
         "Void Map History",
         "Coordinations",
         "OverkillCells",
+        "Smithies",
         "Scruffy XP",
         "Scruffy XP PerHour",
     ],
@@ -273,7 +274,7 @@ function pushData() {
         currentTime: new Date().getTime(),
         portalTime: game.global.portalTime,
         world: game.global.world,
-        challenge: game.global.challengeActive,
+        challenge: game.global.challengeActive == 'Daily' ? game.global.challengeActive + " " + getDailyTimeString().toString().replace(/(\d{4})(\d{2})(\d+)/, '$1-$2-$3') : game.global.challengeActive,
         voids: game.global.totalVoidMaps,
         heirlooms: { value: game.stats.totalHeirlooms.value, valueTotal: game.stats.totalHeirlooms.valueTotal },
         nullifium: recycleAllExtraHeirlooms(true),
@@ -291,6 +292,7 @@ function pushData() {
         fluffy: game.global.fluffyExp,
         scruffy: game.global.fluffyExp2,
         nursery: game.buildings.Nursery.purchased,
+        smithies: game.buildings.Smithy.owned,
         amals: game.jobs.Amalgamator.owned,
         radonOwned: game.resources.radon.owned,
         rnhr: RgetPercent.toFixed(4),
@@ -826,6 +828,13 @@ function setGraphData(graph) {
             yType = "Linear";
             xminFloor = 1;
             break;
+        case "Smithies":
+            graphData = allPurposeGraph("smithies", true, "number");
+            title = "Smithy History";
+            xTitle = "Zone";
+            yTitle = "Smithies";
+            yType = "Linear";
+            break; 
         case "OverkillCells":
             var currentPortal = -1;
             graphData = [];

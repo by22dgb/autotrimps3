@@ -394,6 +394,7 @@ function RquestbuyJobs() {
 
     var freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
     var totalDistributableWorkers = freeWorkers + game.jobs.Farmer.owned + game.jobs.Miner.owned + game.jobs.Lumberjack.owned;
+    totalDistributableWorkers = totalDistributableWorkers / 5;
 
     var farmerRatio = 0;
     var lumberjackRatio = 0;
@@ -408,23 +409,30 @@ function RquestbuyJobs() {
             farmerRatio = 10;
             lumberjackRatio = 10;
             minerRatio = 10;
+            totalDistributableWorkers *= 5;
         }
-        if (questcheck() == 10 || questcheck() == 20) {
+        else if (questcheck() == 10 || questcheck() == 20) {
             farmerRatio = 10;
+            totalDistributableWorkers *= 5;
         }
-        if (questcheck() == 11 || questcheck() == 21) {
+        else if (questcheck() == 11 || questcheck() == 21) {
             lumberjackRatio = 10;
+            totalDistributableWorkers *= 5;
         }
-        if (questcheck() == 12 || questcheck() == 22) {
+        else if (questcheck() == 12 || questcheck() == 22) {
             minerRatio = 10;
+            totalDistributableWorkers *= 5;
         }
-        if (questcheck() == 14 || questcheck() == 24) {
+        else if (questcheck() == 14 || questcheck() == 24) {
+            totalDistributableWorkers *= 5;
             scientistNumber = (totalDistributableWorkers * 0.5);
         }
+        else {
+            farmerRatio = 10;
+            lumberjackRatio = 10;
+            minerRatio = 10;
+        }
     }
-
-    freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
-    totalDistributableWorkers = freeWorkers + game.jobs.Farmer.owned + game.jobs.Miner.owned + game.jobs.Lumberjack.owned;
 
     if (scientistNumber > (totalDistributableWorkers * 0.00001) && !game.jobs.Scientist.locked) {
         if (freeWorkers > 0 && scientistNumber > game.jobs.Scientist.owned) {
@@ -439,9 +447,6 @@ function RquestbuyJobs() {
     if (getPageSetting('RMaxExplorers') > game.jobs.Explorer.owned || getPageSetting('RMaxExplorers') == -1) {
         RsafeBuyJob("Explorer", 1);
     }
-
-    freeWorkers = Math.ceil(game.resources.trimps.realMax() / 2) - game.resources.trimps.employed;
-    totalDistributableWorkers = freeWorkers + game.jobs.Farmer.owned + game.jobs.Miner.owned + game.jobs.Lumberjack.owned;
 
     var farmerkeep = totalDistributableWorkers * 0.01;
     if (farmerkeep < 1) {

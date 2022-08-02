@@ -622,6 +622,8 @@ function initializeAllSettings() {
     createSetting('buywepsvoid', 'VM Buy Weps', 'Buys gear in Void maps regardless of your H:D ratio. Useful if you want to overkill as much as possible. ', 'boolean', false, null, 'Maps');
     createSetting('farmWonders', 'Farm Wonders', 'Farms wonders until the selected amount and does BW at given zone to finish the challenge', 'boolean', false, null, 'Maps')
     createSetting('wondersAmount', '奇物数量', 'Select the amount of Wonders you want to farm in each given run, <b> 0 to disable </b>', 'value', '0', null, "Maps");
+    createSetting('maxExpZone', "最大经验值区域", 'Acquire Wonders from this zone down. <b>This must have a value or other Experience settings will not work.</b> If >z600, will complete Experience by running BW on this zone as well. For example, targeting three Wonders with a Max XP Zone of 600 will obtain the Wonders at: 600, 595, 590.', 'value', '600', null, 'Maps');
+    createSetting('finishExpOnBw', '结束挑战仿生区域', 'Finish Experience challenge by completing this level of BW. <b>This level of BW should already be in your inventory.</b> Use BW Raiding module if you want to raid to a specific level of BW before 601, or else you may accidentally complete the challenge at a lower or higher BW than intended using this setting. If this is an invalid BW value, it will run the next lowest valid BW zone (e.g. 606 will run 605).', 'value', '605', null, 'Maps');
 
     //RMaps
 
@@ -846,7 +848,7 @@ function initializeAllSettings() {
     createSetting('Rhypofarmfrag', 'HF: Frags', 'Turn this on to farm fragments if you cannot afford the map you have selected for HF. ', 'boolean', 'false', null, 'Challenges');
     createSetting('Rhypocastle', '失温冻结城堡', 'What zone you wish you run frozen castle on to complete the challenge. Will run castle after voids so make sure thats set up right. ', 'value', '-1', null, 'Challenges');
     createSetting('Rhypovoids', 'After Voids', 'Only run Frozen castle after all voids have been completed. ', 'boolean', true, null, 'Challenges');
-    createSetting('Rhypostorage', '失温存储', 'Turn this on to disable buying sheds unless you need more wood for your HF: Bonfire target price. Essentially this means you wont get accidently bonfires but you may lose out on smithies and shield prestiges. ', 'boolean', 'false', null, 'Challenges');
+    createSetting('Rhypostorage', '失温存储', 'Turn this on to disable buying sheds unless you need more wood for your HF: Bonfire target price (AT AutoBuildings). Essentially this means you wont get accidently bonfires but you may lose out on smithies and shield prestiges. If you use vanilla autobuildings this setting is pointless. ', 'boolean', 'false', null, 'Challenges');
 
 
 
@@ -873,6 +875,8 @@ function initializeAllSettings() {
     createSetting('Rcalcmaxequality', ['Equality Calc Off', 'EC: On', 'EC: Health'], '<b>Experimental. </b><br>Adds Equality Scaling levels to the battlecalc. Will always calculate equality based on actual scaling levels when its turned off by other settings. Assumes you use Equality Scaling. Turning this on allows in-game Equality Scaling to adjust your Health accordingly. EC: Health only decreases enemies attack in the calculation which may improve speed. ', 'multitoggle', 0, null, 'Combat');
     createSetting('Rmanageequality', 'Manage Equality', 'Manages Equality for you. Sets Equality to 0 on Slow enemies, and Autoscaling on for Fast enemies. ', 'boolean', 'false', null, 'Combat');
     createSetting('Rcalcfrenzy', 'Frenzy Calc', '<b>Experimental. </b><br>Adds frenzy to the calc. Be warned\, it will not farm as much with this on as it expects 100% frenzy uptime. ', 'boolean', 'false', null, 'Combat');
+    createSetting('Rmutecalc', '突变计算区域', 'What zone to start calculating Mutations at. 0 to disable.', 'value', '-1', null, 'Combat');
+    createSetting('Rmutecalcattack', 'Mute Attack', 'What kind of mutation attack to calculate for your H:D. The higher the multiplier you select here the more it will farm. Recommend half nova, as that will also calculate rage pretty well. Full nova can be used on certain runs if you need to farm a lot more. ', 'dropdown', 'Off', ["Off", "x5 Half Nova", "x10 Full Nova"], 'Combat');
 
 
     //Scryer
@@ -1850,8 +1854,10 @@ function updateCustomButtons() {
     !radonon ? turnOn("AdvMapSpecialModifier") : turnOff("AdvMapSpecialModifier");
     !radonon ? turnOn("scryvoidmaps") : turnOff("scryvoidmaps");
     !radonon ? turnOn("buywepsvoid") : turnOff("buywepsvoid");
-    game.global.highestLevelCleared > 600 && !radonon ? turnOn("farmWonders") : turnOff("farmWonders");
-    game.global.highestLevelCleared > 600 && !radonon ? turnOn("wondersAmount") : turnOff("wondersAmount");
+    !radonon ? turnOn("farmWonders") : turnOff("farmWonders");
+    (!radonon && getPageSetting("farmWonders")) ? turnOn("wondersAmount") : turnOff("wondersAmount");
+    (!radonon && getPageSetting("farmWonders")) ? turnOn("maxExpZone") : turnOff("maxExpZone");
+    (!radonon && getPageSetting("farmWonders")) ? turnOn("finishExpOnBw") : turnOff("finishExpOnBw");
 
     //RMaps
     radonon ? turnOn("RAutoMaps") : turnOff("RAutoMaps");
@@ -1980,6 +1986,8 @@ function updateCustomButtons() {
     radonon ? turnOn("Rcalcmaxequality") : turnOff("Rcalcmaxequality");
     radonon ? turnOn("Rmanageequality") : turnOff("Rmanageequality");
     radonon ? turnOn("Rcalcfrenzy") : turnOff("Rcalcfrenzy");
+    radonon ? turnOn("Rmutecalc") : turnOff("Rmutecalc");
+    radonon &&  getPageSetting('Rmutecalc') > 0 ? turnOn("Rmutecalcattack") : turnOff("Rmutecalcattack");
 
 
 
@@ -2310,6 +2318,7 @@ function updateCustomButtons() {
     document.getElementById('RdHeliumHourChallenge').value = autoTrimpSettings.RdHeliumHourChallenge.selected;
     document.getElementById('mapselection').value = autoTrimpSettings.mapselection.selected;
     document.getElementById('Rmapselection').value = autoTrimpSettings.Rmapselection.selected;
+    document.getElementById('Rmutecalcattack').value = autoTrimpSettings.Rmutecalcattack.selected;
     document.getElementById('Prestige').value = autoTrimpSettings.Prestige.selected;
     document.getElementById('AutoGoldenUpgrades').value = autoTrimpSettings.AutoGoldenUpgrades.selected;
     document.getElementById('dAutoGoldenUpgrades').value = autoTrimpSettings.dAutoGoldenUpgrades.selected;
