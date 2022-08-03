@@ -943,14 +943,24 @@ function RcalcBadGuyDmg(enemy, attack, equality) {
         number *= Math.pow(1.01, (game.global.world - 201));
 	number *= game.global.novaMutStacks > 0 ? (u2Mutations.types.Nova.enemyAttackMult() * 1.2) : 1;
 	var nova = false;
+	var rage = false;
+	var comp = false;
+	var compcells = 0;
         for (var x = 0; x < game.global.gridArray.length; x++) {
             if (game.global.gridArray[x].u2Mutation.length > 0 && (game.global.gridArray[x].u2Mutation.indexOf('NVX') != -1)) {
                 nova = true;
             }
+	    if (game.global.gridArray[x].u2Mutation.length > 0 && (game.global.gridArray[x].u2Mutation.indexOf('RGE') != -1)) {
+                rage = true;
+            }
+	    if (game.global.gridArray[x].u2Mutation.length > 0 && (game.global.gridArray[x].u2Mutation.indexOf('CMP') != -1)) {
+                comp = true;
+            }
         }
-        if (getPageSetting('Rmutecalc') > 0 && game.global.world >= getPageSetting('Rmutecalc') && getPageSetting('Rmutecalcattack') != "Off") {
-            if (getPageSetting('Rmutecalcattack') == "x5 Half Nova") number *= 5;
-            else if (nova && getPageSetting('Rmutecalcattack') == "x10 Full Nova") number *= 10;
+        if (getPageSetting('Rmutecalc') > 0 && game.global.world >= getPageSetting('Rmutecalc')) {
+	    if (comp) number *= 3;
+            else if (rage) number *= 5;
+            else if (nova) number *= 10;
         }
     }
     if (game.global.challengeActive == "Daily") {
