@@ -1541,8 +1541,8 @@ function RautoMap() {
             var mlevels = 6;
             var go = false;
             if (
-                (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
             ) {
                 pandaextra = mlevels;
                 go = true;
@@ -1550,8 +1550,8 @@ function RautoMap() {
             if (!go) {
                 mlevels = 5;
                 if (
-                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
                 ) {
                     pandaextra = mlevels;
                     go = true;
@@ -1560,8 +1560,8 @@ function RautoMap() {
             if (!go) {
                 mlevels = 4;
                 if (
-                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
                 ) {
                     pandaextra = mlevels;
                     go = true;
@@ -1570,8 +1570,8 @@ function RautoMap() {
             if (!go) {
                 mlevels = 3;
                 if (
-                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
                 ) {
                     pandaextra = mlevels;
                     go = true;
@@ -1580,8 +1580,8 @@ function RautoMap() {
             if (!go) {
                 mlevels = 2;
                 if (
-                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
                 ) {
                     pandaextra = mlevels;
                     go = true;
