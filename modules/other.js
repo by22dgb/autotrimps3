@@ -1984,37 +1984,37 @@ function questcheck() {
         return 0;
     }
     //x5 resource
-    if (game.challenges.Quest.getQuestDescription() == "使食物变为5倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    if (game.challenges.Quest.getQuestDescription() == "使食物变为5倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 10;
-    else if (game.challenges.Quest.getQuestDescription() == "使木头变为5倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使木头变为5倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 11;
-    else if (game.challenges.Quest.getQuestDescription() == "使金属变为5倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使金属变为5倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 12;
-    else if (game.challenges.Quest.getQuestDescription() == "使宝石变为5倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使宝石变为5倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 13;
-    else if (game.challenges.Quest.getQuestDescription() == "使科学点变为5倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使科学点变为5倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 14;
     //x2 resource
-    else if (game.challenges.Quest.getQuestDescription() == "使食物翻倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使食物翻倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 20;
-    else if (game.challenges.Quest.getQuestDescription() == "使木头翻倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使木头翻倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 21;
-    else if (game.challenges.Quest.getQuestDescription() == "使金属翻倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使金属翻倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 22;
-    else if (game.challenges.Quest.getQuestDescription() == "使宝石翻倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使宝石翻倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 23;
-    else if (game.challenges.Quest.getQuestDescription() == "使科学点翻倍" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "使科学点翻倍" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 24;
     //Everything else
-    else if (game.challenges.Quest.getQuestDescription() == "通过5张等级为区域层数的地图" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "通过5张等级为区域层数的地图" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 3;
-    else if (game.challenges.Quest.getQuestDescription() == "一击击杀世界上的5名敌人" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "一击击杀世界上的5名敌人" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 4;
-    else if (game.challenges.Quest.getQuestDescription() == "在到达格子100之前护盾不破碎" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "在到达格子100之前护盾不破碎" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 5;
-    else if (game.challenges.Quest.getQuestDescription() == "在到达格子100之前不进入地图" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "在到达格子100之前不进入地图" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 6;
-    else if (game.challenges.Quest.getQuestDescription() == "建造一个铁匠铺" && game.challenges.Quest.getQuestProgress() != "Quest Complete!" && game.challenges.Quest.getQuestProgress() != "Failed!")
+    else if (game.challenges.Quest.getQuestDescription() == "建造一个铁匠铺" && game.challenges.Quest.getQuestProgress() != "任务已完成！" && game.challenges.Quest.getQuestProgress() != "任务失败！")
         return 7;
     else
         return 0;
