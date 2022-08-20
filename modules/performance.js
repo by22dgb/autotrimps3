@@ -141,7 +141,7 @@
 
 	M["performance"].UpdateAFKOverlay = function UpdateAFKOverlay()
 	{
-		M["performance"].AFKOverlayZone.innerText = '当前区域：' + game.global.world;
+		M["performance"].AFKOverlayZone.innerText = '当前区域：' + game.global.world + (game.global.mapsActive ? "(地图：" + ((getCurrentMapObject().level - game.global.world) >= 0 ? "+" : "") + (getCurrentMapObject().level - game.global.world) + "，词缀为" + (getCurrentMapObject().bonus !== undefined ? getCurrentMapObject().bonus : "") + ")" : "")
 		if (game.global.universe == 1) {
 		    M["performance"].AFKOverlayHelium.innerText = '当前氦：' + prettify(Math.floor(game.resources.helium.owned));
 		    M["performance"].AFKOverlayStatus.innerHTML = '当前状态：' + updateAutoMapsStatus(true)[0];

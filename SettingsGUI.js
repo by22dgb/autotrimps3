@@ -408,8 +408,34 @@ function initializeAllSettings() {
     createSetting('dlowdmg', '日常传家宝：低伤', '<b>LOW DAMAGE HEIRLOOM</b><br><br>Enter the name of your low damage heirloom. This is the heirloom that you will use for windstacking in dailies. ', 'textValue', 'undefined', null, 'Daily');
 
 
-    //Portal Line
+    //RHeirloom
     document.getElementById('dlowdmg').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rdhs', ['DHS: Off', 'DHS: On', 'DHS: Normal'], 'Heirloom swapping master button for Dailies. Turn this on to allow heirloom swapping and its associated settings. Use DHS: Normal to use the non-daily settings. ', 'multitoggle', 0, null, 'Daily');
+    
+    //DShield Swapping
+    document.getElementById('Rdhs').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rdhsshield', 'Daily Shields', 'Toggle to swap Shields in Dailies', 'boolean', false, null, 'Daily');
+    createSetting('Rdhsz', '日常盾牌：区域', '切换盾牌的区域。例如：将该选项设为75，则在<b>区域75</b>之前使用“传换：切换前”名字的盾牌，之后使用“传换：切换后”名字的盾牌。', 'value', '-1', null, 'Daily');
+    createSetting('Rdhs1', '日常盾牌：切换前', '<b>First Heirloom to use</b><br><br>Enter the name of your first heirloom. This is the heirloom that you will use before swapping to the second heirloom at the zone you have defined in the DHSh: Zone. ', 'textValue', 'undefined', null, 'Daily');
+    createSetting('Rdhs2', '日常盾牌：切换后', '<b>Second Heirloom to use</b><br><br>Enter the name of your second heirloom. This is the heirloom that you will use after swapping from the first heirloom at the zone you have defined in the DHSh: Zone. ', 'textValue', 'undefined', null, 'Daily');
+    
+    //DStaff Swapping
+    document.getElementById('Rdhs2').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rdhsstaff', 'Daily Staffs', 'Toggle to swap Staffs', 'boolean', false, null, 'Daily');
+    createSetting('Rdhsworldstaff', '日常权杖：世界时', '<b>World Staff</b><br><br>Enter the name of your world staff for Dailies.', 'textValue', 'undefined', null, 'Daily');
+    createSetting('Rdhsmapstaff', '日常权杖：地图时', '<b>Mapping staff</b><br><br>Enter the name of your mapping staff for Dailies.', 'textValue', 'undefined', null, 'Daily');
+    createSetting('Rdhstributestaff', '日常权杖：刷贡品', '<b>Tribute farming staff</b><br><br>Enter the name of the staff you would like to equip during tribute farming for Dailies', 'textValue', 'undefined', null, 'Daily');
+    
+    //DShrine
+    document.getElementById('Rdhstributestaff').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rdshrine', ['Daily AutoShrine Off', 'Daily AutoShrine On', 'DAS: Normal'], 'Turn this on if you want to use Shrines automatically in Dailies. Use DAS: Normal if you want to use the settings in the Maps tab if do not wish to copy them here. ', 'multitoggle', 0, null, 'Daily');
+    createSetting('Rdshrinemaz', 'Daily AutoShrine Settings', 'Click to open Daily AutoShrine settings. <br> <b>Zone:</b> What zone to use Bone Shrine charges. <br> <b>Cell:</b> What cell to use Bone Shrine charges at, if you use it after cell 80 you will get the benefit of all the books. to use. <br> <b>Amount:</b> How many Bone Shrine charges you wish to use. <br> <b>Example:</b> If you put Zone: 40\, Cell: 10\, Amount: 3\, you will use 3 Bone Shrine Charges at zone 40 at cell 10 in a Daily. ', 'infoclick', false, null, 'Daily');
+    createSetting('Rdshrinezone', 'AutoShrine: Zone', 'zone', 'multiValue', [-1], null, 'Daily');
+    createSetting('Rdshrinecell', 'AutoShrine: Cell', 'cell', 'multiValue', [-1], null, 'Daily');
+    createSetting('Rdshrineamount', 'AutoShrine: Amount', 'amount', 'multiValue', [-1], null, 'Daily');
+    
+    //Portal Line
+    document.getElementById('Rdshrineamount').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('AutoStartDaily', 'Auto Start Daily', 'Starts Dailies for you. When you portal with this on, it will select the oldest Daily and run it. Use the settings in this tab to decide whats next. ', 'boolean', false, null, 'Daily');
     createSetting('u2daily', '在宇宙2进行日常挑战', 'If this is on, you will do your daily in U2. ', 'boolean', false, null, 'Daily');
     createSetting('AutoPortalDaily', ['Daily Portal Off', 'DP: He/Hr', 'DP: Custom'], '<b>DP: He/Hr:</b> Portals when your world zone is above the minium you set (if applicable) and the buffer falls below the % you have defined. <br><b>DP: Custom:</b> Portals after clearing the zone you have defined in Daily Custom Portal. ', 'multitoggle', '0', null, "Daily");
@@ -661,7 +687,7 @@ function initializeAllSettings() {
     //Tributefarm
     document.getElementById('Rtimefarmgather').parentNode.insertAdjacentHTML('afterend', '<br>');
     createSetting('Rtributefarm', 'Tribute Farm', 'Turn this on if you want to use Tribute Farming. ', 'boolean', false, null, 'Maps');
-    createSetting('Rtributefarmmaz', 'Tribute Farm Settings', 'Click to open the Tribute Farm settings. <br> <b>Zone:</b> What zone to start tribute farming. It will also put all your workers into farming. <br> <b>Cell:</b> What cell to start tribute farming at. <br> <b>Tributes:</b> How many tributes to farm. <br> <b>Level:</b> How many map levels above your zone to use. <br> <b>Map:</b> What kind of map you want to use. <br> <b>Special:</b> What type of special you want to use. <br> <b>Gather:</b> What resource you would like to gather. <br> <b>Example:</b> If you put Zone: 40\, Cell: 10\, Tributes: 1000\, Level: 5\, Map: Gardens\, Special: Large Savory Cache\, Gather: Food\, you will farm at zone 30 at cell 10 for 1000 tributes in a +5 Gardens map that has a Large Savory Cache while gathering food. ', 'infoclick', false, null, 'Maps');
+    createSetting('Rtributefarmmaz', 'Tribute Farm Settings', 'Click to open the Tribute Farm settings. <br> <b>Zone:</b> What zone to start tribute farming. It will also put all your workers into farming. <br> <b>Cell:</b> What cell to start tribute farming at. <br> <b>Tributes:</b> How many tributes to farm. <br> <b>Level:</b> How many map levels above your zone to use. <br> <b>Map:</b> What kind of map you want to use. <br> <b>Special:</b> What type of special you want to use. <br> <b>Gather:</b> What resource you would like to gather. <br> <b>Example:</b> If you put Zone: 40\, Cell: 10\, Tributes: 1000\, Level: 5\, Map: Gardens\, Special: Large Savory Cache\, Gather: Food\, you will farm at zone 40 at cell 10 for 1000 tributes in a +5 Gardens map that has a Large Savory Cache while gathering food. ', 'infoclick', false, null, 'Maps');
     createSetting('Rtributefarmzone', 'TrF: Zone', 'zone', 'multiValue', [-1], null, 'Maps');
     createSetting('Rtributefarmcell', 'TrF: Cell', 'cell', 'multiValue', [-1], null, 'Maps');
     createSetting('Rtributefarmamount', 'TrF: Tributes', 'tributes', 'multiValue', [-1], null, 'Maps');
@@ -669,7 +695,15 @@ function initializeAllSettings() {
     createSetting('Rtributemapselection', 'TrF: Map Selection', 'map', 'textValue', 'undefined', null, 'Maps');
     createSetting('Rtributespecialselection', 'TrF: Special Selection', 'special', 'textValue', 'undefined', null, 'Maps');
     createSetting('Rtributegatherselection', 'TrF: Gather Selection', 'gather', 'textValue', 'undefined', null, 'Maps');
-
+    
+    //Shrine
+    document.getElementById('Rtributegatherselection').parentNode.insertAdjacentHTML('afterend', '<br>');
+    createSetting('Rshrine', 'AutoShrine', 'Turn this on if you want to use Shrines automatically. ', 'boolean', false, null, 'Maps');
+    createSetting('Rshrinemaz', 'AutoShrine Settings', 'Click to open AutoShrine settings. <br> <b>Zone:</b> What zone to use Bone Shrine charges. <br> <b>Cell:</b> What cell to use Bone Shrine charges at, if you use it after cell 80 you will get the benefit of all the books. to use. <br> <b>Amount:</b> How many Bone Shrine charges you wish to use. <br> <b>Example:</b> If you put Zone: 40\, Cell: 10\, Amount: 3\, you will use 3 Bone Shrine Charges at zone 40 at cell 10. ', 'infoclick', false, null, 'Maps');
+    createSetting('Rshrinezone', 'AutoShrine: Zone', 'zone', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rshrinecell', 'AutoShrine: Cell', 'cell', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rshrineamount', 'AutoShrine: Amount', 'amount', 'multiValue', [-1], null, 'Maps');
+    createSetting('Rshrinecharge', 'AutoShrine: Charge', 'charge count you will never see this setting hehehehe', 'value', 0, null, 'Maps');
 
 
     //Spire
@@ -719,6 +753,7 @@ function initializeAllSettings() {
     //Windstacking
 
     //Line 1
+    createSetting('windstackingfiller', 'Use Daily Tab for Dailies!', 'These settings are for fillers ONLY. ', 'boolean', 'false', null, 'Windstacking');
     createSetting('turnwson', 'Turn WS On!', 'Turn on Windstacking Stance in Combat to see the settings! ', 'boolean', 'false', null, 'Windstacking');
     createSetting('WindStackingMin', '风层数叠加最小区域', 'For use with Windstacking Stance, enables windstacking in zones above and inclusive of the zone set. (Get specified windstacks then change to D, kill bad guy, then repeat). This is designed to force S use until you have specified stacks in wind zones, overriding scryer settings. All windstack settings apart from WS MAX work off this setting. ', 'value', '-1', null, 'Windstacking');
     createSetting('WindStackingMinHD', '风层数叠加命攻比', 'For use with Windstacking Stance, if your H:D is below this number it will use W inside windlight and S outside of it. If it is above it will start manually windstacking using heirloom swapping and stancing. If you just want to use W stance just set this to something impossibly high like 1e30. ', 'value', '-1', null, 'Windstacking');
@@ -1058,6 +1093,8 @@ function initializeAllSettings() {
     document.getElementById('Rtimefarmmaz').setAttribute('onclick', 'MAZLookalike("Time Farm", "Rtimefarm")');
     document.getElementById('Rdtimefarmmaz').setAttribute('onclick', 'MAZLookalike("dTime Farm", "Rdtimefarm")');
     document.getElementById('Rtributefarmmaz').setAttribute('onclick', 'MAZLookalike("Tribute Farm", "Rtributefarm")');
+    document.getElementById('Rshrinemaz').setAttribute('onclick', 'MAZLookalike("Shrine", "Rshrine")');
+    document.getElementById('Rdshrinemaz').setAttribute('onclick', 'MAZLookalike("dShrine", "Rdshrine")');
     document.getElementById('Rblackbogmaz').setAttribute('onclick', 'MAZLookalike("Quagmire", "Rblackbog")');
     document.getElementById('Rinsanitymaz').setAttribute('onclick', 'MAZLookalike("Insanity", "Rinsanityon")');
     document.getElementById('Ralchfarmmaz').setAttribute('onclick', 'MAZLookalike("Alch", "Ralchon")');
@@ -1068,6 +1105,7 @@ function initializeAllSettings() {
     //Display
 
     //Line 1
+    createSetting('zonetracker', 'Zone', 'tracks zones you wil lnot see this huehue', 'value', 1, null, 'Display');
     createSetting('EnhanceGrids', 'Enhance Grids', 'Apply slight visual enhancements to world and map grids that highlights with drop shadow all the exotic, powerful, skeletimps and other special imps.', 'boolean', false, null, 'Display');
     createSetting('showbreedtimer', 'Enable Breed Timer', 'Enables the display of the hidden breedtimer. Turn this off to reduce memory. ', 'boolean', true, null, 'Display');
     createSetting('showautomapstatus', 'Enable AutoMap Status', 'Enables the display of the map status. Turn this off to reduce memory. ', 'boolean', true, null, 'Display');
@@ -1083,6 +1121,7 @@ function initializeAllSettings() {
     //SPAM
 
     //Line 1
+    
     createSetting('SpamGeneral', 'General Spam', 'General Spam = Notification Messages, Auto He/Hr', 'boolean', true, null, 'Display');
     createSetting('SpamUpgrades', 'Upgrades Spam', 'Upgrades Spam', 'boolean', true, null, 'Display');
     createSetting('SpamEquipment', 'Equipment Spam', 'Equipment Spam', 'boolean', true, null, 'Display');
@@ -1683,7 +1722,7 @@ function updateCustomButtons() {
 
     //RDTime Farm
     radonon ? turnOn("Rdtimefarm") : turnOff("Rdtimefarm");
-    (radonon && getPageSetting('Rdtimefarm') == true) ? turnOn("Rdtimefarmmaz"): turnOff("Rdtimefarmmaz");
+    (radonon && getPageSetting('Rdtimefarm') == 1) ? turnOn("Rdtimefarmmaz"): turnOff("Rdtimefarmmaz");
     turnOff("Rdtimefarmzone");
     turnOff("Rdtimefarmcell");
     turnOff("Rdtimefarmtime");
@@ -1691,6 +1730,32 @@ function updateCustomButtons() {
     turnOff("Rdtimefarmmap");
     turnOff("Rdtimefarmspecial");
     turnOff("Rdtimefarmgather");
+    
+    //RDHeirloom Swapping
+    radonon ? turnOn('Rdhs') : turnOff('Rdhs');
+    var dhson = (getPageSetting('Rdhs') == 1);
+
+    //RDShields
+    radonon && dhson ? turnOn('Rdhsshield') : turnOff('Rdhsshield');
+    var dhsshieldon = (getPageSetting('Rdhsshield') == true);
+    radonon && dhson && dhsshieldon ? turnOn('Rdhsz') : turnOff('Rdhsz');
+    radonon && dhson && dhsshieldon ? turnOn('Rdhs1') : turnOff('Rdhs1');
+    radonon && dhson && dhsshieldon ? turnOn('Rdhs2') : turnOff('Rdhs2');
+
+    //RDStaffs
+    radonon && dhson ? turnOn('Rdhsstaff') : turnOff('Rdhsstaff');
+    var dhsstaffon = (getPageSetting('Rdhsstaff') == true);
+    radonon && dhson && dhsstaffon ? turnOn('Rdhsworldstaff') : turnOff('Rdhsworldstaff');
+    radonon && dhson && dhsstaffon ? turnOn('Rdhsmapstaff') : turnOff('Rdhsmapstaff');
+    radonon && dhson && dhsstaffon ? turnOn('Rdhstributestaff') : turnOff('Rdhstributestaff');
+    
+    //RDShrine
+    radonon ? turnOn("Rdshrine") : turnOff("Rdshrine");
+    (radonon && getPageSetting('Rdshrine') == 1) ? turnOn("Rdshrinemaz"): turnOff("Rdshrinemaz");
+    turnOff("Rdshrinezone");
+    turnOff("Rdshrinecell");
+    turnOff("Rdshrineamount");
+
 
     //RDPortal
     radonon ? turnOn("RAutoStartDaily") : turnOff("RAutoStartDaily");
@@ -1888,6 +1953,13 @@ function updateCustomButtons() {
     turnOff("Rtributemapselection");
     turnOff("Rtributespecialselection");
     turnOff("Rtributegatherselection");
+    
+    radonon ? turnOn("Rshrine") : turnOff("Rshrine");
+    (radonon && getPageSetting('Rshrine') == true) ? turnOn("Rshrinemaz"): turnOff("Rshrinemaz");
+    turnOff("Rshrinezone");
+    turnOff("Rshrinecell");
+    turnOff("Rshrineamount");
+    turnOff("Rshrinecharge");
 
     radonon ? turnOn("RVoidMaps") : turnOff("RVoidMaps");
     radonon ? turnOn("Rvoidscell") : turnOff("Rvoidscell");
@@ -2248,6 +2320,7 @@ function updateCustomButtons() {
 
     //Display
     (game.worldUnlocks.easterEgg.locked == false) ? turnOn('AutoEggs'): turnOff('AutoEggs');
+    turnOff("zonetracker");
 
 
     //Memory

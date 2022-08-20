@@ -1232,6 +1232,9 @@ function RautoMap() {
             if (game.global.lastClearedCell + 2 >= timefarmcell && timezones > time && timezones > 0) {
                 Rshouldtimefarm = true;
             }
+            if (game.global.challengeActive == 'Daily' && getPageSetting('Rdtimefarm') != 2) {
+                Rshouldtimefarm = false;
+            }
         }
     }
 
@@ -1261,16 +1264,10 @@ function RautoMap() {
     if (getPageSetting('Rtributefarm')) {
         var tributefarmzone = getPageSetting('Rtributefarmzone');
         if (tributefarmzone.includes(game.global.world)) {
-            var tributefarmzone;
-            var tributefarmtribute;
+            var tributefarmtribute = getPageSetting('Rtributefarmamount');
             var tributefarmindex = tributefarmzone.indexOf(game.global.world);
             var tributefarmcell = getPageSetting('Rtributefarmcell')[tributefarmindex];
             var tributes = game.buildings.Tribute.owned;
-
-            tributefarmzone = getPageSetting('Rtributefarmzone');
-            tributefarmtribute = getPageSetting('Rtributefarmamount');
-
-            var tributefarmindex = tributefarmzone.indexOf(game.global.world);
             var tributezones = tributefarmtribute[tributefarmindex];
 
             if (game.global.lastClearedCell + 2 >= tributefarmcell && tributezones > tributes && tributezones > 0) {
@@ -1306,7 +1303,10 @@ function RautoMap() {
     //Praid
     var Rdopraid = false;
     Rshoulddopraid = false;
-    Rdopraid = (game.global.world > 5 && ((getPageSetting('RAMPraid') == true || (game.global.challengeActive == "Daily" && getPageSetting('RdAMPraid') == 2)) && getPageSetting('RAMPraidzone')[0] > 0 && getPageSetting('RAMPraidraid')[0] > 0));
+    Rdopraid = (game.global.world > 5 && (((getPageSetting('RAMPraid') == true) || (game.global.challengeActive == "Daily" && getPageSetting('RdAMPraid') == 2)) && getPageSetting('RAMPraidzone')[0] > 0 && getPageSetting('RAMPraidraid')[0] > 0));
+    if (game.global.challengeActive == 'Daily' && getPageSetting('RdAMPraid') != 2) {
+        Rdopraid = false;
+    }
     if (Rdopraid) {
         var praidzone = getPageSetting('RAMPraidzone');
         var raidzone = getPageSetting('RAMPraidraid');
@@ -1541,8 +1541,8 @@ function RautoMap() {
             var mlevels = 6;
             var go = false;
             if (
-                (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult())) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
             ) {
                 pandaextra = mlevels;
                 go = true;
@@ -1550,8 +1550,8 @@ function RautoMap() {
             if (!go) {
                 mlevels = 5;
                 if (
-                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult())) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
                 ) {
                     pandaextra = mlevels;
                     go = true;
@@ -1560,8 +1560,8 @@ function RautoMap() {
             if (!go) {
                 mlevels = 4;
                 if (
-                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult())) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
                 ) {
                     pandaextra = mlevels;
                     go = true;
@@ -1570,8 +1570,8 @@ function RautoMap() {
             if (!go) {
                 mlevels = 3;
                 if (
-                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult())) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
                 ) {
                     pandaextra = mlevels;
                     go = true;
@@ -1580,8 +1580,8 @@ function RautoMap() {
             if (!go) {
                 mlevels = 2;
                 if (
-                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
-                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult())) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
+                    (((RcalcEnemyHealth(game.global.world + mlevels) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) <= (RcalcOurDmg("avg", false, true) * (hitsmap * (mlevels + 1)))) &&
+                    ((((((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0))) / game.challenges.Pandemonium.getBossMult()) * game.challenges.Pandemonium.getEnemyMult() * game.challenges.Pandemonium.getPandMult()) * 1.3) * (hitssurv)) <= (RcalcOurHealth() * 2))
                 ) {
                     pandaextra = mlevels;
                     go = true;
@@ -2168,7 +2168,7 @@ function RautoMap() {
             } else if (Rshouldshipfarm && !Rshouldtimefarm && !Rdshouldtimefarm && !Rshouldtributefarm && !Rshouldequipfarm) {
                 if (getPageSetting('Rshipfarmlevel') == 0) {
                     for (var map in game.global.mapsOwnedArray) {
-                        if (!game.global.mapsOwnedArray[map].noRecycle && game.global.world == game.global.mapsOwnedArray[map].level) {
+                        if (!game.global.mapsOwnedArray[map].noRecycle && game.global.world == game.global.mapsOwnedArray[map].level && game.global.mapsOwnedArray[map].bonus == "lsc") {
                             selectedMap = game.global.mapsOwnedArray[map].id;
                             break;
                         } else {
@@ -2888,9 +2888,11 @@ function RautoMap() {
 
                     if (insanityfarmzone.includes(game.global.world)) {
                         if (insanitylevelzones > 0) {
+                            insanityfragmin(insanitylevelzones);
                             document.getElementById("mapLevelInput").value = game.global.world;
                             document.getElementById("advExtraLevelSelect").value = insanitylevelzones;
                         } else if (insanitylevelzones < 0) {
+                            insanityfragmin(insanitylevelzones);
                             document.getElementById("mapLevelInput").value = (game.global.world + insanitylevelzones);
                             document.getElementById("advExtraLevelSelect").value = 0;
                         }
@@ -3044,12 +3046,15 @@ function RautoMap() {
 
                     if (hypofarmzone.includes(game.global.world)) {
                         if (hypolevelzones > 0) {
+                            hypofragmin(hypolevelzones);
                             document.getElementById("mapLevelInput").value = game.global.world;
                             document.getElementById("advExtraLevelSelect").value = hypolevelzones;
                         } else if (hypolevelzones == 0) {
+                            hypofragmin(hypolevelzones);
                             document.getElementById("mapLevelInput").value = game.global.world;
                             document.getElementById("advExtraLevelSelect").value = 0;
                         } else if (hypolevelzones < 0) {
+                            hypofragmin(hypolevelzones);
                             document.getElementById("mapLevelInput").value = (game.global.world + hypolevelzones);
                             document.getElementById("advExtraLevelSelect").value = 0;
                         }
@@ -3122,17 +3127,21 @@ function RautoMap() {
 
                     if (shipfarmzone.includes(game.global.world)) {
                         if (shiplevelzones > 0) {
+                            shipfragmin(shiplevelzones);
                             document.getElementById("mapLevelInput").value = game.global.world;
                             document.getElementById("advExtraLevelSelect").value = shiplevelzones;
                         } else if (shiplevelzones == 0) {
+                            shipfragmin(shiplevelzones);
                             document.getElementById("mapLevelInput").value = game.global.world;
                             document.getElementById("advExtraLevelSelect").value = 0;
                         } else if (shiplevelzones < 0) {
+                            shipfragmin(shiplevelzones);
                             document.getElementById("mapLevelInput").value = (game.global.world + shiplevelzones);
                             document.getElementById("advExtraLevelSelect").value = 0;
                         }
                     }
                 }
+          
                 updateMapCost();
             }
             if (Rshouldtimefarm && !Rdshouldtimefarm && !Rshouldtributefarm && !Rshoulddoquest) {

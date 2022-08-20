@@ -31,6 +31,12 @@ function initializeAutoTrimps() {
 
 var changelogList = [];
 changelogList.push({
+    date: "17/08/2022",
+    version: "v5.1.1",
+    description: "<b>Trimps v5.8.0</b>AutoShrine added. Daily Heirloom Swap added. Various bug fixes. ",
+    isNew: true
+});
+changelogList.push({
     date: "01/08/2022",
     version: "v5.1.0",
     description: "<b>Trimps v5.8.0</b> Calc updated for 5.8. Some Mutation settings in combat. A few changes to ship farming so it always uses a LSC. ",
@@ -40,12 +46,6 @@ changelogList.push({
     date: "16/05/2022",
     version: "v5.0.0",
     description: "<b>Trimps v5.7.1</b> Daily versions of settings added. Daily BW Raiding for U2 removed. Old Praiding for U2 removed. Added MaZ like inputs for various settings. Please check your settings in Maps\, Jobs\, and Daily tabs! Various bug fixes. Huge thanks to <b>August</b> for the base code for the MaZ like inputs! ",
-    isNew: false
-});
-changelogList.push({
-    date: "06/12/2021", 
-    version: "v4.6.0", 
-    description: "<b>Trimps v5.6.0</b> Hypothermia settings added. Calc updated. Heirlooms updated. Experience on portal added", 
     isNew: false
 });
 
@@ -157,6 +157,9 @@ function mainLoop() {
         if (getPageSetting('AutoEggs'))
             easterEggClicked();
         setTitle();
+    }
+    if (game.global.world != autoTrimpSettings.zonetracker) {
+        autoTrimpSettings.zonetracker = game.global.world;
     }
 
     //Logic for Universe 1
@@ -273,6 +276,8 @@ function mainLoop() {
         if (getPageSetting('RManualGather2') == 1) RmanualLabor2();
         if (getPageSetting('RTrapTrimps') && game.global.trapBuildAllowed && game.global.trapBuildToggled == false) toggleAutoTrap();
         if (game.global.challengeActive == "Daily" && getPageSetting('buyradony') >= 1 && getDailyHeliumValue(countDailyWeight()) >= getPageSetting('buyradony') && game.global.b >= 100 && !game.singleRunBonuses.heliumy.owned) purchaseSingleRunBonus('heliumy');
+        if ((getPageSetting('Rshrine') == true && game.global.challengeActive != "Daily") || (game.global.challengeActive == "Daily" && getPageSetting('Rdshrine') == 1)) autoshrine();
+        if (getPageSetting('Rdshrine') == 2 && game.global.challengeActive == "Daily") dautoshrine();
 
         //AB
         if (game.stats.highestRadLevel.valueTotal() >= 75 && getPageSetting('RAB') == true) {
@@ -324,8 +329,11 @@ function mainLoop() {
         if (getPageSetting('Rmanageequality') == true && game.global.fighting) Rmanageequality();
 
         //RHeirlooms
-        if (getPageSetting('Rhs') == true) {
+        if ((getPageSetting('Rhs') == true && game.global.challengeActive != 'Daily') || (getPageSetting('Rdhs') == 2 && game.global.challengeActive == 'Daily')) {
             Rheirloomswap();
+        }
+        if (getPageSetting('Rdhs') == 1 && game.global.challengeActive == 'Daily') {
+            Rdheirloomswap();
         }
 
         //RGolden
@@ -360,6 +368,7 @@ function mainCleanup() {
             autoTrimpSettings["RAutoMaps"].value = 1;
         return true;
     }
+    autoTrimpSettings.zonetracker = 1;
 }
 
 function throwErrorfromMain() {

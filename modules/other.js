@@ -3631,7 +3631,7 @@ var fastimps = [
 function Rmanageequality() {
 
     if (!(game.global.challengeActive == "Exterminate" && getPageSetting('Rexterminateon') == true && getPageSetting('Rexterminateeq') == true && !game.global.mapsActive)) {
-        if (fastimps.includes(getCurrentEnemy().name) || (game.global.mapsActive && getCurrentMapObject().location == "Void" && game.global.voidBuff == 'doubleAttack') || (!game.global.mapsActive && game.global.gridArray[game.global.lastClearedCell+1].u2Mutation.length > 0)) {
+        if ((game.global.challengeActive == "Glass") || (fastimps.includes(getCurrentEnemy().name)) || (game.global.mapsActive && getCurrentMapObject().location == "Void" && game.global.voidBuff == 'doubleAttack') || (!game.global.mapsActive && game.global.gridArray[game.global.lastClearedCell+1].u2Mutation.length > 0)) {
             if (!game.portal.Equality.scalingActive) {
                 game.portal.Equality.scalingActive = true;
                 manageEqualityStacks();
@@ -4108,4 +4108,49 @@ function hypofrag() {
         if (game.resources.fragments.owned >= cost) return true;
         else return false;
     }
+}
+
+function autoshrine() {
+    if (getPageSetting('Rshrine') && game.permaBoneBonuses.boosts.charges > 0) {
+        var shrinezone = getPageSetting('Rshrinezone');
+        if (shrinezone.includes(game.global.world)) {
+            var shrineamount = getPageSetting('Rshrineamount');
+            var shrineindex = shrinezone.indexOf(game.global.world);
+            var shrinecell = getPageSetting('Rshrinecell')[shrineindex];
+            var shrinezones = shrineamount[shrineindex];
+
+            shrinezones = shrinezones - autoTrimpSettings.Rshrinecharge.value;
+
+            if (game.global.lastClearedCell + 2 >= shrinecell && shrinezones > 0) {
+                game.permaBoneBonuses.boosts.consume();
+                autoTrimpSettings.Rshrinecharge.value++;
+            }
+        }
+    }
+}
+
+function dautoshrine() {
+    if (getPageSetting('Rdshrine') && game.permaBoneBonuses.boosts.charges > 0) {
+        var dshrinezone = getPageSetting('Rdshrinezone');
+        if (dshrinezone.includes(game.global.world)) {
+            var dshrineamount = getPageSetting('Rdshrineamount');
+            var dshrineindex = dshrinezone.indexOf(game.global.world);
+            var dshrinecell = getPageSetting('Rdshrinecell')[dshrineindex];
+            var dshrinezones = dshrineamount[dshrineindex];
+
+            dshrinezones = dshrinezones - autoTrimpSettings.Rshrinecharge.value;
+
+            if (game.global.lastClearedCell + 2 >= dshrinecell && dshrinezones > 0) {
+                game.permaBoneBonuses.boosts.consume();
+                autoTrimpSettings.Rshrinecharge.value++;
+            }
+        }
+    }
+}
+
+var old_nextWorld = nextWorld;
+nextWorld = function() {
+    var retVal = old_nextWorld(...arguments);
+    autoTrimpSettings.Rshrinecharge.value = 0;
+    return retVal;
 }

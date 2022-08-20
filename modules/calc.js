@@ -915,8 +915,14 @@ function RcalcDailyAttackMod(number) {
         if (typeof game.global.dailyChallenge.badStrength !== 'undefined') {
             number *= dailyModifiers.badStrength.getMult(game.global.dailyChallenge.badStrength.strength);
         }
+	if (typeof game.global.dailyChallenge.badHealth !== 'undefined') {
+            number *= dailyModifiers.badHealth.getMult(game.global.dailyChallenge.badHealth.strength);
+        }
         if (typeof game.global.dailyChallenge.badMapStrength !== 'undefined' && game.global.mapsActive) {
             number *= dailyModifiers.badMapStrength.getMult(game.global.dailyChallenge.badMapStrength.strength);
+        }
+	if (typeof game.global.dailyChallenge.empower !== 'undefined') {
+            number *= dailyModifiers.empower.getMult(game.global.dailyChallenge.empower.strength, game.global.dailyChallenge.empower.stacks);
         }
         if (typeof game.global.dailyChallenge.bloodthirst !== 'undefined') {
             number *= dailyModifiers.bloodthirst.getMult(game.global.dailyChallenge.bloodthirst.strength, game.global.dailyChallenge.bloodthirst.stacks);
@@ -925,13 +931,39 @@ function RcalcDailyAttackMod(number) {
     return number;
 }
 
+function RcalcDailyHealthMod(number) {
+    if (game.global.challengeActive == "Daily") {
+	if (typeof game.global.dailyChallenge.badHealth !== 'undefined') {
+            number *= dailyModifiers.badHealth.getMult(game.global.dailyChallenge.badHealth.strength);
+        }
+	if (typeof game.global.dailyChallenge.empower !== 'undefined') {
+            number *= dailyModifiers.empower.getMult(game.global.dailyChallenge.empower.strength, game.global.dailyChallenge.empower.stacks);
+        }
+    }
+    return number;
+}
+
 function RcalcBadGuyDmg(enemy, attack, equality) {
     var number;
+    var highest = 1;
+    var mute = false;
+
     if (enemy)
         number = enemy.attack;
     else
         number = attack;
-    if (getPageSetting('Rexterminateon') == true && getPageSetting('Rexterminatecalc') == true) {
+	
+    if (game.global.world > 200 && getPageSetting('Rmutecalc') > 0 && game.global.world >= getPageSetting('Rmutecalc')) {
+        for (var i = game.global.lastClearedCell + 1; i < game.global.gridArray.length; i++) {
+            var cell = game.global.gridArray[i];
+            if (cell.u2Mutation && cell.u2Mutation.length) {
+                highest = Math.max(u2Mutations.getAttack(cell), highest);
+	        mute = true;
+	        number = highest;
+            }
+        }
+    }
+    if (game.global.challengeActive == "Extermination" && getPageSetting('Rexterminateon') == true && getPageSetting('Rexterminatecalc') == true) {
         number = RgetEnemyMaxAttack(game.global.world, 90, 'Mantimp', 1.0)
     }
     if (game.portal.Equality.radLevel > 0 && getPageSetting('Rcalcmaxequality') == 0 && !equality) {
@@ -939,32 +971,8 @@ function RcalcBadGuyDmg(enemy, attack, equality) {
     } else if (game.portal.Equality.radLevel > 0 && getPageSetting('Rcalcmaxequality') >= 1 && game.portal.Equality.scalingCount > 0 && !equality) {
         number *= Math.pow(game.portal.Equality.modifier, game.portal.Equality.scalingCount);
     }
-    if (game.global.world > 200) {
-        number *= Math.pow(1.01, (game.global.world - 201));
-	number *= game.global.novaMutStacks > 0 ? (u2Mutations.types.Nova.enemyAttackMult() * 1.2) : 1;
-	var nova = false;
-	var rage = false;
-	var comp = false;
-	var compcells = 0;
-        for (var x = 0; x < game.global.gridArray.length; x++) {
-            if (game.global.gridArray[x].u2Mutation.length > 0 && (game.global.gridArray[x].u2Mutation.indexOf('NVX') != -1)) {
-                nova = true;
-            }
-	    if (game.global.gridArray[x].u2Mutation.length > 0 && (game.global.gridArray[x].u2Mutation.indexOf('RGE') != -1)) {
-                rage = true;
-            }
-	    if (game.global.gridArray[x].u2Mutation.length > 0 && (game.global.gridArray[x].u2Mutation.indexOf('CMP') != -1)) {
-                comp = true;
-            }
-        }
-        if (getPageSetting('Rmutecalc') > 0 && game.global.world >= getPageSetting('Rmutecalc')) {
-	    if (comp) number *= 3;
-            else if (rage) number *= 5;
-            else if (nova) number *= 10;
-        }
-    }
     if (game.global.challengeActive == "Daily") {
-        number = RcalcDailyAttackMod(number);
+        number = RcalcDailyHealthMod(number);
     }
     if (game.global.challengeActive == "Unbalance") {
         number *= 1.5;
@@ -1041,14 +1049,29 @@ function RcalcEnemyBaseHealth(world, level, name) {
 }
 
 function RcalcEnemyHealth(world) {
-    if (world == false) world = game.global.world;
-    var health = RcalcEnemyBaseHealth(world, 50, "Snimp");
-    if (game.global.world > 200) {
-        health *= 2;
-        health *= Math.pow(1.02, (game.global.world - 201));
+    var highest = 1;
+    var mute = false;
+    var health;
+    if (game.global.world > 200 && getPageSetting('Rmutecalc') > 0 && game.global.world >= getPageSetting('Rmutecalc')) {
+        for (var i = game.global.lastClearedCell + 1; i < game.global.gridArray.length; i++) {
+            var cell = game.global.gridArray[i];
+            if (cell.u2Mutation && cell.u2Mutation.length) {
+                highest = Math.max(u2Mutations.getHealth(cell), highest);
+	        mute = true;
+	        health = highest;
+            }
+        }
     }
-    if (getPageSetting('Rexterminateon') == true && getPageSetting('Rexterminatecalc') == true) {
+
+    if (world == false) world = game.global.world;
+
+    if (!mute) health = RcalcEnemyBaseHealth(world, 50, "Snimp");
+
+    if (game.global.challengeActive == "Extermination" && getPageSetting('Rexterminateon') == true && getPageSetting('Rexterminatecalc') == true) {
         health = RcalcEnemyBaseHealth(world, 90, "Beetlimp");
+    }
+    if (game.global.challengeActive == "Daily") {
+        health = RcalcDailyHealthMod(health);
     }
     if (game.global.challengeActive == "Unbalance") {
         health *= 2;
@@ -1094,12 +1117,36 @@ function RcalcEnemyHealth(world) {
         health *= 0.01;
         health *= game.challenges.Glass.healthMult();
     }
+    if (game.global.challengeActive === 'Smithless') {
+	if (game.challenges.Smithless.fakeSmithies > 0) health *= Math.pow(1.25, game.challenges.Smithless.fakeSmithies);
+    }
+
     return health;
 }
 
 function RcalcEnemyHealthMod(world, cell, name) {
+	
+    var highest = 1;
+    var mute = false;
+    var health;
+    if (game.global.world > 200 && getPageSetting('Rmutecalc') > 0 && game.global.world >= getPageSetting('Rmutecalc')) {
+        for (var i = game.global.lastClearedCell + 1; i < game.global.gridArray.length; i++) {
+            var cell = game.global.gridArray[i];
+            if (cell.u2Mutation && cell.u2Mutation.length) {
+                highest = Math.max(u2Mutations.getHealth(cell), highest);
+	        mute = true;
+	        health = highest;
+            }
+        }
+    }
+
     if (world == false) world = game.global.world;
-    var health = RcalcEnemyBaseHealth(world, cell, name);
+
+    if (!mute) health = RcalcEnemyBaseHealth(world, cell, name);
+    
+    if (game.global.challengeActive == "Daily") {
+        health = RcalcDailyHealthMod(health);
+    }
     if (game.global.challengeActive == "Unbalance") {
         health *= 2;
     }
@@ -1154,7 +1201,7 @@ function RcalcHDratio() {
     var ratio = 0;
     var ourBaseDamage = RcalcOurDmg("avg", false, true);
 
-    ratio = RcalcEnemyHealth(game.global.world) / ourBaseDamage;
+    ratio = (RcalcEnemyHealth(game.global.world) / ourBaseDamage);
     return ratio;
 }
 
@@ -1203,7 +1250,7 @@ function getTotalHealthMod() {
 
     //Mutations
     if (u2Mutations.tree.Health.purchased)	{
-		healthMulti *= 1.5;
+	healthMulti *= 1.5;
     }
     
     // AB
