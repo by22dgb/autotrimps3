@@ -107,6 +107,11 @@ var insanityfragmappybought = false;
 var Rstormfarm = false;
 var Rshouldstormfarm = false;
 
+//Desolation
+var Rdesofarm = false;
+var Rshoulddesofarm = false;
+var Rdesoextraglobal = 1;
+
 //Equip Farm
 var Requipfarm = false;
 var Rshouldequipfarm = false;
@@ -246,6 +251,11 @@ function RresetVars() {
     //Storm
     Rstormfarm = false;
     Rshouldstormfarm = false;
+    
+    //Desolation
+    Rdesofarm = false;
+    Rshoulddesofarm = false;
+    Rdesoextraglobal = 1;
 
     //Equip Farm
     Requipfarm = false;
@@ -1739,6 +1749,86 @@ function Rstorm(should) {
     }
 }
 
+//Desolation
+
+function Rdeso(should) {
+    var desozone = getPageSetting('Rdesozone');
+    var desoHD = getPageSetting('RdesoHD');
+    var desomult = getPageSetting('Rdesomult');
+    var desoHDzone = (game.global.world - desozone);
+    var desoHDmult = (desoHDzone == 0) ? desoHD : Math.pow(desomult, desoHDzone) * desoHD;
+
+    if (should && game.global.world >= desozone && RcalcHDratio() > desoHDmult) {
+        Rshoulddesofarm = true;
+    }
+}
+
+function RdesoExtra() {
+    var desoextra = 1;
+    if (Rshoulddesofarm == true) {
+        desoextra = 1;
+        var health = (RcalcOurHealth() * 2);
+        var attack = RcalcOurDmg("avg", false, true);
+        var hitsmap = 10;
+        var hitssurv = 1;
+        var mlevels = 6;
+        var go = false;
+        if (
+            ((RcalcEnemyHealth(game.global.world + mlevels)) <= (attack * (hitsmap * (mlevels + 1)))) &&
+            (((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0)) * 1.3) * (hitssurv)) <= health)
+        ) {
+            desoextra = mlevels;
+            go = true;
+        }
+        if (!go) {
+            mlevels = 5;
+            if (
+                ((RcalcEnemyHealth(game.global.world + mlevels)) <= (attack * (hitsmap * (mlevels + 1)))) &&
+                (((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0)) * 1.3) * (hitssurv)) <= health)
+            ) {
+                desoextra = mlevels;
+                go = true;
+            }
+        }
+        if (!go) {
+            mlevels = 4;
+            if (
+                ((RcalcEnemyHealth(game.global.world + mlevels)) <= (attack * (hitsmap * (mlevels + 1)))) &&
+                (((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0)) * 1.3) * (hitssurv)) <= health)
+            ) {
+                desoextra = mlevels;
+                go = true;
+            }
+        }
+        if (!go) {
+            mlevels = 3;
+            if (
+                ((RcalcEnemyHealth(game.global.world + mlevels)) <= (attack * (hitsmap * (mlevels + 1)))) &&
+                (((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0)) * 1.3) * (hitssurv)) <= health)
+            ) {
+                desoextra = mlevels;
+                go = true;
+            }
+        }
+        if (!go) {
+            mlevels = 2;
+            if (
+                ((RcalcEnemyHealth(game.global.world + mlevels)) <= (attack * (hitsmap * (mlevels + 1)))) &&
+                (((RcalcBadGuyDmg(null, RgetEnemyMaxAttack((game.global.world + mlevels), 20, 'Snimp', 1.0)) * 1.3) * (hitssurv)) <= health)
+            ) {
+                desoextra = mlevels;
+                go = true;
+            }
+        }
+        if (!go) {
+            mlevels = 1;
+            desoextra = mlevels;
+            go = true;
+        }
+    }
+    return desoextra;
+}
+
 //Ships
 
 function Rship(should, level, reset) {
@@ -2184,6 +2274,7 @@ function Rshould(any, one) {
                 Rshouldpanda ||
                 Rshouldinsanityfarm ||
                 Rshouldstormfarm ||
+                Rshoulddesofarm ||
                 Rshouldequipfarm ||
                 Rshouldshipfarm ||
                 Rshouldalchfarm ||
@@ -2197,6 +2288,7 @@ function Rshould(any, one) {
         if (Rshouldfragfarm) should = "frag";
         else if (Rshouldmayhem) should = "mayhem";
         else if (Rshouldpanda) should = "panda";
+        else if (Rshoulddesofarm) should = "deso";
         else if (Rshouldinsanityfarm) should = "insanity";
         else if (Rshouldalchfarm) should = "alch";
         else if (Rshouldhypofarm) should = "hypo";
@@ -2247,6 +2339,19 @@ function RselectPanda() {
             }
         }
     }
+    return selectedMap;
+}
+
+function RselectDeso() {
+    var selectedMap = "create";
+        for (var map in game.global.mapsOwnedArray) {
+            if (!game.global.mapsOwnedArray[map].noRecycle && RdesoExtra() >= 0 && ((game.global.world + RdesoExtra()) == game.global.mapsOwnedArray[map].level)) {
+                selectedMap = game.global.mapsOwnedArray[map].id;
+                break;
+            } else {
+                selectedMap = "create";
+            }
+        }
     return selectedMap;
 }
 
@@ -2397,6 +2502,8 @@ function RselectMap(selectedMap) {
                 selectedMap = RselectMayhem();
             } else if (Rshould(false, true) == "panda") {
                 selectedMap = RselectPanda();
+            } else if (Rshould(false, true) == "deso") {
+                selectedMap = RselectDeso();
             } else if (Rshould(false, true) == "insanity") {
                 selectedMap = RselectOther("insanity");
             } else if (Rshould(false, true) == "alch") {
@@ -2464,6 +2571,7 @@ function RmapRepeat(selectedMap, shouldDoHealthMaps, restartVoidMap) {
                     (Rshouldmayhem > 0) ||
                     Rshouldpanda ||
                     Rshouldstormfarm ||
+                    Rshoulddesofarm ||
                     Rshouldequipfarm
                 )
             )
@@ -2514,6 +2622,7 @@ function RmapRepeat(selectedMap, shouldDoHealthMaps, restartVoidMap) {
             Rshouldmayhem <= 0 &&
             !Rshouldpanda &&
             !Rshouldstormfarm &&
+            !Rshoulddesofarm &&
             !Rshouldequipfarm &&
             !Rshouldshipfarm &&
             !Rshipfragfarming
@@ -2659,6 +2768,8 @@ function RlevelMap(what) {
         extra = RpandaExtra();
     } else if (what == "equip") {
         globalextra = RequipExtra();
+    } else if (what == "deso") {
+        extra = RdesoExtra();
     }
     mapLevelInput.value = (game.global.world + globalextra);
     biomeAdvMapsSelect.value = "Random";

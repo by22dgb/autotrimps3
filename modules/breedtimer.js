@@ -50,7 +50,7 @@ function potencyMod() {
     }
 
     //Toxicity
-    if (game.global.challengeActive == "Toxicity" && game.challenges.Toxicity.stacks > 0)
+    if (challengeActive("Toxicity") && game.challenges.Toxicity.stacks > 0)
         potencyMod = potencyMod.mul(Math.pow(game.challenges.Toxicity.stackMult, game.challenges.Toxicity.stacks));
 
     //Void Maps (Slow Breed)
@@ -112,7 +112,7 @@ function ATGA2() {
 			potencyMod = potencyMod.mul(dailyModifiers.toxic.getMult(game.global.dailyChallenge.toxic.strength, game.global.dailyChallenge.toxic.stacks));
 			}
 		}
-		if (game.global.challengeActive == "Toxicity" && game.challenges.Toxicity.stacks > 0){
+		if (challengeActive("Toxicity") && game.challenges.Toxicity.stacks > 0){
 		potencyMod = potencyMod.mul(Math.pow(game.challenges.Toxicity.stackMult, game.challenges.Toxicity.stacks));
 		}
 		if (game.global.voidBuff == "slowBreed"){
@@ -135,9 +135,9 @@ function ATGA2() {
 		if (getPageSetting('ATGA2timerz') > 0 && getPageSetting('ATGA2timerzt') > 0 && game.global.world >= getPageSetting('ATGA2timerz'))
 		target = new Decimal(getPageSetting('ATGA2timerzt'));
 
-		if (game.global.runningChallengeSquared && getPageSetting('cATGA2timer') > 0 && game.global.challengeActive != 'Electricity' && game.global.challengeActive != 'Toxicity' && game.global.challengeActive != 'Nom')
+		if (game.global.runningChallengeSquared && getPageSetting('cATGA2timer') > 0 && challengeActive("Electricty") == false && challengeActive("Toxicity") == false && challengeActive("Nom") == false)
 		target = new Decimal(getPageSetting('cATGA2timer'));
-		if (game.global.runningChallengeSquared && getPageSetting('chATGA2timer') > 0 && (game.global.challengeActive == 'Electricity' || game.global.challengeActive == 'Toxicity' || game.global.challengeActive == 'Nom'))
+		if (game.global.runningChallengeSquared && getPageSetting('chATGA2timer') > 0 && (challengeActive("Electricty") || challengeActive("Toxicity") || challengeActive("Nom")))
 		target = new Decimal(getPageSetting('chATGA2timer'));
 
 		if (getPageSetting('dATGA2timer') > 0 && game.global.challengeActive == "Daily")

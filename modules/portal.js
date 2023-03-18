@@ -320,6 +320,7 @@ function RautoPortal() {
                 if (heliumHrBuffer == 0 && !aWholeNewWorld)
                     OKtoPortal = false;
                 if (OKtoPortal && zonePostpone == 0) {
+                    RresetVars();
                     zonePostpone += 1;
                     debug("当前的氡每小时为" + myHeliumHr + "，本周目最高的氦每小时为区域" + bestHeHrZone + "时的" + bestHeHr, "portal");
                     cancelTooltip();
@@ -384,6 +385,7 @@ function RdailyAutoPortal() {
                 if (heliumHrBuffer == 0 && !aWholeNewWorld)
                     OKtoPortal = false;
                 if (OKtoPortal && zonePostpone == 0) {
+		    RresetVars();
                     zonePostpone += 1;
                     debug("当前的氡每小时为" + myHeliumHr + "，本周目最高的氦每小时为区域" + bestHeHrZone + "时的" + bestHeHr, "portal");
                     cancelTooltip();
@@ -499,6 +501,7 @@ function RdoPortal(challenge) {
 	
     }
     pushData();
+    RresetVars();
     activatePortal();
     lastRadonZone = 0; RzonePostpone = 0;
     RresetVars();

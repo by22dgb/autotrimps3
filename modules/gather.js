@@ -56,7 +56,7 @@ function manualLabor2() {
 
 
 	//Init - Others
-	var needMiner = firstFightOK && game.global.challengeActive != "Metal" && !game.upgrades.Miners.done;
+	var needMiner = firstFightOK && challengeActive("Metal") == false && !game.upgrades.Miners.done;
 	var breedingTrimps = game.resources.trimps.owned - trimpsEffectivelyEmployed();
 	var hasTurkimp = game.talents.turkimp2.purchased || game.global.turkimpTimer > 0;
 
@@ -114,7 +114,7 @@ function manualLabor2() {
 	}
 
 	//High Priority Metal gathering for Metal Challenge
-	if (game.global.challengeActive == "Metal" && !game.global.mapsUnlocked) {
+	if (challengeActive("Metal") && !game.global.mapsUnlocked) {
 		setGather('metal');
 		return;
 	}

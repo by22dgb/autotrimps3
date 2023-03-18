@@ -89,7 +89,60 @@ function setPageSetting(setting, value) {
 }
 
 function saveSettings(){safeSetItems('autoTrimpSettings',serializeSettings())}
-function debug(a,b,c){var d=getPageSetting('SpamGeneral'),e=getPageSetting('SpamUpgrades'),f=getPageSetting('SpamEquipment'),g=getPageSetting('SpamMaps'),h=getPageSetting('SpamOther'),i=getPageSetting('SpamBuilding'),j=getPageSetting('SpamJobs'),k=getPageSetting('SpamGraphs'),l=getPageSetting('SpamMagmite'),m=getPageSetting('SpamPerks'),n=getPageSetting('SpamProfiles'),o=getPageSetting('SpamNature'),p=!0;switch(b){case null:break;case'general':p=d;break;case'upgrades':p=e;break;case'equips':p=f;break;case'buildings':p=i;break;case'jobs':p=j;break;case'maps':p=g;break;case'other':p=h;break;case'graphs':p=k;break;case'magmite':p=l;break;case'perks':p=m;break;case'profiles':p=n;break;case'nature':p=o;}p&&(enableDebug&&console.log(timeStamp()+' '+a),message2(a,'AutoTrimps',c,b))}
+
+function debug(message, type, lootIcon) {
+    var general = getPageSetting('SpamGeneral');
+    var upgrades = getPageSetting('SpamUpgrades');
+    var equips = getPageSetting('SpamEquipment');
+    var maps = getPageSetting('SpamMaps');
+    var other = getPageSetting('SpamOther');
+    var buildings = getPageSetting('SpamBuilding');
+    var jobs = getPageSetting('SpamJobs');
+    var graphs = getPageSetting('SpamGraphs');
+    var magmite = getPageSetting('SpamMagmite');
+    var perks = getPageSetting('SpamPerks');
+    var output = true;
+    switch (type) {
+        case null:
+            break;
+        case "general":
+            output = general;
+            break;
+        case "upgrades":
+            output = upgrades;
+            break;
+        case "equips":
+            output = equips;
+            break;
+        case "buildings":
+            output = buildings;
+            break;
+        case "jobs":
+            output = jobs;
+            break;
+        case "maps":
+            output = maps;
+            break;
+        case "other":
+            output = other;
+            break;
+        case "graphs":
+            output = graphs;
+            break;
+        case "magmite":
+            output = magmite;
+            break;
+        case "perks":
+            output = perks;
+            break;
+    }
+    if (output) {
+        if (enableDebug)
+            console.log(timeStamp() + ' ' + message);
+        message2(message, "AutoTrimps", lootIcon, type);
+    }
+}
+
 function timeStamp(){for(var a=new Date,b=[a.getHours(),a.getMinutes(),a.getSeconds()],c=1;3>c;c++)10>b[c]&&(b[c]="0"+b[c]);return b.join(":")}
 function preBuy(){preBuyAmt=game.global.buyAmt,preBuyFiring=game.global.firing,preBuyTooltip=game.global.lockTooltip,preBuymaxSplit=game.global.maxSplit}
 function postBuy(){game.global.buyAmt=preBuyAmt,game.global.firing=preBuyFiring,game.global.lockTooltip=preBuyTooltip,game.global.maxSplit=preBuymaxSplit}
