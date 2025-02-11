@@ -151,7 +151,7 @@ function initialiseAllSettings() {
 				let description = "<p>Lets the script control what you gather and build.</p>";
 				description += "<p><b>Auto Gather: Off</b><br>Disables this setting.</p>";
 				description += "<p><b>Auto Gather: On</b><br>Automatically switch your gathering between resources and the building queue depending on what the script deems necessary.</p>";
-				description += "<p><b>Auto Gather: Mining Only</b><br>Sets gather to <b>Mining</b> unless buildings are in the queue then it will prioritise building them.<br>Only use this if you are past the early stages of the game and have <b>Foremany</b> unlocked.</p>";
+				description += "<p><b>Auto Gather: Mining Only</b><br>Sets gather to <b>采矿</b> unless buildings are in the queue then it will prioritise building them.<br>Only use this if you are past the early stages of the game and have <b>Foremany</b> unlocked.</p>";
 				description += "<p><b>Auto Gather: No Science</b><br>Works the same as <b>Auto Gather: On</b> but stops <b>Science</b> from being gathered.</p>";
 				description += "<p><b>Recommended:</b> Auto Gather: On</p>";
 				return description;
@@ -272,9 +272,9 @@ function initialiseAllSettings() {
 				const universeChallenges = atConfig.settingUniverse === 2 ? "Downsize, Duel, Berserk, Alchemy, Smithless" : "Metal, Trimp, Coord, Experience";
 
 				let description = "<p>Will automatically swap <b>" + calcName + "</b> presets when Auto Portaling into runs.</p>";
-				description += "<p>Fillers (non daily/" + _getChallenge2Info() + " runs) will load <b>" + fillerPreset + ".</b></p>";
-				description += "<p>Dailies will load <b>" + dailyPreset + "</b>.</p>";
-				description += _getSpecialChallengeDescription() + " runs will load <b>" + c2Preset + "</b>.</p>";
+				description += "<p>Fillers (non daily/" + _getChallenge2Info() + " runs) will load <b>" + fillerPreset + ".</b>的预设。</p>";
+				description += "<p>Dailies will load <b>" + dailyPreset + "</b>的预设。</p>";
+				description += _getSpecialChallengeDescription() + " runs will load <b>" + c2Preset + "</b>的预设。</p>";
 				description += "Challenges that have a dedicated preset (<b>" + universeChallenges + "</b>) will load that preset when starting the challenge.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
@@ -342,8 +342,8 @@ function initialiseAllSettings() {
 
 		createSetting('universeSetting',
 			function () {
-				let portalOptions = ['Universe Settings: 1'];
-				if (Fluffy.checkU2Allowed()) portalOptions.push('Universe Settings: 2');
+				let portalOptions = ['Universe Settings: 1.'];
+				if (Fluffy.checkU2Allowed()) portalOptions.push('Universe Settings: 2.');
 				return portalOptions;
 			},
 			function () { return ('Switch between settings for universes you have unlocked.') },
@@ -371,7 +371,7 @@ function initialiseAllSettings() {
 				description += `<p><b>${resourceName} Per Hour</b><br>Portals into new runs when your ${resourceName.toLowerCase()} per hour goes below your current runs best ${resourceName.toLowerCase()} per hour.</p>`;
 				description += `<p>There is a <b>Buffer</b> setting, which lowers the check from best ${resourceName.toLowerCase()} per hour to (best - buffer setting) ${resourceName.toLowerCase()} per hour.</p>`;
 				description += `<p><b>${resourceName} Challenges</b><br>When a challenge has been selected it will automatically portal into it when you don't have a challenge active.</p>`;
-				description += `<p><b>Custom</b>/<b>One Off Challenges</b><br>Will portal into the challenge selected in the <b>Challenge</b> setting at the zone specified in the <b>Portal Zone</b> setting.</p>`;
+				description += `<p><b>Custom</b>/<b>One Off Challenges</b><br>Will portal into the challenge selected in the <b>Challenge</b> setting at the zone specified in the <b>Portal Zone</b>中设置的区域。</p>`;
 				if (game.stats.highestLevel.valueTotal() >= 65) {
 					description += `<p><b>${c2setting}</b><br>Will portal into the challenge selected in the <b>${c2abv}</b> setting. If not inside of a ${c2abv} then it will use the zone specified in the <b>Portal Zone</b> setting. When inside of ${c2abv}s it will use <b>${c2abv} Runner Portal</b> for your portal zone. If <b>${c2abv} Runner</b> is enabled otherwise will use the zone specified in the <b>Finish ${c2abv}</b> setting in the ${c2abv} settings tab.</p>`
 				}
@@ -383,7 +383,7 @@ function initialiseAllSettings() {
 		createSetting('heliumChallenge',
 			function () { return ('Challenge') },
 			function () {
-				let description = "<p>Automatically portal into this challenge when no challenge is active and you are using the <b>" + _getPrimaryResourceInfo().name + " Challenges</b> Auto Portal setting.</p>";
+				let description = "<p>Automatically portal into this challenge when no challenge is active and you are using the <b>" + _getPrimaryResourceInfo().name + " Challenges</b>自动传送设置时，传送后进入该挑战。</p>";
 				description += "<p><b>" + _getPrimaryResourceInfo().name + " challenges</b> will appear here when they've been unlocked in the game.</p>";
 				description += "<p>If this setting is set to <b>None</b> the script won't Auto Portal at all.</b></p>";
 				description += "<p><b>Recommended:</b> Last challenge available</p>";
@@ -399,7 +399,7 @@ function initialiseAllSettings() {
 		createSetting('heliumHourChallenge',
 			function () { return ('Challenge') },
 			function () {
-				let description = "<p>Automatically portal into this challenge when using the <b>" + _getPrimaryResourceInfo().name + " Per Hour</b> or <b>Custom</b> Auto Portal settings.</p>";
+				let description = "<p>Automatically portal into this challenge when using the <b>" + _getPrimaryResourceInfo().name + " Per Hour</b> or <b>Custom</b>自动传送设置时，传送后进入该挑战。</p>";
 				description += "<p>" + _getPrimaryResourceInfo().name + " challenges will appear here when they've been unlocked in the game.</p>";
 				description += "<p><b>Recommended:</b> Last challenge available</p>";
 				return description;
@@ -413,7 +413,7 @@ function initialiseAllSettings() {
 		createSetting('heliumOneOffChallenge',
 			function () { return ('Challenge') },
 			function () {
-				let description = "<p>Automatically portal into this challenge when using the <b>One Off Challenges</b> Auto Portal setting.</p>";
+				let description = "<p>Automatically portal into this challenge when using the <b>One Off Challenges</b>自动传送设置时，传送后进入该挑战。</p>";
 				description += "<p><b>Challenges that are only worthwhile running once for perks/special unlocks will appear here when they've been unlocked in the game.</b></p>";
 				description += "<p><b>Recommended:</b> Last challenge available</p>";
 				return description;
@@ -428,7 +428,7 @@ function initialiseAllSettings() {
 			function () { return (_getChallenge2Info()) },
 			function () {
 				const specialChall = "Special challenges (" + (atConfig.settingUniverse === 2 ? "Mayhem, Pandemonium, Desolation" : "Frigid, Experience") + ") can be run with this but they will ignore the " + _getChallenge2Info() + " settings and use the <b>Portal Zone</b> input for when to finish the run and portal.";
-				let description = "<p>Automatically portal into this C" + _getChallenge2Info()[1] + " when using the <b>Challenge " + _getChallenge2Info()[1] + "</b> Auto Portal setting.</p>";
+				let description = "<p>Automatically portal into this C" + _getChallenge2Info()[1] + " when using the <b>Challenge " + _getChallenge2Info()[1] + "</b>自动传送设置时，传送后进入该挑战。</p>";
 				description += "<p>C" + _getChallenge2Info()[1] + " challenges will appear here when they've been unlocked in the game.</p>";
 				description += "<p>When running a " + _getChallenge2Info() + ", <b>" + _getChallenge2Info() + " Runner Portal</b> will be used for your portal zone if <b>" + _getChallenge2Info() + " Runner</b> is enabled otherwise it will use the <b>Finish " + _getChallenge2Info() + "</b> setting. These can be found in the <b>" + _getChallenge2Info() + "</b> settings tab.</p>"
 				description += "<p>" + specialChall + "</p>";
@@ -443,8 +443,8 @@ function initialiseAllSettings() {
 		createSetting('autoPortalZone',
 			function () { return ('Portal Zone') },
 			function () {
-				let description = "<p>Will automatically portal once this zone is reached when using the <b>Custom OR One Off Challenges</b> Auto Portal settings.</p>";
-				description += "<p>Setting this to <b>200</b> would portal when you reach <b>zone 200</b>.</p>";
+				let description = "<p>Will automatically portal once this zone is reached when using the <b>Custom OR One Off Challenges</b>自动传送设置时，将在到达该区域后传送。</p>";
+				description += "<p>Setting this to <b>200</b> would portal when you reach <b>区域200</b>时传送。</p>";
 				description += "<p>If this is set above your highest zone reached then it will allow you to pick not yet unlocked challenges up to this zone.</p>";
 				description += "<p><b>Recommended:</b> The zone you would like your run to end</p>";
 				return description;
@@ -458,7 +458,7 @@ function initialiseAllSettings() {
 		createSetting('heliumHrDontPortalBefore',
 			function () { return ("Don't Portal Before") },
 			function () {
-				let description = "<p>Will stop the script from automatically portaling before the specified zone when using the <b>" + _getPrimaryResourceInfo().name + " Per Hour</b> Auto Portal setting.</p>";
+				let description = "<p>Will stop the script from automatically portaling before the specified zone when using the <b>" + _getPrimaryResourceInfo().name + " Per Hour</b>自动传送设置时，在到达该区域之前不会触发自动传送。</p>";
 				description += "<p>This is an additional check that prevents drops in " + _getPrimaryResourceInfo().name.toLowerCase() + " per hour from triggering Auto Portal.</p>";
 				description += "<p>If this is set above your highest zone reached then it will allow you to pick not yet unlocked challenges up to this zone.</p>";
 				description += "<p>The portal after checkbox in <b>Void Map Setting</b> will override this and allow portaling before the zone set here.</p>";
@@ -4946,12 +4946,12 @@ function settingChanged(id, currUniverse) {
 		if (id === 'dailyPortal') document.getElementById(btn.id).classList.add('toggleConfigBtn');
 
 		const elemText = element.innerHTML.replace(/<span class="icomoon icon-infinity"><\/span>/g, '∞');
-		if (elemText.length > 26) {
+		/*if (elemText.length > 26) {
 			const reduceBy = 1 - (elemText.length - 25) * 0.03;
 			element.style.fontSize = `${reduceBy}vw`;
-		} else {
+		} else {*/
 			element.style.fontSize = '1vw';
-		}
+		//}
 	}
 
 	if (btn.type.includes('dropdown')) {
@@ -5005,12 +5005,12 @@ function autoSetValue(id, multiValue, negative) {
 	element.innerHTML = `${setting.name()}: ${displayNum}`;
 
 	const elemText = element.innerHTML.replace(/<span class="icomoon icon-infinity"><\/span>/g, '∞');
-	if (elemText.length > 26) {
+	/*if (elemText.length > 26) {
 		const reduceBy = 1 - (elemText.length - 25) * 0.03;
 		element.style.fontSize = `${reduceBy}vw`;
-	} else {
+	} else {*/
 		element.style.fontSize = '1vw';
-	}
+	//}
 
 	if (id === 'presetCombatRespecCell') {
 		MODULES.portal.disableAutoRespec = 0;
@@ -5084,12 +5084,12 @@ function autoSetText(id, multiValue) {
 		element.innerHTML = setting.name() + ': ' + displayText;
 
 		const elemText = element.innerHTML.replace(/<span class="icomoon icon-infinity"><\/span>/g, '∞');
-		if (elemText.length > 26) {
+		/*if (elemText.length > 26) {
 			const reduceBy = 1 - (elemText.length - 25) * 0.03;
 			element.style.fontSize = `${reduceBy}vw`;
-		} else {
+		} else {*/
 			element.style.fontSize = '1vw';
-		}
+		//}
 	}
 
 	if (id.includes('archaeology')) archaeologyAutomator();
@@ -5233,23 +5233,23 @@ function _setDisplayedSettings(item) {
 			elem.innerHTML = item.name()[itemValue];
 			elem.setAttribute('class', `toggleConfigBtnLocal noselect settingsBtn settingBtn${itemValue}`);
 		} else if (item.type === 'textValue' && itemValue && itemValue.substring) {
-			elem.innerHTML = `${item.name()}: ${itemValue.substring(0, 21)}${itemValue.length > 18 ? '...' : ''}`;
+			elem.innerHTML = `${item.name()}<i></i>: <i></i>${itemValue.substring(0, 21)}${itemValue.length > 18 ? '...' : ''}`;
 		} else if (item.type === 'multiValue' || item.type === 'multiTextValue') {
 			handleMultiValue(item, elem, itemValue);
 		} else if (itemValue > -1 || item.type === 'valueNegative') {
-			elem.innerHTML = `${item.name()}: ${prettify(itemValue)}`;
+			elem.innerHTML = `${item.name()}<i></i>: <i></i>${prettify(itemValue)}`;
 		} else {
-			elem.innerHTML = `${item.name()}: <span class='icomoon icon-infinity'></span>`;
+			elem.innerHTML = `${item.name()}<i></i>: <span class='icomoon icon-infinity'></span>`;
 		}
 	};
 
 	const handleMultiValue = (item, elem, itemValue) => {
 		if (Array.isArray(itemValue) && itemValue.length === 1 && itemValue[0] === -1) {
-			elem.innerHTML = `${item.name()}: <span class='icomoon icon-infinity'></span>`;
+			elem.innerHTML = `${item.name()}<i></i>: <span class='icomoon icon-infinity'></span>`;
 		} else if (Array.isArray(itemValue)) {
-			elem.innerHTML = `${item.name()}: ${itemValue[0]}+`;
+			elem.innerHTML = `${item.name()}<i></i>: <i></i>${itemValue[0]}+`;
 		} else {
-			elem.innerHTML = `${item.name()}: ${itemValue}`;
+			elem.innerHTML = `${item.name()}<i></i>: <i></i>${itemValue}`;
 		}
 	};
 
@@ -5281,12 +5281,12 @@ function _setDisplayedSettings(item) {
 	}
 
 	const elemText = elem.innerHTML.replace(/<span class="icomoon icon-infinity"><\/span>/g, '∞');
-	if (item.type !== 'dropdown' && (elemText.length > 26 || ['spireDominanceStanceC2', 'windStackingRatioDaily'].includes(item.id))) {
+	/*if (item.type !== 'dropdown' && (elemText.length > 26 || ['spireDominanceStanceC2', 'windStackingRatioDaily'].includes(item.id))) {
 		const reduceBy = 1 - (elemText.length - 25) * 0.03;
 		elem.style.fontSize = `${reduceBy}vw`;
-	} else {
+	} else {*/
 		elem.style.fontSize = '1vw';
-	}
+	//}
 
 	const setTooltip = (elem, name, description) => {
 		if (item.type.includes('dropdown')) elem = elem.parentNode;
@@ -5305,7 +5305,7 @@ function _setDisplayedSettings(item) {
 	if (item.type === 'multitoggle') {
 		const name = item.name();
 		let description = item.description();
-		if (item.id !== 'jobType' && name.length > 1) description += `<p><br><i>Set to<b> ${name[0]}</b> by holding <b>control</b> and clicking.</i></p>`;
+		if (item.id !== 'jobType' && name.length > 1) description += `<p><br><i>Set to<b>${name[0]}</b> by holding <b>control</b> and clicking.</i></p>`;
 		setTooltip(elem, name.join(' / '), description);
 	} else {
 		setTooltip(elem, item.name(), item.description());
