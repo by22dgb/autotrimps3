@@ -722,11 +722,11 @@ const Graphs = {
 	formatters: {
 		datetime: function () {
 			var ser = this.series;
-			return '<span style="color:' + ser.color + '" >●</span> ' + ser.name + ": <b>" + Graphs.formatters._formatDuration(this.y / 1000) + "</b><br>";
+			return '<span style="color:' + ser.color + '" >●</span>' + ser.name + ": <b>" + Graphs.formatters._formatDuration(this.y / 1000) + "</b><br>";
 		},
 		defaultPoint: function () {
 			var ser = this.series; // 'this' being the highcharts object that uses formatter()
-			return '<span style="color:' + ser.color + '" >●</span> ' + ser.name + ": <b>" + prettify(this.y) + "</b><br>";
+			return '<span style="color:' + ser.color + '" >●</span>' + ser.name + ": <b>" + prettify(this.y) + "</b><br>";
 		},
 		defaultAxis: function () {
 			// These are Trimps format functions for durations(modified) and numbers, respectively
@@ -736,10 +736,10 @@ const Graphs = {
 		// returns _d _h _m _s or _._s
 		_formatDuration: function (timeSince) {
 			var timeObj = {
-				d: Math.floor(timeSince / 86400),
-				h: Math.floor(timeSince / 3600) % 24,
-				m: Math.floor(timeSince / 60) % 60,
-				s: Math.floor(timeSince % 60),
+				日: Math.floor(timeSince / 86400),
+				时: Math.floor(timeSince / 3600) % 24,
+				分: Math.floor(timeSince / 60) % 60,
+				秒: Math.floor(timeSince % 60),
 			}
 			var milliseconds = Math.floor(timeSince % 1 * 10)
 			var timeString = "";
@@ -747,10 +747,10 @@ const Graphs = {
 			for (const [unit, value] of Object.entries(timeObj)) {
 				if (value === 0 && timeString === "") continue;
 				unitsUsed++;
-				if (value) timeString += value.toString() + unit + " ";
+				if (value) timeString += value.toString() + unit + "";
 			}
 			if (unitsUsed <= 1) {
-				timeString = [timeObj.s.toString().padStart(1, "0"), milliseconds.toString(), "s"].join(".");
+				timeString = [timeObj.秒.toString().padStart(1, "0"), milliseconds.toString(), "s"].join(".");
 			}
 			return timeString
 		},
@@ -959,7 +959,7 @@ const Graphs = {
 				}
 
 				this.graphData.push({
-					name: `Portal ${portal.totalPortals}: ${portal.challenge}`,
+					name: `Portal ${portal.totalPortals}: <i></i>${portal.challenge}`,
 					data: cleanData,
 					zIndex: -portalCount,
 					events: {
@@ -1052,7 +1052,7 @@ const Graphs = {
 		this.universe = GraphsConfig.getGameData.universe();
 		this.totalPortals = getTotalPortals();
 		this.challenge = GraphsConfig.getGameData.challengeActive() === 'Daily'
-			? getCurrentChallengePane().split('.')[0].substr(13).slice(0, 16) // names dailies by their start date, only moderately cursed
+			? getCurrentChallengePane().split('.')[0].substr(20).slice(0, 13) // names dailies by their start date, only moderately cursed
 			: GraphsConfig.getGameData.challengeActive();
 		this.initialNullifium = game.global.nullifium;
 		this.totalNullifium = GraphsConfig.getGameData.nullifium();
@@ -1449,7 +1449,7 @@ const GraphsConfig = {
 		*/
 		perZone: {
 			graphMods: (graph, highChartsObj) => {
-				highChartsObj.title.text += " each Zone"
+				highChartsObj.title.text += "<i></i> each Zone"
 				graph.useAccumulator = false // HACKS this might be incredibly stupid, find out later when you use this option for a different case!
 			},
 			customFunction: (portal, item, index, x, time, maxS3, xprev) => {
@@ -1468,7 +1468,7 @@ const GraphsConfig = {
 		},
 		perHr: {
 			graphMods: (graph, highChartsObj) => {
-				highChartsObj.title.text += " / Hour"
+				highChartsObj.title.text += "<i></i> / Hour"
 			},
 			customFunction: (portal, item, index, x, time, maxS3, xprev) => {
 				return x / (time / 3600000);
@@ -1478,7 +1478,7 @@ const GraphsConfig = {
 			dataVars: ["mapHeRn"],
 			exclude: ["map"],
 			graphMods: (graph, highChartsObj) => {
-				highChartsObj.title.text += `, World Only`;
+				highChartsObj.title.text += `<i></i>, World Only`;
 			},
 			customFunction: (portal, item, index, x) => {
 				x = (portal.universe == 1) ? portal.perZoneData.heliumOwned[index] : portal.perZoneData.radonOwned[index]
@@ -1489,7 +1489,7 @@ const GraphsConfig = {
 			dataVars: ["mapHeRn"],
 			exclude: ["world"],
 			graphMods: (graph, highChartsObj) => {
-				highChartsObj.title.text += `, Map Only`;
+				highChartsObj.title.text += `<i></i>, Map Only`;
 			},
 			customFunction: (portal, item, index, x) => {
 				return portal.perZoneData.mapHeRn[index] || 0
@@ -1497,7 +1497,7 @@ const GraphsConfig = {
 		},
 		lifetime: {
 			graphMods: (graph, highChartsObj) => {
-				highChartsObj.title.text += " % of Lifetime Total";
+				highChartsObj.title.text += "<i></i> % of Lifetime Total";
 				highChartsObj.yAxis.title.text += " % of lifetime"
 			},
 			customFunction: (portal, item, index, x) => {
@@ -1524,7 +1524,7 @@ const GraphsConfig = {
 		s3normalized: {
 			graphMods: (graph, highChartsObj) => {
 				var maxS3 = Math.max(...Object.values(Graphs.portalSaveData).map((portal) => portal.s3).filter((s3) => s3));
-				highChartsObj.title.text += `, Normalized to z${maxS3} S3`
+				highChartsObj.title.text += `, Normalized to z${maxS3} S3.`
 			},
 			customFunction: (portal, item, index, x, time, maxS3) => {
 				x = x / 1.03 ** portal.s3 * 1.03 ** maxS3
