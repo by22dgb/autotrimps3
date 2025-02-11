@@ -1,7 +1,7 @@
 const atConfig = {
 	initialise: {
 		version: '',
-		basepath: 'https://github.com/by22dgb/autotrimps3/',
+		basepath: 'https://by22dgb.github.io/autotrimps3/',
 		loaded: false
 	},
 	modules: {

@@ -1536,7 +1536,7 @@ const GraphsConfig = {
 
 
 // --------- Runtime ---------
-if (typeof graphsBasePath === 'undefined') graphsBasePath = 'https://github.com/by22dgb/autotrimps3/'; //Link to your own Github here if you forked!
+if (typeof graphsBasePath === 'undefined') graphsBasePath = 'https://by22dgb.github.io/autotrimps3/'; //Link to your own Github here if you forked!
 if (localStorage["allSaveData"]) delete localStorage["allSaveData"]; // remove old AT graph data
 
 Graphs.Backend.loadGraphData();
