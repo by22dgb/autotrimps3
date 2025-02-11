@@ -152,7 +152,7 @@ function message_AT(message, messageType, icon) {
 	icon = icon ? icon.replace('*', '') : icon;
 
 	if (game.options.menu.timestamps.enabled) {
-		message = `${game.options.menu.timestamps.enabled === 1 ? getCurrentTime() : updatePortalTimer(true)} ${message}`;
+		message = `${game.options.menu.timestamps.enabled === 1 ? getCurrentTime() : updatePortalTimer(true)} <i></i>${message}`;
 	}
 
 	if (icon) message = `<span class="${iconPrefix}${icon}"></span> ${message}`;
@@ -169,7 +169,7 @@ function message_AT(message, messageType, icon) {
 		const countIndex = lastMessage.lastIndexOf(' x');
 		const lastMessageWithoutCount = countIndex !== -1 ? lastMessage.slice(0, countIndex) : lastMessage;
 		const lastMessageCount = countIndex !== -1 ? parseInt(lastMessage.slice(countIndex + 2)) : 1;
-		lastMessageElement.innerHTML = `${lastMessageWithoutCount} x${lastMessageCount + 1}`;
+		lastMessageElement.innerHTML = `${lastMessageWithoutCount}<i></i>×${lastMessageCount + 1}`;
 	} else {
 		log.innerHTML += messageHTML;
 	}

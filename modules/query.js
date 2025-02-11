@@ -134,7 +134,22 @@ function formatTimeForDescriptions(number) {
 
 	for (const [unit, value] of Object.entries(timeUnits)) {
 		if (value > 0 || unit === 'second') {
-			timeString += `${value}${unit[0]} `;
+			timeString += `${value}`;
+			if (unit === 'year'){
+				timeString += `年`;
+			}
+			else if (unit === 'day'){
+				timeString += `日`;
+			}
+			else if (unit === 'hour'){
+				timeString += `小时`;
+			}
+			else if (unit === 'minute'){
+				timeString += `分`;
+			}
+			else if (unit === 'second'){
+				timeString += `秒`;
+			}
 		}
 	}
 

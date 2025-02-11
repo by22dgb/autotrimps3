@@ -1,7 +1,7 @@
 const atConfig = {
 	initialise: {
 		version: '',
-		basepath: 'https://SadAugust.github.io/AutoTrimps/',
+		basepath: 'https://github.com/by22dgb/autotrimps3/',
 		loaded: false
 	},
 	modules: {
@@ -191,8 +191,8 @@ function loadScriptsAT() {
 			const testing = atConfig.initialise.basepath === 'https://localhost:8887/AutoTrimps_Local/' ? installedTesting : [];
 
 			const modules = ['versionNumber', ...installedMods, ...installedModules, ...testing, 'SettingsGUI'];
-			const scripts = ['https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', 'https://Quiaaaa.github.io/AutoTrimps/Graphs.js', 'https://stellar-demesne.github.io/Trimps-VoidMapClarifier/VoidMapClarifier.js'];
-			const stylesheets = ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', `${atConfig.initialise.basepath}css/tabs.css`, `${atConfig.initialise.basepath}css/farmCalc.css`, `${atConfig.initialise.basepath}css/perky.css`];
+			const scripts = [`${atConfig.initialise.basepath}libs/jquery.min.js`, `${atConfig.initialise.basepath}libs/select2.min.js`, `${atConfig.initialise.basepath}Graphs.js`, `${atConfig.initialise.basepath}VoidMapClarifier.js`];
+			const stylesheets = [`${atConfig.initialise.basepath}css/select2.min.css`, `${atConfig.initialise.basepath}css/tabs.css`, `${atConfig.initialise.basepath}css/farmCalc.css`, `${atConfig.initialise.basepath}css/perky.css`];
 
 			if (game.global.stringVersion === '5.9.2') {
 				await loadModules('gameUpdates', atConfig.modules.pathMods);
@@ -360,9 +360,9 @@ function toggleCatchUpMode() {
 		_setTimeWarpUI();
 		_timeWarpAutoSaveSetting();
 		const timeWarpTime = Math.floor(offlineProgress.totalOfflineTime / 1000);
-		debug(`TimeLapse Mode Enabled. Your Time Warp duration is ${formatTimeForDescriptions(timeWarpTime)}.`, 'offline');
+		debug(`时间推移模式已启用。您的时间跃迁持续${formatTimeForDescriptions(timeWarpTime)}。`, 'offline');
 		if (getPageSetting('timeWarpDisplay')) {
-			tooltip(`Time Warp`, `customText`, `lock`, `Your Time Warp duration is ${formatTimeForDescriptions(timeWarpTime)}. As you have the ${autoTrimpSettings.timeWarpDisplay.name()} setting enabled you have no visible timer but you can see the progress percent in the AutoMaps status bar at the bottom of the battle container.`, false, `center`);
+			tooltip(`Time Warp`, `customText`, `lock`, `您的时间跃迁持续${formatTimeForDescriptions(timeWarpTime)}。由于启用了${autoTrimpSettings.timeWarpDisplay.name()}设置，您不会看到具体的时间，但可以在自动地图状态条上看到进度百分比。`, false, `center`);
 		}
 	}
 }
@@ -516,10 +516,10 @@ function _handleNewWorld() {
 function _debugZoneStart() {
 	const { Tauntimp, Magnimp, Whipimp, Venimp } = game.unlocks.impCount;
 	const heName = heliumOrRadon();
-	debug(`Starting Zone ${game.global.world}`, 'zone');
-	debug(`Zone #${game.global.world}: Tauntimp (${Tauntimp}), Magnimp (${Magnimp}), Whipimp (${Whipimp}), Venimp (${Venimp})`, 'exotic');
+	debug(`进入区域${game.global.world}`, 'zone');
+	debug(`区域${game.global.world}：脆皮咚咚(${Tauntimp})，脆皮磁王(${Magnimp})，脆皮鞭者(${Whipimp})，脆皮爱神(${Venimp})`, 'exotic');
 	/* debug(`Zone #${game.global.world}: ${heName} (${game.goldenUpgrades.Helium.purchasedAt.length}/${Math.round(game.goldenUpgrades.Helium.currentBonus * 100)}%}), Battle (${game.goldenUpgrades.Battle.purchasedAt.length}/${Math.round(game.goldenUpgrades.Battle.currentBonus * 100)}%), Void (${game.goldenUpgrades.Void.purchasedAt.length}/${Math.round(game.goldenUpgrades.Void.currentBonus * 100)}%)`, 'exotic'); */
-	debug(`Zone # ${game.global.world}: Total pop (${prettify(game.resources.trimps.owned)}). A Bone Charge would give you ${boneShrineOutput(1).slice(0, -1).toLowerCase()}`, 'run_Stats');
+	debug(`区域${game.global.world}：总人口(${prettify(game.resources.trimps.owned)})。使用骨头充能可以获得${boneShrineOutput(1).slice(0, -1).toLowerCase()}`, 'run_Stats');
 }
 
 function mainCleanup() {
