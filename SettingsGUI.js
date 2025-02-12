@@ -477,7 +477,7 @@ function initialiseAllSettings() {
 				let description = "<p>When using the <b>" + _getPrimaryResourceInfo().name + " Per Hour</b> Auto Portal setting, it will portal if your " + _getPrimaryResourceInfo().name.toLowerCase() + " per hour drops by this settings % input lower than your best for current run.</p>";
 				description += "<p>Allows portaling midzone if you exceed the set buffer amount by 5x. For example a normal 2% buffer setting would now portal mid-zone if you fall below 10% buffer.</p>";
 				description += "<p><b>Set to 0 to disable this setting.</b></p>";
-				description += "<p><b>Recommended:</b> 4</p>";
+				description += "<p><b>Recommended:</b>4</p>";
 				return description;
 			}, 'value', 0, null, 'Core', [1, 2],
 			function () {
@@ -571,9 +571,9 @@ function initialiseAllSettings() {
 				description += "<p><b>AT Auto Jobs: Off</b><br>Will disable the script from purchasing any jobs.</p>";
 				description += "<p><b>AT Auto Jobs: On</b><br>Automatically adjusts the 3 primary resource job worker ratios based on current game progress. For more detailed information on this check out the Help section for this setting by clicking on the cogwheel.</p>";
 				description += "<p><b>AT Auto Jobs: Manual</b><br>Buys jobs for your trimps according to the ratios set in the cogwheel popup.</p>";
-				description += "<p>Automatically swaps the games default hiring setting <b>Not Firing For Jobs</b> to <b>Firing For Jobs</b>.</p>";
+				description += "<p>Automatically swaps the games default hiring setting <b>Not Firing For Jobs</b>改为<b>Firing For Jobs</b>.</p>";
 				description += "<p>Map setting job ratios always override both <b>AT Auto Jobs: On</b> & <b>AT Auto Jobs: Manual</b> when AutoMaps is enabled.</p>";
-				description += "<p><br><i>Set to <b>AT Auto Jobs: Off</b> by holding <b>control</b> and clicking.</i></p>";
+				description += "<p><br><i>Set to<b>AT Auto Jobs: Off</b> by holding <b>control</b> and clicking.</i></p>";
 				return description;
 			}, 'multitoggle', 1, null, 'Jobs', [1, 2],
 			function () { return (false) });
@@ -619,8 +619,8 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will only hire geneticists if they cost less than this value.</p>";
 				description += "<p>If this setting is 1 it will only buy geneticists if they cost less than 1% of your food.</p>";
-				description += "<p>Setting this to <b>0 or below</b> will disable all of the <b>Gene Assist</b> settings.</p>";
-				description += "<p><b>Recommended:</b> 1</p>";
+				description += "<p>Setting this to <b>0 or below</b> will disable all of the <b>Gene Assist</b>的功能。</p>";
+				description += "<p><b>Recommended:</b>1</p>";
 				return description;
 			}, 'value', 1, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -629,8 +629,8 @@ function initialiseAllSettings() {
 			function () { return ('GA: Timer') },
 			function () {
 				let description = "<p>This is the default time your gene assist settings will use.</p>";
-				description += "<p>Setting this to <b>0 or below</b> will disable all of the <b>Gene Assist</b> settings.</p>";
-				description += "<p><b>Recommended:</b> 10</p>";
+				description += "<p>Setting this to <b>0 or below</b> will disable all of the <b>Gene Assist</b>的功能。</p>";
+				description += "<p><b>Recommended:</b>10</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -640,9 +640,9 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when running challenges that are considered hard (Nom, Toxicity, Lead). </p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>This setting is disabled if you have the <b>Angelic</b> mastery.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
-				description += "<p><b>Recommended:</b> 8</p>";
+				description += "<p>This setting is disabled if you have the <b>Angelic</b>专精，该项功能会关闭。</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
+				description += "<p><b>Recommended:</b>8</p>";
 				return description;
 			}, 'value', 8, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -652,8 +652,8 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when you don't have a Void Hits Survived value of Infinity and you're running bleed void maps. </p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
-				description += "<p><b>Recommended:</b> 6</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
+				description += "<p><b>Recommended:</b>6</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -663,9 +663,9 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when running the Electricity challenge. </p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>This also overwrites your breed timer in the <b>Mapocalypse</b> challenge.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
-				description += "<p><b>Recommended:</b> 2.5</p>";
+				description += "<p>This also overwrites your breed timer in the <b>Mapocalypse</b>挑战中的繁殖计时。</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
+				description += "<p><b>Recommended:</b>2.5</p>";
 				return description;
 			}, 'value', 2.5, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -675,7 +675,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when inside of active Spires.</p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -693,9 +693,9 @@ function initialiseAllSettings() {
 		createSetting('geneAssistTimerBefore',
 			function () { return ('GA: Before Z Timer') },
 			function () {
-				let description = "<p>Gene Assist will use the value set here when below the zone in <b>GA: Before Z Timer</b>.</p>";
+				let description = "<p>Gene Assist will use the value set here when below the zone in <b>GA: Before Z</b>时，遗传助手使用的计时。</p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 2</p>";
+				description += "<p><b>Recommended:</b>2</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -713,7 +713,7 @@ function initialiseAllSettings() {
 		createSetting('geneAssistTimerAfter',
 			function () { return ('GA: After Z Timer') },
 			function () {
-				let description = "<p>Gene Assist will use the value set here when below the zone in <b>GA: After Z Timer</b>.</p>";
+				let description = "<p>Gene Assist will use the value set here when after the zone in <b>GA: After Z</b>时，遗传助手使用的计时。</p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
 				description += "<p><b>Recommended:</b> Your <b>Anticipation</b> perk timer</p>";
 				return description;
@@ -725,8 +725,8 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when running dailies. </p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
-				description += "<p><b>Recommended:</b> 2</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
+				description += "<p><b>Recommended:</b>2</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -736,9 +736,9 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when running dailies that are considered hard (Plagued, Bogged). </p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>This setting won't do anything on Bogged dailies if you have the <b>Angelic</b> mastery.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
-				description += "<p><b>Recommended:</b> 2</p>";
+				description += "<p>This setting won't do anything on Bogged dailies if you have the <b>Angelic</b>专精，该项功能将关闭。</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
+				description += "<p><b>Recommended:</b>2</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
 			function () { return (autoTrimpSettings.geneAssist.enabled) });
@@ -748,7 +748,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when inside of active Spires in dailies.</p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
 				description += "<p><b>Recommended:</b> Your <b>Anticipation</b> perk timer</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
@@ -759,7 +759,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when running " + _getChallenge2Info() + "s.</p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
 				description += "<p><b>Recommended:</b> Use regular Gene Assist settings instead of this</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
@@ -770,7 +770,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when inside of active Spires in " + _getChallenge2Info() + "s.</p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b> settings.</p>";
+				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
 				description += "<p><b>Recommended:</b> Your <b>Anticipation</b> perk timer</p>";
 				return description;
 			}, 'value', -1, null, 'Jobs', [1],
@@ -825,7 +825,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>What percentage of resources to spend on Warpstations.</p>";
 				description += "<p><b>The script will still purchase Gigastations at 100% resources.</b></p>";
-				description += "<p><b>Recommended:</b> 25</p>";
+				description += "<p><b>Recommended:</b>25</p>";
 				return description;
 			}, 'value', 25, null, 'Buildings', [1],
 			function () { return (autoTrimpSettings.warpstation.enabled) });
@@ -835,7 +835,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>The amount of Warpstations to purchase before your first Gigastation.</p>";
 				description += "<p><b>You must have the scripts upgrade setting enabled for Gigastations to be purchased!</b></p>";
-				description += "<p><b>Recommended:</b> 20</p>";
+				description += "<p><b>Recommended:</b>20</p>";
 				return description;
 			}, 'value', 20, null, 'Buildings', [1],
 			function () { return (autoTrimpSettings.warpstation.enabled) });
@@ -845,7 +845,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>How many extra Warpstations to buy for each Gigastation.</p>";
 				description += "<p>Supports decimal values. For example 2.5 will buy +2/+3/+2/+3...</p>";
-				description += "<p><b>Recommended:</b> 2</p>";
+				description += "<p><b>Recommended:</b>2</p>";
 				return description;
 			}, 'value', 2, null, 'Buildings', [1],
 			function () { return (autoTrimpSettings.warpstation.enabled) }
@@ -870,7 +870,7 @@ function initialiseAllSettings() {
 		createSetting('autoGigaTargetZone',
 			function () { return ('Custom Target Zone') },
 			function () {
-				let description = "<p>The zone you would like to target when Auto Gigastations calculates your <b>First & Delta Gigastation</b> values.</p>";
+				let description = "<p>The zone you would like to target when Auto Gigastations calculates your <b>First & Delta Gigastation</b>时的目标区域。</p>";
 				description += "<p>Values below 60 will be discarded.</p>";
 				description += "<p><b>Recommended:</b> Current challenge end zone</p>";
 				return description;
@@ -900,9 +900,9 @@ function initialiseAllSettings() {
 		createSetting('advancedNurseries',
 			function () { return ('Advanced Nurseries') },
 			function () {
-				let description = "<p>Will only buy nurseries if you need more health and you have already <b>Hits Survived</b> farmed on your current zone <b>OR</b> have equal to or more map bonus stacks than the <b>Map Bonus Health</b> setting.</p>"
-				description += "<p>Requires Nurseries to be setup in the <b>AT Auto Structure</b> setting and will only buy Nurseries if past the <b>From</b> input. Overrides the <b>Up To</b> input and allows you to set 0 without it buying as many as possible.</p>"
-				description += "<p><b>Recommended:</b> On. Nurseries set to <b>Up To: 0</b> and <b>From: 230</b></p>";
+				let description = "<p>Will only buy nurseries if you need more health and you have already <b>Hits Survived</b> farmed on your current zone <b>OR</b> have equal to or more map bonus stacks than the <b>Map Bonus Health</b>中设置的数值。</p>"
+				description += "<p>Requires Nurseries to be setup in the <b>AT Auto Structure</b> setting and will only buy Nurseries if past the <b>From Z</b> input. Overrides the <b>Up To</b> input and allows you to set 0 without it buying as many as possible.</p>"
+				description += "<p><b>Recommended:</b> On. Nurseries set to <b>上限：0</b> and <b>始区：230</b></p>";
 				return description;
 			}, 'boolean', true, null, 'Buildings', [1],
 			function () { return (game.stats.highestLevel.valueTotal() >= 230) });
@@ -913,15 +913,15 @@ function initialiseAllSettings() {
 				let description = "<p>The amount of <b>Hits Survived</b> maps to complete before starting to buy nurseries.</p>"
 				description += "<p>If your <b>Hits Survived</b> map cap value is lower than this settings input it will use that value instead.</p>";
 				description += "<p>This setting is useful to ensure you don't farm for an excessive amount of time to reach your <b>Hits Survived</b> target.</p>";
-				description += "<p><b>Recommended:</b> 3</p>";
+				description += "<p><b>Recommended:</b>3</p>";
 				return description;
 			}, 'value', -1, null, 'Buildings', [1],
 			function () { return (game.stats.highestLevel.valueTotal() >= 230 && autoTrimpSettings.advancedNurseries.enabled) });		
 		createSetting('advancedNurseriesAmount',
 			function () { return ('AN: Amount') },
 			function () {
-				let description = "<p>The amount of Nurseries that the script will attempt to purchase everytime you need additional health from <b>Advanced Nurseries</b>.</p>"
-				description += "<p><b>Recommended:</b> 2</p>";
+				let description = "<p>The amount of Nurseries that the script will attempt to purchase everytime you need additional health from <b>Advanced Nurseries</b>获得生命值时脚本尝试建造的托儿所数量。</p>"
+				description += "<p><b>Recommended:</b>2</p>";
 				return description;
 			}, 'value', 2, null, 'Buildings', [1],
 			function () { return (game.stats.highestLevel.valueTotal() >= 230 && autoTrimpSettings.advancedNurseries.enabled) });
@@ -956,8 +956,8 @@ function initialiseAllSettings() {
 				let description = "<p>If your H:D (enemyHealth/trimpDamage) ratio is above this value it will override your <b>AE: Percent</b> input when looking at " + (atConfig.settingUniverse !== 2 ? "weapon" : "equipment") + " purchases and set your spending percentage to 100% of resources available.</p>";
 				description += "<p>Goal with this setting is to have it purchase equipment when you slow down in world.<br></p>";
 				description += "<p>Your HD ratio can be seen in either the <b>Auto Maps status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</p>";
-				description += "<p>If set to <b>0 or below</b> it will disable this setting and only override your <b>AE: Percent</b> input when running <b>HD Farm</b>.</p>";
-				description += "<p><b>Recommended:</b> 1</p>";
+				description += "<p>If set to <b>0 or below</b> it will disable this setting and only override your <b>AE: Percent</b> input when running <b>HD Farm</b>时无视。</p>";
+				description += "<p><b>Recommended:</b>1</p>";
 				return description;
 			}, 'value', 1, null, 'Equipment', [1, 2],
 			function () { return (getPageSetting('equipOn', atConfig.settingUniverse)) });
@@ -968,8 +968,8 @@ function initialiseAllSettings() {
 				let description = "<p>If your Hits Survived (trimpHealth/enemyDamage) ratio is below this value it will override your <b>AE: Percent</b> input when looking at armor purchases and set your spending percentage to 100% of resources available.</p>";
 				description += "<p>Goal with this setting is to have it purchase equipment when you slow down in world.<br></p>";
 				description += "<p>Your Hits Survived ratio can be seen in either the <b>Auto Maps status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</p>";
-				description += "<p>If set to <b>0 or below</b> it will disable this setting and only override your <b>AE: Percent</b> input when <b>Hits Survived</b> farming.</p>";
-				description += "<p><b>Recommended:</b> 2.5</p>";
+				description += "<p>If set to <b>0 or below</b> it will disable this setting and only override your <b>AE: Percent</b> input when <b>Hits Survived</b>刷资源时无视。</p>";
+				description += "<p><b>Recommended:</b>2.5</p>";
 				return description;
 			}, 'value', 2.5, null, 'Equipment', [1, 2],
 			function () { return (getPageSetting('equipOn', atConfig.settingUniverse)) });
@@ -980,7 +980,7 @@ function initialiseAllSettings() {
 				let description = "<p>The value you want weapon equipment to stop being purchased at.</p>";
 				description += "<p>Equipment levels are capped at <b>9</b> when a prestige is available for that equip to ensure the script doesn't unnecessarily spend resources on them when prestiges would be more efficient.</p>";
 				description += `<p>If your <b>HD Ratio</b> is above your <b>AE: HD Cut-off</b> setting this cap is ignored and you will purchase as many attack equips as it takes to reach your target.</p>`;
-				description += "<p><b>Recommended:</b> 20</p>";
+				description += "<p><b>Recommended:</b>20</p>";
 				return description;
 			}, 'value', 20, null, 'Equipment', [1, 2],
 			function () { return (getPageSetting('equipOn', atConfig.settingUniverse)) });
@@ -990,9 +990,9 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>The value you want armor equipment to stop being purchased at.</p>";
 				description += "<p>Equipment levels are capped at <b>9</b> when a prestige is available for that equip to ensure the script doesn't unnecessarily spend resources on them when prestiges would be more efficient.</p>";
-				description += `<p>When your Hits Survived is below your <b>AE: HS Cut-off</b> setting <b>OR</b> when <b>Hits Survived</b> farming this cap is ignored and you will purchase as many health equips as it takes to reach your target.</p>`;
+				description += `<p>When your Hits Survived is below your <b>AE: HS Cut-off</b>设置的数值<b>OR</b>进行<b>Hits Survived</b> farming this cap is ignored and you will purchase as many health equips as it takes to reach your target.</p>`;
 				if (atConfig.settingUniverse ===2) description += `<p>If your <b>HD Ratio</b> is above your <b>AE: HD Cut-off</b> setting this cap is ignored and the script will purchase as many health equips as it takes to reach your target.</p>`;
-				description += "<p><b>Recommended:</b> 20</p>";
+				description += "<p><b>Recommended:</b>20</p>";
 				return description;
 			}, 'value', 20, null, 'Equipment', [1, 2],
 			function () { return (getPageSetting('equipOn', atConfig.settingUniverse)) });
@@ -1004,7 +1004,7 @@ function initialiseAllSettings() {
 				description += "<p>Can input multiple zones such as <b>200,231,251</b>, doing this will spend all your resources purchasing equipment and prestiges on each zone input.</p>";
 				description += "<p>You are able to enter a zone range, this can be done by using a decimal point between number ranges e.g. <b>23.120</b> which will cause the zone check to set your purchasing percentage to 100% between zones 23 and 120. <b>This can be used in conjunction with other zones too, just seperate inputs with commas!</b></p>";
 				description += "<p>If inside one of these zones it will override your <b>AE: Percent</b> input and set your spending percentage to 100% of resources available. It will also set your health and attack equipment caps to Infinity.</p>"
-				description += "<p><b>Recommended:</b> 999</p>";
+				description += "<p><b>Recommended:</b>999</p>";
 				return description;
 			}, 'multiValue', [-1], null, 'Equipment', [1, 2],
 			function () { return (getPageSetting('equipOn', atConfig.settingUniverse)) });
@@ -1014,13 +1014,13 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>What percent of resources you'd like to spend on equipment.</p>";
 				description += "<p>If set to <b>0 or below</b> the equip spending percentage will be set to 100%.</p>";
-				description += "<p><b>Recommended:</b> 10</p>";
+				description += "<p><b>Recommended:</b>10</p>";
 				return description;
 			}, 'value', 10, null, 'Equipment', [1, 2],
 			function () { return (getPageSetting('equipOn', atConfig.settingUniverse)) });
 
 		createSetting('equip2',
-			function () { return ('AE: 2') },
+			function () { return ('常时购买2级装备') },
 			function () {
 				let description = "<p>This will make the script always purchase a second level of weapons and armor regardless of efficiency.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
@@ -1040,8 +1040,8 @@ function initialiseAllSettings() {
 				description += `<p>Equipment levels are capped at <b>9</b> when a prestige is available for that equip to ensure the script doesn't unnecessarily spend resources on them when prestiges would be more efficient.</p>`;
 				description += `<p><b>AE: Prestige: Maybe</b><br>Will only purchase prestiges for equipment when you have 6 or more levels in it.</p>`;
 				description += `<p><b>AE: Prestige: On</b><br>Will only purchase prestiges when they are more efficient than leveling the piece of equipment further.</p>`;
-				description += `<p><b>AE: Prestige: ${trimpleShortened}</b><br>Overrides the need for levels in your current equips before a prestige will be purchased. Will purchase equipment levels again when you have run ${trimple}.`;
-				description += `<br>If <b>${trimple}</b> has been run it will buy any prestiges that cost less than what you have input in the <b>AE: Prestige Pct</b> setting then spend your remaining resources on equipment levels.</p>`;
+				description += `<p><b>AE: Prestige: ${trimpleShortened}</b><br>Overrides the need for levels in your current equips before a prestige will be purchased. Will purchase equipment levels again when you have run ${trimple}地图后会再度购买装备。`;
+				description += `<br>如果已经通过<b>${trimple}</b> has been run it will buy any prestiges that cost less than what you have input in the <b>AE: Prestige Pct</b> setting then spend your remaining resources on equipment levels.</p>`;
 				description += `<p><b>AE: Prestige: Always</b><br>Always buys weapons and armor prestiges regardless of efficiency when they're available.</p>`;
 				description += `<p><b>Recommended:</b> AE: Prestige: ${trimpleShortened}</p>`;
 				return description;
@@ -1056,7 +1056,7 @@ function initialiseAllSettings() {
 				let description = `Once you have run <b>${trimple}</b> prestiges will only be purchased if they cost less than this percentage of your metal or wood.</p>`;
 				description += `This is only active when <b>AE: Prestige: ${trimpleShortened}</b> is selected.</p>`;
 
-				description += "<p><b>Recommended:</b> 6</p>";
+				description += "<p><b>Recommended:</b>6</p>";
 				return description;
 			}, 'value', 6, null, 'Equipment', [1, 2],
 			function () { return (getPageSetting('equipOn', atConfig.settingUniverse) && getPageSetting('equipPrestige', atConfig.settingUniverse) === 2) });
@@ -1084,7 +1084,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Will allow the purchase of the <b>Shieldblock</b> upgrade through the <b>Buy Upgrades</b> setting.</p>";
 				description += "<p><b>When this setting is enabled it will cause the script to automatically run <b>The Block</b> unique map when it gets unlocked.</b></p>";
-				description += "<p><b>Recommended:</b> On until you can reach zone 40</p>";
+				description += "<p><b>Recommended:</b>在可以到达区域40之前启用</p>";
 				return description;
 			}, 'boolean', 55 > game.stats.highestLevel.valueTotal(), null, 'Equipment', [1]);
 	}
@@ -5002,7 +5002,7 @@ function autoSetValue(id, multiValue, negative) {
 	setting[`value${valueSuffix}`] = num;
 	const displayNum = Array.isArray(num) ? `${num[0]}+` : num > -1 || negative ? prettify(num) : "<span class='icomoon icon-infinity'></span>";
 	const element = document.getElementById(id);
-	element.innerHTML = `${setting.name()}: ${displayNum}`;
+	element.innerHTML = `${setting.name()}<i></i>: <i></i>${displayNum}`;
 
 	const elemText = element.innerHTML.replace(/<span class="icomoon icon-infinity"><\/span>/g, '∞');
 	/*if (elemText.length > 26) {

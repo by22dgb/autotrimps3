@@ -155,9 +155,9 @@ function message_AT(message, messageType, icon) {
 		message = `${game.options.menu.timestamps.enabled === 1 ? getCurrentTime() : updatePortalTimer(true)} <i></i>${message}`;
 	}
 
-	if (icon) message = `<span class="${iconPrefix}${icon}"></span> ${message}`;
+	if (icon) message = `<span class="${iconPrefix}${icon}"></span>${message}`;
 
-	message = `<span class="glyphicon glyphicon-superscript"></span> ${message}`;
+	message = `<span class="glyphicon glyphicon-superscript"></span>${message}`;
 	message = `<span class="icomoon icon-text-color"></span>${message}`;
 
 	const messageHTML = `<span class="AutoTrimpsMessage message ${messageType}" style="display: ${displayType}">${message}</span>`;
