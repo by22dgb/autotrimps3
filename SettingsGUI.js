@@ -640,7 +640,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when running challenges that are considered hard (Nom, Toxicity, Lead). </p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>This setting is disabled if you have the <b>Angelic</b>专精，该项功能会关闭。</p>";
+				description += "<p>This setting is disabled if you have the <b>Angelic</b>专精，将关闭该设置功能。</p>";
 				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
 				description += "<p><b>Recommended:</b>8</p>";
 				return description;
@@ -736,7 +736,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Gene Assist will use the value set here when running dailies that are considered hard (Plagued, Bogged). </p>";
 				description += "<p>Set to <b>0 or below</b> will disable this setting.</p>";
-				description += "<p>This setting won't do anything on Bogged dailies if you have the <b>Angelic</b>专精，该项功能将关闭。</p>";
+				description += "<p>This setting won't do anything on Bogged dailies if you have the <b>Angelic</b>专精，将关闭该设置功能。</p>";
 				description += "<p>Overwrites <b>GA: Timer</b>, <b>GA: Before Z</b> and <b>GA: After Z</b>的设置。</p>";
 				description += "<p><b>Recommended:</b>2</p>";
 				return description;
@@ -1131,7 +1131,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Use the Robotrimp ability starting at this level, and every 5 levels thereafter.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 60</p>";
+				description += "<p><b>Recommended:</b>60</p>";
 				return description;
 			}, 'value', 60, null, 'Combat', [1],
 			function () { return (game.global.roboTrimpLevel > 0) });
@@ -1219,7 +1219,7 @@ function initialiseAllSettings() {
 			function () { return ('Auto Level Scryer') },
 			function () {
 				let description = "<p>Allows the Auto Level system to use Scryer and Wind stances.</p>";
-				description += "<p>If Scryer stance has been unlocked then when the most optimal stance to use during a map is Scryer this will override all other stance settings when mapping with <b>Auto Maps</b> enabled.</p>";
+				description += "<p>If Scryer stance has been unlocked then when the most optimal stance to use during a map is Scryer this will override all other stance settings when mapping with <b>Auto Maps</b>设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'Combat', [1],
@@ -1231,7 +1231,7 @@ function initialiseAllSettings() {
 				let description = "<p>Will override any stance settings and set your stance to Scryer during Void Maps if you have the <b>Scryhard II</b> talent.</p>";
 				description += "<p>If you have <b>Wind Enlightenment</b> activated and aren't in a Wind empowerment zone then it will use Wind stance instead.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
-				description += `<p><i>When running a <b>Daily</b>, the <b>D: Auto Stance: Void Scryer</b> setting will be used instead of this one.</i></p>`;
+				description += `<p><i>When running a <b>Daily</b>挑战时，将使用<b>D: Auto Stance: Void Scryer</b> setting will be used instead of this one.</i></p>`;
 				return description;
 			}, 'boolean', true, null, 'Combat', [1],
 			function () { return (masteryPurchased('scry2')) });
@@ -1263,7 +1263,7 @@ function initialiseAllSettings() {
 				let description = "<p>Minimum zone (inclusive of the zone set) to start using scryer stance in.</p>";
 				description += "<p>This needs to be on <b>AND</b> valid for the <b>MAYBE</b> option on all other Scryer settings to do anything.</p>";
 				description += "<p>Use 9999 to disable all Non-Overkill, Non-Force, scryer usage.</p>";
-				description += "<p><b>Recommended:</b> 60 or 181</p>";
+				description += "<p><b>Recommended:</b>60或181</p>";
 				return description;
 			}, 'value', 60, null, 'Combat', [1],
 			function () { return (getPageSetting('autoStanceScryer', atConfig.settingUniverse)) });
@@ -1273,9 +1273,8 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Maximum zone (not inclusive of the zone set) to stop using scryer stance in.</p>";
 				description += "<p>Turning this on with a positive number stops <b>MAYBE</b> use of all other Scryer settings.</p>";
-				description += "<p>Use 9999 to disable all Non-Overkill, Non-Force, scryer usage.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 9999</p>";
+				description += "<p><b>Recommended:</b>9999</p>";
 				return description;
 			}, 'value', 999, null, 'Combat', [1],
 			function () { return (getPageSetting('autoStanceScryer', atConfig.settingUniverse)) });
@@ -1285,7 +1284,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Further restricts scrying usage based on the current world zone.</p>";
 				description += "<p><b>Everywhere</b><br>Places set as MAYBE are affected by Min & Max Range.</p>";
-				description += "<p><b>World</b><br>Only world zones are affected by Min & Max zone settings.</p>";
+				description += "<p><b>启用区域只适用于世界</b><br>Only world zones are affected by Min & Max zone settings.</p>";
 				description += "<p><b>Corrupted Only</b><br>Only Corrupted and Healthy enemies in the World are affected.</p>";
 				description += "<p><b>Healthy Only</b><br>Only Healthy enemies in the World are affected.</p>";
 				description += "<p><b>Recommended:</b> World</p>";
@@ -1301,7 +1300,7 @@ function initialiseAllSettings() {
 				description += "<p>So use this if you'd rather die, wait to breed, then use scryer stance for the full non-corrupted enemy, to maximize dark essence gain.</p>";
 				description += "<p>Use this input to set the minimum zone that scryer activates in. You can use decimal values to specify what cell this setting starts from.</p>";
 				description += "<p><b>Set to -1 to disable this setting.</b></p>";
-				description += "<p><b>Recommended:</b> -1</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Combat', [1],
 			function () { return (getPageSetting('autoStanceScryer', atConfig.settingUniverse)) });
@@ -1309,10 +1308,10 @@ function initialiseAllSettings() {
 		createSetting('scryerMaxHits',
 			function () { return ('Max Hits') },
 			function () {
-				let description = "<p>Maximum hits that it would take for you to kill an enemy from full health. The script will use this for settings set to <b>Maybe</b> inputs.</p>";
-				description += "<p>This has a chance to stop you from smoothly transitioning to Scryer stance and missing out on bonuses when settings are set to their <b>Never<b> inputs.</p>";
+				let description = "<p>Maximum hits that it would take for you to kill an enemy from full health. The script will use this for settings set to <b>Maybe</b>选项的设置有效。</p>";
+				description += "<p>This has a chance to stop you from smoothly transitioning to Scryer stance and missing out on bonuses when settings are set to their <b>Never</b>选项。</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 100</p>";
+				description += "<p><b>Recommended:</b>100</p>";
 				return description;
 			}, 'value', -1, null, 'Combat', [1],
 			function () { return (getPageSetting('autoStanceScryer', atConfig.settingUniverse)) });
@@ -1333,7 +1332,7 @@ function initialiseAllSettings() {
 				let description = `<p><b>Scry Maps: Never</b><br>Will force the script to never use scryer stance in ${useType}.</p>`;
 				description += `<p><b>Scry Maps: Force</b><br>Will force the script to always use scryer stance in ${useType}.</p>`;
 				description += `<p><b>Scry Maps: Maybe</b><br>Will maybe run scryer stance in ${useType} depending on how difficult the map is.</p>`;
-				description += `<p>This setting won't impact the use of Scryer stance when running <b>Void Map</b> or <b>Bionic Wonderland</b> maps.</p>`;
+				description += `<p>This setting won't impact the use of Scryer stance when running <b>Void Map</b> or <b>Bionic Wonderland</b>时是否使用占卜者阵型。</p>`;
 				description += `<p>When <b>Auto Level Scryer</b> is enabled it will take priority over this setting for if Scryer stance should be used.</p>`;
 				description += `<p><b>Recommended:</b> Scry Maps: Maybe</p>`;
 				return description;
@@ -1394,7 +1393,7 @@ function initialiseAllSettings() {
 				let description = "<p>Enabling this will give you settings to allow you to wind stack in your runs.</p>";
 				description += "<p>Will use your regular <b>Auto Stance</b> setting when outside of zones you're wind stacking in.</p>";
 				description += "<p>The script evaluates the use of wind stance based on these settings. It examines the cells from the current one up to the maximum overkill range in scryer stance. If none of these cells contain enemies that drop helium, the script switches to scryer stance instead to kill them faster.</p>";
-				description += `<p><i>When running a <b>Daily</b>, the <b>Daily Wind Stacking</b> version of this setting will be used instead of this one.</i></p>`;
+				description += `<p><i>When running a <b>Daily</b>挑战时，将使用<b>Daily Wind Stacking</b> version of this setting will be used instead of this one.</i></p>`;
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'Combat', [1],
@@ -1405,7 +1404,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Enables wind stacking in zones above and inclusive of the zone set.</p>";
 				description += "<p><b>Recommended:</b> 100 zones below portal zone</p>";
-				description += `<p><i>When running a <b>Daily</b>, the <b>Daily: Wind Stack Zone</b> version of this setting will be used instead of this one.</i></p>`;
+				description += `<p><i>When running a <b>Daily</b>挑战时，将使用<b>Daily: Wind Stack Zone</b> version of this setting will be used instead of this one.</i></p>`;
 				return description;
 			}, 'value', 999, null, 'Combat', [1],
 			function () { return (autoTrimpSettings.autoStanceWind.enabled) });
@@ -1415,8 +1414,8 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>If your H:D ratio is above this setting it will not use wind stance.</p>";
 				description += "<p>If set to <b>0 or below</b> it will always use wind stance when past your wind stacking zone input.</p>";
-				description += "<p><b>Recommended:</b> 1000</p>";
-				description += `<p><i>When running a <b>Daily</b>, the <b>Daily: Wind Stack H:D</b> version of this setting will be used instead of this one.</i></p>`;
+				description += "<p><b>Recommended:</b>1000</p>";
+				description += `<p><i>When running a <b>Daily</b>挑战时，将使用<b>Daily: Wind Stack H:D</b> version of this setting will be used instead of this one.</i></p>`;
 				return description;
 			}, 'value', -1, null, 'Combat', [1],
 			function () { return (autoTrimpSettings.autoStanceWind.enabled) });
@@ -1424,9 +1423,9 @@ function initialiseAllSettings() {
 		createSetting('windStackingLiq',
 			function () { return ('Wind Stack Liquification') },
 			function () {
-				let description = "<p>Will wind stack during liquification regardless of your <b>Wind Stack H:D</b> or <b>Windstack Zone</b> inputs.</p>";
+				let description = "<p>Will wind stack during liquification regardless of your <b>Wind Stack H:D</b> or <b>Windstack Zone</b>设置的数值，在液化时进行叠风层数。</p>";
 				description += "<p><b>Recommended:</b> Off</p>";
-				description += `<p><i>When running a <b>Daily</b>, the <b>Daily: Wind Stack Liquification</b> version of this setting will be used instead of this one.</i></p>`;
+				description += `<p><i>When running a <b>Daily</b>挑战时，将使用<b>Daily: Wind Stack Liquification</b> version of this setting will be used instead of this one.</i></p>`;
 				return description;
 			}, 'boolean', false, null, 'Combat', [1],
 			function () { return (autoTrimpSettings.autoStanceWind.enabled) });
@@ -1456,7 +1455,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>If your H:D ratio is above this setting it will not use wind stance.</p>";
 				description += "<p>If set to <b>0 or below</b> it will always use wind stance when at or above your wind stack zone input.</p>";
-				description += "<p><b>Recommended:</b> 1000</p>";
+				description += "<p><b>Recommended:</b>1000</p>";
 				return description;
 			}, 'value', -1, null, 'Combat', [1],
 			function () { return (autoTrimpSettings.autoStanceWindDaily.enabled) });
@@ -1464,7 +1463,7 @@ function initialiseAllSettings() {
 		createSetting('windStackingLiqDaily',
 			function () { return ('Daily: Wind Stack Liquification') },
 			function () {
-				let description = "<p>Will wind stack during liquification regardless of your <b>D: Wind Stack H:D</b> or <b>D: Wind Stack Zone</b> inputs.</p>";
+				let description = "<p>Will wind stack during liquification regardless of your <b>D: Wind Stack H:D</b> or <b>D: Wind Stack Zone</b>设置的数值，在液化时进行叠风层数。</p>";
 				description += "<p><b>Recommended:</b> Off</p>";
 				return description;
 			}, 'boolean', false, null, 'Combat', [1],
@@ -1490,7 +1489,7 @@ function initialiseAllSettings() {
 				let description = "<p>Master switch for whether the script will do any form of mapping. You will have to setup the mapping you would like to do but all the settings for it can be found in this tab.</p>";
 				description += "<p><b>Auto Maps: Off</b><br>Disables mapping.</p>";
 				description += "<p><b>Auto Maps: On</b><br>Enables mapping and will run all types of maps.</p>";
-				if (!noUnique) description += "<p><b>Auto Maps: No Unique</b><br>The same as <b>Auto Maps: On</b> but won't run any unique maps such as <b>" + (atConfig.settingUniverse === 1 ? "The Block" : "Big Wall") + "</b> or <b>Dimension of " + (atConfig.settingUniverse === 1 ? "Anger" : "Rage") + "</b>.</p>";
+				if (!noUnique) description += "<p><b>Auto Maps: No Unique</b><br>The same as <b>Auto Maps: On</b> but won't run any unique maps such as <b>" + (atConfig.settingUniverse === 1 ? "The Block" : "Big Wall") + "</b> or <b>Dimension of " + (atConfig.settingUniverse === 1 ? "Anger" : "Rage") + "</b>的独特地图。</p>";
 				description += "<p>When enabled this setting will automatically adjust the games repeat and exit to settings.</p>";
 				description += "<p><b>Recommended:</b> Auto Maps: On</p>";
 				return description;
@@ -1508,7 +1507,7 @@ function initialiseAllSettings() {
 			function () { return ('Auto Maps Priority') },
 			function () {
 				let description = "<p>Allow mapping settings to use priority numbers to determine run order rather than going by the default Auto Maps mapping order.</p>";
-				description += "<p>If multiple settings have the same priority then it will run them in the order that can be seen in the <b>Auto Maps Priority</b> popup that's found in the <b>Help</b> tab.</p>";
+				description += "<p>If multiple settings have the same priority then it will run them in the order that can be seen in the <b>Auto Maps Priority</b> popup that's found in the <b>Help</b>选项卡下)中的顺序来进入地图。</p>";
 				description += "<p>Setting names in the <b>Auto Maps Priority</b> popup that are marked in bold will always be run <b>first</b> and settings that are marked in both bold and italics will always be run <b>last</b> regardless of your priority inputs.</p>";
 				description += "<p><b>Not recommended for inexperienced players.</b></p>";
 				description += "<p><b>Recommended:</b> Off</p>";
@@ -1547,7 +1546,7 @@ function initialiseAllSettings() {
 			function () { return ('Map Bonus Level Prestiges') },
 			function () {
 				let description = "<p>When using the <b>Map Bonus Min Level</b> setting, if there are any prestige upgrades available between your map level and minimum map bonus level, this will the reduce level that it looks for to the last one with prestiges.</p>";
-				description += "<p>This setting is ignored when obtaining map bonus stacks through the <b>Map Bonus</b> setting.</p>";
+				description += "<p>This setting is ignored when obtaining map bonus stacks through the <b>Map Bonus</b>设置获取地图奖励，则会无视地图奖励等级以重铸优先设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'Maps', [1, 2],
@@ -1560,16 +1559,16 @@ function initialiseAllSettings() {
 				description += "<p>Uses the <b>Map Cap</b> and <b>Job Ratio</b> inputs that have been set in the top row of the <b>HD Farm</b> setting. If they haven't been setup then it will default to a job ratio of <b>1/1/2</b> and a map cap of <b>100</b>.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
 				description += "<p>Your current Hits Survived value can be seen in either the <b>Auto Maps status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</p>";
-				description += "<p><b>Recommended:</b> 1.5</p>";
+				description += "<p><b>Recommended:</b>1.5</p>";
 				return description;
 			}, 'value', 1.25, null, 'Maps', [1, 2]);
 
 		createSetting('mapBonusHealth',
 			function () { return ('Map Bonus Health') },
 			function () {
-				let description = "<p>Map Bonus stacks will be obtained to this amount when your current <b>Hits Survived</b> is below the value set in the <b>Hits Survived</b> setting.</p>";
+				let description = "<p>Map Bonus stacks will be obtained to this amount when your current <b>Hits Survived</b> is below the value set in the <b>Hits Survived</b>设置的数值时，将获得该层数的地图奖励。</p>";
 				if (atConfig.settingUniverse === 1 && game.stats.highestLevel.valueTotal() >= 230) description += "<p>This is a very important setting to be used with <b>Advanced Nurseries</b> once you reach magma zones. If you are running out of nurseries too soon, increase this value.</p>";
-				description += "<p><b>Recommended:</b> 10</p>";
+				description += "<p><b>Recommended:</b>10</p>";
 				return description;
 			}, 'value', 10, null, 'Maps', [1, 2]);
 
@@ -1579,7 +1578,7 @@ function initialiseAllSettings() {
 				let description = "<p>Setting to allow <b>Hits Survived</b> setting(s) to refarm if below 80% of the targetted value.</p>";
 				description += "<p><b>Hits Survived Reset: Off</b><br>Disables this setting.</p>";
 				description += "<p><b>Hits Survived Reset: S</b><br>Allows the standalone version of <b>Hits Survived</b> to reset and farm again when you're below 80% of the targetted value.</p>";
-				description += "<p><b>Hits Survived Reset: On</b><br>Will make both the standalone version of <b>Hits Survived</b> and any <b>Hits Survived</b> lines in the <b>HD Farm</b> setting reset and farm again when you're below 80% of the targetted value.</p>";
+				description += "<p><b>Hits Survived Reset: On</b><br>Will make both the standalone version of <b>Hits Survived</b> and any <b>HD Farm</b> lines in the <b>Hits Survived</b> setting reset and farm again when you're below 80% of the targetted value.</p>";
 				description += "<p>Having this setting enabled will allow you to farm multiple times if enemies damage increase or your army gets weaker through challenge buffs or debuffs.</p>";
 				description += "<p>Enabling this setting makes the Map Cap input in the <b>HD Farm</b> setting irrelevant as it will continually restart your <b>Hits Survived</b> farm.</p>";
 				description += "<p><b>Recommended:</b> Hits Survived Reset: S</p>";
@@ -1590,18 +1589,18 @@ function initialiseAllSettings() {
 			function () { return ('Map Bonus Ratio') },
 			function () {
 				let description = "<p>Map Bonus stacks will be obtained when above this World HD Ratio value.</p>";
-				description += "<p>Will use the <b>Special</b> and <b>Job Ratio</b> inputs that have been set in the top row of the <b>Map Bonus</b> setting. If they haven't been setup then it will default to a job ratio of <b>0/1/3</b> and the best <b>Metal</b> cache available.</p>";
+				description += "<p>Will use the <b>特殊词缀</b> and <b>Job Ratio</b> inputs that have been set in the top row of the <b>Map Bonus</b> setting. If they haven't been setup then it will default to a job ratio of <b>0/1/3</b> and the best <b>Metal</b> cache available.</p>";
 				description += "<p>Your current HD Ratio value can be seen in either the <b>Auto Maps status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 4</p>";
+				description += "<p><b>Recommended:</b>4</p>";
 				return description;
 			}, 'value', -1, null, 'Maps', [1, 2]);
 
 		createSetting('mapBonusStacks',
 			function () { return ('Map Bonus Stacks') },
 			function () {
-				let description = "<p>Map Bonus stacks will be obtained to this value when your current <b>World HD Ratio</b> is above the value set in the <b>Map Bonus Ratio</b> setting.</p>";
-				description += "<p><b>Recommended:</b> 10</p>";
+				let description = "<p>Map Bonus stacks will be obtained to this value when your current <b>World HD Ratio</b> is above the value set in the <b>Map Bonus Ratio</b>设置的数值时，将获得该层数的地图奖励。</p>";
+				description += "<p><b>Recommended:</b>10</p>";
 				return description;
 			}, 'value', 10, null, 'Maps', [1, 2]);
 
@@ -1610,7 +1609,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>When using the <b>Map Bonus Health</b>, <b>Map Bonus Stacks</b> and <b>Map Bonus</b> settings this will allow you to decide not to maps for map bonus stacks when the optimal map level is this many or more levels below your minimum map bonus level.</p>";
 				description += "<p>This is disabled when set to 0 or below <b>OR</b> you have no unbought prestiges and have prestiges available in the minimum map bonus level.</p>";
-				description += "<p><b>Recommended:</b> 2</p>";
+				description += "<p><b>Recommended:</b>2</p>";
 				return description;
 			}, 'value', 2, null, 'Maps', [1, 2]);
 			
@@ -1627,7 +1626,7 @@ function initialiseAllSettings() {
 			function () { return ('Prestige Climb') },
 			function () {
 				let description = "<p>Acquire prestiges through the selected item (inclusive) as soon as they are available in maps.</p>";
-				description += "<p>Automatically swaps the games default setting from <b>Tier First</b> to <b>Equip First</b>.</p>";
+				description += "<p>Automatically swaps the games default setting from <b>Tier First</b>改为<b>Equip First</b>.</p>";
 				description += "<p><b>Auto Maps must be enabled for this to run.</b></p>";
 				description += "<p><b>Before Explorers have been unlocked when this setting runs it will automatically set all map sliders except size to the minimum they can be and the biome used to Random.</b></p>";
 				description += "<p>This is important for speed climbing through world zones. If you find the script getting stuck somewhere, particularly where you should easily be able to kill stuff, setting this to an option lower down in the list will help ensure you are more powerful at all times, but will spend more time acquiring the prestiges in maps.</p>";
@@ -1645,7 +1644,7 @@ function initialiseAllSettings() {
 		createSetting('prestigeClimbZone',
 			function () { return ('PC: Force Prestige Z') },
 			function () {
-				let description = "<p>On and after this zone is reached, always try to prestige for everything immediately regardless of your <b>Prestige Climb</b> input unless it is set to <b>Off</b>.</p>";
+				let description = "<p>On and after this zone is reached, always try to prestige for everything immediately regardless of your <b>Prestige Climb</b> input unless it is set to <b>Off</b>，否则获取所有的重铸升级。</p>";
 				description += "<p>The <b>Prestige Skip</b> setting has the potential to disable this if it's enabled.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
 				description += "<p><b>Recommended:</b> The zone you start heavily slowing down</p>";
@@ -1665,7 +1664,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>The priority value you would like to use when running Prestige Climb.</p>";
 				description += "This only impacts the mapping order when the <b>Auto Maps Priority</b> setting in the Maps tab is enabled.</p>";
-				description += "<p><b>Recommended:</b> 1</p>";
+				description += "<p><b>Recommended:</b>1</p>";
 				return description;
 			}, 'value', 1, null, 'Maps', [1, 2]);
 
@@ -1743,7 +1742,7 @@ function initialiseAllSettings() {
 				const portalMap = atConfig.settingUniverse === 1 ? "Dimension of Anger" : "Dimension of Rage";
 				let description = "<p>Will force run unique maps that have unlocks if you're a zone above the level they are unlocked.</p>";
 				description += "<p>This setting takes <b>Unique Map Health Check</b> into account if enabled and won't run unique maps unless you have enough health to survive them.</p>";
-				description += `<p>If you have this disabled then you will need to either setup <b>${portalMap}</b> in <b>Unique Map Settings</b> or manually run it to unlock the ability to portal.</p>`;
+				description += `<p>If you have this disabled then you will need to either setup <b>${portalMap}</b>(在<b>Unique Map Settings</b> or manually run it to unlock the ability to portal.</p>`;
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', true, null, 'Maps', [1, 2]);
