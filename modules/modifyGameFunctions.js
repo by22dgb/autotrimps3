@@ -11,6 +11,26 @@ function atlantrimpRespecOverride() {
 			console.log('Loading respec function failed! ' + e, 'other');
 		}
 	};
+
+	function setupChallengeAutoPortal(challengeName) {
+		if (typeof game.challenges[challengeName].originalOnComplete !== 'function') {
+			game.challenges[challengeName].originalOnComplete = game.challenges[challengeName].onComplete;
+			game.challenges[challengeName].onComplete = function () {
+				game.challenges[challengeName].originalOnComplete(...arguments);
+
+				const portalSetting = getPageSetting(`${challengeName.toLowerCase()}AutoPortal`);
+				if (!portalSetting) return;
+
+				if (portalSetting === 1) autoPortalForce();
+				if (portalSetting === 2) autoPortalForce(true);
+			};
+		}
+	}
+
+	setupChallengeAutoPortal('Frigid');
+	setupChallengeAutoPortal('Mayhem');
+	setupChallengeAutoPortal('Pandemonium');
+	setupChallengeAutoPortal('Desolation');
 }
 
 /* On loading save */
@@ -278,10 +298,6 @@ if (typeof originalActivateClicked !== 'function') {
 			_setButtonsPortal();
 			setupAddonUser(true);
 			hideAutomationButtons();
-			if (u2Mutations.open && getPageSetting('presetSwapMutators', 2)) {
-				loadMutations(preset);
-				u2Mutations.closeTree();
-			}
 		}
 
 		if (magmiteText) debug(magmiteText, 'magmite');
@@ -487,33 +503,6 @@ function removeTrustworthyTrimps() {
 	const ticks = dif > offlineProgress.maxTicks ? offlineProgress.maxTicks : dif;
 	const unusedTicks = dif - ticks;
 	if (unusedTicks > 0) untrustworthyTrimps(false, unusedTicks / 10, true);
-}
-
-//Check and update each patch!
-function _verticalCenterTooltip(makeLarge, makeSuperLarge, isTwo = '') {
-	const tipElem = document.getElementById(`tooltipDiv${isTwo}`);
-	if (makeLarge) {
-		swapClass('tooltipExtra', 'tooltipExtraLg', tipElem);
-	}
-	if (makeSuperLarge) {
-		swapClass('tooltipExtra', 'tooltipExtraSuperLg', tipElem);
-	}
-
-	const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-	const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-	let tipHeight = Math.max(tipElem.clientHeight, tipElem.innerHeight || 0);
-	let tipWidth = Math.max(tipElem.clientWidth, tipElem.innerWidth || 0);
-
-	if (makeLarge && tipHeight / height > 0.95) {
-		document.getElementById(`tipText${isTwo}`).className = 'tinyTextTip';
-		tipHeight = Math.max(tipElem.clientHeight, tipElem.innerHeight || 0);
-	}
-
-	const topDif = height - tipHeight;
-	const leftDif = width - tipWidth;
-
-	tipElem.style.top = topDif > 0 ? topDif / 2 + 'px' : '0';
-	tipElem.style.left = leftDif > 0 ? leftDif / 2 + 'px' : '0';
 }
 
 function saveToSteam(saveData) {
@@ -844,6 +833,7 @@ function calculateMaxAfford_AT(itemObj, isBuilding, isEquipment, isJob, forceMax
 				const { enabled, zone, mapLevel, mapCount } = buildingSetting.SafeGateway;
 
 				resourcesAvailable = zone !== 0 && game.global.world >= zone ? resourcesAvailable : enabled && resourcesAvailable > resource.owned - mapCost(mapLevel, 'lmc') * mapCount ? resource.owned - mapCost(10, 'lmc') * mapCount : resourcesAvailable;
+				if (resourcesAvailable < 0) resourcesAvailable = 0;
 			}
 		}
 
@@ -930,7 +920,7 @@ function getPlayerCritChance_AT(customShield) {
 		if (Fluffy.isRewardActive('SADailies')) critChance += Fluffy.rewardConfig.SADailies.critChance();
 	}
 
-	if (game.global.stringVersion === '5.10.0') critChance += u2SpireBonuses.critChance();
+	critChance += u2SpireBonuses.critChance();
 	if (critChance > 9) critChance = 9;
 	return critChance;
 }
@@ -979,4 +969,54 @@ function getHazardGammaBonus_AT(heirloom) {
 	const mult = heirloom.rarity === 11 ? 10000 : 4000;
 	const bonus = log10(spent) * mult;
 	return bonus;
+}
+
+function recycleMap(map, fromMass, killVoid, noRefund) {
+	if (typeof map === 'undefined' || map == -1) {
+		if (game.global.lookingAtMap === '') return;
+		map = getMapIndex(game.global.lookingAtMap);
+	}
+	if (map === null) return;
+	var mapObj = game.global.mapsOwnedArray[map];
+	if (game.global.tutorialActive && game.global.tutorialStep < 7 && mapObj && mapObj.name == 'Tricky Paradise') {
+		message("ADVISOR suggests not recycling this map until you've completed it at least three times. Press V or click ADVISOR's gold star for more info.", 'Notices');
+		return;
+	}
+	var loc = 'mapsHere';
+	if (killVoid) {
+		game.global.voidBuff = '';
+		document.getElementById('voidBuff').innerHTML = '';
+	}
+	if (mapObj.location == 'Void') loc = 'voidMapsHere';
+	if (mapObj.noRecycle) {
+		game.global.currentMapId = '';
+		game.global.lastClearedMapCell = -1;
+		game.global.mapGridArray = [];
+		mapsSwitch(true);
+		return;
+	}
+	document.getElementById(loc).removeChild(document.getElementById(mapObj.id));
+	if (game.global.currentMapId == mapObj.id) {
+		game.global.lookingAtMap = '';
+		game.global.currentMapId = '';
+		game.global.lastClearedMapCell = -1;
+	} else if (game.global.lookingAtMap == mapObj.id) game.global.lookingAtMap = '';
+	game.global.mapsOwned--;
+	var refund;
+	if (!killVoid && !noRefund) {
+		refund = getRecycleValue(mapObj.level);
+		game.resources.fragments.owned += refund;
+		const displaySetting = getPageSetting('displayHideAutoButtons');
+		const hideRecycle = displaySetting ? displaySetting.recycleMaps : false;
+		if (!fromMass && !hideRecycle) message('Recycled ' + mapObj.name + ' for ' + prettify(refund) + ' fragments.', 'Notices');
+	}
+	game.global.mapsOwnedArray.splice(map, 1);
+	if (killVoid) {
+		game.global.totalVoidMaps -= mapObj.stacked ? mapObj.stacked + 1 : 1;
+		return;
+	}
+	if (!noRefund) {
+		mapsSwitch(true, true);
+	}
+	return refund;
 }

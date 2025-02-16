@@ -2094,7 +2094,7 @@ function autoStructureTable(settingGroup, hze) {
 		let checkbox = buildNiceCheckbox('structConfig' + item, 'autoCheckbox', setting && setting.enabled);
 
 		tooltipText += "<td><div class='row'>";
-		tooltipText += "<div class='col-xs-3' style='width: 34%; padding-right: 5px'>" + checkbox + '&nbsp;&nbsp;<span>' + item + '</span></div>';
+		tooltipText += "<div class='col-xs-3' style='width: 34%; padding-right: 5px'>" + checkbox + '<span>' + item + '</span></div>';
 		tooltipText += "<div class='col-xs-5' style='width: 33%; text-align: right'>Perc: <input class='structConfigPercent' id='structPercent" + item + "' type='number' value='" + (setting && setting.percent ? setting.percent : 100) + "' /></div>";
 		tooltipText += "<div class='col-xs-5' style='width: 33%; padding-left: 5px; text-align: right'>Up to: <input class='structConfigQuantity' id='structMax" + item + "' type='number' value='" + (setting && setting.buyMax ? setting.buyMax : 0) + "' /></div>";
 		tooltipText += '</div></td>';
@@ -2114,7 +2114,7 @@ function autoStructureTable(settingGroup, hze) {
 		tooltipText += '</tr><tr>';
 
 		tooltipText += "<td><div class='row'>";
-		tooltipText += "<div class='col-xs-3' style='width: 34%; padding-right: 5px'>" + checkbox + '&nbsp;&nbsp;<span>' + item + '</span></div>';
+		tooltipText += "<div class='col-xs-3' style='width: 34%; padding-right: 5px'>" + checkbox + '<span>' + item + '</span></div>';
 		tooltipText += "<div class='col-xs-5' style='width: 33%; text-align: right'>Maps: <input class='structConfigPercent' id='structPercent" + "' type='number' value='" + (setting && setting.mapCount ? setting.mapCount : 0) + "' /></div>";
 		tooltipText += "<div class='col-xs-5' style='width: 33%; padding-left: 5px; text-align: right'>Till Z: <input class='structConfigQuantity' id='structMax' type='number' value='" + (setting && setting.zone ? setting.zone : 0) + "' /></div>";
 		tooltipText += '</div></td>';
@@ -2832,7 +2832,7 @@ function c2RunnerSave() {
 //Hide Automation Buttons
 function hideAutomationDisplay(elem) {
 	const msgs = getPageSetting('displayHideAutoButtons');
-	const keys = ['fight', 'autoFight', 'trap', 'storage', 'structure', 'jobs', 'gold', 'upgrade', 'prestige', 'equip'];
+	const keys = ['fight', 'autoFight', 'trap', 'storage', 'structure', 'jobs', 'gold', 'upgrade', 'prestige', 'equip', 'recycleMaps'];
 	const settingGroup = keys.reduce((obj, key) => {
 		obj[key] = false;
 		return obj;
@@ -2845,9 +2845,10 @@ function hideAutomationDisplay(elem) {
 
 	for (let item in settingGroup) {
 		if (item === 'enabled') continue;
-		const addAuto = item.includes('ight') ? '' : 'Auto ';
+		const addAuto = item.includes('ight') || item.includes('recycle') ? '' : 'Auto ';
 		let realName = addAuto + (item.charAt(0).toUpperCase() + item.substr(1)).replace(/_/g, ' ');
 		if (realName === 'AutoFight') realName = 'Auto Fight';
+		if (realName === 'RecycleMaps') realName = 'Recycle Maps';
 
 		tooltipText += `<span class='messageConfigContainer'><span class='messageCheckboxHolder'>${buildNiceCheckbox(item, 'messageConfigCheckbox', msgs[item])}</span><span onmouseover='hideAutomationConfigHover("${item}", event)' onmouseout='tooltip("hide")' class='messageNameHolderAT'> - ${realName}</span></span><br/>`;
 	}
@@ -2896,6 +2897,7 @@ function hideAutomationConfigHover(what, event) {
 		upgrades: { title: 'Auto Upgrade', text: 'Hides the games AutoUpgrade button.' },
 		prestige: { title: 'Auto Prestige', text: 'Hides the games AutoPrestige button.' },
 		equip: { title: 'Auto Equip', text: 'Hides the games AutoEquip button.' },
+		recycleMaps: { title: 'Recycle Maps', text: 'Hides Recycle Maps messages in the message log.' },
 		ATstructure: { title: 'AutoTrimps Auto Structure', text: 'Hides the AutoTrimps AutoStructure button.' },
 		ATjobs: { title: 'AutoTrimps Auto Jobs', text: 'Hides the AutoTrimps AutoJobs button.' },
 		ATequip: { title: 'AutoTrimps Auto Equip', text: 'Hides the AutoTrimps AutoEquip button.' },
@@ -2940,6 +2942,7 @@ function hideAutomationButtons() {
 		upgrade: game.global.autoUpgradesAvailable,
 		prestige: game.global.sLevel >= 4,
 		equip: game.global.autoEquipUnlocked,
+		recycleMaps: false,
 		ATstructure: true,
 		ATjobs: true,
 		ATequip: true,

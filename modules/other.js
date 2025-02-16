@@ -434,7 +434,7 @@ function _timeWarpSave() {
 		save(false, true);
 		_adjustGlobalTimers(keys, reduceBy);
 
-		debug(`Game Saved! ${formatTimeForDescriptions(reduceBy / 1000)} of offline progress left to process.`, `offline`);
+		debug(`Game Saved! ${formatTimeForDescriptions(reduceBy / 1000)} of Time Warp left to process.`, `offline`);
 	}
 }
 
@@ -1337,6 +1337,18 @@ function updateATVersion() {
 				autoTrimpSettings.heirloomSwapping.enabledU2 = tempSettings.heirloom.enabledU2;
 			}
 
+			saveSettings();
+		}
+
+		if (versionNumber < '6.7.20') {
+			const tempSettings = JSON.parse(localStorage.getItem('atSettings'));
+			if (typeof tempSettings['presetSwapMutators'] !== 'undefined' && autoTrimpSettings.presetSwapMutators !== 'undefined') {
+				autoTrimpSettings.presetSwapMutators.enabledU2 = false;
+			}
+
+			const mutatorObj = _mutatorDefaultObj();
+			localStorage.setItem('mutatorPresets', JSON.stringify(mutatorObj));
+			autoTrimpSettings['mutatorPresets'].valueU2 = JSON.stringify(mutatorObj);
 			saveSettings();
 		}
 	}

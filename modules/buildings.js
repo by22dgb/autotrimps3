@@ -491,6 +491,15 @@ function _calcSmithyDuringQuest() {
 		smithyCanAfford = smithycanBuy > questZones ? smithycanBuy - questZones : getCurrentQuest() === 10 ? 1 : 0;
 	}
 
+	if (game.global.spireActive) {
+		const smithyToPurchase = getPageSetting('questSmithySpire');
+
+		if (smithyToPurchase > 0 && game.buildings.Smithy.purchased < smithyToPurchase) {
+			const smithycanBuy = calculateMaxAfford(game.buildings.Smithy, true, false, false, true, 1);
+			smithyCanAfford = Math.max(Math.min(smithycanBuy, smithyToPurchase - game.buildings.Smithy.purchased), smithyCanAfford);
+		}
+	}
+
 	return smithyCanAfford;
 }
 
@@ -617,7 +626,7 @@ function _buySelectedHouse(houseName, buildingSettings) {
 		if (upgradeType !== 2) upgrades.push('Coordination');
 
 		// Do not save Gems or Fragments TODO Don't save ie metal from Huts
-		if (skipHouse && upgrades.some((up) => _shouldSaveFromHouse(houseName, up) && shouldSaveForSpeedUpgrade(game.upgrades[up], 0.5, 0.5, 0.25, 0.75))) return;
+		if (skipHouse && upgrades.some((up) => _shouldSaveFromHouse(houseName, up) && shouldSaveForSpeedUpgrade(game.upgrades[up], 0.5, 0.5, 0.25, 0.75))) return false;
 	}
 
 	// Identify the amount of this type of housing we can afford and stay within our housing cap.

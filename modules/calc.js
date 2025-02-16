@@ -283,7 +283,7 @@ function getTrimpHealth(realHealth, worldType = _getWorldType(), extraItem = new
 			observation: () => game.portal.Observation.getMult(),
 			mutatorHealth: () => (u2Mutations.tree.Health.purchased ? 1.5 : 1),
 			geneHealth: () => (u2Mutations.tree.GeneHealth.purchased ? 10 : 1),
-			spireBasics: () => (game.global.stringVersion === '5.10.0' ? u2SpireBonuses.basics() : 1)
+			spireBasics: () => u2SpireBonuses.basics()
 		};
 		health = applyMultipliers(healthMultipliers, health);
 
@@ -483,6 +483,37 @@ function getCritMulti(crit, customShield) {
 	return (critChance - 2) * Math.pow(getMegaCritDamageMult(critChance), 2) * critD + (3 - critChance) * getMegaCritDamageMult(critChance) * critD;
 }
 
+function getTenacityTime(worldType = _getWorldType()) {
+	if (game.global.spireActive && worldType === 'world') return 60;
+	let minutes = getZoneMinutes();
+	let lastZone = game.portal.Tenacity.timeLastZone;
+
+	if (lastZone == -1) lastZone = 0;
+	if (lastZone > 120) lastZone = 120;
+	minutes += lastZone * game.portal.Tenacity.getCarryoverMult();
+	if (minutes > 120) minutes = 120;
+
+	return minutes;
+}
+
+function getTenacityBonus(worldType = _getWorldType()) {
+	let time = getTenacityTime(worldType);
+	if (time <= 60) {
+		time *= 10 / 6;
+	} else {
+		time -= 60;
+		time *= 2 / 6;
+		time += 100;
+	}
+
+	return 1.1 + Math.floor(time / 4) * 0.01;
+}
+
+function getTenacityMult(worldType = _getWorldType()) {
+	const bonusAmount = getTenacityBonus(worldType);
+	return Math.pow(Math.max(1.1, bonusAmount), getPerkLevel('Tenacity') + getPerkLevel('Masterfulness'));
+}
+
 function getTrimpAttack(realDamage) {
 	if (realDamage) return game.global.soldierCurrentAttack;
 
@@ -566,7 +597,7 @@ function calcOurDmg(minMaxAvg = 'avg', universeSetting, realDamage = false, worl
 		const damageModifiers = {
 			smithy: () => game.buildings.Smithy.getMult(),
 			hunger: () => game.portal.Hunger.getMult(),
-			tenacity: () => game.portal.Tenacity.getMult(),
+			tenacity: () => getTenacityMult(worldType),
 			spireStats: () => autoBattle.bonuses.Stats.getMult(),
 			championism: () => game.portal.Championism.getMult(),
 			frenzy: () => (getPerkLevel('Frenzy') > 0 && !challengeActive('Berserk') && (autoBattle.oneTimers.Mass_Hysteria.owned || !runningAutoTrimps || getPageSetting('frenzyCalc')) ? 1 + 0.5 * getPerkLevel('Frenzy') : 1),
@@ -576,8 +607,8 @@ function calcOurDmg(minMaxAvg = 'avg', universeSetting, realDamage = false, worl
 			brainsToBrawn: () => (u2Mutations.tree.Brains.purchased ? u2Mutations.tree.Brains.getBonus() : 1),
 			novaStacks: () => (worldType === 'world' && game.global.novaMutStacks > 0 ? u2Mutations.types.Nova.trimpAttackMult() : 1),
 			spireDaily: () => (Fluffy.isRewardActive('SADailies') && challengeActive('Daily') ? Fluffy.rewardConfig.SADailies.attackMod() : 1),
-			spireBasics: () => (game.global.stringVersion === '5.10.0' ? u2SpireBonuses.basics() : 1),
-			spireAttackMult: () => (game.global.stringVersion === '5.10.0' && game.global.spireActive && game.global.spireMutStacks > 0 && !game.global.mapsActive ? u2Mutations.types.Spire1.trimpAttackMult() : 1)
+			spireBasics: () => u2SpireBonuses.basics(),
+			spireAttackMult: () => (game.global.spireActive && game.global.spireMutStacks > 0 && !game.global.mapsActive ? u2Mutations.types.Spire1.trimpAttackMult() : 1)
 		};
 
 		attack = applyMultipliers(damageModifiers, attack);
@@ -792,7 +823,7 @@ function calcEnemyAttackCore(worldType = _getWorldType(), zone = _getZone(worldT
 		attack = applyMultipliers(challengeMultipliers, attack, true);
 
 		if (worldType === 'world' && game.global.novaMutStacks > 0) attack *= u2Mutations.types.Nova.enemyAttackMult();
-		if (game.global.stringVersion === '5.10.0' && worldType === 'world' && game.global.spireActive && game.global.spireMutStacks > 0) attack *= u2Mutations.types.Spire1.enemyAttackMult();
+		if (worldType === 'world' && game.global.spireActive && game.global.spireMutStacks > 0) attack *= u2Mutations.types.Spire1.enemyAttackMult();
 		if (equality && equality > 0) attack *= Math.pow(game.portal.Equality.getModifier(), equality);
 	}
 
@@ -1299,7 +1330,7 @@ function enemyDamageModifiers() {
 			}
 
 			attack *= game.global.novaMutStacks > 0 ? u2Mutations.types.Nova.enemyAttackMult() : 1;
-			if (game.global.stringVersion === '5.10.0' && game.global.spireActive && game.global.spireMutStacks > 0) attack *= u2Mutations.types.Spire1.enemyAttackMult();
+			if (game.global.spireActive && game.global.spireMutStacks > 0) attack *= u2Mutations.types.Spire1.enemyAttackMult();
 		}
 	}
 
