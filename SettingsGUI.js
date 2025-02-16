@@ -425,7 +425,7 @@ function initialiseAllSettings() {
 			});
 
 		createSetting('heliumC2Challenge',
-			function () { return (_getChallenge2Info()) },
+			function () { return (_getChallenge2Info() + '.') },
 			function () {
 				const specialChall = "Special challenges (" + (atConfig.settingUniverse === 2 ? "Mayhem, Pandemonium, Desolation" : "Frigid, Experience") + ") can be run with this but they will ignore the " + _getChallenge2Info() + " settings and use the <b>Portal Zone</b> input for when to finish the run and portal.";
 				let description = "<p>Automatically portal into this C" + _getChallenge2Info()[1] + " when using the <b>Challenge " + _getChallenge2Info()[1] + "</b>自动传送设置时，传送后进入该挑战。</p>";
@@ -1816,7 +1816,7 @@ function initialiseAllSettings() {
 		createSetting('balance',
 			function () { return `${atConfig.settingUniverse === 2 ? 'Unbalance' : 'Balance'}` },
 			function () {
-				let description = `<p>Enable this if you want to automate destacking when running the <b>${atConfig.settingUniverse === 2 ? 'Unbalance' : 'Balance'}</b> challenge.</p>`;
+				let description = `<p>Enable this if you want to automate destacking when running the <b>${atConfig.settingUniverse === 2 ? 'Unbalance' : 'Balance'}</b>挑战中自动减少相应层数，可以启用该设置。</p>`;
 				if (game.global.highestRadonLevelCleared > 1) description += `<p>If you have a gamma burst charged this will delay destacking until it has been used.</p>`;
 				description += `<p><b>Recommended:</b> On</p>`;
 				return description;
@@ -1827,9 +1827,9 @@ function initialiseAllSettings() {
 			function () { return `${atConfig.settingUniverse === 2 ? 'U' : 'B'}: HD Ratio` },
 			function () {
 				let description = `<p>What HD ratio cut-off to use for deciding when to destack.</p>`;
-				description += `<p>Only destacks once above the stack amount set in the <b>${atConfig.settingUniverse === 2 ? 'U' : 'B'}: Stacks</b> setting.</p>`;
+				description += `<p>Only destacks once above the stack amount set in the <b>${atConfig.settingUniverse === 2 ? 'U' : 'B'}: Stacks</b>设置中的数值时减少层数。</p>`;
 				description += `<p>If set to <b>0 or below</b> it will disable this setting.</p>`;
-				description += `<p><b>Recommended:</b> 5</p>`;
+				description += `<p><b>Recommended:</b>5</p>`;
 				return description;
 			}, 'value', 5, null, 'Challenges', [1, 2],
 			function () { return (getPageSetting('balance', atConfig.settingUniverse) && autoTrimpSettings.balance.require()) });
@@ -1849,7 +1849,7 @@ function initialiseAllSettings() {
 				let description = `<p>The amount of Unbalance stacks you have to reach before clearing them.</p>`;
 				description += `<p>Once it starts destacking it will destack until you have no Unbalance stacks remaining.</p>`;
 				description += `<p>If set to <b>0 or below</b> it will never destack.</p>`;
-				description += `<p><b>Recommended:</b> 20</p>`;
+				description += `<p><b>Recommended:</b>20</p>`;
 				return description;
 			},'value', 20, null, 'Challenges', [1, 2],
 			function () { return (getPageSetting('balance', atConfig.settingUniverse) && autoTrimpSettings.balance.require()) });
@@ -1877,7 +1877,7 @@ function initialiseAllSettings() {
 		createSetting('decay',
 			function () { return `${atConfig.settingUniverse === 2 ? 'Melt' : 'Decay'}` },
 			function () {
-				let description = `<p>Enable this if you want to use automation features when running the <b>${atConfig.settingUniverse === 2 ? 'Melt' : 'Decay'}</b> challenge.</p>`;
+				let description = `<p>Enable this if you want to use automation features when running the <b>${atConfig.settingUniverse === 2 ? 'Melt' : 'Decay'}</b>挑战中自动处理相关机制，可以启用该设置。</p>`;
 				description += `<p><b>Recommended:</b> On</p>`;
 				return description;
 			}, 'boolean', false, null, 'Challenges', [1, 2],
@@ -1893,7 +1893,7 @@ function initialiseAllSettings() {
 				description += `<p>Both Prestige Climb and Void Maps will override this setting and still run.</p>`;
 				description += `<p>Set to <b>0 or below</b> to disable this setting.</p>`;
 				description += `<p>Inputs above the max stack value (<b>${maxStacks}</b>) are treated as max stack inputs.</p>`;
-				description += `<p><b>Recommended:</b> 150</p>`;
+				description += `<p><b>Recommended:</b>150</p>`;
 				return description;
 			}, 'value', -1, null, 'Challenges', [1, 2],
 			function () { return (getPageSetting('decay', atConfig.settingUniverse) && autoTrimpSettings.decay.require()) });
@@ -1907,7 +1907,7 @@ function initialiseAllSettings() {
 				let description = `<p>Will abandon the challenge when you are at or above this amount of stacks.</p>`;
 				description += `<p>Set to <b>0 or below</b> to disable this setting.</p>`;
 				description += `<p>Inputs above the max stack value (<b>${maxStacks}</b>) are treated as max stack inputs.</p>`;
-				description += `<p><b>Recommended:</b> 400</p>`;
+				description += `<p><b>Recommended:</b>400</p>`;
 				return description;
 			}, 'value', -1, null, 'Challenges', [1, 2],
 			function () { return (getPageSetting('decay', atConfig.settingUniverse) && autoTrimpSettings.decay.require()) });
@@ -1915,7 +1915,7 @@ function initialiseAllSettings() {
 		createSetting('life',
 			function () { return ('Life') },
 			function () {
-				let description = "<p>Enable this if you want to use automation features when running the <b>Life</b> challenge.</p>";
+				let description = "<p>Enable this if you want to use automation features when running the <b>Life</b>挑战中自动处理相关机制，可以启用该设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'Challenges', [1],
@@ -1927,7 +1927,7 @@ function initialiseAllSettings() {
 				let description = "<p>Will take you to the map chamber when the current enemy is Living and when you are at or above this zone.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
 				description += "<p><b>Must be used in conjunction with L: Stacks</b></p>";
-				description += "<p><b>Recommended:</b> 100</p>";
+				description += "<p><b>Recommended:</b>100</p>";
 				return description;
 			}, 'value', -1, null, 'Challenges', [1],
 			function () { return (autoTrimpSettings.life.enabled) });
@@ -1938,7 +1938,7 @@ function initialiseAllSettings() {
 				let description = "<p>Will take you to the map chamber when the current enemy is Living and when you are at or below this stack count.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
 				description += "<p><b>Must be used in conjunction with L: Zone</b></p>";
-				description += "<p><b>Recommended:</b> 100</p>";
+				description += "<p><b>Recommended:</b>100</p>";
 				return description;
 			}, 'value', -1, null, 'Challenges', [1],
 			function () { return (autoTrimpSettings.life.enabled) });
@@ -1946,7 +1946,7 @@ function initialiseAllSettings() {
 		createSetting('toxicitySettings',
 			function () { return ('Toxicity Settings') },
 			function () {
-				let description = "<p>Here you can select how and when you would like to farm a specific amount of Toxicity stacks for increased " + _getPrimaryResourceInfo().name.toLowerCase() + " and resources gain during the <b>Toxicity</b> challenge..</p>";
+				let description = "<p>Here you can select how and when you would like to farm a specific amount of Toxicity stacks for increased " + _getPrimaryResourceInfo().name.toLowerCase() + " and resources gain during the <b>Toxicity</b>挑战中，如何刷一定层数的毒性，以增加氦获取量和资源获取量。</p>";
 				description += "<p><b>Click to adjust settings.</b></p>";
 				description += "<p>If needed, the <b>Help</b> button at the bottom left of the popup window has information for all of the inputs.</p>";
 				description += "<p><b>Recommended:</b> Setup to farm 1500 stacks on the last zone of the challenge.</p>";
@@ -1956,7 +1956,7 @@ function initialiseAllSettings() {
 		createSetting('archaeology',
 			function () { return ('Archaeology') },
 			function () {
-				let description = "<p>Enable this if you want to use automation features when running the <b>Archaeology</b> challenge.</p>";
+				let description = "<p>Enable this if you want to use automation features when running the <b>Archaeology</b>挑战中自动处理相关机制，可以启用该设置。</p>";
 				description += "<p>When enabled, <b>AT Auto Jobs</b> will fire all workers to speed up breeding when not fighting.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
@@ -1976,7 +1976,7 @@ function initialiseAllSettings() {
 			function () { return (getPageSetting('archaeology', atConfig.settingUniverse) && autoTrimpSettings.archaeology.require()) });
 			
 		createSetting('archaeologyString1',
-			function () { return ('A: String 1') },
+			function () { return ('考古学字符串1') },
 			function () {
 				let description = "<p>First string to use in <b>Archaeology</b>. Follows the same format as the game i.e: 10a,10e </p>";
 				return description;
@@ -1984,7 +1984,7 @@ function initialiseAllSettings() {
 			function () { return (getPageSetting('archaeology', atConfig.settingUniverse) && autoTrimpSettings.archaeology.require()) });
 
 		createSetting('archaeologyString2',
-			function () { return ('A: String 2') },
+			function () { return ('考古学字符串2') },
 			function () {
 				let description = "<p>Second string to use in <b>Archaeology</b>. Follows the same format as the game, put the zone you want to start using this string at the start of the input. I.e: 84,10a,10e </p>";
 				return description;
@@ -1992,7 +1992,7 @@ function initialiseAllSettings() {
 			function () { return (getPageSetting('archaeology', atConfig.settingUniverse) && autoTrimpSettings.archaeology.require()) });
 
 		createSetting('archaeologyString3',
-			function () { return ('A: String 3') },
+			function () { return ('考古学字符串3') },
 			function () {
 				let description = "<p>Third string to use in <b>Archaeology</b>. Follows the same format as the game, put the zone you want to start using this string at the start of the input. I.e: 94,10a,10e </p>";
 				return description;
@@ -2002,7 +2002,7 @@ function initialiseAllSettings() {
 		createSetting('exterminate',
 			function () { return ('Exterminate') },
 			function () {
-				let description = "<p>Enable this if you want to use automation features when running the <b>Exterminate</b> challenge.</p>";
+				let description = "<p>Enable this if you want to use automation features when running the <b>Exterminate</b>挑战中自动处理相关机制，可以启用该设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'Challenges', [2],
@@ -2022,7 +2022,7 @@ function initialiseAllSettings() {
 		createSetting('quagmireSettings',
 			function () { return ('Quagmire Settings') },
 			function () {
-				let description = "<p>Here you can select how and when you would like Black Bog farming to be done during the <b>Quagmire</b> challenge.</p>";
+				let description = "<p>Here you can select how and when you would like Black Bog farming to be done during the <b>Quagmire</b>挑战中，如何刷黑之泥沼地图。</p>";
 				description += "<p><b>Click to adjust settings.</b></p>";
 				description += "<p>If needed, the <b>Help</b> button at the bottom left of the popup window has information for all of the inputs.</p>";
 				return description;
@@ -2032,7 +2032,7 @@ function initialiseAllSettings() {
 		createSetting('archaeologySettings',
 			function () { return ('Archaeology Settings') },
 			function () {
-				let description = "<p>Here you can select how and when you would like farm for specific relic strings during the <b>Archaeology</b> challenge.</p>";
+				let description = "<p>Here you can select how and when you would like farm for specific relic strings during the <b>Archaeology</b>挑战中，如何刷特定字符串所需的资源。</p>";
 				description += "<p><b>Click to adjust settings.</b></p>";
 				description += "<p>If needed, the <b>Help</b> button at the bottom left of the popup window has information for all of the inputs.</p>";
 				return description;
@@ -2042,7 +2042,7 @@ function initialiseAllSettings() {
 		createSetting('insanitySettings',
 			function () { return ('Insanity Settings') },
 			function () {
-				let description = "<p>Here you can select how and when you would like Insanity stack farming to be done during the <b>Insanity</b> challenge.</p>";
+				let description = "<p>Here you can select how and when you would like Insanity stack farming to be done during the <b>Insanity</b>挑战中，如何刷失智层数。</p>";
 				description += "<p><b>Click to adjust settings.</b></p>";
 				description += "<p>If needed, the <b>Help</b> button at the bottom left of the popup window has information for all of the inputs.</p>";
 				return description;
@@ -2052,7 +2052,7 @@ function initialiseAllSettings() {
 		createSetting('alchemySettings',
 			function () { return ('Alchemy Settings') },
 			function () {
-				let description = "<p>Here you can select how and when you would like potion and brew farming to be done during the <b>Alchemy</b> challenge.</p>";
+				let description = "<p>Here you can select how and when you would like potion and brew farming to be done during the <b>Alchemy</b>挑战中，如何刷魔药和特饮。</p>";
 				description += "<p><b>Click to adjust settings.</b></p>";
 				description += "<p>If needed, the <b>Help</b> button at the bottom left of the popup window has information for all of the inputs.</p>";
 				return description;
@@ -2062,7 +2062,7 @@ function initialiseAllSettings() {
 		createSetting('hypothermiaSettings',
 			function () { return ('Hypothermia Settings') },
 			function () {
-				let description = "<p>Here you can select how and when you would like bonfire farming to be done during the <b>Hypothermia</b> challenge.</p>";
+				let description = "<p>Here you can select how and when you would like bonfire farming to be done during the <b>Hypothermia</b>挑战中，如何刷篝火。</p>";
 				description += "<p><b>Click to adjust settings.</b></p>";
 				description += "<p>If needed, the <b>Help</b> button at the bottom left of the popup window has information for all of the inputs.</p>";
 				return description;
@@ -2091,7 +2091,7 @@ function initialiseAllSettings() {
 				description += `<p><b>Yellow</b><br>You should consider updating yellow challenges.</p>`;
 				description += `<p><b>Red</b><br>Updating red challenges is typically worthwhile.</p>`;
 				description += `<p><b>Blue</b><br>This challenge hasn't been run yet and should be done as soon as possible.</p>`;
-				description += `<p>The <b>${_getChallenge2Info()} Runner</b> heading indicates which challenges will be run when using the <b>${_getChallenge2Info()} Runner: Percent</b> setting.</p>`;
+				description += `<p>The <b>${_getChallenge2Info()} Runner</b> heading indicates which challenges will be run when using the <b>${_getChallenge2Info()} Runner: Percent</b>设置时进行的挑战。</p>`;
 				description += `<p>The <b>Auto Portal</b> heading indicates which challenges will be started when Auto Portaling. They run in order of difficulty.</p>`;
 				return description;
 			}, 'infoclick', null, 'importExportTooltip("c2table")', 'C2', [0]);
@@ -2137,7 +2137,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = `<p>Enable this if you want to use ${_getChallenge2Info()} running features.</p>`;
 				description += `<p>Allows the script to automatically start running ${_getChallenge2Info()}'s when portaling in an effort to maintain your ${_getChallenge2Info()} score</p>`;
-				description += `<p>If enabled will disable the <b>Finish ${_getChallenge2Info()}</b> setting.</p>`;
+				description += `<p>If enabled will disable the <b>Finish ${_getChallenge2Info()}</b>设置功能。</p>`;
 				description += `<p><b>Recommended:</b> On</p>`;
 				return description;
 			}, 'boolean', false, null, 'C2', [1, 2]);
@@ -2186,7 +2186,7 @@ function initialiseAllSettings() {
 				description += `<p>Will only run ${_getChallenge2Info()}s with a HZE% below this setting's value.</p>`;
 				description += `<p>Set to <b>0 or below</b> to disable this setting.</p>`;
 				description += `<p>If this setting is disabled it will also stop ${_getChallenge2Info()} Runner from starting any challenges.</p>`;
-				description += `<p><b>Recommended:</b> 85</p>`;
+				description += `<p><b>Recommended:</b>85</p>`;
 				return description;
 			}, 'value', 0, null, 'C2', [1, 2],
 			function () { return (getPageSetting('c2RunnerStart', atConfig.settingUniverse) && getPageSetting('c2RunnerMode', atConfig.settingUniverse) === 0) });
@@ -2214,8 +2214,8 @@ function initialiseAllSettings() {
 				const c2Name = _getChallenge2Info();
 				let description = `<p>Will allow ${c2Name} Runner to do fused versions of ${c2Name}'s rather than normal versions to reduce time spent running ${c2Name}s.</p>`;
 				description += `<p><b>Fused ${c2Name}'s: Off</b><br>Stops ${c2Name} Runner from starting any Fused ${c2Name} runs.</p>`;
-				description += `<p><b>Fused ${c2Name}'s: Below %</b><br>Will run ${c2Name}s when both challenges are below your <b>${c2Name} Runner: % value</b>.</p>`;
-				description += `<p><b>Fused ${c2Name}'s: Any %</b><br>Will run ${c2Name}s when either challenge is below your <b>${c2Name} Runner: % value.</b></p>`;
+				description += `<p><b>Fused ${c2Name}'s: Below %</b><br>Will run ${c2Name}s when both challenges are below your <b>${c2Name} Runner: % value</b>设置的数值时，进行该融合挑战²。</p>`;
+				description += `<p><b>Fused ${c2Name}'s: Any %</b><br>Will run ${c2Name}s when either challenge is below your <b>${c2Name} Runner: % value</b>设置的数值时，进行该融合挑战²。</p>`;
 				description += `<p><b>Recommended:</b> Fused ${_getChallenge2Info()}s: Any %</p>`;
 				return description;
 			}, 'multitoggle', 0, null, 'C2', [1],
@@ -2224,7 +2224,7 @@ function initialiseAllSettings() {
 		createSetting('duel',
 			function () { return ('Duel') },
 			function () {
-				let description = "<p>Enable this if you want to use automation features when running the <b>Duel</b> challenge.</p>";
+				let description = "<p>Enable this if you want to use automation features when running the <b>Duel</b>挑战中自动处理相关机制，可以启用该设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'C2', [2],
@@ -2234,7 +2234,7 @@ function initialiseAllSettings() {
 			function () { return ('D: Force x10 Health') },
 			function () {
 				let description = "<p>Enable this to have the script suicide when running <b>Duel</b> by setting equality to 0 when you don't have the 10x health buff.</p>";
-				description += "<p>Will only work if the <b>Auto Equality</b> setting is set to <b>Auto Equality: Advanced</b>."
+				description += "<p>Will only work if the <b>Auto Equality</b> setting is set to <b>Auto Equality: Advanced</b>时生效。"
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'C2', [2],
@@ -2243,8 +2243,8 @@ function initialiseAllSettings() {
 		createSetting('duelShield',
 			function () { return ('D: Shield') },
 			function () {
-				let description = "<p>The name of the shield you would like to equip while running <b>Duel</b>.</p>";
-				description += "<p>This will override all other heirloom swapping features and only use this shield during <b>Duel</b>!</p>"
+				let description = "<p>The name of the shield you would like to equip while running <b>Duel</b>挑战时使用的盾牌。</p>";
+				description += "<p>This will override all other heirloom swapping features and only use this shield during <b>Duel</b>挑战中将无视其他所有切换传家宝的设置！</p>"
 				description += "<p>Should ideally be a shield without the <b>Crit Chance</b> modifier.</p>";
 				description += "<p>Set to <b>undefined</b> to disable.</p>";
 				return description;
@@ -2334,7 +2334,7 @@ function initialiseAllSettings() {
 		createSetting('mapology',
 			function () { return ('Mapology') },
 			function () {
-				let description = "<p>Enable this if you want to use automation features when running the <b>Mapology</b> challenge.</p>";
+				let description = "<p>Enable this if you want to use automation features when running the <b>Mapology</b>挑战中自动处理相关机制，可以启用该设置。</p>";
 				description += "<p>When enabled the <b>PC: Force Prestige Z</b> setting is disabled and any raiding (including BW raiding) settings will climb until the prestige selected in the <b>M: Prestige</b> setting has been obtained.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
