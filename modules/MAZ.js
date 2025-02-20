@@ -1940,7 +1940,7 @@ function mapSettingsDropdowns(universe = game.global.universe, vals, varPrefix) 
 		return newObj;
 	}, {});
 	dropdown.challenge = "<option value='All'" + (vals.challenge === 'All' ? " selected='selected'" : '') + '>All</option>';
-	dropdown.challenge += "<option value='No Challenge'" + (vals.challenge === 'No Challenge' ? " selected='selected'" : '') + '>No Challenge</option>';
+	dropdown.challenge += "<option value='No Challenge'" + (vals.challenge === 'No Challenge' ? " selected='selected'" : '') + '>无挑战</option>';
 	for (let item in Object.keys(fillerObj)) {
 		let key = Object.keys(fillerObj)[item];
 		dropdown.challenge += "<option value='" + key + "'" + (vals.challenge === key ? " selected='selected'" : '') + '>' + key + '</option>';

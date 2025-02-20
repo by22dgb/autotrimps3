@@ -377,7 +377,7 @@ function initialiseAllSettings() {
 				description += `<p><b>${resourceName} Per Hour</b><br>Portals into new runs when your ${resourceName.toLowerCase()} per hour goes below your current runs best ${resourceName.toLowerCase()} per hour.</p>`;
 				description += `<p>There is a <b>Buffer</b> setting, which lowers the check from best ${resourceName.toLowerCase()} per hour to (best - buffer setting) ${resourceName.toLowerCase()} per hour.</p>`;
 				description += `<p><b>${resourceName} Challenges</b><br>When a challenge has been selected it will automatically portal into it when you don't have a challenge active.</p>`;
-				description += `<p><b>Custom</b>/<b>One Off Challenges</b><br>Will portal into the challenge selected in the <b>Challenge</b> setting at the zone specified in the <b>Portal Zone</b>中设置的区域。</p>`;
+				description += `<p><b>Custom</b>/<b>One Off Challenges</b><br>Will portal into the challenge selected in the <b>Challenge</b> setting at the zone specified in the <b>Portal Zone</b>设置的区域。</p>`;
 				if (game.stats.highestLevel.valueTotal() >= 65) {
 					description += `<p><b>${c2setting}</b><br>Will portal into the challenge selected in the <b>${c2abv}</b> setting. If not inside of a ${c2abv} then it will use the zone specified in the <b>Portal Zone</b> setting. When inside of ${c2abv}s it will use <b>${c2abv} Runner Portal</b> for your portal zone. If <b>${c2abv} Runner</b> is enabled otherwise will use the zone specified in the <b>Finish ${c2abv}</b> setting in the ${c2abv} settings tab.</p>`
 				}
@@ -2260,7 +2260,7 @@ function initialiseAllSettings() {
 		createSetting('trapper',
 			function () { return (atConfig.settingUniverse === 2 ? 'Trappapalooza' : 'Trapper') },
 			function () {
-				let description = "<p>Enable this if you want to use coordination witholding features when running the <b>" + (atConfig.settingUniverse === 2 ? 'Trappapalooza' : 'Trapper') + "</b> challenge.</p>";
+				let description = "<p>Enable this if you want to use coordination witholding features when running the <b>" + (atConfig.settingUniverse === 2 ? 'Trappapalooza' : 'Trapper') + "</b>挑战时可以自动管理协作。</p>";
 				description += "<p><b>Recommended:</b> Off</p>";
 				return description;
 			}, 'boolean', false, null, 'C2', [1, 2],
@@ -2280,7 +2280,7 @@ function initialiseAllSettings() {
 		createSetting('trapperCoords',
 			function () { return ('T: Coords') },
 			function () {
-				let description = "<p>The zone you would like to stop buying additional <b>Coordination</b> from.</p>";
+				let description = "<p>The zone you would like to stop buying additional <b>Coordination</b>升级。</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and not have a cap on <b>Coordination</b> purchases.</p>";
 				description += "<p>If set to <b>0 or below</b> and not running the " + _getChallenge2Info() + " version of the challenge it will override this and set it to " + (atConfig.settingUniverse === 2 ? '50' : '33') + ".</p>";
 				return description;
@@ -2290,7 +2290,7 @@ function initialiseAllSettings() {
 		createSetting('trapperArmySize',
 			function () { return ('T: Army Size') },
 			function () {
-				let description = "<p>The army size you would like to stop buying additional <b>Coordination</b> from.</p>";
+				let description = "<p>The army size you would like to stop buying additional <b>Coordination</b>升级。</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and not have a cap on <b>Coordination</b> purchases. This will cause it to use your current army size plus one coord purchase for trapping calculations.</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [1, 2],
@@ -2311,7 +2311,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>The percentage of owned trimps that you would like to send out when you need a new army.</p>";
 				description += "<p>If set to <b>0 or below</b> it will assume this is set to 100% and always send armies if possible.</p>";
-				description += "<p><b>Recommended:</b> 1</p>";
+				description += "<p><b>Recommended:</b>1</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [1, 2],
 			function () { return (getPageSetting('trapper', atConfig.settingUniverse) && autoTrimpSettings.trapper.require()) });
@@ -2319,8 +2319,8 @@ function initialiseAllSettings() {
 		createSetting('trapperShield',
 			function () { return ('T: Shield') },
 			function () {
-				let description = "<p>The name of the shield you would like to equip while running <b>" + (atConfig.settingUniverse === 2 ? 'Trappapalooza' : 'Trapper') + "</b>.</p>";
-				description += "<p>This will override all other heirloom swapping features and only use this shield during <b>" + (atConfig.settingUniverse === 2 ? 'Trappapalooza' : 'Trapper') + "</b>!</p>"
+				let description = "<p>The name of the shield you would like to equip while running <b>" + (atConfig.settingUniverse === 2 ? 'Trappapalooza' : 'Trapper') + "</b>挑战时使用的盾牌。</p>";
+				description += "<p>This will override all other heirloom swapping features and only use this shield during <b>" + (atConfig.settingUniverse === 2 ? 'Trappapalooza' : 'Trapper') + "</b>挑战中将无视其他所有切换传家宝的设置！</p>"
 				description += "<p>Set to <b>undefined</b> to disable.</p>";
 				return description;
 			}, 'textValue', 'undefined', null, 'C2', [1, 2],
@@ -2361,7 +2361,7 @@ function initialiseAllSettings() {
 			function () { return ('M: Prestige') },
 			function () {
 				let description = "<p>When running any prestige farming settings this will override the targetted prestige with the prestige selected here.</p>";
-				description += "<p><b>Recommended:</b> Axeidic for <b>push</b> runs or Bootboost for <b>speed</b> runs</p>";
+				description += "<p><b>Recommended:</b> Axeidic for <b>push</b> runs or Bootboost for <b>speed</b>时选择神行靴</p>";
 				return description;
 			}, 'dropdown', 'Bootboost', function () {
 				let equips = ['Off', 'Supershield', 'Dagadder', 'Bootboost', 'Megamace', 'Hellishmet', 'Polierarm', 'Pantastic', 'Axeidic', 'Smoldershoulder', 'Greatersword', 'Bestplate'];
@@ -2405,7 +2405,7 @@ function initialiseAllSettings() {
 			function () { return ('F: Heirloom Swap Zone') },
 			function () {
 				let description = "<p>The zone you'd like to swap to your afterpush shield during Frigid.</p>";
-				description += "<p>This overrides the " + _getChallenge2Info() + " heirloom swap setting input when set above <b>0</b>.</p>";
+				description += "<p>This overrides the " + _getChallenge2Info() + " heirloom swap setting input when set above <b>0</b>的数值时，将无视挑战²传家宝切换区域的设置。</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [1],
@@ -2415,9 +2415,9 @@ function initialiseAllSettings() {
 			function () { return ([`F: Portal On Finish: Off`, `F: Portal On Finish: On`, `F: Portal On Finish: After Voids`]) },
 			function () {
 				let description = "<p>Will allow you to force Auto Portal to run when the Frigd challenge is finished.</p>";
-				description += `<p><b>M: Portal On Finish: Off</b><br>Disables this setting entirely.</p>`;
-				description += `<p><b>M: Portal On Finish: On</b><br>Auto Portal upon finishing the challenge.</p>`;
-				description += `<p><b>M: Portal On Finish: After Voids</b><br>When you finish the challenge, this will run void maps then Auto Portal.</p>`;
+				description += `<p><b>F: Portal On Finish: Off</b><br>Disables this setting entirely.</p>`;
+				description += `<p><b>F: Portal On Finish: On</b><br>Auto Portal upon finishing the challenge.</p>`;
+				description += `<p><b>F: Portal On Finish: After Voids</b><br>When you finish the challenge, this will run void maps then Auto Portal.</p>`;
 				return description;
 			}, 'multitoggle', 0, null, 'C2', [1],
 			function () { return (getPageSetting('frigid', atConfig.settingUniverse) && autoTrimpSettings.frigid.require()) });
@@ -2425,7 +2425,7 @@ function initialiseAllSettings() {
 		createSetting('experience',
 			function () { return ('Experience') },
 			function () {
-				let description = "<p>Enable this if you want to automate wonder farming on the <b>Experience</b> challenge.</p>";
+				let description = "<p>Enable this if you want to automate wonder farming on the <b>Experience</b>挑战中自动刷奇物，可以启用该设置。</p>";
 				description += "<p>This setting is dependant on using <b>Bionic Raiding</b> in conjunction with it if you the Bionic Wonderland level you finish with to be higher than 605.</b></p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
@@ -2465,7 +2465,7 @@ function initialiseAllSettings() {
 		createSetting('experienceEndBW',
 			function () { return ('E: End BW') },
 			function () {
-				let description = "<p>Will finish the challenge with this Bionic Wonderland level once reaching the end zone specified in <b>E: End Zone</b>.</p>";
+				let description = "<p>Will finish the challenge with this Bionic Wonderland level once reaching the end zone specified in <b>E: End Zone</b>设置对应的区域时，将以该等级的仿生仙境地图完成挑战。</p>";
 				description += "<p><b>If the specified BW is not available, it will run the one closest to the setting.</b></p>";
 				description += "<p>When active and above zone 600 this will disable <b>BW Raiding Settings</b> until the <b>Experience</b> challenge has been completed.</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting and use Bionic Raiding settings instead to end the challenge.</p>";
@@ -2477,7 +2477,7 @@ function initialiseAllSettings() {
 		createSetting('wither',
 			function () { return ('Wither') },
 			function () {
-				let description = "<p>Enable this if you want to automate farming on the <b>Wither</b> challenge.</p>";
+				let description = "<p>Enable this if you want to automate farming on the <b>Wither</b>挑战中自动刷资源，可以启用该设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'C2', [2],
@@ -2494,7 +2494,7 @@ function initialiseAllSettings() {
 			function () { return (getPageSetting('wither', atConfig.settingUniverse) && autoTrimpSettings.wither.require()) });
 
 		createSetting('witherZones',
-			function () { return ('W: Wither Zone(s)') },
+			function () { return ('W: Wither Zone(s') },
 			function () {
 				let description = "<p>Input the zones you would like to Wither on and the script won't farm damage on this and at the end of the previous zone.</p>";
 				description += "<p>You can input multiple zones but they need to be seperated by commas.</p>";
@@ -2507,8 +2507,8 @@ function initialiseAllSettings() {
 		createSetting('witherShield',
 			function () { return ('W: Shield') },
 			function () {
-				let description = "<p>The name of the shield you would like to equip while running <b>Wither</b>.</p>";
-				description += "<p>This will override all other heirloom swapping features and only use this shield during <b>Wither</b>!</p>"
+				let description = "<p>The name of the shield you would like to equip while running <b>Wither</b>挑战时使用的盾牌。</p>";
+				description += "<p>This will override all other heirloom swapping features and only use this shield during <b>Wither</b>挑战中将无视其他所有切换传家宝的设置！</p>"
 				description += "<p>Should ideally be a shield without the <b>Plaguebringer</b> modifier.</p>";
 				description += "<p>Set to <b>undefined</b> to disable.</p>";
 				return description;
@@ -2527,7 +2527,7 @@ function initialiseAllSettings() {
 		createSetting('quest',
 			function () { return ('Quest') },
 			function () {
-				let description = "<p>Enable this if you want automate running quests when running the <b>Quest</b> challenge.</p>";
+				let description = "<p>Enable this if you want automate running quests when running the <b>Quest</b>挑战中自动完成任务，可以启用该设置。</p>";
 				description += "<p>Will only function properly with <b>AutoMaps</b> enabled.</p>";
 				description += "<p>Prestige Raiding is disabled when shield break quests are active to try and ensure you don't die.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
@@ -2541,7 +2541,7 @@ function initialiseAllSettings() {
 				let description = "<p>The maximum amount of maps you'd like to run to do a resource or one shot quests.</p>";
 				description += "<p><b>Will potentially skip quests if this value is too low!</b></p>";
 				description += "<p>During one shot quests it will farm until either you reach the map cap or have enough damage for the quest</p>";
-				description += "<p><b>Recommended:</b> 100</p>";
+				description += "<p><b>Recommended:</b>100</p>";
 				return description;
 			}, 'value', 100, null, 'C2', [2],
 			function () { return (getPageSetting('quest', atConfig.settingUniverse) && autoTrimpSettings.quest.require()) });
@@ -2564,7 +2564,7 @@ function initialiseAllSettings() {
 				let description = "<p>The maximum amount of maps you'd like to run to do a Smithy quest.</p>";
 				description += "<p><b>Will potentially skip Smithy quests if this value is too low!</b></p>";
 				description += "<p>This setting requires <b>AT Auto Structure</b> to be enabled to work.</p>";
-				description += "<p><b>Recommended:</b> 100</p>";
+				description += "<p><b>Recommended:</b>100</p>";
 				return description;
 			}, 'value', 100, null, 'C2', [2],
 			function () { return (getPageSetting('quest', atConfig.settingUniverse) && autoTrimpSettings.quest.require()) });
@@ -2575,7 +2575,7 @@ function initialiseAllSettings() {
 				let description = "<p>The amount of Smithies you'd like to buy up to when inside of a Spire.</p>";
 				description += "<p>This setting requires <b>AT Auto Structure</b> to be enabled to work.</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 20</p>";
+				description += "<p><b>Recommended:</b>20</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [0],
 			function () { return (getPageSetting('quest', atConfig.settingUniverse) && autoTrimpSettings.quest.require() && game.stats.highestRadLevel.valueTotal() >= 270) });
@@ -2583,7 +2583,7 @@ function initialiseAllSettings() {
 		createSetting('mayhem',
 			function () { return ('Mayhem') },
 			function () {
-				let description = "<p>Enable this if you want to automate destacking and other features when running the <b>Mayhem</b> challenge.</p>";
+				let description = "<p>Enable this if you want to automate destacking and other features when running the <b>Mayhem</b>挑战中自动减少相应层数或进行其他操作，可以启用该设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'C2', [2],
@@ -2596,7 +2596,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>What HD ratio cut-off to use when farming for the Improbability. If this setting is 100, the script will destack until you can kill the Improbability in 100 average hits or there are no Mayhem stacks remaining to clear.</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 10</p>";
+				description += "<p><b>Recommended:</b>10</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('mayhem', atConfig.settingUniverse) && autoTrimpSettings.mayhem.require()) });
@@ -2604,9 +2604,9 @@ function initialiseAllSettings() {
 		createSetting('mayhemZone',
 			function () { return ('M: Zone') },
 			function () {
-				let description = "<p>The zone you'd like to start destacking from, can be used in conjunction with <b>M: HD Ratio</b> but when you're at or above this zone it will clear stacks until 0 are remaining regardless of the value set in <b>M: HD Ratio</b>.</p>";
+				let description = "<p>The zone you'd like to start destacking from, can be used in conjunction with <b>M: HD Ratio</b> but when you're at or above this zone it will clear stacks until 0 are remaining regardless of the value set in <b>M: HD Ratio</b>设置的数值。</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> -1</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('mayhem', atConfig.settingUniverse) && autoTrimpSettings.mayhem.require()) });
@@ -2616,7 +2616,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Increases the minimum map level of Mayhem farming by this value.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and assume a map increase of 0.</p>";
-				description += "<p><b>Recommended:</b> 1</p>";
+				description += "<p><b>Recommended:</b>1</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('mayhem', atConfig.settingUniverse) && autoTrimpSettings.mayhem.require()) });
@@ -2625,7 +2625,7 @@ function initialiseAllSettings() {
 			function () { return ('M: Melting Point') },
 			function () {
 				let description = "<p>The amount of smithies you'd like to run Melting Point at during Mayhem.</p>";
-				description += "<p>This overrides the Smithy unique map settings input when set above <b>0</b>.</p>";
+				description += "<p>This overrides the Smithy unique map settings input when set above <b>0</b>的数值时，将无视独特地图设置中的相应设置。</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('mayhem', atConfig.settingUniverse) && autoTrimpSettings.mayhem.require()) });
@@ -2634,8 +2634,8 @@ function initialiseAllSettings() {
 			function () { return ('M: Heirloom Swap Zone') },
 			function () {
 				let description = "<p>The zone you'd like to swap to your afterpush shield on Mayhem.</p>";
-				description += "<p>This overrides the " + _getChallenge2Info() + " heirloom swap setting input when set above <b>0</b>.</p>";
-				description += "<p>Set to <b>undefined</b> to disable.</p>";
+				description += "<p>This overrides the " + _getChallenge2Info() + " heirloom swap setting input when set above <b>0</b>的数值时，将无视挑战³传家宝切换区域的设置。</p>";
+				description += "<p>Set to <b>0 or below</b> to disable.</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('mayhem', atConfig.settingUniverse) && autoTrimpSettings.mayhem.require()) });
@@ -2654,7 +2654,7 @@ function initialiseAllSettings() {
 		createSetting('storm',
 			function () { return ('Storm') },
 			function () {
-				let description = "<p>Enable this if you want to automate destacking when running the <b>Storm</b> challenge.</p>";
+				let description = "<p>Enable this if you want to automate destacking when running the <b>Storm</b>挑战中自动减少相应层数，可以启用该设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'C2', [2],
@@ -2664,9 +2664,9 @@ function initialiseAllSettings() {
 			function () { return ('S: Zone') },
 			function () {
 				let description = "<p>From which zone destacking should be considered.</p>";
-				description += "<p>Must be used in conjunction with <b>S: Stacks</b></p>";
+				description += "<p>Must be used in conjunction with <b>S: Stacks</b>一起使用。</p>";
 				description += "<p>If set to <b>0 or below</b> it will never destack.</p>";
-				description += "<p><b>Recommended:</b> 6</p>";
+				description += "<p><b>Recommended:</b>6</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('storm', atConfig.settingUniverse) && autoTrimpSettings.storm.require()) });
@@ -2677,7 +2677,7 @@ function initialiseAllSettings() {
 				let description = "<p>Minimal amount of stacks to reach before starting destacking</p>";
 				description += "<p>Once it starts destacking it will destack until you have no Cloudy stacks remaining.</p>";
 				description += "<p>If set to <b>0 or below</b> it will never destack.</p>";
-				description += "<p><b>Recommended:</b> 10</p>";
+				description += "<p><b>Recommended:</b>10</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('storm', atConfig.settingUniverse) && autoTrimpSettings.storm.require()) });
@@ -2685,7 +2685,7 @@ function initialiseAllSettings() {
 		createSetting('berserk',
 			function () { return ('Berserk') },
 			function () {
-				let description = "<p>Enable this if you want the script to perform additional actions during the <b>Berserk</b> challenge.</p>";
+				let description = "<p>Enable this if you want the script to perform additional actions during the <b>Berserk</b>挑战中进行更多操作，可以启用该设置。</p>";
 				description += "<p>If enabled it will only allows mapping settings with a Berserk challenge line to be run.</p>";
 				description += "<p>If your army dies then it will go into a level 6 map and farm until you have max Frenzied stacks to ensure you're always the strongest you can be. It <b>will</b> also abandon maps that are in the middle of being run to go obtain these stacks!</p>";
 				description += "<p><b>Recommended:</b> On</p>";
@@ -2706,7 +2706,7 @@ function initialiseAllSettings() {
 		createSetting('pandemonium',
 			function () { return ('Pandemonium') },
 			function () {
-				let description = "<p>Enable this if you want to automate destacking and other features when running the <b>Pandemonium</b> challenge.</p>";
+				let description = "<p>Enable this if you want to automate destacking and other features when running the <b>Pandemonium</b>挑战中自动减少相应层数或进行其他操作，可以启用该设置。</p>";
 				description += "<p><b>Recommended:</b> On</p>";;
 				return description;
 			}, 'boolean', false, null, 'C2', [2],
@@ -2716,9 +2716,9 @@ function initialiseAllSettings() {
 			function () { return ('P: HD Ratio') },
 			function () {
 				let description = "<p>What HD ratio cut-off to use when farming for the Improbability. If this setting is 100, the script will destack until you can kill the Improbability in 100 average hits or there are no Pandemonium stacks remaining to clear.</p>";
-				description += "<p>Destacking will use Fast Attack maps when you don't have <b>Hyperspeed 2</b> for your current zone otherwise it will use Large Metal Cache maps.</p>"
+				description += "<p>Destacking will use Fast Attack maps when you don't have <b>风驰电掣 II</b> for your current zone otherwise it will use Large Metal Cache maps.</p>"
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 10</p>";
+				description += "<p><b>Recommended:</b>10</p>";
 				return description;
 			}, 'value', 10, null, 'C2', [2],
 			function () { return (getPageSetting('pandemonium', atConfig.settingUniverse) && autoTrimpSettings.pandemonium.require()) });
@@ -2727,9 +2727,9 @@ function initialiseAllSettings() {
 			function () { return ('P: Destack Zone') },
 			function () {
 				let description = "<p>The zone you'd like to start destacking from, can be used in conjunction with <b>P: HD Ratio</b> but when you're at or above this zone it will clear stacks until 0 are remaining regardless of the value set in <b>P: HD Ratio</b>.</p>";
-				description += "<p>Destacking will use Fast Attack maps when you don't have <b>Hyperspeed 2</b> for your current zone otherwise it will use Large Metal Cache maps.</p>";
+				description += "<p>Destacking will use Fast Attack maps when you don't have <b>风驰电掣 II</b> for your current zone otherwise it will use Large Metal Cache maps.</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> -1</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('pandemonium', atConfig.settingUniverse) && autoTrimpSettings.pandemonium.require()) });
@@ -2763,7 +2763,7 @@ function initialiseAllSettings() {
 		createSetting('pandemoniumAERatio',
 			function () { return ('P AE: HD Ratio') },
 			function () {
-				let description = "<p>Only farm for equipment when your <b>World HD Ratio</b> is above this value.</p>";
+				let description = "<p>Only farm for equipment when your <b>World HD Ratio</b>超过该设置的数值时刷装备。</p>";
 				description += "<p>Will only farm for equipment levels when above cell 91 and below zone 150.</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting and always farm if equips are attainable through farming.</p>";
 				return description;
@@ -2783,7 +2783,7 @@ function initialiseAllSettings() {
 			function () { return ('P: Melting Point') },
 			function () {
 				let description = "<p>The amount of smithies you'd like to run Melting Point at during Pandemonium.</p>";
-				description += "<p>This overrides the Smithy unique map settings input when set above <b>0</b>.</p>";
+				description += "<p>This overrides the Smithy unique map settings input when set above <b>0</b>的数值时，将无视独特地图设置中的相应设置。</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('pandemonium', atConfig.settingUniverse) && autoTrimpSettings.pandemonium.require()) });
@@ -2792,7 +2792,7 @@ function initialiseAllSettings() {
 			function () { return ('P: Heirloom Swap Zone') },
 			function () {
 				let description = "<p>The zone you'd like to swap to your afterpush shield on Pandemonium.</p>";
-				description += "<p>This overrides the " + _getChallenge2Info() + " heirloom swap setting input when set above <b>0</b>.</p>";
+				description += "<p>This overrides the " + _getChallenge2Info() + " heirloom swap setting input when set above <b>0</b>的数值时，将无视挑战³传家宝切换区域的设置。</p>";
 				description += "<p>Set to <b>undefined</b> to disable.</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
@@ -2812,7 +2812,7 @@ function initialiseAllSettings() {
 		createSetting('glass',
 			function () { return ('Glass') },
 			function () {
-				let description = "<p>Enable this if you want to automate destacking and farming when running the <b>Glass</b> challenge.</p>";
+				let description = "<p>Enable this if you want to automate destacking and farming when running the <b>Glass</b>挑战中自动减少相应层数或刷资源，可以启用该设置。</p>";
 				description += "<p>Will farm for damage if you can't clear stacks in a world level or above map.</p>";
 				description += "<p>When at cell 100 of a zone it checks if you can clear world level maps on the next zone and if you can't it will farm damage until you are able to.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
@@ -2825,7 +2825,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Minimal amount of stacks to reach before starting destacking</p>";
 				description += "<p>Once it starts destacking it will destack until you have no Glass stacks remaining.</p>";
-				description += "<p><b>Recommended:</b> 10</p>";
+				description += "<p><b>Recommended:</b>10</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('glass', atConfig.settingUniverse) && autoTrimpSettings.glass.require()) });
@@ -2833,7 +2833,7 @@ function initialiseAllSettings() {
 		createSetting('desolation',
 			function () { return ('Desolation') },
 			function () {
-				let description = "<p>Enable this if you want to automate destacking and other features when running the <b>Desolation</b> challenge.</p>";
+				let description = "<p>Enable this if you want to automate destacking and other features when running the <b>Desolation</b>挑战中自动减少相应层数或进行其他操作，可以启用该设置。</p>";
 				description += "<p>Once this starts destacking it will destack until you have no chilled stacks remaining.</p>";
 				description += "<p>If enabled then this will <b>always</b> reduce your chilled stacks to 0 before doing any other form of mapping.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
@@ -2845,9 +2845,9 @@ function initialiseAllSettings() {
 			function () { return ('D: HD Ratio') },
 			function () {
 				let description = "<p>At what HD ratio destacking should be considered.</p>";
-				description += "<p>Must be used in conjunction with <b>D: Stacks</b>.</p>";
+				description += "<p>Must be used in conjunction with <b>D: Stacks</b>一起使用。</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 0.0001</p>";
+				description += "<p><b>Recommended:</b>0.0001</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('desolation', atConfig.settingUniverse) && autoTrimpSettings.desolation.require()) });
@@ -2856,9 +2856,9 @@ function initialiseAllSettings() {
 			function () { return ('D: Zone') },
 			function () {
 				let description = "<p>From which zone destacking should be considered.</p>";
-				description += "<p>Must be used in conjunction with <b>D: Stacks</b>.</p>";
+				description += "<p>Must be used in conjunction with <b>D: Stacks</b>一起使用。</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> -1</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('desolation', atConfig.settingUniverse) && autoTrimpSettings.desolation.require()) });
@@ -2869,7 +2869,7 @@ function initialiseAllSettings() {
 				let description = "<p>Minimal amount of stacks to reach before starting destacking</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and automatically destack at 300 stacks.</p>";
 				description += "<p>Once it starts destacking it will destack until you have no Chilled stacks remaining.</p>";
-				description += "<p><b>Recommended:</b> 300</p>";
+				description += "<p><b>Recommended:</b>300</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('desolation', atConfig.settingUniverse) && autoTrimpSettings.desolation.require()) });
@@ -2889,7 +2889,7 @@ function initialiseAllSettings() {
 		createSetting('desolationSpecial',
 			function () { return ('D: Hyperspeed 2 LMC') },
 			function () {
-				let description = "<p>If enabled this will use the Large Metal Cache special rather than not using a special modifier when destacking on zones that you have the <b>Hyperspeed 2</b> talent active.</p>";
+				let description = "<p>If enabled this will use the Large Metal Cache special rather than not using a special modifier when destacking on zones that you have the <b>风驰电掣 II</b> talent active.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', true, null, 'C2', [2],
@@ -2899,7 +2899,7 @@ function initialiseAllSettings() {
 			function () { return ('D: Melting Point') },
 			function () {
 				let description = "<p>The amount of smithies you'd like to run Melting Point at during Desolation.</p>";
-				description += "<p>This overrides the Smithy unique map settings input when set above <b>0</b>.</p>";
+				description += "<p>This overrides the Smithy unique map settings input when set above <b>0</b>的数值时，将无视独特地图设置中的相应设置。</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
 			function () { return (getPageSetting('desolation', atConfig.settingUniverse) && autoTrimpSettings.desolation.require()) });
@@ -2908,7 +2908,7 @@ function initialiseAllSettings() {
 			function () { return ('D: Heirloom Swap') },
 			function () {
 				let description = "<p>The zone you'd like to swap to your afterpush shield on Desolation.</p>";
-				description += "<p>This overrides the " + _getChallenge2Info() + " heirloom swap setting input when set above <b>0</b>.</p>";
+				description += "<p>This overrides the " + _getChallenge2Info() + " heirloom swap setting input when set above <b>0</b>的数值时，将无视挑战³传家宝切换区域的设置。</p>";
 				description += "<p>Set to <b>undefined</b> to disable.</p>";
 				return description;
 			}, 'value', -1, null, 'C2', [2],
@@ -2918,9 +2918,9 @@ function initialiseAllSettings() {
 			function () { return ([`D: Portal On Finish: Off`, `D: Portal On Finish: On`, `D: Portal On Finish: After Voids`]) },
 			function () {
 				let description = "<p>Will allow you to force Auto Portal to run when the Desolation challenge is finished.</p>";
-				description += `<p><b>M: Portal On Finish: Off</b><br>Disables this setting entirely.</p>`;
-				description += `<p><b>M: Portal On Finish: On</b><br>Auto Portal upon finishing the challenge.</p>`;
-				description += `<p><b>M: Portal On Finish: After Voids</b><br>When you finish the challenge, this will run void maps then Auto Portal.</p>`;
+				description += `<p><b>D: Portal On Finish: Off</b><br>Disables this setting entirely.</p>`;
+				description += `<p><b>D: Portal On Finish: On</b><br>Auto Portal upon finishing the challenge.</p>`;
+				description += `<p><b>D: Portal On Finish: After Voids</b><br>When you finish the challenge, this will run void maps then Auto Portal.</p>`;
 				return description;
 			}, 'multitoggle', 0, null, 'C2', [2],
 			function () { return (getPageSetting('desolation', atConfig.settingUniverse) && autoTrimpSettings.desolation.require()) });
@@ -2928,7 +2928,7 @@ function initialiseAllSettings() {
 		createSetting('desolationSettings',
 			function () { return ('Desolation Settings') },
 			function () {
-				let description = "<p>Here you can select how and when you would like to prestige scum equipment whilst running <b>Desolation</b>.</p>";
+				let description = "<p>Here you can select how and when you would like to prestige scum equipment whilst running <b>Desolation</b>挑战时以取巧手段获取装备重铸升级的设置。</p>";
 				description += "<p><b>Click to adjust settings.</b></p>";
 				description += "<p><b>This definitely shouldn't exist so be aware this is exploiting unintentional game mechanics.</b></p>";
 				description += "<p>If needed, the <b>Help</b> button at the bottom left of the popup window has information for all of the inputs.</p>";
@@ -2939,7 +2939,7 @@ function initialiseAllSettings() {
 		createSetting('smithless',
 			function () { return ('Smithless') },
 			function () {
-				let description = "<p>Enable this if you want to automate farming to obtain maximum Enhanced Armor stacks against Ubersmiths when running the <b>Smithless</b> challenge.</p>";
+				let description = "<p>Enable this if you want to automate farming to obtain maximum Enhanced Armor stacks against Ubersmiths when running the <b>Smithless</b>挑战中自动刷资源，以尽可能获取强化护甲层数，可以启用该设置。</p>";
 				description += "<p>It will identify breakpoints that can be reached with max tenacity & max map bonus to figure out how many stacks you are able to obtain from an Ubersmith and farm till it reachs that point if it's attainable.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
@@ -2973,9 +2973,9 @@ function initialiseAllSettings() {
 				return ('Buy ' + (atConfig.settingUniverse === 2 ? "Radonculous" : "Heliumy") + ' %')
 			},
 			function () {
-				let description = "<p>Buys the <b>" + (atConfig.settingUniverse === 2 ? "Radonculous" : "Heliumy") + "</b> bonus for <b>100 bones</b> when the daily bonus is above this value.</p>";
+				let description = "<p>Buys the <b>" + (atConfig.settingUniverse === 2 ? "氡丰" : "氦奇") + "</b> bonus for <b>100 bones</b> when the daily bonus is above this value.</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> -1.</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Daily', [1, 2]);
 
@@ -3044,12 +3044,12 @@ function initialiseAllSettings() {
 		createSetting('dailyPortal',
 			function () { return [`Daily Portal: Off`, `Daily Portal: ${_getPrimaryResourceInfo().abv}/Hr`, `Daily Portal: Custom`, `Daily Portal: Abandon`] },
 			function () {
-				let description = `<p>Will automatically portal into different challenges depending on the way you setup the Daily Auto Portal related settings. The challenge that it portals into can be setup through the <b>Auto Portal</b> setting in the <b>Core</b> tab.</p>`;
+				let description = `<p>Will automatically portal into different challenges depending on the way you setup the Daily Auto Portal related settings. The challenge that it portals into can be setup through the <b>Auto Portal</b> setting in the <b>Core</b>选项卡下)。</p>`;
 				description += `<p>Additional settings appear when <b>Daily Portal: ${_getPrimaryResourceInfo().abv}/Hr</b> or <b>Daily Portal: Custom</b> are selected.</p>`;
-				description += `<p><b>Daily Portal: Off</b><br>Disables this setting. Be warned it will never end your dailies unless you use the <b>Portal After</b> option in <b>Void Map Settings!</b></p>`;
+				description += `<p><b>Daily Portal: Off</b><br>Disables this setting. Be warned it will never end your dailies unless you use the <b>Portal After</b> option in <b>Void Map Settings!</b>中)，否则将无法自动完成日常！</p>`;
 				description += `<p><b>Daily Portal: ${_getPrimaryResourceInfo().abv}/Hr</b><br>Portals into new runs when your ${_getPrimaryResourceInfo().name.toLowerCase()} per hour goes below your current runs best ${_getPrimaryResourceInfo().name.toLowerCase()} per hour.</p>`;
 				description += `<p>There is a <b>Buffer</b> setting, which lowers the check from best ${_getPrimaryResourceInfo().name.toLowerCase()} per hour to (best - buffer setting) ${_getPrimaryResourceInfo().name.toLowerCase()} per hour.</p>`;
-				description += `<p><b>Daily Portal: Custom</b><br>Will portal into your Auto Portal challenge at the zone specified in the <b>Daily Portal Zone</b> setting.</p>`;
+				description += `<p><b>Daily Portal: Custom</b><br>Will portal into your Auto Portal challenge at the zone specified in the <b>Daily Portal Zone</b>设置的区域。</p>`;
 				description += `<p><b>Daily Portal: Abandon</b><br>Will finish your daily run at the zone specified in the <b>Daily Abandon Zone</b> setting. You will need to use the regular Auto Portal to portal when using this and the <b>Filler Run</b> setting will be disabled.</p>`;
 				description += `<p><b>Recommended:</b> ${atConfig.settingUniverse === 2 ? "Daily Portal: Custom with a specified endzone to make use of Scruffy's level 3 ability" : `Daily Portal: ${_getPrimaryResourceInfo().abv}/Hr`}</p>`;
 				return description;
@@ -3058,8 +3058,8 @@ function initialiseAllSettings() {
 		createSetting('dailyPortalZone',
 			function () { return ('Daily Portal Zone') },
 			function () {
-				let description = "<p>Will automatically portal once this zone is reached when using the <b>Daily Portal: Custom</b> Auto Portal setting.</p>";
-				description += "<p>Setting this to <b>200</b> would portal when you <b>reach</b> zone 200.</p>";
+				let description = "<p>Will automatically portal once this zone is reached when using the <b>Daily Portal: Custom</b>自动传送设置时，将在到达该区域后传送。</p>";
+				description += "<p>Setting this to <b>200</b> would portal when you <b>reach</b>区域200时传送。</p>";
 				description += "<p><b>Recommended:</b> The zone you would like your run to end</p>";
 				return description;
 			}, 'value', 999, null, 'Daily', [1, 2],
@@ -3068,8 +3068,8 @@ function initialiseAllSettings() {
 		createSetting('dailyAbandonZone',
 			function () { return ('Daily Abandon Zone') },
 			function () {
-				let description = "<p>Will automatically abandon your daily once this zone is reached when using the <b>Daily Portal: Abandon</b> Auto Portal setting.</p>";
-				description += "<p>Setting this to <b>200</b> would abandon when you <b>reach</b> zone 200.</p>";
+				let description = "<p>Will automatically abandon your daily once this zone is reached when using the <b>Daily Portal: Abandon</b>自动传送设置时，将在到达该区域后完成日常。</p>";
+				description += "<p>Setting this to <b>200</b> would abandon when you <b>reach</b>区域200时完成日常。</p>";
 				description += "<p><b>Recommended:</b> The zone you would like your daily to end</p>";
 				return description;
 			}, 'value', 999, null, 'Daily', [1, 2],
@@ -3078,7 +3078,7 @@ function initialiseAllSettings() {
 		createSetting('dailyDontPortalBefore',
 			function () { return ("Daily: Don't Portal Before") },
 			function () {
-				let description = "<p>Will stop the script from automatically portaling before the specified zone when using the <b>Daily Portal: " + _getPrimaryResourceInfo().abv + "/Hr</b> Auto Portal setting.</p>";
+				let description = "<p>Will stop the script from automatically portaling before the specified zone when using the <b>Daily Portal: " + _getPrimaryResourceInfo().abv + "/Hr</b>自动传送设置时，在到达该区域之前不会触发自动传送。</p>";
 				description += "<p>It is an additional check that prevents drops in " + _getPrimaryResourceInfo().name.toLowerCase() + " per hour from triggering Auto Portal.</p>";
 				description += "<p>The portal after checkbox in <b>Void Map Setting</b> will override this and allow portaling before the zone set here.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and allow portaling on any zone.</p>";
@@ -3093,7 +3093,7 @@ function initialiseAllSettings() {
 				let description = "<p>When using the <b>Daily Portal: " + _getPrimaryResourceInfo().abv + "/Hr</b> Auto Portal setting, it will portal if your " + _getPrimaryResourceInfo().name.toLowerCase() + " per hour drops by this settings % input lower than your best for current run.</p>";
 				description += "<p>Allows portaling midzone if you exceed the set buffer amount by 5x. (ie a normal 2% buffer setting would now portal mid-zone if you fall below 10% buffer).</p>";
 				description += "<p><b>Set to 0 to disable this setting.</b></p>";
-				description += "<p><b>Recommended:</b> 4</p>";
+				description += "<p><b>Recommended:</b>4</p>";
 				return description;
 			}, 'value', 0, null, 'Daily', [1, 2],
 			function () { return (getPageSetting('dailyPortal', atConfig.settingUniverse) === 1) });
@@ -3154,7 +3154,7 @@ function initialiseAllSettings() {
 			function () { return ('UWC: Amount') },
 			function () {
 				let description = "<p>Will cause the script to only start dailies when you have at least this amount available to run.</p>";
-				description += "<p><b>Recommended:</b> 7</p>";
+				description += "<p><b>Recommended:</b>7</p>";
 				return description;
 			}, 'value', 7, null, 'Daily', [1, 2],
 			function () { return getPageSetting('dailyDontCap', atConfig.settingUniverse) });
@@ -3544,7 +3544,7 @@ function initialiseAllSettings() {
 				let description = "<p>Allows you to make it so that auto heirlooms will keep heirlooms if they have <b>X</b> amount of the mods you have setup in the different heirloom type options.</p>";
 				description += "<p>When using this I recommend not setting any of the mod inputs to <b>Any</b> as it can cause you to keep heirlooms with more suboptimal mods than you desire.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and have the script assume you want to only keep perfect heirlooms.</p>";
-				description += "<p><b>Recommended:</b> 0</p>";
+				description += "<p><b>Recommended:</b>0</p>";
 				return description;
 			}, 'value', 0, null, 'Heirloom', [1, 2],
 			function () { return (getPageSetting('heirloomAuto', atConfig.settingUniverse)) });
@@ -3555,7 +3555,7 @@ function initialiseAllSettings() {
 				let description = "<p>Allows you to make it so that auto heirlooms will keep Cores if they have <b>X</b> amount of the mods you have setup in the different heirloom type options.</p>";
 				description += "<p>When using this I recommend not setting any of the mod inputs to <b>Any</b> as it can cause you to keep heirlooms with more suboptimal mods than you desire.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and have the script assume you want to only keep perfect heirlooms.</p>";
-				description += "<p><b>Recommended:</b> 0</p>";
+				description += "<p><b>Recommended:</b>0</p>";
 				return description;
 			}, 'value', 0, null, 'Heirloom', [1, 2],
 			function () { return (getPageSetting('heirloomAuto', atConfig.settingUniverse)) });
@@ -3768,7 +3768,7 @@ function initialiseAllSettings() {
 				description += "<p><b>Works based off cell number so if you want it to exit after Row #4 then set to 40.</b></p>";
 				description += "<p>HD Ratio and Hits Survived calculations for the Spire will be based off this cell if set.</p>";
 				description += "<p>Set to <b>below 0</b> to disable this setting.</p>";
-				description += "<p><b>Recommended:</b> -1</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1,2]);
 
@@ -3778,7 +3778,7 @@ function initialiseAllSettings() {
 				let description = "<p>Set the number of <b>Nurseries</b> to build during active Spires.</p>";
 				description += "<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b> setting.</b></p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p><b>Recommended:</b> -1</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1]);
 		
@@ -3806,8 +3806,8 @@ function initialiseAllSettings() {
 				description += "<p>Will use the <b>Map Cap</b> and <b>Job Ratio</b> inputs that have been set in the top row of the <b>HD Farm</b> setting. If they haven't been setup then it will default to a job ratio of <b>1/1/2</b> and a map cap of <b>100</b>.</p>";
 				description += "<p><b>Will override the Hits Survived setting in the <b>Maps</b> tab so if this is disabled it won't farm for health at all during active Spires.</b></p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				if (atConfig.settingUniverse === 1) description += "<p><b>Recommended:</b> 10</p>";
-				else description += "<p><b>Recommended:</b> -1</p>";
+				if (atConfig.settingUniverse === 1) description += "<p><b>Recommended:</b>10</p>";
+				else description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1, 2]);
 			
@@ -3836,7 +3836,7 @@ function initialiseAllSettings() {
 				description += `<p><b>Works based off cell number so if you want it to exit after Row #4 then set to 40.</b></p>`;
 				description += `<p>HD Ratio and Hits Survived calculations for the Spire will be based off this cell if set.</p>`;
 				description += `<p>Set to <b>below 0</b> to disable this setting.</p>`;
-				description += `<p><b>Recommended:</b> -1</p>`;
+				description += `<p><b>Recommended:</b>-1</p>`;
 				return description;
 			}, 'value', -1, null, 'Spire', [1, 2]);
 
@@ -3846,7 +3846,7 @@ function initialiseAllSettings() {
 				let description = `<p>Set the number of <b>Nurseries</b> to build during active Spires.</p>`;
 				description += `<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b> setting.</b></p>`;
 				description += `<p>Set to <b>0 or below</b> to disable this setting.</p>`;
-				description += `<p><b>Recommended:</b> -1</p>`;
+				description += `<p><b>Recommended:</b>-1</p>`;
 				return description;
 			}, 'value', -1, null, 'Spire', [1]);
 
@@ -3874,8 +3874,8 @@ function initialiseAllSettings() {
 				description += "<p>Will use the <b>Map Cap</b> and <b>Job Ratio</b> inputs that have been set in the top row of the <b>HD Farm</b> setting. If they haven't been setup then it will default to a job ratio of <b>1/1/2</b> and a map cap of <b>100</b>.</p>";
 				description += "<p><b>Will override the Hits Survived setting in the <b>Maps</b> tab so if this is disabled it won't farm for health at all during active Spires.</b></p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				if (atConfig.settingUniverse === 1) description += "<p><b>Recommended:</b> 10</p>";
-				else description += "<p><b>Recommended:</b> -1</p>";
+				if (atConfig.settingUniverse === 1) description += "<p><b>Recommended:</b>10</p>";
+				else description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1, 2]);
 			
@@ -3904,7 +3904,7 @@ function initialiseAllSettings() {
 				description += "<p><b>Works based off cell number so if you want it to exit after Row #4 then set to 40.</b></p>";
 				description += "<p>HD Ratio and Hits Survived calculations for the Spire will be based off this cell if set.</p>";
 				description += "<p>Set to <b>below 0</b> to disable this setting.</p>";
-				description += "<p><b>Recommended:</b> -1</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1, 2]);
 
@@ -3914,7 +3914,7 @@ function initialiseAllSettings() {
 				let description = "<p>Set the number of <b>Nurseries</b> to build during active Spires.</p>";
 				description += "<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b> setting.</b></p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p><b>Recommended:</b> -1</p>";
+				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1]);
 
@@ -3942,8 +3942,8 @@ function initialiseAllSettings() {
 				description += "<p>Will use the <b>Map Cap</b> and <b>Job Ratio</b> inputs that have been set in the top row of the <b>HD Farm</b> setting. If they haven't been setup then it will default to a job ratio of <b>1/1/2</b> and a map cap of <b>100</b>.</p>";
 				description += "<p><b>Will override the Hits Survived setting in the <b>Maps</b> tab so if this is disabled it won't farm for health at all during active Spires.</b></p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				if (atConfig.settingUniverse === 1) description += "<p><b>Recommended:</b> 10</p>";
-				else description += "<p><b>Recommended:</b> -1</p>";
+				if (atConfig.settingUniverse === 1) description += "<p><b>Recommended:</b>10</p>";
+				else description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1, 2]);
 			
@@ -4092,7 +4092,7 @@ function initialiseAllSettings() {
 			function () { return ('Runs for Upgrades') },
 			function () {
 				let description = "<p>The maximum number of runs to be spent on the most efficient upgrade.</p>";
-				description += "<p><b>Recommended:</b> 2</p>";
+				description += "<p><b>Recommended:</b>2</p>";
 				return description;
 			}, 'value', 2, null, 'Magma', [1]);	
 		createSetting('magmiteOneTimerRuns',
@@ -4100,7 +4100,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>If purchasable in this amount of runs then the algorithm will prioritize one-time upgrades over regular upgrades.</p>";
 				description += "<p><b>Will only purchase <b>Hybridization</b> when <b>Storage</b> has been purchased.</p>";
-				description += "<p><b>Recommended:</b> 2</p>";
+				description += "<p><b>Recommended:</b>2</p>";
 				return description;
 			}, 'value', 2, null, 'Magma', [1]);		
 	}
@@ -4273,8 +4273,8 @@ function initialiseAllSettings() {
 			function () { return ('Fluffy: Min Zone') },
 			function () {
 				let description = "<p>From which zone evolving should be considered.</p>";
-				description += "<p>Must be used in conjunction with <b>Fluffy: Max Zone</b>.</p>";
-				description += "<p><b>Recommended:</b> 0</p>";
+				description += "<p>Must be used in conjunction with <b>Fluffy: Max Zone</b>一起使用。</p>";
+				description += "<p><b>Recommended:</b>0</p>";
 				return description;
 			}, 'value', -1, null, 'Fluffy', [1],
 			function () { return (getPageSetting('fluffyEvolve', atConfig.settingUniverse)) });
@@ -4283,8 +4283,8 @@ function initialiseAllSettings() {
 			function () { return ('Fluffy: Max Zone') },
 			function () {
 				let description = "<p>From which zone evolving should stop being considered.</p>";
-				description += "<p>Must be used in conjunction with <b>Fluffy: Min Zone</b>.</p>";
-				description += "<p><b>Recommended:</b> 999</p>";
+				description += "<p>Must be used in conjunction with <b>Fluffy: Min Zone</b>一起使用。</p>";
+				description += "<p><b>Recommended:</b>999</p>";
 				return description;
 			}, 'value', -1, null, 'Fluffy', [1],
 			function () { return (getPageSetting('fluffyEvolve', atConfig.settingUniverse)) });
@@ -4295,7 +4295,7 @@ function initialiseAllSettings() {
 				let description = "<p>How many Bone Portals to use when the script evolves Fluffy.</p>";
 				description += "<p>If set above 0 and you don't have enough bones to afford the necessary bone portals then the script won't evolve until you have enough bones.</p>";
 				description += "<p>If set to <b>0 or below</b> it will disable this setting.</p>";
-				description += "<p><b>Recommended:</b> 1</p>";
+				description += "<p><b>Recommended:</b>1</p>";
 				return description;
 			}, 'value', -1, null, 'Fluffy', [1],
 			function () { return (getPageSetting('fluffyEvolve', atConfig.settingUniverse)) });
@@ -4382,7 +4382,7 @@ function initialiseAllSettings() {
 				description += "<p>If set to 20 it will run once every 20 times the games code runs. The lower you set this value the longer time warp will take.</p>";
 				description += `<p>Auto Maps, Auto Fight, Auto Portal, and Auto ${universeSetting} will run every time the game runs its code regardless of this input.</p>`;
 				description += "<p>Liquification zones override this and temporarily set it to 1.</p>";
-				description += "<p><b>Recommended:</b> 20</p>";
+				description += "<p><b>Recommended:</b>20</p>";
 				return description;
 			}, 'value', 1, null, 'Time Warp', [0],
 			function () { return (autoTrimpSettings.timeWarpSpeed.enabled) });
@@ -5165,7 +5165,7 @@ function autoSetText(id, multiValue) {
 		} else {
 			displayText = textVal.length > 18 ? textVal.substring(0, 18) + '...' : textVal;
 		}
-		element.innerHTML = setting.name() + ': ' + displayText;
+		element.innerHTML = setting.name() + '<i></i>：<i></i>' + displayText;
 
 		const elemText = element.innerHTML.replace(/<span class="icomoon icon-infinity"><\/span>/g, '∞');
 		/*if (elemText.length > 26) {
