@@ -43,7 +43,7 @@ function initialiseVoidMapClarifier() {
         const textareaVoidmapInfo = document.createElement('SPAN');
         containerVoidMapInfo.setAttribute('onmouseover', VMC_populateVoidMapTooltip());
         containerVoidMapInfo.setAttribute('onmouseout', 'tooltip("hide")');
-        containerVoidMapInfo.setAttribute('onclick', 'window.open("https://stellar-demesne.github.io/Trimps-VoidMapClarifier/")');
+        containerVoidMapInfo.setAttribute('onclick', 'window.open("https://by22dgb.github.io/autotrimps3/Void Map Drop Explanation.html")');
         textareaVoidmapInfo.id = 'VoidMapClarifier';
         containerVoidMapInfo.appendChild(textareaVoidmapInfo);
         let target_area = document.getElementById('science');

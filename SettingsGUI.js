@@ -4476,7 +4476,7 @@ function initialiseAllSettings() {
 			function () { return ('Sit In maps') },
 			function () {
 				let description = "<p>Will force your trimps to go sit in the map chamber when enabled.</p>";
-				description += "<p><b>The <b>Sit In Zone</b> setting must be setup for this to work.</b></p>"
+				description += "<p><b>必须进行<b>Sit In Zone</b> setting must be setup for this to work.</b></p>"
 				description += "<p><b>Recommended:</b> Disabled</p>";
 				return description;
 			}, 'boolean', false, null, 'Display', [1, 2]);
@@ -4603,9 +4603,9 @@ function initialiseAllSettings() {
 			}, 'mazArray', [], 'importExportTooltip("mapSettings", "Profile")', 'Import Export', [0]);
 
 		createSetting('profileLastLoaded',
-			function () { return (autoTrimpSettings.ATprofile ? `Loaded Profile: ${autoTrimpSettings.ATprofile}` : `Load a Profile To Use`) },
+			function () { return (autoTrimpSettings.ATprofile ? `Loaded Profile: <i></i>${autoTrimpSettings.ATprofile}` : `Load a Profile To Use`) },
 			function () {
-				let description = "<p>Will save your current settings to the last preset you loaded through the <b>Profile Settings</b> window.</p>";
+				let description = "<p>Will save your current settings to the last preset you loaded through the <b>Profile Settings</b>中选择的配置文件。</p>";
 				return description;
 			}, 'infoclick', null, 'atProfileSave()', 'Import Export', [0],
 			function () { return autoTrimpSettings.ATprofile && autoTrimpSettings.ATprofile !== '' });
@@ -4624,7 +4624,7 @@ function initialiseAllSettings() {
 			function () { return (_getPrimaryResourceInfo().name + ' Per Hour') },
 			function () {
 				let description = "<p>Will display the " + _getPrimaryResourceInfo().name + "/Hr tooltip message.</p>";
-				description += "<p>This can also be accessed by mousing over the text beneath the Auto Maps status when the <b>" + _getPrimaryResourceInfo().name + " Per Hour Status</b> option inside the <b>Hide Auto Buttons</b> setting in the <b>Display</b> tab is unchecked.</p>";
+				description += "<p>This can also be accessed by mousing over the text beneath the Auto Maps status when the <b>" + _getPrimaryResourceInfo().name + " Per Hour Status</b> option inside the <b>Hide Auto Buttons</b>设置中，位于<b>Display</b> tab is unchecked.</p>";
 				return description;
 			}, 'action', null, 'cancelTooltip(); makeResourceTooltip();', 'Help', [0]);
 
@@ -5076,7 +5076,7 @@ function autoSetValue(id, multiValue, negative) {
 
 	const num = multiValue ? numBox.value.split(',').map(parseNum) : parseNum(numBox.value);
 	if (Array.isArray(num) ? num.some(isNaN) : isNaN(num)) {
-		return tooltip('confirm', null, 'update', `Error with input ("${numBox.value}"), please try again`, null, `<b>${setting.name()} Setting Input Error!</b>`);
+		return tooltip('confirm', null, 'update', `Error with input ("<i></i>${numBox.value}<i></i>"), please try again`, null, `<b>${setting.name()}<i></i> Setting Input Error!</b>`);
 	}
 
 	setting[`value${valueSuffix}`] = num;
@@ -5667,7 +5667,7 @@ function _createChangelogButton() {
 			class: 'btn' + (newChanges ? ' btn-changelogNew' : ' btn-primary'),
 			onclick: "window.open(atConfig.initialise.basepath + 'updates.html', '_blank'); updateChangelogButton();"
 		},
-		['AT v' + versionNumber + (newChanges ? " | What's New" : '')]
+		['脚本 v' + versionNumber + (newChanges ? " | 更新内容" : '')]
 	);
 
 	const settingbarRow = document.getElementById('settingsTable').firstElementChild.firstElementChild;
