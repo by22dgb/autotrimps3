@@ -3221,7 +3221,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>When inside Void Maps and your current enemy is slow with your next enemy being fast this will automatically swap to your <b>Void PB</b> shield so that you can maximise Plaguebringer damage going into the next enemy.</p>";
 				description += "<p><b>Won't do anything during double attack voids.</b></p>";
-				description += "<p>Will only work if your <b>Void</b> Shield doesn't have <b>Plaguebringer</b> and your <b>Void PB</b> shield has <b>Plaguebringer</b>.</p>";
+				description += "<p>Will only work if your <b>Void</b> Shield doesn't have <b>Plaguebringer</b> and your <b>Void PB</b> shield has <b>Plaguebringer</b>词缀时生效。</p>";
 				description += "<p><b>Recommended:</b> Off unless you know what you're doing</p>";
 				return description;
 			}, 'boolean', false, null, 'Heirloom', [2],
@@ -3232,8 +3232,8 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>When 2 cells away from a compressed enemy and past your heirloom swap zone this will equip your <b>Initial</b> shield so that the next enemy spawns with max health to maximise plaguebringer damage on it.</p>";
 				description += "<p>Will ensure you start the compressed cell at the lowest health it can be from plaguebringer which reduces initial rage stack if the enemy has it and the clear time.</p>";
-				description += "<p>Will only work if your <b>Initial</b> Shield doesn't have <b>Plaguebringer</b> and your (<b>Compressed Heirloom</b> shield if set otherwise <b>Afterpush</b>) shield has <b>Plaguebringer</b>.</p>";
-				description += "<p>Displays an additional setting when enabled where you can force swap to your (<b>Compressed Heirloom</b> shield if set otherwise <b>Afterpush</b>) shield when above X <b>World HD Ratio</b> and the next cell is compressed.</p>";
+				description += "<p>Will only work if your <b>Initial</b> Shield doesn't have <b>Plaguebringer</b> and your (<b>Compressed Heirloom</b> shield if set otherwise <b>Afterpush</b>) shield has <b>Plaguebringer</b>词缀时生效。</p>";
+				description += "<p>Displays an additional setting when enabled where you can force swap to your (<b>Compressed Heirloom</b> shield if set otherwise <b>Afterpush</b>) shield when above X <b>Compressed Swap HD</b> and the next cell is compressed.</p>";
 				description += "<p><b>Recommended:</b> On</p>";
 				return description;
 			}, 'boolean', false, null, 'Heirloom', [2],
@@ -3319,10 +3319,9 @@ function initialiseAllSettings() {
 			function () { return ('Void PB') },
 			function () {
 				let description = "<p>Shield to use inside of Void Maps when fighting a slow enemy and the next enemy is fast.</p>";
-				description += "<p><b>Ignore Spires Until</b> settings will stop this swap from happening if the value is above your current world zone.</p>";
 				description += "<p>A shield with <b>Plaguebringer MUST</b> be used.</p>";
 				description += "<p>Set to <b>undefined</b> to disable.</p>";
-				description += "<p><b>Recommended:</b> <b>Plaguebringer</b> heirloom</p>";
+				description += "<p><b>Recommended:</b>拥有<b>Plaguebringer</b> heirloom</p>";
 				return description;
 			}, 'textValue', 'undefined', null, 'Heirloom', [2],
 			function () { return (getPageSetting('heirloomSwapping', atConfig.settingUniverse) && getPageSetting('heirloomShield', atConfig.settingUniverse) && getPageSetting('heirloomVoidSwap', atConfig.settingUniverse)) });
@@ -3355,7 +3354,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>From which zone to swap from your <b>Initial</b> shield to your <b>Afterpush</b> shield during filler (non daily/" + _getChallenge2Info() + " runs).</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p>If set to <b>75</b> it will swap shields from <b>z75</b> onwards.</p>";
+				description += "<p>If set to <b>75</b> it will swap shields from <b>区域75</b> onwards.</p>";
 				return description;
 			}, 'value', -1, null, 'Heirloom', [1, 2],
 			function () { return (getPageSetting('heirloomSwapping', atConfig.settingUniverse) && getPageSetting('heirloomShield', atConfig.settingUniverse)) });
@@ -3365,7 +3364,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>From which zone to swap from your <b>Initial</b> shield to your <b>Afterpush</b> shield during daily runs.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p>If set to <b>75</b> it will swap shields from <b>z75</b> onwards.</p>";
+				description += "<p>If set to <b>75</b> it will swap shields from <b>区域75</b> onwards.</p>";
 				return description;
 			}, 'value', -1, null, 'Heirloom', [1, 2],
 			function () { return (getPageSetting('heirloomSwapping', atConfig.settingUniverse) && getPageSetting('heirloomShield', atConfig.settingUniverse)) });
@@ -3376,7 +3375,7 @@ function initialiseAllSettings() {
 				let description = "<p>From which zone to swap from your <b>Initial</b> shield to your <b>Afterpush</b> shield during " + _getChallenge2Info() + " runs.</p>";
 				description += "<p>If the " + _getChallenge2Info() + " shield setting has been setup then it will use that instead of the <b>Afterpush</b> shield.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p>If set to <b>75</b> it will swap shields from <b>z75</b> onwards.</p>";
+				description += "<p>If set to <b>75</b> it will swap shields from <b>区域75</b> onwards.</p>";
 				return description;
 			}, 'value', -1, null, 'Heirloom', [1, 2],
 			function () { return (getPageSetting('heirloomSwapping', atConfig.settingUniverse) && getPageSetting('heirloomShield', atConfig.settingUniverse)) });
@@ -3387,7 +3386,7 @@ function initialiseAllSettings() {
 				let description = "<p>From which zone to swap from your <b>Initial</b> shield to your <b>Afterpush</b> shield during one off runs.</p>";
 				description += "<p>If the " + _getChallenge2Info() + " shield setting has been setup then it will use that instead of the <b>Afterpush</b> shield.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
-				description += "<p>If set to <b>75</b> it will swap shields from <b>z75</b> onwards.</p>";
+				description += "<p>If set to <b>75</b> it will swap shields from <b>区域75</b> onwards.</p>";
 				return description;
 			}, 'value', -1, null, 'Heirloom', [1, 2],
 			function () { return (getPageSetting('heirloomSwapping', atConfig.settingUniverse) && getPageSetting('heirloomShield', atConfig.settingUniverse)) });
@@ -3541,8 +3540,7 @@ function initialiseAllSettings() {
 		createSetting('heirloomAutoModTarget',
 			function () { return ('Mod Target Count') },
 			function () {
-				let description = "<p>Allows you to make it so that auto heirlooms will keep heirlooms if they have <b>X</b> amount of the mods you have setup in the different heirloom type options.</p>";
-				description += "<p>When using this I recommend not setting any of the mod inputs to <b>Any</b> as it can cause you to keep heirlooms with more suboptimal mods than you desire.</p>";
+				let description = "<p>Allows you to make it so that auto heirlooms will keep heirlooms if they have <b>该设置数值</b> amount of the mods you have setup in the different heirloom type options.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and have the script assume you want to only keep perfect heirlooms.</p>";
 				description += "<p><b>Recommended:</b>0</p>";
 				return description;
@@ -3552,8 +3550,7 @@ function initialiseAllSettings() {
 		createSetting('heirloomAutoCoreModTarget',
 			function () { return ('Core Mod Target Count') },
 			function () {
-				let description = "<p>Allows you to make it so that auto heirlooms will keep Cores if they have <b>X</b> amount of the mods you have setup in the different heirloom type options.</p>";
-				description += "<p>When using this I recommend not setting any of the mod inputs to <b>Any</b> as it can cause you to keep heirlooms with more suboptimal mods than you desire.</p>";
+				let description = "<p>Allows you to make it so that auto heirlooms will keep Cores if they have <b>该设置数值</b> amount of the mods you have setup in the different heirloom type options.</p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting and have the script assume you want to only keep perfect heirlooms.</p>";
 				description += "<p><b>Recommended:</b>0</p>";
 				return description;
@@ -3613,7 +3610,7 @@ function initialiseAllSettings() {
 			function () { return ('Shield Modifiers') },
 			function () {
 				let description = "<p>When Auto Heirlooms runs it will keep Shield heirlooms that have the mods selected in this setting.</p>";
-				description += "<p>Each heirloom rarity has its own mod selection so when using the <b>Rarity+</b> setting you will need to select mods for every tier available above the one selected in the <b>Rarity To Keep</b> setting.</p>";
+				description += "<p>Each heirloom rarity has its own mod selection so when using the <b>Rarity+</b> setting you will need to select mods for every tier available above the one selected in the <b>Rarity To Keep</b>设置时的词缀。</p>";
 				return description;
 			}, 'mazDefaultArray', ({
 				'Common': [],
@@ -3677,7 +3674,7 @@ function initialiseAllSettings() {
 			function () { return ('Staff Modifiers') },
 			function () {
 				let description = "<p>When Auto Heirlooms runs it will keep Staff heirlooms that have the mods selected in this setting.</p>";
-				description += "<p>Each heirloom rarity has its own mod selection so when using the <b>Rarity+</b> setting you will need to select mods for every tier available above the one selected in the <b>Rarity To Keep</b> setting.</p>";
+				description += "<p>Each heirloom rarity has its own mod selection so when using the <b>Rarity+</b> setting you will need to select mods for every tier available above the one selected in the <b>Rarity To Keep</b>设置时的词缀。</p>";
 				return description;
 			}, 'mazDefaultArray', ({
 				'Common': [],
@@ -3730,7 +3727,7 @@ function initialiseAllSettings() {
 			function () { return ('Core Modifiers') },
 			function () {
 				let description = "<p>When Auto Heirlooms runs it will keep Core heirlooms that have the mods selected in this setting.</p>";
-				description += "<p>Each heirloom rarity has its own mod selection so when using the <b>Rarity+</b> setting you will need to select mods for every tier available above the one selected in the <b>Rarity To Keep</b> setting.</p>";
+				description += "<p>Each heirloom rarity has its own mod selection so when using the <b>Rarity+</b> setting you will need to select mods for every tier available above the one selected in the <b>Rarity To Keep</b>设置时的词缀。</p>";
 				return description;
 			}, 'mazDefaultArray', ({
 				'Basic': [],
@@ -3767,7 +3764,7 @@ function initialiseAllSettings() {
 				let description = "<p>Will exit out of active Spires upon clearing this cell.</p>";
 				description += "<p><b>Works based off cell number so if you want it to exit after Row #4 then set to 40.</b></p>";
 				description += "<p>HD Ratio and Hits Survived calculations for the Spire will be based off this cell if set.</p>";
-				description += "<p>Set to <b>below 0</b> to disable this setting.</p>";
+				description += "<p>Set to <b>低于0的数值</b> to disable this setting.</p>";
 				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1,2]);
@@ -3776,7 +3773,7 @@ function initialiseAllSettings() {
 			function () { return ('Nurseries') },
 			function () {
 				let description = "<p>Set the number of <b>Nurseries</b> to build during active Spires.</p>";
-				description += "<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b> setting.</b></p>";
+				description += "<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b>中进行的设置)。</b></p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
 				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
@@ -3835,7 +3832,7 @@ function initialiseAllSettings() {
 				let description = `<p>Will exit out of active Spires upon clearing this cell.</p>`;
 				description += `<p><b>Works based off cell number so if you want it to exit after Row #4 then set to 40.</b></p>`;
 				description += `<p>HD Ratio and Hits Survived calculations for the Spire will be based off this cell if set.</p>`;
-				description += `<p>Set to <b>below 0</b> to disable this setting.</p>`;
+				description += `<p>Set to <b>低于0的数值</b> to disable this setting.</p>`;
 				description += `<p><b>Recommended:</b>-1</p>`;
 				return description;
 			}, 'value', -1, null, 'Spire', [1, 2]);
@@ -3844,7 +3841,7 @@ function initialiseAllSettings() {
 			function () { return (`${_getChallenge2Info()}: Nurseries`) },
 			function () {
 				let description = `<p>Set the number of <b>Nurseries</b> to build during active Spires.</p>`;
-				description += `<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b> setting.</b></p>`;
+				description += `<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b>中进行的设置)。</b></p>`;
 				description += `<p>Set to <b>0 or below</b> to disable this setting.</p>`;
 				description += `<p><b>Recommended:</b>-1</p>`;
 				return description;
@@ -3903,7 +3900,7 @@ function initialiseAllSettings() {
 				let description = "<p>Will exit out of active Spires upon clearing this cell.</p>";
 				description += "<p><b>Works based off cell number so if you want it to exit after Row #4 then set to 40.</b></p>";
 				description += "<p>HD Ratio and Hits Survived calculations for the Spire will be based off this cell if set.</p>";
-				description += "<p>Set to <b>below 0</b> to disable this setting.</p>";
+				description += "<p>Set to <b>低于0的数值</b> to disable this setting.</p>";
 				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
 			}, 'value', -1, null, 'Spire', [1, 2]);
@@ -3912,7 +3909,7 @@ function initialiseAllSettings() {
 			function () { return ('Daily: Nurseries') },
 			function () {
 				let description = "<p>Set the number of <b>Nurseries</b> to build during active Spires.</p>";
-				description += "<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b> setting.</b></p>";
+				description += "<p><b>Will override any <b>Nursery</b> settings that you have setup in the <b>AT Auto Structure</b>中进行的设置)。</b></p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
 				description += "<p><b>Recommended:</b>-1</p>";
 				return description;
@@ -3970,7 +3967,7 @@ function initialiseAllSettings() {
 		createSetting('autoGenModeBefore',
 			function () { return (['Start Gen Mode: Gain Mi', 'Start Gen Mode: Gain Fuel', 'Start Gen Mode: Hybrid']) },
 			function () {
-				let description = "<p>The mode you would like your dimensional generator to be on before your <b>Start Fuel Z</b> zone.</p>";
+				let description = "<p>The mode you would like your dimensional generator to be on before your <b>Start Fuel Z</b>之前维度发生器的模式。</p>";
 				description += "<p><b>Start Gen Mode: Gain Mi</b><br>Will set the generator to collect Mi.</p>";
 				description += "<p><b>Start Gen Mode: Gain Fuel</b><br>Will set the generator to collect fuel.</p>";
 				description += "<p><b>Start Gen Mode: Hybrid</b><br>Pseudo-Hybrid. This will collect fuel until full, then goes into Mi mode.</p>";
@@ -3984,7 +3981,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Will automatically set the generator to gather <b>Fuel</b> when this zone is reached.</p>";
 				description += "<p>Set to <b>0</b> to disable this setting.</p>";
-				description += "<p>If set <b>below 0</b> it will assume you always want this active.</p>";
+				description += "<p>If set <b>低于0的数值</b> it will assume you always want this active.</p>";
 				description += "<p>If the <b>Overclocker</b> upgrade has been purchased at least once it will use Hybrid mode if unlocked otherwise it will use the scripts pseudo-hybrid solution.</p>";
 				description += "<p><b>Recommended:</b> Use Gatorcalc website to find ideal zone</p>";
 				return description;
@@ -3996,7 +3993,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Will automatically set the generator to gather <b>Fuel</b> until this zone is reached.</p>";
 				description += "<p>Set to <b>0</b> to disable this setting.</p>";
-				description += "<p>If set <b>below 0</b> it will assume you always want this active.</p>";
+				description += "<p>If set <b>低于0的数值</b> it will assume you always want this active.</p>";
 				description += "<p>If the <b>Overclocker</b> upgrade has been purchased at least once it will use Hybrid mode if unlocked otherwise it will use the scripts pseudo-hybrid solution.</p>";
 				description += "<p><b>Recommended:</b> Use Gatorcalc website to find ideal zone</p>";
 				return description;
@@ -4006,7 +4003,7 @@ function initialiseAllSettings() {
 		createSetting('autoGenModeAfter',
 			function () { return (['End Gen Mode: Gain Mi', 'End Gen Mode: Gain Fuel', 'End Gen Mode: Hybrid']) },
 			function () {
-				let description = "<p>The mode you would like your dimensional generator to be on after your <b>End Fuel Z</b> zone.</p>";
+				let description = "<p>The mode you would like your dimensional generator to be on after your <b>End Fuel Z</b>之后维度发生器的模式。</p>";
 				description += "<p><b>End Gen Mode: Gain Mi</b><br>Will set the generator to collect Mi.</p>";
 				description += "<p><b>End Gen Mode: Gain Fuel</b><br>Will set the generator to collect fuel.</p>";
 				description += "<p><b>End Gen Mode: Hybrid</b><br>Pseudo-Hybrid. This will collect fuel until full, then goes into Mi mode.</p>";
@@ -4126,10 +4123,10 @@ function initialiseAllSettings() {
 			function () { return (autoTrimpSettings.autoNature.enabled) });
 
 		createSetting('autoPoison',
-			function () { return ('Poison') },
+			function () { return ('毒符记') },
 			function () {
 				let description = "<p>Decides what to do with Poison tokens.</p>";
-				description += "<p>Will only spend tokens if the action costs less than your current total + the value in <b>Token Threshold</b><br></p>";
+				description += "<p>Will only spend tokens if the action costs less than your current total + the value in <b>Token Threshold</b>设置的数值。<br></p>";
 				description += "<p><b>Off</b><br>Disables this setting.</p>";
 				description += "<p><b>Empowerment</b><br>Will upgrade your Poison level.</p>";
 				description += "<p><b>Transfer</b><br>Will purchase levels in your Poison transfer rate.</p>";
@@ -4142,7 +4139,7 @@ function initialiseAllSettings() {
 			function () { return ('Wind') },
 			function () {
 				let description = "<p>Decides what to do with Wind tokens.</p>";
-				description += "<p>Will only spend tokens if the action costs less than your current total + the value in <b>Token Threshold</b><br></p>";
+				description += "<p>Will only spend tokens if the action costs less than your current total + the value in <b>Token Threshold</b>设置的数值。<br></p>";
 				description += "<p><b>Off</b><br>Disables this setting.</p>";
 				description += "<p><b>Empowerment</b><br>Will upgrade your Wind level.</p>";
 				description += "<p><b>Transfer</b><br>Will purchase levels in your Wind transfer rate.</p>";
@@ -4155,7 +4152,7 @@ function initialiseAllSettings() {
 			function () { return ('Ice') },
 			function () {
 				let description = "<p>Decides what to do with Ice tokens.</p>";
-				description += "<p>Will only spend tokens if the action costs less than your current total + the value in <b>Token Threshold</b><br></p>";
+				description += "<p>Will only spend tokens if the action costs less than your current total + the value in <b>Token Threshold</b>设置的数值。<br></p>";
 				description += "<p><b>Off</b><br>Disables this setting.</p>";
 				description += "<p><b>Empowerment</b><br>Will upgrade your Ice level.</p>";
 				description += "<p><b>Transfer</b><br>Will purchase levels in your Ice transfer rate.</p>";
@@ -4169,7 +4166,7 @@ function initialiseAllSettings() {
 			function () {
 				let description = "<p>Controls when the script will purchase nature enlightenments.</p>";
 				description += "<p>Priority system for the purchases is <b>Poison > Wind > Ice</b>.</p>";
-				description += "<p>Will only purchase an enlightenment when <b>Magma</b> is active.</p>";
+				description += "<p>Will only purchase an enlightenment when <b>Magma</b>出现后才激活启迪。</p>";
 				description += "<p>Enlightenment purchases ignore the <b>Token Threshold</b> setting value.</p>";
 				return description;
 			}, 'boolean', false, null, 'Nature', [1],
@@ -4179,7 +4176,6 @@ function initialiseAllSettings() {
 			function () { return ('E: Poison (Filler)') },
 			function () {
 				let description = "<p>Will activate Poison enlightenment when below this token threshold when running fillers (non daily/" + _getChallenge2Info() + " runs).</p>";
-				description += "<p><b>Set to 0 or -1 to completely disable this setting.</b></p>";
 				description += "<p>Set to <b>0 or below</b> to disable this setting.</p>";
 				return description;
 			}, 'value', -1, null, 'Nature', [1],
