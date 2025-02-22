@@ -224,10 +224,10 @@ function VMC_getSomewhatUnluckyVMWait() {
 function VMC_getGoldenVoidVarianceText() {
     let varianceText = '';
     if (game.goldenUpgrades.Void.currentBonus < 0.72) {
-        varianceText += `With 8 Golden Voids, your estimated cells-per-void-map would be ` + VMC_getFullGoldenVMDropWait() + `. `;
+        varianceText += `With 8 Golden Voids, your estimated cells-per-void-map would be <i></i>` + VMC_getFullGoldenVMDropWait() + `<i></i>. <i></i>`;
     }
     if (game.goldenUpgrades.Void.currentBonus > 0) {
-        varianceText += `With 0 Golden Voids, your estimated cells-per-void-map would be ` + VMC_getNoGoldenVMDropWait() + `. `;
+        varianceText += `With 0 Golden Voids, your estimated cells-per-void-map would be <i></i>` + VMC_getNoGoldenVMDropWait() + `<i></i>. <i></i>`;
     }
     let difference_in_percentage = ((VMC_getNoGoldenVMDropWait() / VMC_getFullGoldenVMDropWait()) * 100) - 100;
     varianceText += `Buying 8 golden voids means you`;
@@ -247,8 +247,8 @@ function VMC_getShieldloomVarianceText() {
     if (current_vmdc > current_max) {
         // can improve shield
         let upgraded_shield_boost_percentage = ((VMC_getCurrentExpectedVMWait() / VMC_getMaximisedCurrentExpectedVMWait()) * 100) - 100;
-        varianceText += `With a shield of currently equipped rarity with maxed VMDC, you would get voids about `
-        varianceText += prettify(upgraded_shield_boost_percentage) + `% faster. `
+        varianceText += `With a shield of currently equipped rarity with maxed VMDC, you would get voids about <i></i>`
+        varianceText += prettify(upgraded_shield_boost_percentage) + `<i></i>% faster. <i></i>`
     }
     if (VMC_currentRarityRangeHasHigherVMDCCap()) {
         // can up rarity, with higher VMDC cap! (ouch)
@@ -259,14 +259,16 @@ function VMC_getShieldloomVarianceText() {
         } else {
             varianceText += ` could`;
         }
-        varianceText += ` get voids about ` 
+        varianceText += ` get voids about <i></i>` 
         if (VMC_getMaxRarity_isAtHazThreshhold()) {
             // technically a "downgrade"
+            varianceText += `减少<i></i>`
             varianceText += prettify(-max_rarity_shield_boost_percentage);
-            varianceText += `% slower, except also much faster in another way. <em>This <b>is</b> a buff</em>. `
+            varianceText += `<i></i>% slower, except also much faster in another way. <em>This <b>is</b> a buff</em>. <i></i>`
         } else {
+            varianceText += `再增加<i></i>`
             varianceText += prettify(max_rarity_shield_boost_percentage);
-            varianceText += `% faster. `
+            varianceText += `<i></i>% faster. <i></i>`
         }
     }
     if (current_vmdc < 1) {
@@ -275,7 +277,7 @@ function VMC_getShieldloomVarianceText() {
         varianceText += `Your current shield is giving you void maps about <b>` + prettify(shield_boost_percentage) + `%</b> faster`
         if (game.global.ShieldEquipped.rarity >= 10) {
             varianceText += `,  as well as an additional free void map every 1000 cells cleared with it equipped.`
-            varianceText += ` You last got one ` + game.global.hazShieldCredit + ` cells ago.`;
+            varianceText += ` You last got one <i></i>` + game.global.hazShieldCredit + `<i></i> cells ago.`;
         } else {
             varianceText += '.';
         }
@@ -375,8 +377,8 @@ function VMC_populateVoidMapTooltip() {
                  + "<p>Have fun exploring the game! You're getting the hang of this! :)</p>`)";
         } else if (VMC_getCurrentVMDropCooldown() < game.global.lastVoidMap) { // have chance to get (first) void every world cell
             let chance = (Math.floor((game.global.lastVoidMap - VMC_getCurrentVMDropCooldown()) / 10) / 50000) * 100
-            return "tooltip('A Secret Tool for Later', 'customText', event, '<p>The supposedly Nice thing seems like it is approaching. Some itch suggests it currently has a "
-                 + prettify(chance) + "% chance to show up every time you kill an enemy? ...It might be nice if odd itches came with an instruction manual.</p>"
+            return "tooltip('A Secret Tool for Later', 'customText', event, '<p>The supposedly Nice thing seems like it is approaching. Some itch suggests it currently has a <i></i>"
+                 + prettify(chance) + "<i></i>% chance to show up every time you kill an enemy? ...It might be nice if odd itches came with an instruction manual.</p>"
                  + "<p>Have fun exploring the game!</p>')";
         } else { // are still (implicitly) very early after first portal (or didn't clear any voids last portal)
             return "tooltip('A Secret Tool for Later', 'customText', event, '<p>You feel that there is something in your future which is going to be Nice..."
@@ -422,7 +424,7 @@ function VMC_populateVoidMapTooltip() {
     tooltipstring += prettify(VMC_getEstimateVoidsWithGivenWait(VMC_getCurrentExpectedVMWait())) + `</b> void maps.`;
     let a_bit_lucky_version = VMC_getEstimateVoidsWithGivenWait(VMC_getSomewhatLuckyVMWait());
     let a_bit_unlucky_version = VMC_getEstimateVoidsWithGivenWait(VMC_getSomewhatUnluckyVMWait());
-    tooltipstring += ` However, anywhere from ` + prettify(a_bit_unlucky_version) + ` to ` + prettify(a_bit_lucky_version) + ` are within 10% odds.`
+    tooltipstring += ` However, anywhere from <i></i>` + prettify(a_bit_unlucky_version) + `<i></i> to <i></i>` + prettify(a_bit_lucky_version) + `<i></i> are within 10% odds.`
     tooltipstring += ` (these numbers are likely very wrong if you switched heirlooms. be not alarmed)</p>`;
     tooltipstring += `<hr/>`
     tooltipstring += `<p>Click to open a page with details about how Void Maps drop</p>`;
