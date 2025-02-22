@@ -506,7 +506,7 @@ const Graphs = {
 			// Toggle AT windows with UI, or force close with Esc
 			var a = document.getElementById("tooltipDiv");
 			if (a.style.display != "none") return void cancelTooltip(); // old code, uncertain what it's for or why it's here.
-			for (elemId of ["autoSettings", "autoTrimpsTabBarMenu", "settingsHere", "graphParent"]) {
+			for (const elemId of ["autoSettings", "autoTrimpsTabBarMenu", "settingsHere", "graphParent"]) {
 				var elem = document.getElementById(elemId);
 				if (!elem) continue;
 				if (elemId === "graphParent") { // toggle Graphs window
@@ -516,7 +516,10 @@ const Graphs = {
 					Graphs.Settings.open = !open;
 					trimpStatsDisplayed = !open; // HACKS disable hotkeys without touching Trimps settings
 				}
-				else { elem.style.display = "none"; } // close other windows
+				else if (elem.style.display == "block") { // close other windows
+					if (elemId == "settingsHere") game.options.displayed = !game.options.displayed;
+					elem.style.display = "none"; 
+				}
 			}
 		},
 
@@ -909,6 +912,7 @@ const Graphs = {
 			var activeDataVars = [item]
 			activeToggles.forEach(toggle => { if (GraphsConfig.toggledGraphs[toggle].dataVars) activeDataVars.push(GraphsConfig.toggledGraphs[toggle].dataVars) });
 			var portalCount = 0;
+			let xMinData = 810;
 			// parse data per portal
 			for (const portal of Object.values(Graphs.portalSaveData).reverse()) {
 				if (!activeDataVars.some(dvar => dvar in portal.perZoneData)) continue; // ignore completely blank
@@ -975,8 +979,17 @@ const Graphs = {
 						}
 					}
 				})
+				// customs 'zooms' 
+				if (["nursery", 'coord'].includes(item)) {
+					let data = cleanData.map(([zone, data]) => {return data})
+					let portalMin = data.findIndex((z) => { return z >= 2})
+					if (portalMin != -1) xMinData = Math.min(xMinData, portalMin)
+				}
 				portalCount++;
 				if (portalCount >= Graphs.Settings.portalsDisplayed) break;
+			}
+			if (["nursery", 'coord'].includes(item)) {
+				highChartsObj.xAxis.floor = xMinData - 2 // force zoom to where we start missing coords / have built nurseries
 			}
 			highChartsObj.series = this.graphData;
 			return highChartsObj;
