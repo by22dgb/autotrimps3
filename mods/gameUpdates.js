@@ -84,7 +84,7 @@ u2Mutations.rewardMutation = function (cell) {
 			if (this.tree.Ragiffium.purchased) {
 				const full = getRecycleValueByRarity(getHeirloomRarity(game.global.world, 1, false, true));
 				game.global.nullifium += full * 0.05;
-				nullText = ' and ' + prettify(full * 0.05) + ' Nullifium';
+				nullText = '' + prettify(full * 0.05) + '虚空物质和';
 			}
 		} else if (mut === 'NVA' || mut === 'NVX') {
 			rewardMult += this.types.Nova.rewardMult();
@@ -99,21 +99,31 @@ u2Mutations.rewardMutation = function (cell) {
 				else seconds *= 0.5;
 
 				const eligible = ['food', 'wood', 'metal'];
-				let cMessage = 'You earned ';
+				let cMessage = '您从乱数敌人身上获得了';
 				for (let y = 0; y < eligible.length; y++) {
 					const item = eligible[y];
+					let cnitem;
 					let amt = simpleSeconds(item, seconds);
 					amt = scaleLootBonuses(amt, true);
 
 					addResCheckMax(item, amt, true, null, true);
-					cMessage += prettify(amt) + ' ' + item;
+					if (item == "food"){
+						cnitem = "食物";
+					}
+					else if (item == "wood"){
+						cnitem = "木头";
+					}
+					else if (item == "metal"){
+						cnitem = "金属";
+					}
+					cMessage += prettify(amt) + cnitem;
 
-					if (y == eligible.length - 1) cMessage += '!';
-					else if (y == eligible.length - 2) cMessage += ', and ';
-					else cMessage += ', ';
+					if (y == eligible.length - 1) cMessage += '';
+					else if (y == eligible.length - 2) cMessage += '和';
+					else cMessage += '，';
 				}
 
-				cMessage += ' from that Randomized enemy!';
+				cMessage += '！';
 				message(cMessage, 'Loot', '*dice', null, 'primary');
 			}
 		}
@@ -128,7 +138,7 @@ u2Mutations.rewardMutation = function (cell) {
 	reward = calcHeirloomBonus('Staff', 'SeedDrop', reward);
 	game.global.mutatedSeeds += reward;
 	if (typeof game.global.messages.Loot.seeds === 'undefined') game.global.messages.Loot.seeds = true;
-	message('You found ' + prettify(reward) + ' Mutated Seed' + needAnS(reward) + nullText + ' on that ' + this.getName(cell.u2Mutation) + ' enemy!', 'Loot', null, 'seedMessage', 'seeds', null, 'background-color: ' + this.getColor(cell.u2Mutation));
+	message('您击杀了那个<i></i>' + this.getName(cell.u2Mutation) + '<i></i>敌人，获得了' + nullText + prettify(reward) + '突变之种！', 'Loot', null, 'seedMessage', 'seeds', null, 'background-color: ' + this.getColor(cell.u2Mutation));
 	game.stats.mutatedSeeds.value += reward;
 	checkAchieve('mutatedSeeds');
 
@@ -137,7 +147,7 @@ u2Mutations.rewardMutation = function (cell) {
 		if (u2Mutations.tree.Radon.purchased) radonPct *= 1.25;
 
 		const radonReward = rewardResource('helium', 1, 99, false, radonPct);
-		message('You were able to take ' + prettify(radonReward) + ' Radon Vials from that Mutated Enemy!', 'Loot', heliumIcon(true), 'helium', 'helium');
+		message('您还从那个突变敌人身上获得了' + prettify(radonReward) + '氡！', 'Loot', heliumIcon(true), 'helium', 'helium');
 	}
 
 	if (this.open) {
@@ -147,7 +157,7 @@ u2Mutations.rewardMutation = function (cell) {
 			this.openTree();
 		} else {
 			const seedElem = document.getElementById('mutTreeWrapper').childNodes[1].childNodes[1];
-			const costText = Object.keys(this.tree).length > this.purchaseCount ? 'Next Mutator Costs: ' + prettify(nextCost) : 'All Mutators Purchased!';
+			const costText = Object.keys(this.tree).length > this.purchaseCount ? '下个突变因子花费：' + prettify(nextCost) : '已购买所有突变因子！';
 			const seedText = `Seeds Available: ${prettify(game.global.mutatedSeeds)}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;${costText}`;
 			if (seedElem.innerHTML !== seedText) seedElem.innerHTML = seedText;
 		}

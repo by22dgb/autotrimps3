@@ -953,14 +953,14 @@ function getCurrentQuest() {
 	if (game.global.world < game.challenges.Quest.getQuestStartZone()) return 0;
 
 	const questProgress = game.challenges.Quest.getQuestProgress();
-	if (questProgress === 'Failed!' || questProgress === 'Quest Complete!') return 0;
+	if (questProgress === '任务失败！' || questProgress === '任务已完成！') return 0;
 
 	const questDescription = game.challenges.Quest.getQuestDescription();
-	const resourceMultipliers = ['food', 'wood', 'metal', 'gems', 'science'];
+	const resourceMultipliers = ['食物', '木头', '金属', '宝石', '科学点'];
 	const resourceIndex = resourceMultipliers.findIndex((resource) => questDescription.includes(resource));
 	if (resourceIndex !== -1) return resourceIndex + 1;
 
-	const otherQuests = ['Complete 5 Maps at Zone level', 'One-shot 5 world enemies', "Don't let your shield break before Cell 100", "Don't run a map before Cell 100", 'Buy a Smithy'];
+	const otherQuests = ['通过5张等级为区域层数的地图', '一击击杀世界上的5名敌人', "在到达格子100之前护盾不破碎", "在到达格子100之前不进入地图", '建造一个铁匠铺'];
 	const otherIndex = otherQuests.findIndex((quest) => questDescription === quest);
 
 	return otherIndex !== -1 ? otherIndex + 6 : 0;

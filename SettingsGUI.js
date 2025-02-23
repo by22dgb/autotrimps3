@@ -5700,7 +5700,7 @@ function _createAutoMapsButton() {
 		'DIV',
 		{
 			id: 'autoMapBtn',
-			style: 'margin-top: 0.2vw; display: block; font-size: 1vw; height: 1.5em; text-align: center; border-radius: 4px',
+			style: 'margin-top: 0.2vw; display: block; font-size: 0.9vw; height: 1.5em; text-align: center; border-radius: 4px',
 			class: 'noselect settingsBtn settingBtn' + settingUniverse('autoMaps'),
 			onClick: "settingChanged('autoMaps', true);",
 			onmouseover: 'tooltip("Toggle Auto Maps", "customText", event, autoTrimpSettings.autoMaps.description(true))',
@@ -5739,7 +5739,7 @@ function _createStatusTextbox() {
 	const autoMapsStatusContainer = _createElement('DIV', {
 		id: 'autoMapStatus',
 		class: 'noselect',
-		style: 'display: block; font-size: 1vw; text-align: center; background-color: rgba(0,0,0,0.3);',
+		style: 'display: block; font-size: 0.9vw; text-align: center; background-color: rgba(0,0,0,0.3);',
 		onmouseout: 'tooltip("hide")'
 	});
 
@@ -5753,7 +5753,7 @@ function _createResourcePerHourContainer() {
 
 	const resourcePerHourContainer = _createElement('DIV', {
 		id: 'heHrStatus',
-		style: 'display: ' + (!getPageSetting('displayHideAutoButtons').ATheHr ? 'block' : 'none') + '; font-size: 1vw; text-align: center; margin-top: 2px; background-color: rgba(0,0,0,0.3);',
+		style: 'display: ' + (!getPageSetting('displayHideAutoButtons').ATheHr ? 'block' : 'none') + '; font-size: 0.9vw; text-align: center; margin-top: 2px; background-color: rgba(0,0,0,0.3);',
 		onmouseout: 'tooltip("hide")'
 	});
 

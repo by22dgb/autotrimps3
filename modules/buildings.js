@@ -11,7 +11,7 @@ function safeBuyBuilding(building, amt) {
 	}
 
 	buyBuilding(building, true, true, amt);
-	if (building !== 'Trap') debug(`Building ${amt} ${building}${addAnS(amt)}`, 'buildings', '*hammer2');
+	if (building !== 'Trap') debug(`建造${amt}个<i></i>${building}`, 'buildings', '*hammer2');
 }
 
 function advancedNurseries() {

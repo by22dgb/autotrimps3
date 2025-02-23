@@ -247,7 +247,7 @@ function _hireGenes(genDif) {
 	const genesToBuy = genesToBuyOptions.find((gene) => _geneticistCost(gene));
 
 	if (genesToBuy) {
-		debug(`Hiring ${prettify(genesToBuy)} Geneticist${addAnS(genesToBuy)}`, 'jobs', '*users');
+		debug(`雇佣了${prettify(genesToBuy)}名遗传学家`, 'jobs', '*users');
 		addGeneticist(genesToBuy);
 	}
 }
@@ -256,7 +256,7 @@ function _fireGenes(genDif) {
 	if (!genDif.isFinite()) genDif = new Decimal(-1);
 	if (genDif.cmp(0) < 0) {
 		const genesToFire = Math.max(Math.floor(genDif.abs().toNumber() * 0.8), 1);
-		debug(`Firing ${prettify(genesToFire)} Geneticist${addAnS(genesToFire)}`, 'jobs', '*users');
+		debug(`解雇了${prettify(genesToFire)}名遗传学家`, 'jobs', '*users');
 		removeGeneticist(genesToFire);
 	}
 }

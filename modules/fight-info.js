@@ -8,34 +8,34 @@
 		lastProcessedWorld: null,
 		lastProcessedMap: null,
 		imp: {
-			skel: { name: 'Skeletimp', icon: '"glyphicon glyphicon-italic"', shadow: '0px 0px 10px #ffffff', color: '#ffffff' },
+			skel: { name: 'Skeletimp', cnname: '脆皮骷髅', icon: '"glyphicon glyphicon-italic"', shadow: '0px 0px 10px #ffffff', color: '#ffffff' },
 			exotic: { icon: '"glyphicon glyphicon-sunglasses"', shadow: '0px 0px 10px #fb753f', color: '#ff0000' },
 			powerful: { icon: '"glyphicon glyphicon-fire"', shadow: '0px 0px 10px #ff0c55', color: '#ff0c55' },
 			fast: { icon: '"glyphicon glyphicon-forward"', shadow: '0px 0px 10px #ffffff', color: '#000000' },
 			poison: { icon: '"glyphicon glyphicon-flask"', shadow: '0px 0px 10px #ffffff', color: '#00ff00' },
 			wind: { icon: '"icomoon icon-air"', shadow: '0px 0px 10px #ffffff', color: '#99ffff' },
 			ice: { icon: '"glyphicon glyphicon-certificate"', shadow: '0px 0px 10px #ffffff', color: '#00ffff' },
-			turkimp: { name: 'Turkimp', icon: '"icomoon icon-spoon-knife"' }
+			turkimp: { name: 'Turkimp', cnname: '脆皮火鸡', icon: '"icomoon icon-spoon-knife"' }
 		},
 		powerful: {
-			blimp: { name: 'Blimp', icon: '"glyphicon glyphicon-plane"' },
-			cthulimp: { name: 'Cthulimp', icon: '"icomoon icon-archive"' },
-			improbability: { name: 'Improbability', icon: '"glyphicon glyphicon-question-sign"' },
-			omnipotrimp: { name: 'Omnipotrimp', icon: '"glyphicon glyphicon-fire"' },
-			mutimp: { name: 'Mutimp', icon: '"glyphicon glyphicon-menu-up"' },
-			hulking_mutimp: { name: 'Hulking_Mutimp', icon: '" glyphicon glyphicon-chevron-up"' }
+			blimp: { name: 'Blimp', cnname: '脆皮飞艇', icon: '"glyphicon glyphicon-plane"' },
+			cthulimp: { name: 'Cthulimp', cnname: '脆皮克苏鲁', icon: '"icomoon icon-archive"' },
+			improbability: { name: 'Improbability', cnname: '乌有者', icon: '"glyphicon glyphicon-question-sign"' },
+			omnipotrimp: { name: 'Omnipotrimp', cnname: '全能者', icon: '"glyphicon glyphicon-fire"' },
+			mutimp: { name: 'Mutimp', cnname: '脆皮变异者', icon: '"glyphicon glyphicon-menu-up"' },
+			hulking_mutimp: { name: 'Hulking_Mutimp', cnname: '脆皮大型变异者', icon: '" glyphicon glyphicon-chevron-up"' }
 		},
 		exotics: {
-			chronoimp: { name: 'Chronoimp', icon: '"glyphicon glyphicon-hourglass"' },
-			feyimp: { name: 'Feyimp', icon: '"icomoon icon-diamond"' },
-			flutimp: { name: 'Flutimp', icon: '"glyphicon glyphicon-globe"' },
-			goblimp: { name: 'Goblimp', icon: '"icomoon icon-evil"' },
-			jestimp: { name: 'Jestimp', icon: '"icomoon icon-mask"' },
-			magnimp: { name: 'Magnimp', icon: '"glyphicon glyphicon-magnet"' },
-			tauntimp: { name: 'Tauntimp', icon: '"glyphicon glyphicon-tent"' },
-			titimp: { name: 'Titimp', icon: '"icomoon icon-hammer"' },
-			venimp: { name: 'Venimp', icon: '"glyphicon glyphicon-baby-formula"' },
-			whipimp: { name: 'Whipimp', icon: '"icomoon icon-area-graph"' }
+			chronoimp: { name: 'Chronoimp', cnname: '脆皮时者', icon: '"glyphicon glyphicon-hourglass"' },
+			feyimp: { name: 'Feyimp', cnname: '脆皮小妖', icon: '"icomoon icon-diamond"' },
+			flutimp: { name: 'Flutimp', cnname: '脆皮飘兽', icon: '"glyphicon glyphicon-globe"' },
+			goblimp: { name: 'Goblimp', cnname: '脆皮地精', icon: '"icomoon icon-evil"' },
+			jestimp: { name: 'Jestimp', cnname: '脆皮弄臣', icon: '"icomoon icon-mask"' },
+			magnimp: { name: 'Magnimp', cnname: '脆皮磁王', icon: '"glyphicon glyphicon-magnet"' },
+			tauntimp: { name: 'Tauntimp', cnname: '脆皮咚咚', icon: '"glyphicon glyphicon-tent"' },
+			titimp: { name: 'Titimp', cnname: '脆皮泰坦', icon: '"icomoon icon-hammer"' },
+			venimp: { name: 'Venimp', cnname: '脆皮爱神', icon: '"glyphicon glyphicon-baby-formula"' },
+			whipimp: { name: 'Whipimp', cnname: '脆皮鞭者', icon: '"icomoon icon-area-graph"' }
 		},
 		exoticImps: ['Chronoimp', 'Feyimp', 'Flutimp', 'Goblimp', 'Jestimp', 'Magnimp', 'Tauntimp', 'Titimp', 'Venimp', 'Whipimp', 'Randimp'],
 		fastImps: ['Snimp', 'Kittimp', 'Gorillimp', 'Squimp', 'Shrimp', 'Chickimp', 'Frimp', 'Slagimp', 'Lavimp', 'Kangarimp', 'Entimp', 'Fusimp', 'Carbimp', 'Ubersmith', 'Shadimp', 'Voidsnimp', 'Prismimp', 'Sweltimp', 'Indianimp', 'Improbability', 'Neutrimp', 'Cthulimp', 'Omnipotrimp', 'Mutimp', 'Hulking_Mutimp', 'Liquimp', 'Poseidimp', 'Darknimp', 'Horrimp', 'Arachnimp', 'Beetlimp', 'Mantimp', 'Butterflimp', 'Frosnimp', 'Duckimp']
@@ -83,14 +83,14 @@
 		let fastIconHtml = '';
 		if (isFast) {
 			const fastIcon = M['fightInfo'].imp.fast;
-			fastIconHtml = `<span title="Fast" class=${fastIcon.icon} style="text-shadow: ${fastIcon.shadow};color: ${fastIcon.color};"></span>`;
+			fastIconHtml = `<span title="抢先攻击" class=${fastIcon.icon} style="text-shadow: ${fastIcon.shadow};color: ${fastIcon.color};"></span>`;
 		} else {
 			fastIconHtml = emptyField;
 		}
 
 		let specialIconHtml = '';
 		if (specialIcon) {
-			specialIconHtml = `<span title="${specialIcon.name}" class=${specialIcon.icon} style="text-shadow: ${special.shadow};color: ${$cell.style.color};"></span>`;
+			specialIconHtml = `<span title="${specialIcon.cnname}" class=${specialIcon.icon} style="text-shadow: ${special.shadow};color: ${$cell.style.color};"></span>`;
 		} else {
 			specialIconHtml = emptyField;
 		}
@@ -139,15 +139,121 @@
 	}
 
 	function updateCellTitle($cell, cell) {
-		$cell.title = cell.name;
+		let cnname = cell.name;
+		switch (cnname){
+			case 'Liquimp': cnname = '液化者'; break;
+ 			case 'Arachnimp': cnname = '脆皮蜘蛛'; break;
+ 			case 'Beetlimp': cnname = '脆皮甲虫'; break;
+ 			case 'Mantimp': cnname = '脆皮螳螂'; break;
+ 			case 'Butterflimp': cnname = '脆皮蝴蝶'; break;
+ 			case 'Horrimp': cnname = '脆皮惊骇者'; break;
+ 			case 'Presimpt': cnname = '脆皮小礼'; break;
+ 			case 'Turkimp': cnname = '脆皮火鸡'; break;
+ 			case 'Squimp': cnname = '脆皮乌贼'; break;
+ 			case 'Elephimp': cnname = '脆皮象'; break;
+ 			case 'Turtlimp': cnname = '脆皮龟'; break;
+ 			case 'Chimp': cnname = '脆皮黑猩猩'; break;
+ 			case 'Penguimp': cnname = '脆皮企鹅'; break;
+ 			case 'Snimp': cnname = '脆皮蛇'; break;
+ 			case 'Gorillimp': cnname = '脆皮大猩猩'; break;
+ 			case 'Blimp': cnname = '脆皮飞艇'; break;
+ 			case 'Dragimp': cnname = '脆皮龙'; break;
+ 			case 'Improbability': cnname = '乌有者'; break;
+ 			case 'Omnipotrimp': cnname = '全能者'; break;
+ 			case 'Mutimp': cnname = '脆皮变异者'; break;
+ 			case 'Hulking_Mutimp': cnname = '脆皮大型变异者'; break;
+ 			case 'Feyimp': cnname = '脆皮小妖'; break;
+ 			case 'Tauntimp': cnname = '脆皮咚咚'; break;
+ 			case 'Whipimp': cnname = '脆皮鞭者'; break;
+ 			case 'Venimp': cnname = '脆皮爱神'; break;
+ 			case 'Magnimp': cnname = '脆皮磁王'; break;
+ 			case 'Skeletimp': cnname = '脆皮骷髅'; break;
+ 			case 'Megaskeletimp': cnname = '脆皮超级骷髅'; break;
+ 			case 'Pumpkimp': cnname = '脆皮南瓜怪'; break;
+ 			case 'Shrimp': cnname = '脆皮虾'; break;
+ 			case 'Mountimp': cnname = '脆皮山怪'; break;
+ 			case 'Frimp': cnname = '脆皮森精'; break;
+ 			case 'Chickimp': cnname = '脆皮小鸡'; break;
+ 			case 'Hippopotamimp': cnname = '脆皮河马'; break;
+ 			case 'Onoudidimp': cnname = '脆皮蜗牛'; break;
+ 			case 'Nooimp': cnname = '脆皮喏喏'; break;
+ 			case 'Platypimp': cnname = '脆皮鸭嘴兽'; break;
+ 			case 'Duckimp': cnname = '脆皮小鸭'; break;
+ 			case 'Kittimp': cnname = '脆皮小猫'; break;
+ 			case 'Grimp': cnname = '脆皮护林者'; break;
+ 			case 'Golimp': cnname = '脆皮魔像'; break;
+ 			case 'Seirimp': cnname = '脆皮矿精'; break;
+ 			case 'Slagimp': cnname = '脆皮炉渣怪'; break;
+ 			case 'Moltimp': cnname = '脆皮熔金怪'; break;
+ 			case 'Lavimp': cnname = '脆皮火岩怪'; break;
+ 			case 'Flowimp': cnname = '脆皮花妖'; break;
+ 			case 'Kangarimp': cnname = '脆皮袋鼠'; break;
+ 			case 'Gnomimp': cnname = '脆皮侏儒'; break;
+ 			case 'Slosnimp': cnname = '脆皮慢蛇'; break;
+ 			case 'Entimp': cnname = '脆皮树人'; break;
+ 			case 'Squirrimp': cnname = '脆皮松鼠'; break;
+ 			case 'Gravelimp': cnname = '脆皮碎石怪'; break;
+ 			case 'Cthulimp': cnname = '脆皮克苏鲁'; break;
+ 			case 'Shadimp': cnname = '脆皮暗影怪'; break;
+ 			case 'Voidsnimp': cnname = '脆皮虚空蛇'; break;
+ 			case 'Goblimp': cnname = '脆皮地精'; break;
+ 			case 'Flutimp': cnname = '脆皮飘兽'; break;
+ 			case 'Jestimp': cnname = '脆皮弄臣'; break;
+ 			case 'Titimp': cnname = '脆皮泰坦'; break;
+ 			case 'Chronoimp': cnname = '脆皮时者'; break;
+ 			case 'Megablimp': cnname = '脆皮超级飞艇'; break;
+ 			case 'Mitschimp': cnname = '脆皮巨猩猩'; break;
+ 			case 'Brickimp': cnname = '脆皮砖汉'; break;
+ 			case 'Indianimp': cnname = '脆皮印第安人'; break;
+ 			case 'Poseidimp': cnname = '脆皮海王'; break;
+ 			case 'Warden': cnname = '典狱长'; break;
+ 			case 'Robotrimp': cnname = '脆皮机器人'; break;
+ 			case 'Mechimp': cnname = '脆皮机甲'; break;
+ 			case 'Destructimp': cnname = '脆皮破灭者'; break;
+ 			case 'Terminatimp': cnname = '脆皮终结者'; break;
+ 			case 'Autoimp': cnname = '脆皮汽车'; break;
+ 			case 'Artimp': cnname = '脆皮机器艺术家'; break;
+ 			case 'Neutrimp': cnname = '脆皮中子怪'; break;
+ 			case 'Fusimp': cnname = '脆皮聚变怪'; break;
+ 			case 'Hydrogimp': cnname = '脆皮氢怪'; break;
+ 			case 'Carbimp': cnname = '脆皮碳怪'; break;
+ 			case 'Prismimp': cnname = '脆皮棱镜怪'; break;
+ 			case 'Rainbimp': cnname = '脆皮彩虹兽'; break;
+ 			case 'Lightimp': cnname = '脆皮光怪'; break;
+ 			case 'Meltimp': cnname = '脆皮熔怪'; break;
+ 			case 'Sweltimp': cnname = '脆皮酷热者'; break;
+ 			case 'Darknimp': cnname = '脆皮暗罪者'; break;
+ 			case 'Freezo': cnname = '冰雪之王'; break;
+ 			case 'Frosnimp': cnname = '脆皮寒霜者'; break;
+			default: break;
+		}
+		$cell.title = cnname;
 
 		if (cell.corrupted && cell.corrupted.startsWith('corrupt')) {
-			$cell.title += ` - ${mutationEffects[cell.corrupted].title}`;
+			let cntitle = mutationEffects[cell.corrupted].title;
+			switch (cntitle){
+				case 'Corrupted Stamina': cntitle = '腐化耐力'; break;
+				case 'Corrupted Precision': cntitle = '腐化精准'; break;
+				case 'Corrupted Sharpness': cntitle = '腐化锋锐'; break;
+				case 'Corrupted Strength': cntitle = '腐化力量'; break;
+				case 'Corrupted Toughness': cntitle = '腐化坚韧'; break;
+				case 'Corrupted Agility': cntitle = '腐化敏捷'; break;
+				default: break;
+			}
+			$cell.title += ` - ${cntitle}`;
 		}
 
 		if (cell.u2Mutation !== undefined) {
 			cell.u2Mutation.forEach((mut) => {
-				$cell.title += ` - ${u2Mutations.getName([mut])}`;
+				let cntitle = u2Mutations.getName([mut]);
+				switch (cntitle){
+					case 'Raging': cntitle = '暴怒'; break;
+					case 'Novad': cntitle = '新星'; break;
+					case 'Randomized': cntitle = '乱数'; break;
+					case 'Compressed': cntitle = '压缩'; break;
+					default: break;
+				}
+				$cell.title += ` - ${cntitle}`;
 				$cell.classList.add(mut);
 			});
 		}

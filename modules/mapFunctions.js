@@ -236,7 +236,7 @@ function shouldRunUniqueMap(map) {
 	//Check to see if the map should be run based on the user's settings.
 	if (MODULES.mapFunctions.runUniqueMap === map.name || mapData.runConditions(map, mapSetting, liquified, aboveMapLevel)) {
 		if (game.global.preMapsActive) {
-			debug(`Running ${map.name}${map.name === 'Melting Point' ? ` at ${game.buildings.Smithy.owned} smithies` : ''} on zone ${game.global.world}.`, 'map_Details');
+			debug(`在区域${game.global.world}运行<i></i>${map.name}<i></i>地图${map.name === 'Melting Point' ? `，此时铁匠铺数为${game.buildings.Smithy.owned}` : ''}。`, 'map_Details');
 			if (MODULES.mapFunctions.runUniqueMap === map.name) MODULES.mapFunctions.runUniqueMap = '';
 		}
 		return true;
@@ -275,7 +275,7 @@ function _obtainUniqueMap(uniqueMap) {
 		resetMapVars();
 	}
 
-	const status = `Obtaining Unique Map: ${uniqueMap} (z${unlockLevel})`;
+	const status = `获取独特地图：<i></i>${uniqueMap}<i></i>(区域${unlockLevel})`;
 
 	Object.assign(farmingDetails, {
 		shouldRun: shouldMap,
@@ -304,7 +304,7 @@ function _runUniqueMap(mapName) {
 		if (game.global.preMapsActive && game.global.currentMapId === '') {
 			selectMap(map.id);
 			runMap(false);
-			debug(`Running ${mapName} on zone ${game.global.world}.`, 'map_Details');
+			debug(`在区域${game.global.world}运行<i></i>${mapName}<i></i>地图。`, 'map_Details');
 			MODULES.mapFunctions.runUniqueMap = '';
 		}
 	}
@@ -499,7 +499,7 @@ function _setVoidMapsInitiator(setting, settingIndex) {
 	if (setting.heHr) {
 		const portalSetting = challengeActive('Daily') ? getPageSetting('dailyHeliumHrPortal') : getPageSetting('heliumHrPortal');
 		const portalName = autoTrimpSettings.heliumHrPortal.name()[portalSetting];
-		mapSettings.voidTrigger = `${_getPrimaryResourceInfo().name} Per Hour (${portalName})`;
+		mapSettings.voidTrigger = `${_getPrimaryResourceInfo().name} Per Hour<i></i>(“<i></i>${portalName}<i></i>”设置)`;
 		return;
 	}
 
@@ -527,7 +527,7 @@ function _setVoidMapsInitiator(setting, settingIndex) {
 		}
 	});
 
-	if (!mapSettings.voidTrigger) mapSettings.voidTrigger = 'Zone';
+	if (!mapSettings.voidTrigger) mapSettings.voidTrigger = '区域';
 	mapSettings.voidHDIndex = settingIndex;
 }
 
@@ -551,13 +551,13 @@ function _runVoidMaps(setting, mapName, settingIndex, defaultSettings, farmingDe
 
 	if (shouldMap && defaultSettings.voidFarm && !skipFarmChallenges && hasNotVoidFarmed && (shouldHitsSurvived || shouldHDFarm)) {
 		if (!mapSettings.voidFarm && getPageSetting('autoMaps')) {
-			debug(`${mapName} (z${game.global.world}c${game.global.lastClearedCell + 2}) farming stats before running void maps.`, 'map_Details');
+			debug(`运行虚空地图前，在<i></i>${mapName}<i></i>地图中(区域${game.global.world}格子${game.global.lastClearedCell + 2})刷资源。`, 'map_Details');
 		}
 		return hdFarm(false, true, true);
 	}
 
 	const stackedMaps = Fluffy.isRewardActive('void') ? countStackedVoidMaps() : 0;
-	const status = `Void Maps: ${game.global.totalVoidMaps}${stackedMaps ? ` (${stackedMaps} stacked)` : ''} remaining`;
+	const status = `虚空地图：剩余${game.global.totalVoidMaps}${stackedMaps ? `张(融合后${stackedMaps}张)` : '张'}`;
 
 	if (mapSettings.mapName === mapName && !shouldMap) {
 		mappingDetails(mapName, null, null, null, null, null);
@@ -660,7 +660,7 @@ function _runMapBonus(setting, mapName, settingIndex, spireCheck) {
 
 	const shouldMap = repeatCounter > game.global.mapBonus;
 	const repeat = game.global.mapBonus >= repeatCounter - 1;
-	const status = `${spireCheck ? 'Spire ' : ''}Map Bonus: ${game.global.mapBonus}/${repeatCounter}`;
+	const status = `${spireCheck ? '尖塔' : ''}地图奖励：${game.global.mapBonus}/${repeatCounter}`;
 
 	return {
 		shouldRun: shouldMap,
@@ -782,13 +782,13 @@ function _getMapFarmActions(mapType, setting, repeatNumber) {
 			'Skele Spawn': (gameTimer - game.global.lastSkeletimp) / 1000
 		}[mapType];
 
-		const status = mapType === 'Daily Reset' ? `${mapType}: ${setting.repeat} / ${updateDailyClock(true)}` : `${mapType}: ${formatSecondsAsClock(repeatCheck, 4 - setting.repeat.split(':').length)} / ${setting.repeat}`;
+		const status = mapType === 'Daily Reset' ? `${mapType}<i></i>：${setting.repeat} / ${updateDailyClock(true)}` : `${mapType}<i></i>：${formatSecondsAsClock(repeatCheck, 4 - setting.repeat.split(':').length)} / ${setting.repeat}`;
 		return [repeatCheck, status];
 	};
 
 	const mapCountAction = () => {
 		const repeatCheck = game.global.mapRunCounter;
-		const status = `${mapType}: ${repeatCheck}/${repeatNumber}`;
+		const status = `${mapType}<i></i>：${repeatCheck}/${repeatNumber}`;
 		return [repeatCheck, status];
 	};
 
@@ -852,7 +852,7 @@ function _runTributeFarm(setting, mapName, settingName, settingIndex) {
 		if (game.global.mapsActive) recycleMap_AT();
 	}
 
-	const status = tributeGoal > game.buildings.Tribute.owned ? `Tribute Farm: ${game.buildings.Tribute.owned}/${tributeGoal}` : `Meteorologist Farm: ${game.jobs.Meteorologist.owned}/${meteorologistGoal}`;
+	const status = tributeGoal > game.buildings.Tribute.owned ? `刷贡品：${game.buildings.Tribute.owned}/${tributeGoal}` : `刷气象学家：${game.jobs.Meteorologist.owned}/${meteorologistGoal}`;
 
 	return {
 		shouldRun: shouldMap,
@@ -1050,7 +1050,7 @@ function _runSmithyFarm(setting, mapName, settingName, settingIndex) {
 				biome = getBiome(null, biomes[resource]);
 				if (['lc', 'hc'].indexOf(mapSpecial) !== -1) jobRatio[resources.indexOf(resource)] = 1;
 				else jobRatio = jobRatios[resource];
-				resourceGoal = `${prettify(smithyCost)} ${resource}.`;
+				resourceGoal = `${prettify(smithyCost)}<i></i>${resource}<i></i>。`;
 				gather = gatherType[resource];
 			}
 		});
@@ -1090,7 +1090,7 @@ function _runSmithyFarm(setting, mapName, settingName, settingIndex) {
 		if (setting.meltingPoint && game.mapUnlocks.SmithFree.canRunOnce) _runUniqueMap('Melting Point');
 	}
 
-	const status = `Smithy Farming for ${resourceGoal}`;
+	const status = `刷铁匠铺获取${resourceGoal}`;
 
 	return {
 		shouldRun: shouldMap,
@@ -1151,12 +1151,12 @@ function _runWorshipperFarm(setting, mapName, settingName, settingIndex, default
 	const shouldMap = worshippersOwned !== 50 && worshipperGoal > worshippersOwned;
 
 	if ((mapSettings.mapName === mapName && !shouldMap) || shouldSkip) {
-		if (shouldSkip) debug(`Skipping Worshipper farming on zone ${game.global.world} as 1 ${mapSpecial} map doesn't provide ${defaultSettings.shipskip} or more Worshippers. Evaluate your map settings if you want to farm here`, 'map_Skip');
+		if (shouldSkip) debug(`跳过区域${game.global.world}的刷崇信者，因为1张${mapSpecial.toUpperCase()}词缀的地图无法增加不低于${defaultSettings.shipskip}名崇信者。请检查一下相关设置`, 'map_Skip');
 		else mappingDetails(mapName, mapLevel, mapSpecial);
 		resetMapVars(setting, settingName);
 	}
 
-	const status = `Worshipper Farm: ${worshippersOwned}/${worshipperGoal}`;
+	const status = `刷崇信者：${worshippersOwned}/${worshipperGoal}`;
 
 	return {
 		shouldRun: shouldMap,
@@ -1227,7 +1227,7 @@ function mapDestacking(lineCheck) {
 	if (lineCheck && shouldMap) return (setting = { priority: 1 });
 
 	const repeat = game.global.mapsActive && mapObj.size - mapObj.level + 1 >= destackValue;
-	const status = `Destacking: ${destackValue} stacks remaining`;
+	const status = `减少层数：剩余${destackValue}层`;
 
 	Object.assign(farmingDetails, {
 		shouldRun: shouldMap,
@@ -1318,7 +1318,7 @@ function prestigeClimb(lineCheck) {
 	}
 
 	if (game.options.menu.mapLoot.enabled !== 1) toggleSetting('mapLoot');
-	const status = `Prestige Climb: ${prestigeToFarmFor} items remaining`;
+	const status = `智能重铸：剩余${prestigeToFarmFor}个物品`;
 
 	const repeat = !(game.global.mapsActive && mapsToRun > (mapObject.bonus === 'p' && game.global.lastClearedMapCell !== mapObject.size - 2 ? 2 : 1));
 
@@ -1399,8 +1399,8 @@ function _runPrestigeRaiding(setting, mapName, settingIndex, defaultSettings) {
 	const shouldMap = prestigesToGet(raidZones, targetPrestige)[0] > 0;
 	const mapSpecial = getAvailableSpecials('p');
 
-	let status = `Prestige Raiding: ${equipsToFarm} items remaining`;
-	if (mapSettings.prestigeFragMapBought) status = `Prestige Frag Farm to: ${mapSettings.totalMapCost ? prettify(mapSettings.totalMapCost) : '∞'}`;
+	let status = `重铸劫掠：剩余${equipsToFarm}个物品`;
+	if (mapSettings.prestigeFragMapBought) status = `重铸刷碎片至：${mapSettings.totalMapCost ? prettify(mapSettings.totalMapCost) : '∞'}碎片`;
 
 	const mapObj = getCurrentMapObject();
 	const mapsToRun = game.global.mapsActive ? prestigesToGet(mapObj.level, targetPrestige)[1] : Infinity;
@@ -1500,7 +1500,7 @@ function _buyPrestigeMap(x) {
 			buyMap();
 			const purchasedMap = game.global.mapsOwnedArray[game.global.mapsOwnedArray.length - 1];
 			mapSettings.prestigeMapArray[x] = purchasedMap.id;
-			debug(`Prestige Raiding (z${game.global.world}) bought a level ${purchasedMap.level} map. Purchase #${x + 1}`, 'map_Details');
+			debug(`在区域${game.global.world}进行重铸劫掠，购买了1张等级${purchasedMap.level}的地图。购买序号为${x + 1}`, 'map_Details');
 		}
 	}
 }
@@ -1526,7 +1526,7 @@ function _runPurchasedMap(mapId, x) {
 		debug(`Prestige Raiding - Error with finding the purchased map. Skipping this map and moving on to the next one.`, 'map_Details');
 		mapSettings.prestigeMapArray[x] = undefined;
 	} else {
-		debug(`Prestige Raiding (z${game.global.world}) running a level ${purchasedMap.level} map. Map #${mapSettings.prestigeMapArray.length - x}`, 'map_Details');
+		debug(`在区域${game.global.world}进行重铸劫掠，运行了1张等级${purchasedMap.level}的地图。它是序号${mapSettings.prestigeMapArray.length - x}地图`, 'map_Details');
 		selectMap(mapId);
 		runMap(false);
 	}
@@ -1594,8 +1594,8 @@ function _runBionicRaiding(setting, mapName, settingIndex) {
 	if (!trimpStats.plusLevels && unlockLevel > game.global.world) return {};
 	else if (trimpStats.plusLevels && unlockLevel > game.global.world + 10) return {};
 
-	const map = game.global.mapsOwnedArray.find((map) => map.name.includes('Bionic Wonderland'));
-	if (!map) return _obtainUniqueMap('Bionic Wonderland');
+	const map = game.global.mapsOwnedArray.find((map) => map.name.includes('仿生仙境'));
+	if (!map) return _obtainUniqueMap('仿生仙境');
 
 	const raidZones = _raidingRaidZone(setting, mapName);
 	const targetPrestige = _raidingTargetPrestige(setting);
@@ -1607,7 +1607,7 @@ function _runBionicRaiding(setting, mapName, settingIndex) {
 	const mapsToRun = game.global.mapsActive ? prestigesToGet(mapObject.level, targetPrestige)[1] : Infinity;
 	const specialInMap = game.global.mapsActive && game.global.mapGridArray[mapObject.size - 2].special === targetPrestige;
 
-	const status = `Raiding to BW${raidZones}: ${itemsRemaining} items remaining`;
+	const status = `劫掠至仿生${raidZones}：剩余${itemsRemaining}个物品`;
 	const repeat = game.global.mapsActive && (mapsToRun <= 1 || (specialInMap && mapsToRun === 2) || mapObject.location !== 'Bionic');
 
 	return {
@@ -1688,7 +1688,7 @@ function _runToxicity(setting, mapName, settingName, settingIndex) {
 	}
 
 	const repeat = game.global.mapsActive && cellsToClear > stackGoal - currentStacks;
-	const status = `Toxicity: ${currentStacks}/${stackGoal} stacks`;
+	const status = `毒性：${currentStacks}/${stackGoal}层`;
 
 	if (mapSettings.mapName === mapName && !shouldMap) {
 		mappingDetails(mapName, mapLevel, mapSpecial);
@@ -1732,7 +1732,7 @@ function experience(lineCheck) {
 
 	if (lineCheck && shouldMap) return (setting = { priority: Infinity });
 
-	const status = `${mapName}: ${shouldWonderFarm ? 'Farming Wonders' : 'Ending Challenge'}`;
+	const status = `${mapName}<i></i>: ${shouldWonderFarm ? 'Farming Wonders' : 'Ending Challenge'}`;
 	if (shouldEndChallenge) mapName = 'Bionic Raiding';
 
 	const repeat = game.global.world < game.challenges.Experience.nextWonder;
@@ -1800,7 +1800,7 @@ function wither(lineCheck) {
 	if (lineCheck && shouldMap) return (setting = { priority: Infinity });
 
 	const damageTarget = enemyHealth / 4;
-	const status = `Wither Farm: Curr&nbsp;Dmg:&nbsp;${prettify(ourDmg)} Goal&nbsp;Dmg:&nbsp;${prettify(damageTarget)}`;
+	const status = `凋零刷资源：<br>当前攻击力：${prettify(ourDmg)}<br>目标攻击力：${prettify(damageTarget)}`;
 
 	Object.assign(farmingDetails, {
 		shouldRun: shouldMap,
@@ -1865,7 +1865,7 @@ function _runQuagmire(setting, mapName, settingName, settingIndex, baseSettings)
 	}
 
 	const repeat = game.global.mapsActive && (getCurrentMapObject().name !== 'The Black Bog' || remainingBogs === 1);
-	const status = `Black Bogs: ${remainingBogs} remaining`;
+	const status = `黑之泥沼：剩余${remainingBogs}次`;
 
 	return {
 		shouldRun: shouldMap,
@@ -1938,7 +1938,7 @@ function _runQuest(shouldMap, mapName) {
 	}
 
 	const repeat = (shouldMap === 7 && game.global.mapRunCounter + 1 >= mapCap) || (shouldMap === 6 && (game.global.mapBonus >= 4 || (game.global.mapsActive && getCurrentMapObject().level - game.global.world < 0)));
-	const status = `Questing: ${game.challenges.Quest.getQuestProgress()}`;
+	const status = `完成任务：${game.challenges.Quest.getQuestProgress()}`;
 
 	return {
 		shouldRun: shouldMap,
@@ -2033,7 +2033,7 @@ function _runArchaeology(setting, mapName, settingName, settingIndex) {
 
 	const repeat = false;
 	const relicCost = setting.relics;
-	const status = `Archaeology Farm: ${relicCost}`;
+	const status = `考古学刷资源：${relicCost}`;
 
 	return {
 		shouldRun: shouldMap,
@@ -2072,7 +2072,7 @@ function mayhem(lineCheck) {
 	const mapLevel = autoLevelCheck(mapName, mapSpecial);
 
 	const repeat = game.challenges.Mayhem.stacks <= mapLevel + 1;
-	const status = `Mayhem Destacking: ${game.challenges.Mayhem.stacks} remaining`;
+	const status = `暴乱减层数：剩余${game.challenges.Mayhem.stacks}层`;
 
 	Object.assign(farmingDetails, {
 		shouldRun: shouldMap,
@@ -2132,7 +2132,7 @@ function _runInsanity(setting, mapName, settingName, settingIndex) {
 	const shouldMap = farmStacks || shouldDestack;
 
 	const repeat = (farmStacks && game.challenges.Insanity.insanity + 1 >= insanityGoal) || (setting.destack && game.challenges.Insanity.insanity - negativeLevel <= insanityGoal);
-	const status = `Insanity Farming: ${game.challenges.Insanity.insanity}/${insanityGoal}`;
+	const status = `刷失智层数：${game.challenges.Insanity.insanity}/${insanityGoal}`;
 
 	if (mapSettings.mapName === mapName && !shouldMap) {
 		mappingDetails(mapName, mapLevel, mapSpecial, insanityGoal);
@@ -2231,7 +2231,7 @@ function pandemoniumDestack(lineCheck) {
 	if (lineCheck && shouldMap) return (setting = { priority: 1 });
 
 	const repeat = pandemonium - mapLevel < mapLevel;
-	const status = `Pandemonium Destacking: ${pandemonium} remaining`;
+	const status = `群魔乱舞减层数：剩余${pandemonium}层`;
 
 	if (mapSettings.mapName === mapName && !shouldMap) {
 		mappingDetails(mapName, mapLevel, mapSpecial);
@@ -2369,7 +2369,7 @@ function pandemoniumEquipFarm(lineCheck) {
 	if (lineCheck && shouldMap) return (setting = { priority: 1 });
 
 	const repeat = nextEquipmentCost >= cacheGain;
-	const status = `Pandemonium Farming Equips below ${prettify(cacheGain)}`;
+	const status = `群魔乱舞刷花费低于${prettify(cacheGain)}的装备`;
 
 	if (mapSettings.mapName === mapName && !shouldMap) {
 		mappingDetails(mapName, mapLevel, mapSpecial);
@@ -2485,7 +2485,7 @@ function _runAlchemy(setting, mapName, settingName, settingIndex) {
 	//Identifying current herbs + ones that we'll get from the map we should run
 	const herbTotal = game.herbs[alchObj.potions[potionIndex].cost[0][0]].cowned + alchObj.getDropRate(game.global.world + mapLevel) * herbMult;
 	const repeat = herbTotal >= potionCostTotal;
-	const status = `Alchemy Farming ${alchObj.potionNames[potionIndex]} (${alchObj.potionsOwned[potionIndex]}/${potionTarget})`;
+	const status = `炼金术刷<i></i>${alchObj.potionNames[potionIndex]}<i></i>(${alchObj.potionsOwned[potionIndex]}/${potionTarget})`;
 
 	if (!shouldMap) {
 		if (mapSettings.mapName === mapName) mappingDetails(mapName, mapLevel, mapSpecial, alchObj.potionsOwned[mapSettings.potionIndex], alchObj.potionNames[mapSettings.potionIndex]);
@@ -2581,8 +2581,8 @@ function glass(lineCheck) {
 	const damageTarget = enemyHealth / damageGoal;
 
 	let status;
-	if (mapName.includes('Destack')) status = `${mapName}: ${game.challenges.Glass.shards} stacks remaining`;
-	else status = `${game.global.challengeActive} Farm: Curr&nbsp;Dmg:&nbsp;${prettify(ourDmg)} Goal&nbsp;Dmg:&nbsp;${prettify(damageTarget)}`;
+	if (mapName.includes('Destack')) status = `${mapName}<i></i>剩余${game.challenges.Glass.shards}层`;
+	else status = `${game.global.challengeActive}<i></i>刷资源：<br>当前攻击力：${prettify(ourDmg)}<br>目标攻击力：${prettify(damageTarget)}`;
 
 	farmingDetails.shouldRun = shouldMap;
 	farmingDetails.mapName = mapName;
@@ -2680,7 +2680,7 @@ function _runHypothermia(setting, mapName, settingName, settingIndex) {
 	}
 
 	const repeat = game.resources.wood.owned > game.challenges.Hypothermia.bonfirePrice || scaleToCurrentMap_AT(simpleSeconds_AT('wood', 20, jobRatio), false, true, mapLevel) + game.resources.wood.owned > bonfireCostTotal;
-	const status = `Hypo Farming To: ${prettify(bonfireCostTotal)} wood`;
+	const status = `失温刷篝火至：${prettify(bonfireCostTotal)}木头`;
 
 	if (!shouldMap) {
 		if (mapSettings.mapName === mapName) mappingDetails(mapName, mapLevel, mapSpecial, bonfireCostTotal);
@@ -2749,7 +2749,7 @@ function desolation(lineCheck, forceDestack) {
 	if (lineCheck && shouldMap) return (setting = { priority: 0 });
 
 	const repeat = game.challenges.Desolation.chilled <= mapLevel + 1;
-	const status = `Desolation Destacking: ${game.challenges.Desolation.chilled} remaining`;
+	const status = `荒凉减层数：剩余${game.challenges.Desolation.chilled}层`;
 
 	Object.assign(farmingDetails, {
 		shouldRun: shouldMap,
@@ -2873,7 +2873,7 @@ function desolationGearScum(lineCheck) {
 			MODULES.mapFunctions.desoGearScum = true;
 			//Exit map if we're in it so that we don't clear the map.
 			if (game.global.mapsActive) {
-				debug(`${mapName} (z${game.global.world}c${game.global.lastClearedCell + 2}) exiting map to ensure we complete it at start of the next zone.`, 'map_Details');
+				debug(`在区域${game.global.world}格子${game.global.lastClearedCell + 2}进行<i></i>${mapName}<i></i>，退出地图，以保证我们可以在下个区域完成它。`, 'map_Details');
 				mapsClicked(true);
 			}
 		}
@@ -2882,7 +2882,7 @@ function desolationGearScum(lineCheck) {
 
 		//Marking setting as complete if we've run enough maps.
 		if (mapSettings.mapName === mapName && MODULES.mapFunctions.desoGearScum && (game.global.currentMapId === '' || prestigeList.indexOf(game.global.mapGridArray[getCurrentMapObject().size - 1].special) === -1)) {
-			debug(`${mapName} (z${game.global.world}c${game.global.lastClearedCell + 2}) was successful.`, 'map_Details');
+			debug(`在区域${game.global.world}格子${game.global.lastClearedCell + 2}进行的<i></i>${mapName}<i></i>成功了。`, 'map_Details');
 			resetMapVars();
 			saveSettings();
 			shouldMap = false;
@@ -3049,7 +3049,7 @@ function smithless(lineCheck) {
 
 	if (lineCheck && shouldMap) return (setting = { priority: Infinity });
 
-	const status = `Smithless: Want ${damageTarget.toFixed(2)}x more damage for ${smithyThreshholdIndex.indexOf(smithyThreshhold[0]) + 1}/3`;
+	const status = `铁匠失传：需增加${damageTarget.toFixed(2)}倍攻击力，目标${smithyThreshholdIndex.indexOf(smithyThreshhold[0]) + 1}/3`;
 
 	if (mapSettings.mapName === mapName && !shouldMap) {
 		mappingDetails(mapName, mapLevel, mapSpecial, smithyThreshholdIndex.indexOf(smithyThreshhold[0]) + 1);
@@ -3228,12 +3228,12 @@ function _runHDFarm(setting, mapName, settingName, settingIndex, defaultSettings
 		//Messages detailing why we are skipping mapping.
 		if (shouldSkip) {
 			if (hdType.includes('hitsSurvived')) {
-				debug(`Hits Survived (z${game.global.world}c${game.global.lastClearedCell + 2}) skipped as Hits Survived goal has been met (${hitsSurvived.toFixed(2)}/${settingTarget.toFixed(2)}).`, 'map_Skip');
+				debug(`区域${game.global.world}格子${game.global.lastClearedCell + 2}的承伤数刷资源已经跳过，因为目标已经达成(${hitsSurvived.toFixed(2)}/${settingTarget.toFixed(2)})。`, 'map_Skip');
 			} else if (hdType !== 'maplevel') {
-				debug(`HD Farm (z${game.global.world}c${game.global.lastClearedCell + 2}) skipped as HD Ratio goal has been met (${hdRatio.toFixed(2)}/${settingTarget.toFixed(2)}).`, 'map_Skip');
+				debug(`区域${game.global.world}格子${game.global.lastClearedCell + 2}的命攻比刷资源已经跳过，因为目标已经达成(${hdRatio.toFixed(2)}/${settingTarget.toFixed(2)})。`, 'map_Skip');
 			} else {
 				const autoLevel = whichAutoLevel();
-				debug(`HD Farm (z${game.global.world}c${game.global.lastClearedCell + 2}) skipped as Map Level goal has been met (Auto Level ${setting.hdBase}/${autoLevel}).`, 'map_Skip');
+				debug(`区域${game.global.world}格子${game.global.lastClearedCell + 2}的命攻比刷资源已经跳过，因为地图等级目标已经达成(自动等级${setting.hdBase}/${autoLevel})。`, 'map_Skip');
 			}
 		}
 
@@ -3246,18 +3246,18 @@ function _runHDFarm(setting, mapName, settingName, settingIndex, defaultSettings
 	let status = '';
 
 	if (hdType.includes('hitsSurvived')) {
-		status = `${hdType === 'hitsSurvivedVoid' ? 'Void&nbsp;' : ''}`;
-		status += `Hits&nbsp;Survived to:&nbsp;${prettify(settingTarget.toFixed(2))}<br>
-		Current:&nbsp;${prettify(hdRatio.toFixed(2))}`;
+		status = `${hdType === 'hitsSurvivedVoid' ? '虚空' : ''}`;
+		status += `承伤数至：${prettify(settingTarget.toFixed(2))}<br>
+		当前：${prettify(hdRatio.toFixed(2))}`;
 	} else {
-		status = `HD&nbsp;Farm&nbsp;to:&nbsp;${
+		status = `命攻比刷资源至：${
 			hdType !== 'maplevel'
-				? `${prettify(settingTarget.toFixed(2))}<br>Current&nbsp;HD:&nbsp;${prettify(hdRatio.toFixed(2))}`
+				? `${prettify(settingTarget.toFixed(2))}<br>当前命攻比：${prettify(hdRatio.toFixed(2))}`
 				: `<br>
-		${setting.hdBase >= 0 ? '+' : ''}${setting.hdBase} Auto Level`
+		${setting.hdBase >= 0 ? '+' : ''}${setting.hdBase}自动等级`
 		}`;
 	}
-	status += `<br> Maps:&nbsp; ${mapType}/${mapsRunCap === Infinity ? '∞' : mapsRunCap}`;
+	status += `<br>地图：${mapType}/${mapsRunCap === Infinity ? '∞' : mapsRunCap}`;
 	const repeat = mapType + 1 === mapsRunCap;
 
 	Object.assign(farmingDetails, {
@@ -3790,18 +3790,18 @@ function mappingDetails(mapName, mapLevel, mapSpecial, extra, extra2, extra3) {
 	const currCell = game.global.lastClearedCell + 2;
 	let message = '';
 
-	const mapDetails = ` (z${game.global.world}c${currCell}) took `;
+	const mapDetails = `(区域${game.global.world}格子${currCell})用了`;
 	const timeDescription = formatTimeForDescriptions(timeMapping);
 	const mapLevelPrefix = mapLevel >= 0 ? '+' : '';
 
 	if (mapName !== 'Void Map' && mapName !== 'Quagmire Farm' && mapName !== 'Smithy Farm' && mapName !== 'Bionic Raiding' && mapName !== 'Quest') {
-		message += `${mapName}${mapDetails}${mappingLength} (${mapLevelPrefix}${mapLevel} ${mapSpecial}) map${addAnS(mappingLength)} and ${timeDescription}.`;
+		message += `${mapName}<i></i>${mapDetails}${mappingLength}张(${mapLevelPrefix}${mapLevel} ${mapSpecial})地图，经过${timeDescription}。<i></i>`;
 	} else if (mapName === 'Smithy Farm') {
-		message += `${mapName}${mapDetails}${MODULES.maps.mapRepeatsSmithy[0]} food, ${MODULES.maps.mapRepeatsSmithy[2]} metal, ${MODULES.maps.mapRepeatsSmithy[1]} wood (${mapLevelPrefix}${mapLevel}) maps and ${timeDescription}.`;
+		message += `${mapName}<i></i>${mapDetails}${MODULES.maps.mapRepeatsSmithy[0]}张食物，${MODULES.maps.mapRepeatsSmithy[2]}张金属，${MODULES.maps.mapRepeatsSmithy[1]}张木头(${mapLevelPrefix}${mapLevel})地图，经过${timeDescription}。<i></i>`;
 	} else if (mapName === 'Quagmire Farm') {
-		message += `${mapName}${mapDetails}${mappingLength} map${addAnS(mappingLength)} and ${timeDescription}.`;
+		message += `${mapName}<i></i>${mapDetails}${mappingLength}张地图，经过${timeDescription}。<i></i>`;
 	} else {
-		message += `${mapName}${mapDetails}${timeDescription}.`;
+		message += `${mapName}<i></i>${mapDetails}${timeDescription}。<i></i>`;
 	}
 
 	if (mapName === 'Void Map') {
@@ -3812,24 +3812,24 @@ function mappingDetails(mapName, mapLevel, mapSpecial, extra, extra2, extra3) {
 			'Hits Survived': hdStats.hitsSurvived,
 			'Hits Survived Void': hdStats.hitsSurvivedVoid
 		};
-		message += ` Void maps were triggered by ${mapSettings.voidTrigger}.`;
+		message += ` Void maps were triggered by <i></i>${mapSettings.voidTrigger}<i></i>.`;
 
 		if (mapSettings.dropdown) {
 			message += `<br>\n`;
-			message += `${mapSettings.dropdown.name} (Start: ${prettify(mapSettings.dropdown.hdRatio)} | End: ${prettify(hdObject[mapSettings.dropdown.name])})<br>\n`;
-			if (mapSettings.dropdown2) message += `${mapSettings.dropdown2.name} (Start: ${prettify(mapSettings.dropdown2.hdRatio)} | End: ${prettify(hdObject[mapSettings.dropdown2.name])})`;
+			message += `${mapSettings.dropdown.name}<i></i>(初始：${prettify(mapSettings.dropdown.hdRatio)} | 最终：${prettify(hdObject[mapSettings.dropdown.name])})<br>\n`;
+			if (mapSettings.dropdown2) message += `${mapSettings.dropdown2.name}<i></i>(初始：${prettify(mapSettings.dropdown2.hdRatio)} | 最终：${prettify(hdObject[mapSettings.dropdown2.name])})`;
 		}
-	} else if (mapName === 'Hits Survived') message += ` Finished with hits survived at ${prettify(whichHitsSurvived())}/${targetHitsSurvived()}.`;
-	else if (mapName === 'HD Farm' && extra !== null) message += ` Finished with a HD Ratio of ${extra.toFixed(2)}/${extra2.toFixed(2)}.`;
+	} else if (mapName === 'Hits Survived') message += `最终承伤数为${prettify(whichHitsSurvived())}/${targetHitsSurvived()}。`;
+	else if (mapName === 'HD Farm' && extra !== null) message += `最终命攻比为${extra.toFixed(2)}/${extra2.toFixed(2)}。`;
 	else if (mapName === 'HD Farm') {
 		const autoLevel = whichAutoLevel();
-		message += ` Finished with an auto level of ${autoLevel > 0 ? '+' : ''}${autoLevel}.`;
-	} else if (mapName === 'Tribute Farm') message += ` Finished with ${game.buildings.Tribute.purchased} tributes and ${game.jobs.Meteorologist.owned} meteorologists.`;
-	else if (mapName === 'Smithy Farm') message += ` Finished with ${game.buildings.Smithy.purchased} smithies.`;
-	else if (mapName === 'Insanity Farm') message += ` Finished with ${game.challenges.Insanity.insanity} stacks.`;
-	else if (mapName === 'Alchemy Farm') message += ` Finished with ${extra} ${extra2}.`;
-	else if (mapName === 'Hypothermia Farm') message += ` Finished with (${prettify(game.resources.wood.owned)}/${prettify(extra.toFixed(2))}) wood.`;
-	else if (mapName === 'Smithless Farm') message += ` Finished with enough damage to get ${extra}/3 stacks.`;
+		message += `最终自动等级为${autoLevel > 0 ? '+' : ''}${autoLevel}。`;
+	} else if (mapName === 'Tribute Farm') message += `最终拥有${game.buildings.Tribute.purchased}个贡品和${game.jobs.Meteorologist.owned}名气象学家。`;
+	else if (mapName === 'Smithy Farm') message += `最终拥有${game.buildings.Smithy.purchased}个铁匠铺。`;
+	else if (mapName === 'Insanity Farm') message += `最终拥有${game.challenges.Insanity.insanity}层。`;
+	else if (mapName === 'Alchemy Farm') message += `最终拥有${extra}份<i></i>${extra2}<i></i>.`;
+	else if (mapName === 'Hypothermia Farm') message += `最终拥有(${prettify(game.resources.wood.owned)}/${prettify(extra.toFixed(2))})木头。`;
+	else if (mapName === 'Smithless Farm') message += `最终拥有足够获得${extra}/3层的攻击力。`;
 
 	MODULES.maps.mapRepeats = 0;
 	delete mapSettings.mapBonus;
@@ -3869,7 +3869,7 @@ function fragmentFarm() {
 	}
 
 	selectMap(mapCheck.id);
-	debug(`Fragment farming for ${prettify(fragmentsNeeded)} fragments.`, 'map_Details');
+	debug(`进行刷碎片，目标${prettify(fragmentsNeeded)}碎片。`, 'map_Details');
 	runMap();
 
 	if (!game.global.repeatMap) repeatClicked();

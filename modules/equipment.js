@@ -485,12 +485,12 @@ function buyEquipsAlways2() {
 
 			if (alwaysLvl2 && game.equipment[equip].level < 2) {
 				buyEquipment(equip, true, true, 1);
-				debug(`Upgrading 1 ${equip}`, `equipment`, `*upload3`);
+				debug(`购买1次<i></i>${equip}`, `equipment`, `*upload3`);
 			}
 
 			if (alwaysPandemonium) {
 				buyEquipment(equip, true, true, 1);
-				debug(`Upgrading 1 ${equip}`, `equipment`, `*upload3`);
+				debug(`购买1次<i></i>${equip}`, `equipment`, `*upload3`);
 				equipLeft = true;
 			}
 		}
@@ -525,7 +525,7 @@ function buyEquips() {
 
 		if (equip.prestige) {
 			buyUpgrade(atData.equipment[equip.name].upgrade, true, true);
-			debug(`Upgrading ${equip.name} - Prestige ${equipData.prestige}`, `equipment`, '*upload');
+			debug(`购买<i></i>${equip.name}<i></i>重铸升级 - 第${equipData.prestige}次重铸`, `equipment`, '*upload');
 			keepBuying = true;
 		} else {
 			//Find out how many levels we can afford with 0.1% of resources.
@@ -533,7 +533,7 @@ function buyEquips() {
 			maxCanAfford = Math.min(maxCanAfford, equip.equipCap - equipData.level);
 			if (maxCanAfford > 0) {
 				buyEquipment(equip.name, true, true, maxCanAfford);
-				debug(`Upgrading ${maxCanAfford} ${equip.name}${maxCanAfford > 1 && !equip.name.endsWith('s') ? 's' : ''}`, `equipment`, `*upload3`);
+				debug(`购买${maxCanAfford}次<i></i>${equip.name}`, `equipment`, `*upload3`);
 				keepBuying = true;
 			}
 		}

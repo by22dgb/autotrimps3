@@ -2436,7 +2436,7 @@ function uniqueMapsDisplay(elem) {
 
 	const mapUnlocks = Object.keys(atData.uniqueMaps).filter((mapName) => {
 		const { universe, zone } = atData.uniqueMaps[mapName];
-		return !['Bionic Wonderland', 'The Black Bog'].includes(mapName) && universe === atConfig.settingUniverse && zone <= hze;
+		return !['仿生仙境', 'The Black Bog'].includes(mapName) && universe === atConfig.settingUniverse && zone <= hze;
 	});
 	const smithySettings = smithyDisplay ? ['MP Smithy', 'MP Smithy Daily', 'MP Smithy C3', 'MP Smithy One Off'] : [];
 	const settingGroup = getPageSetting('uniqueMapSettingsArray', atConfig.settingUniverse);

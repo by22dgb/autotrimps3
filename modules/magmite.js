@@ -532,19 +532,19 @@ function autoMagmiteSpender(portal) {
 
 		if (oneTimersChanged || upgradesChanged) {
 			const spentMagmite = initialMagmite - game.global.magmite;
-			let purchasedText = `Spent ${spentMagmite} Magmite on `;
+			let purchasedText = `分配${spentMagmite}岩浆岩给<i></i>`;
 			if (oneTimersChanged) {
 				const purchasedOneTimers = oneTimers.filter((item) => initiaUpgrades.oneTimers[item] !== newUpgrades.oneTimers[item]);
-				purchasedText += `${purchasedOneTimers.join(', ')}`;
+				purchasedText += `${purchasedOneTimers.join('<i></i>，<i></i>')}`;
 			}
 
 			if (upgradesChanged) {
-				const purchasedUpgrades = upgrades.filter((item) => initiaUpgrades.upgrades[item] !== newUpgrades.upgrades[item]).map((item) => `${item} (+${newUpgrades.upgrades[item] - initiaUpgrades.upgrades[item]})`);
-				if (oneTimersChanged) purchasedText += ' and ';
-				purchasedText += `${purchasedUpgrades.join(', ')}`;
+				const purchasedUpgrades = upgrades.filter((item) => initiaUpgrades.upgrades[item] !== newUpgrades.upgrades[item]).map((item) => `<i></i>${item}<i></i>(+${newUpgrades.upgrades[item] - initiaUpgrades.upgrades[item]})`);
+				if (oneTimersChanged) purchasedText += '<i></i>和<i></i>';
+				purchasedText += `${purchasedUpgrades.join('<i></i>，<i></i>')}`;
 			}
 
-			purchasedText += '.';
+			purchasedText += '<i></i>。';
 
 			if (portal) return purchasedText;
 			else debug(purchasedText, 'magmite');

@@ -22,7 +22,7 @@ function safeBuyJob(jobTitle, amount) {
 
 	if (result) {
 		buyJob(jobTitle, true, true);
-		debug(`${game.global.firing ? 'Firing' : 'Hiring'} ${prettify(amount)} ${jobTitle}${addAnS(amount)}`, 'jobs', '*users');
+		debug(`${game.global.firing ? 'Firing' : 'Hiring'} <i></i>${prettify(amount)}名<i></i>${jobTitle}`, 'jobs', '*users');
 	}
 
 	if (game.global.firing !== firing) _toggleFireMode();
@@ -45,7 +45,7 @@ function _toggleFireMode() {
 	const elem = document.getElementById('fireBtn');
 	const firingClass = game.global.firing ? 'fireBtnFiring' : 'fireBtnNotFiring';
 	const notFiringClass = game.global.firing ? 'fireBtnNotFiring' : 'fireBtnFiring';
-	const buttonText = game.global.firing ? 'Firing' : 'Fire';
+	const buttonText = game.global.firing ? 'Firing' : '解雇';
 
 	elem.className = elem.className.replace(notFiringClass, firingClass);
 	elem.innerHTML = buttonText;
