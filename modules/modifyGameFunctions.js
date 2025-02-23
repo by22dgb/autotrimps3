@@ -304,6 +304,39 @@ if (typeof originalActivateClicked !== 'function') {
 	};
 }
 
+if (typeof originalActivatePortal !== 'function') {
+	var originalActivatePortal = activatePortal;
+	activatePortal = function () {
+		const mutatorSetting = getPageSetting('presetSwapMutators', 2);
+		let preset = 0;
+		if (portalUniverse === 2) {
+			const challenge = game.global.selectedChallenge;
+
+			if (challenge === 'Daily' && getPageSetting('dailyMutatorPreset', portalUniverse) && _checkForPlaguedDaily()) preset = 6;
+			else if (challenge === 'Desolation' && getPageSetting('desolationMutatorPreset', portalUniverse)) preset = 5;
+			else if (challenge === 'Wither' && getPageSetting('witherMutatorPreset', portalUniverse)) preset = 4;
+			else if (challengeSquaredMode || ['Mayhem', 'Pandemonium', 'Desolation'].includes(challenge)) preset = 3;
+			else if (challenge === 'Daily') preset = 2;
+			else preset = 1;
+
+			if (!u2Mutations.respecOnPortal && mutatorSetting) {
+				const mutatorObj = JSON.parse(localStorage.getItem('mutatorPresets'));
+
+				if (mutatorObj[`Preset ${preset}`] && mutatorObj[`Preset ${preset}`].mutators.length > 0) {
+					u2Mutations.toggleRespec();
+				}
+			}
+		}
+
+		originalActivatePortal(...arguments);
+
+		if (u2Mutations.open && mutatorSetting) {
+			_mutatorLoadPreset(`Preset ${preset}`);
+			u2Mutations.closeTree();
+		}
+	};
+}
+
 if (typeof originalCheckAchieve !== 'function') {
 	originalCheckAchieve = checkAchieve;
 	checkAchieve = function () {
@@ -329,7 +362,7 @@ if (typeof originalFadeIn !== 'function') {
 function suicideTrimps() {
 	//Throw this in so that if GS updates anything in there it won't cause AT to fuck with it till I can check it out
 	//Check out mapsClicked(confirmed) && mapsSwitch(updateOnly, fromRecycle) patch notes for any changes to this section!
-	if (game.global.stringVersion > '5.9.5') {
+	if (game.global.stringVersion > '5.10.5') {
 		mapsClicked();
 		return;
 	}
@@ -351,7 +384,6 @@ function suicideTrimps() {
 	if (game.global.novaMutStacks > 0) u2Mutations.types.Nova.drawStacks();
 	if (challengeActive('Smithless')) game.challenges.Smithless.drawStacks();
 
-	game.global.mapCounterGoal = 0;
 	game.global.titimpLeft = 0;
 	game.global.fighting = false;
 	game.global.switchToMaps = false;
@@ -900,6 +932,13 @@ function calcHeirloomBonus_AT(type, modName, number, getValueOnly, customShield)
 	if (getValueOnly) return mod;
 	if (!mod || mod <= 0) return number;
 	return number * (mod / 100 + 1);
+}
+
+function getPlayerDoubleCritChance_AT(customShield) {
+	const heirloomValue = getHeirloomBonus_AT('Shield', 'doubleCrit', customShield);
+	let amt = heirloomValue / 100;
+	if (Fluffy.isRewardActive('doubleCrit')) amt += 0.2;
+	return amt;
 }
 
 function getPlayerCritChance_AT(customShield) {

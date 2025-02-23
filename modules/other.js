@@ -395,7 +395,7 @@ function updateChangelogButton() {
 }
 
 function remakeTooltip() {
-	if (!MODULES.popups.challenge && !MODULES.popups.respecAncientTreasure && !MODULES.popups.portal) {
+	if (MODULES.popups && !MODULES.popups.challenge && !MODULES.popups.respecAncientTreasure && !MODULES.popups.portal) {
 		return;
 	}
 
@@ -542,7 +542,6 @@ function _handleMazWindow() {
 	if (mazTitles.indexOf(tooltipDiv.children.tipTitle.innerText) === -1) {
 		tooltipDiv.style.overflowY = '';
 		tooltipDiv.style.maxHeight = '';
-		tooltipDiv.style.width = '';
 		MODULES.popups.mazWindowOpen = false;
 	}
 }
@@ -1388,7 +1387,7 @@ function alterHeirloomWindow() {
 			id: `heirloomSwappingBtn`,
 			style: '',
 			class: 'pointer noselect heirBtn heirInfo settingBtntrue',
-			onclick: 'settingChanged("heirloom", true)',
+			onclick: 'settingChanged("heirloomSwapping", true)',
 			onmouseover: `tooltip("Toggle Auto Heirlooms", "customText", event, "${description}")`,
 			onmouseout: 'tooltip("hide")'
 		});

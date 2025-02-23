@@ -343,7 +343,6 @@ function _autoPortalVoidTracker() {
 	downloadSave();
 	if (typeof Graphs !== 'undefined' && typeof Graphs.Push !== 'undefined' && typeof Graphs.Push.zoneData === 'function') Graphs.Push.zoneData();
 	if (!MODULES.portal.dontPushData) pushSpreadsheetData();
-	autoUpgradeHeirlooms();
 
 	const trackerValue = owned === 10 ? Math.floor(tracker / 10) : tracker / 10;
 	if (challengeSquaredMode) toggleChallengeSquared();
@@ -536,6 +535,21 @@ function _autoPortalRegular(challengeName) {
 	return challengeName;
 }
 
+function _checkForPlaguedDaily() {
+	const dailyElem = document.getElementById('specificChallengeDescription');
+	if (!dailyElem || !dailyElem.childNodes[2]) return false;
+
+	const description = dailyElem.childNodes[2];
+	for (item in description.childNodes) {
+		const modifier = description.childNodes[item].innerHTML;
+		if (modifier && modifier.includes('Enemies stack a debuff with each attack, damaging Trimps for')) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function _autoPortalActivate(challenge) {
 	const postPortalRespec = portalPerkCalc();
 
@@ -543,7 +557,6 @@ function _autoPortalActivate(challenge) {
 	if (portalUniverse === 2) {
 		hypoPackratReset(challenge);
 
-		preset = challengeSquaredMode || challenge === 'Mayhem' || challenge === 'Pandemonium' || challenge === 'Desolation' ? 3 : game.global.selectedChallenge === 'Daily' ? 2 : 1;
 		if (getPageSetting('presetSwapMutators', 2) && JSON.parse(localStorage.getItem('mutatorPresets'))[`Preset ${preset}`] !== '') {
 			u2Mutations.toggleRespec();
 		}
@@ -553,17 +566,12 @@ function _autoPortalActivate(challenge) {
 	downloadSave();
 	if (typeof Graphs !== 'undefined' && typeof Graphs.Push !== 'undefined' && typeof Graphs.Push.zoneData === 'function') Graphs.Push.zoneData();
 	if (!MODULES.portal.dontPushData) pushSpreadsheetData();
-	autoUpgradeHeirlooms();
 	activatePortal();
+	autoUpgradeHeirlooms();
 
 	resetVarsZone(true);
 	_setButtonsPortal();
 	setupAddonUser(true);
-
-	if (u2Mutations.open && getPageSetting('presetSwapMutators', 2)) {
-		_mutatorLoadPreset(`Preset ${preset}`);
-		u2Mutations.closeTree();
-	}
 
 	if (postPortalRespec && (challengeActive('Trapper') || challengeActive('Trappapalooza'))) {
 		viewPortalUpgrades();

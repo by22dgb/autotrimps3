@@ -582,7 +582,7 @@ function _displayAutoHeirloomMods(tooltipDiv, heirloomRarity, heirloomType = 'Sh
 			headerList.push('Radiating');
 			if (hze >= 100) headerList.push('Hazardous');
 			if (hze >= 200) headerList.push('Enigmatic');
-			if (game.global.stringVersion !== '5.9.2' && hze >= 300) headerList.push('Mutated');
+			if (hze >= 300) headerList.push('Mutated');
 		}
 	} else {
 		headerList.push('Basic');
@@ -671,7 +671,7 @@ function _displayAutoHeirloomMods(tooltipDiv, heirloomRarity, heirloomType = 'Sh
 function _displayC2Table(tooltipDiv) {
 	const challengeOrders = {
 		c2: ['Size', 'Slow', 'Watch', 'Discipline', 'Balance', 'Meditate', 'Metal', 'Lead', 'Nom', 'Toxicity', 'Electricity', 'Coordinate', 'Trimp', 'Obliterated', 'Eradicated', 'Mapology', 'Trapper'],
-		c3: ['Unlucky', 'Unbalance', 'Quest', 'Storm', 'Downsize', 'Transmute', 'Duel', 'Wither', 'Glass', 'Smithless', 'Trappapalooza', 'Berserk']
+		c3: ['Unlucky', 'Storm', 'Unbalance', 'Quest', 'Downsize', 'Transmute', 'Duel', 'Wither', 'Glass', 'Smithless', 'Berserk', 'Trappapalooza']
 	};
 
 	const runnerLists = {
@@ -1359,9 +1359,9 @@ function pushSpreadsheetData() {
 		meteorologist: game.global.universe === 1 ? 'N/A' : game.jobs.Meteorologist.owned,
 		heliumGained: heliumGained,
 		heliumHr: heliumHr,
-		fluffyXP: game.stats.bestFluffyExp2.value,
-		fluffyHr: game.stats.fluffyExpHour.value(),
-		fluffyBest: game.stats.bestFluffyExp2.valueTotal,
+		fluffyXP: prettify(game.stats.bestFluffyExp2.value),
+		fluffyHr: prettify(game.stats.fluffyExpHour.value()),
+		fluffyBest: prettify(game.stats.bestFluffyExp2.valueTotal),
 		dailyMods: dailyMods,
 		dailyPercent: dailyPercent,
 		universe: game.global.universe,
@@ -1369,9 +1369,9 @@ function pushSpreadsheetData() {
 		goldenMaps: game.singleRunBonuses.goldMaps.owned,
 		heliumy: game.singleRunBonuses.heliumy.owned,
 		runningChallengeSquared: game.global.runningChallengeSquared,
-		mutatedSeeds: game.stats.mutatedSeeds.valueTotal,
-		mutatedSeedsLeftover: game.global.mutatedSeeds,
-		mutatedSeedsGained: game.stats.mutatedSeeds.value,
+		mutatedSeeds: prettify(game.stats.mutatedSeeds.valueTotal),
+		mutatedSeedsLeftover: prettify(game.global.mutatedSeeds),
+		mutatedSeedsGained: prettify(game.stats.mutatedSeeds.value),
 		patch: game.global.stringVersion,
 		bones: game.global.b
 	};
@@ -1522,11 +1522,11 @@ function makeResourceTooltip(mouseover) {
 
 function _displayResetPerkPreset(tooltipDiv) {
 	const tooltipText = `This will restore your selected preset to its original values.<br><br/>Are you sure you want to do this?`;
-	const costText = `<div class='maxCenter'><div id='confirmTooltipBtn' class='btn btn-info' style='width: 13vw' onclick='cancelTooltip(); fillPreset${atData.autoPerks.loaded}(perkCalcPreset(), true);'>Reset to Preset Defaults</div><div style='margin-left: 15%' class='btn btn-info' style='margin-left: 5vw' onclick='cancelTooltip();'>Cancel</div></div>`;
+	const costText = `<div class='maxCenter'><div id='confirmTooltipBtn' class='btn btn-info' style='width: 13vw' onclick='cancelTooltip(); fillPreset${atData.autoPerks.loaded}(perkCalcPreset(), true);'>Reset to Preset Defaults</div><div style='margin-left: 15%' class='btn btn-info' style='margin-left: 5vw'onclick='cancelTooltip();'>Cancel</div></div>`;
 
 	const ondisplay = function () {
-		if (typeof _verticalCenterTooltip === 'function') _verticalCenterTooltip(true);
-		else verticalCenterTooltip(true);
+		if (typeof _verticalCenterTooltip === 'function') _verticalCenterTooltip();
+		else verticalCenterTooltip();
 	};
 
 	tooltipDiv.style.left = '33.75%';

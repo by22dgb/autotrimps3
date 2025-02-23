@@ -850,6 +850,8 @@ function _runTributeFarm(setting, mapName, settingName, settingIndex) {
 		mappingDetails(mapName, mapLevel, mapSpecial, tributeGoal, meteorologistGoal);
 		resetMapVars(setting, settingName);
 		if (game.global.mapsActive) recycleMap_AT();
+	} else if (!shouldMap && setting.mapType === 'Absolute') {
+		resetMapVars(setting, settingName);
 	}
 
 	const status = tributeGoal > game.buildings.Tribute.owned ? `刷贡品：${game.buildings.Tribute.owned}/${tributeGoal}` : `刷气象学家：${game.jobs.Meteorologist.owned}/${meteorologistGoal}`;
@@ -3848,6 +3850,7 @@ function fragmentFarm() {
 		return;
 	}
 
+	const debugMessage = MODULES.maps.fragmentFarming;
 	MODULES.maps.fragmentFarming = true;
 	//Purchase fragment farming map if we're in map chamber. If you don't have enough fragments for this map then RIP
 	if (!game.global.preMapsActive) return;
@@ -3863,13 +3866,13 @@ function fragmentFarm() {
 			buyMap();
 			mapCheck = game.global.mapsOwnedArray[game.global.mapsOwnedArray.length - 1];
 		} else {
-			debug(`Not enough fragments to purchase fragment farming map. Waiting for fragments. If you don't have explorers then you will have to manually disable auto maps and continue.`, 'maps');
+			if (!debugMessage) debug(`Not enough fragments to purchase fragment farming map. Waiting for fragments. If you don't have explorers then you will have to manually disable auto maps and continue.`, 'maps');
 			return;
 		}
 	}
 
 	selectMap(mapCheck.id);
-	debug(`进行刷碎片，目标${prettify(fragmentsNeeded)}碎片。`, 'map_Details');
+	if (!debugMessage) debug(`进行刷碎片，目标${prettify(fragmentsNeeded)}碎片。目前有${prettify(game.resources.fragments.owned)}碎片。`, 'map_Details');
 	runMap();
 
 	if (!game.global.repeatMap) repeatClicked();
@@ -3980,6 +3983,7 @@ function dailyModiferReduction() {
 			if (dailyReduction > dailyReductionTemp) dailyReduction = dailyReductionTemp;
 		}
 	}
+
 	return dailyReduction;
 }
 

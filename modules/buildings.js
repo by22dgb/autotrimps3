@@ -508,6 +508,9 @@ function _calcSmithyDuringQuest() {
  */
 function _buyLaboratory(buildingSettings) {
 	if (game.buildings.Laboratory.locked || !buildingSettings.Laboratory || !buildingSettings.Laboratory.enabled) return;
+	if (game.buildings.Laboratory.purchased > 0 && game.buildings.Laboratory.owned === 0 && game.global.buildingsQueue.length > 1 && !game.global.buildingsQueue[0].includes('Laboratory')) {
+		clearQueueUntil('Laboratory');
+	}
 
 	const labAmt = buildingSettings.Laboratory.buyMax === 0 ? Infinity : buildingSettings.Laboratory.buyMax;
 	const labPct = buildingSettings.Laboratory.percent / 100;
@@ -531,7 +534,7 @@ function _buyMicrochip() {
  * Buys antenna if possible. For the radon universe.
  */
 function _buyAntenna(buildingSettings) {
-	if (game.buildings.Antenna.locked || !buildingSettings.Antenna || !buildingSettings.Antenna.enabled) return;
+	if (game.buildings.Antenna.locked || !buildingSettings.Antenna || !buildingSettings.Antenna.enabled || mapSettings.ancientTreasure) return;
 
 	const antennaAmt = buildingSettings.Antenna.buyMax === 0 ? Infinity : buildingSettings.Antenna.buyMax;
 	const antennaPct = buildingSettings.Antenna.percent / 100;
@@ -642,5 +645,17 @@ function _buySelectedHouse(houseName, buildingSettings) {
 	if (maxCanAfford) {
 		safeBuyBuilding(houseName, maxCanAfford);
 		return true;
+	}
+}
+
+function clearQueueUntil(specific = false) {
+	if (!specific) return;
+
+	for (let x = 0; x < game.global.nextQueueId; x++) {
+		const queueItem = document.getElementById(`queueItem${x}`);
+		if (!queueItem) continue;
+
+		if (specific && game.global.buildingsQueue[0].split('.')[0] === specific) break;
+		removeQueueItem(`queueItem${x}`, true);
 	}
 }

@@ -2,7 +2,7 @@
 
 # Current Version - Ongoing Development!
 
--   SadAugust Fork. All changes made by SadAugust using Zorn192/GenBTC as base. Currently up-to-date with patch 5.9.2.
+-   SadAugust Fork. All changes made by SadAugust using Zorn192/GenBTC as base. Currently up-to-date with patch 5.10.1.
 
 # AT Script Installation
 
@@ -24,7 +24,7 @@ If you are unsure how to do that, copy this:
 function loadScript(id, src) {
 	const script = document.createElement('script');
 	script.id = id;
-	script.src = src;
+	script.src = `${src}?${Date.now()}`;
 	script.setAttribute('crossorigin', 'anonymous');
 	document.head.appendChild(script);
 }

@@ -773,8 +773,8 @@ function optimize() {
 function toggleSettingInputProperty(propertyName, elemName) {
 	const ratioBtn = document.getElementById(elemName);
 	const className = ['settingBtnfalse', 'settingBtntrue'];
-	className.splice(className.indexOf(ratioBtn.className.split(' ')[2]), 1);
-	ratioBtn.setAttribute('class', 'btn settingsBtn ' + className[0]);
+	className.splice(className.indexOf(ratioBtn.className.split(' ')[1]), 1);
+	ratioBtn.setAttribute('class', `btn ${className[0]}`);
 
 	const settingName = portalUniverse === 1 ? 'perky' : 'surky';
 	const settingInputs = JSON.parse(localStorage.getItem(`${settingName}Inputs`));
@@ -1153,7 +1153,7 @@ atData.autoPerks = {
 		apGUI.$resetWeightsBtn.setAttribute('onclick', `importExportTooltip("resetPerkPreset", "${calcName}");`);
 		apGUI.$resetWeightsBtn.setAttribute('onmouseover', `tooltip("Reset Preset Weights", "customText", event, \`${resetWeightsText}\`)`);
 		apGUI.$resetWeightsBtn.setAttribute('onmouseout', 'tooltip("hide")');
-		apGUI.$resetWeightsBtn.style.cssText = `height: 1.5vw; font-size: 0.8vw; width: 13.7vw; vertical-align: middle; line-height: 1.3vw;`;
+		apGUI.$resetWeightsBtn.style.cssText = `height: 1.5vw; font-size: 0.8vw; width: 13.7vw; vertical-align: middle; line-height: 1.3vw; margin-left: 0.5vw; border: 1px solid #fff; border-radius: 1px; padding: 0px`;
 		apGUI.$resetWeightsBtn.textContent = 'Reset Preset Weights';
 		if (document.getElementById(apGUI.$resetWeightsBtn.id) === null) apGUI.$ratiosLine[3].appendChild(apGUI.$resetWeightsBtn);
 
@@ -1193,11 +1193,11 @@ atData.autoPerks = {
 			apGUI.$goldenUpgradeBtn = document.createElement('DIV');
 			apGUI.$goldenUpgradeBtn.id = 'showGoldenUpgradesBtn';
 			const settingBtnClass = settingInputs.showGU ? 'settingBtntrue' : 'settingBtnfalse';
-			apGUI.$goldenUpgradeBtn.setAttribute('class', `btn settingsBtn ${settingBtnClass}`);
+			apGUI.$goldenUpgradeBtn.setAttribute('class', `btn ${settingBtnClass}`);
 			apGUI.$goldenUpgradeBtn.setAttribute('onclick', 'toggleSettingInputProperty("showGU", "showGoldenUpgradesBtn")');
 			apGUI.$goldenUpgradeBtn.setAttribute('onmouseover', 'tooltip("Recommend Golden Upgrades", "customText", event, "When enabled will display the recommended golden upgrade path to take on your run when you allocate perks.")');
 			apGUI.$goldenUpgradeBtn.setAttribute('onmouseout', 'tooltip("hide")');
-			apGUI.$goldenUpgradeBtn.style.cssText = `height: 1.5vw; font-size: 0.8vw; width: 13.7vw; vertical-align: middle; line-height: 1.3vw; margin-left: 0.5vw; border: 0.1vw solid #777; border-radius: 0px; padding: 0px`;
+			apGUI.$goldenUpgradeBtn.style.cssText = `height: 1.5vw; font-size: 0.8vw; width: 13.7vw; vertical-align: middle; line-height: 1.3vw; margin-left: 0.5vw; border: 1px solid #fff; border-radius: 1px; padding: 0px`;
 			apGUI.$goldenUpgradeBtn.textContent = 'Recommend Golden Upgrades';
 			if (document.getElementById(apGUI.$goldenUpgradeBtn.id) === null) apGUI.$ratiosLine[3].appendChild(apGUI.$goldenUpgradeBtn);
 			initialLoad();
@@ -1206,11 +1206,11 @@ atData.autoPerks = {
 		apGUI.$updateInputsBtn = document.createElement('DIV');
 		apGUI.$updateInputsBtn.id = 'updateInputsBtn';
 		const settingBtnClass = settingInputs.updateInputs ? 'settingBtntrue' : 'settingBtnfalse';
-		apGUI.$updateInputsBtn.setAttribute('class', `btn settingsBtn ${settingBtnClass}`);
+		apGUI.$updateInputsBtn.setAttribute('class', `btn ${settingBtnClass}`);
 		apGUI.$updateInputsBtn.setAttribute('onclick', 'toggleSettingInputProperty("updateInputs", "updateInputsBtn")');
 		apGUI.$updateInputsBtn.setAttribute('onmouseover', 'tooltip("Update Input Fields", "customText", event, "When enabled will update input fields with your current runs data when you open the perks or portal window.")');
 		apGUI.$updateInputsBtn.setAttribute('onmouseout', 'tooltip("hide")');
-		apGUI.$updateInputsBtn.style.cssText = `height: 1.5vw; font-size: 0.8vw; width: 13.7vw; vertical-align: middle; line-height: 1.3vw; margin-left: 0.5vw; border: 0.1vw solid #777; border-radius: 0px; padding: 0px`;
+		apGUI.$updateInputsBtn.style.cssText = `height: 1.5vw; font-size: 0.8vw; width: 13.7vw; vertical-align: middle; line-height: 1.3vw; margin-left: 0.5vw; border: 1px solid #fff; border-radius: 1px; padding: 0px`;
 		apGUI.$updateInputsBtn.textContent = 'Update Input Fields';
 		if (document.getElementById(apGUI.$updateInputsBtn.id) === null) apGUI.$ratiosLine[3].appendChild(apGUI.$updateInputsBtn);
 		document.getElementById('portalWrapper').style.setProperty('overflow-y', 'auto');
@@ -1707,13 +1707,13 @@ if (typeof autoTrimpSettings === 'undefined' || (typeof autoTrimpSettings !== 'u
 		if (typeof localVersion !== 'undefined') basepathPerkCalc = 'https://localhost:8887/AutoTrimps_Local/';
 		const mods = ['surky'];
 		const modules = ['import-export', 'MAZ'];
-		const css = ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', `${basepathPerkCalc}css/perky.css`];
+		const css = ['https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', `${basepathPerkCalc}css/select2.css`, `${basepathPerkCalc}css/perky.css`];
 		const scripts = ['https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'];
 
 		function loadModules(fileName, prefix = '', retries = 3) {
 			return new Promise((resolve, reject) => {
 				const script = document.createElement('script');
-				script.src = `${basepathPerkCalc}${prefix}${fileName}.js`;
+				script.src = `${basepathPerkCalc}${prefix}${fileName}.js?${Date.now()}`;
 				script.id = `${fileName}_MODULE`;
 				script.async = false;
 				script.defer = true;
@@ -1741,7 +1741,7 @@ if (typeof autoTrimpSettings === 'undefined' || (typeof autoTrimpSettings !== 'u
 				}
 
 				const link = document.createElement('link');
-				link.href = url;
+				link.href = `${url}?${Date.now()}`;
 				link.rel = rel;
 				link.type = type;
 
@@ -1768,7 +1768,7 @@ if (typeof autoTrimpSettings === 'undefined' || (typeof autoTrimpSettings !== 'u
 				}
 
 				const script = document.createElement('script');
-				script.src = url;
+				script.src = `${url}?${Date.now()}`;
 				script.type = type;
 
 				script.onload = () => {

@@ -105,7 +105,7 @@ function tooltipAT(what, event, textString, headingName, use2 = '2') {
 		tooltipText = `Are you sure you want to clear the <b>${textString}</b> preset?`;
 		tooltipText += `<br><br><b>Warning:</b> This will also set the name back to ${headingName}.`;
 
-		costText = `<div class='maxCenter'><div id='confirmTooltipBtn' class='btn btn-info' onclick='cancelTooltip2(true); _mutatorClearPreset("${headingName}"); document.getElementById("tooltipDiv2").style.zIndex = 6;'>Import</div><div class='btn btn-info' onclick='cancelTooltip2(true); document.getElementById("tooltipDiv2").style.zIndex = 6;'>Cancel</div></div>`;
+		costText = `<div class='maxCenter'><div id='confirmTooltipBtn' class='btn btn-info' onclick='cancelTooltip2(true); _mutatorClearPreset("${headingName}"); document.getElementById("tooltipDiv2").style.zIndex = 6;'>Confirm</div><div class='btn btn-info' onclick='cancelTooltip2(true); document.getElementById("tooltipDiv2").style.zIndex = 6;'>Cancel</div></div>`;
 
 		elem.style.zIndex = 9;
 		ondisplay = function () {
@@ -176,25 +176,37 @@ function _mutatorRenamePreset() {
 function _mutatorLoadPreset(preset) {
 	const mutatorObj = JSON.parse(localStorage.getItem('mutatorPresets'));
 	if (!preset) preset = mutatorObj.selectedPreset;
+	if (!mutatorObj[preset]) mutatorObj[preset] = _mutatorDefaultObj()[preset];
 
 	const mutatorList = mutatorObj[preset] ? mutatorObj[preset].mutators : [];
-	const outerRing = [];
 	if (mutatorList.length === 0) return;
 
+	const mutatorRingsList = { 0: [] };
+	const missingRingOneItems = ['Liq1', 'Smashing', 'Liq2', 'Smashing2', 'Liq3'];
+
 	for (let item in u2Mutations.tree) {
-		if (item.purchased) continue;
+		const itemObj = u2Mutations.tree[item];
+		if (itemObj.purchased) continue;
+		if (itemObj.ring && !mutatorRingsList[itemObj.ring]) mutatorRingsList[itemObj.ring] = [];
 		if (mutatorList.includes(item)) {
-			if (!u2Mutations.checkRequirements(item)) outerRing.push(item);
-			else u2Mutations.purchase(item);
+			if (missingRingOneItems.includes(item)) mutatorRingsList[1].push(item);
+			else if (itemObj.ring && itemObj.ring > 0) mutatorRingsList[itemObj.ring].push(item);
+			else mutatorRingsList[0].push(item);
 		}
 	}
 
-	while (outerRing.length > 0 && game.global.mutatedSeeds > u2Mutations.nextCost()) {
-		if (!u2Mutations.checkRequirements(outerRing[0])) outerRing.push(outerRing.shift());
-		const mutName = outerRing[0];
-		if (u2Mutations.checkRequirements(mutName)) {
-			u2Mutations.purchase(mutName);
-			outerRing.shift();
+	for (let item in mutatorRingsList) {
+		if (u2Mutations.purchaseCount >= u2Mutations.rings[item]) {
+			const itemObj = mutatorRingsList[item];
+			while (itemObj.length > 0 && game.global.mutatedSeeds > u2Mutations.nextCost()) {
+				console.log(itemObj[0]);
+				if (!u2Mutations.checkRequirements(itemObj[0])) itemObj.push(itemObj.shift());
+				const mutName = itemObj[0];
+				if (u2Mutations.checkRequirements(mutName)) {
+					u2Mutations.purchase(mutName);
+					itemObj.shift();
+				}
+			}
 		}
 	}
 
@@ -227,6 +239,7 @@ function _mutatorSwapPreset(preset, force = false) {
 	}
 
 	const mutatorObj = JSON.parse(localStorage.getItem('mutatorPresets'));
+	if (!mutatorObj[preset]) mutatorObj[preset] = _mutatorDefaultObj()[preset];
 	mutatorObj.selectedPreset = preset;
 
 	if (typeof autoTrimpSettings !== 'undefined' && autoTrimpSettings.ATversion.includes('SadAugust')) {
@@ -252,10 +265,10 @@ function _mutatorSetupPresetBtn() {
 
 	const u2MutContainer = document.createElement('SPAN');
 	u2MutContainer.setAttribute('id', 'mutatorPresetsBtn');
-	u2MutContainer.setAttribute('class', 'btn btn-lg btn-info');
+	u2MutContainer.setAttribute('class', 'btn btn-lg btn-primary btn-md');
 	u2MutContainer.setAttribute('style', 'font-size: 1.1em; margin-top: 0.25em;');
 	u2MutContainer.setAttribute('onClick', "importExportTooltip('mutatorPresets')");
-	u2MutContainer.innerHTML = 'Presets';
+	u2MutContainer.innerHTML = 'Show Presets';
 
 	const u2MutColumn = document.getElementById('swapToMasteryBtn').parentNode;
 	u2MutColumn.replaceChild(u2MutContainer, document.getElementById('swapToMasteryBtn').parentNode.children[3]);
@@ -285,12 +298,23 @@ function _mutatorPopulateTree(firstLoad = false) {
 		mutators.forEach((mutator) => mutatorList.push(mutator));
 	}
 
+	let mutatorRingCount = { 0: 0 };
+	for (let item in u2Mutations.tree) {
+		const itemObj = u2Mutations.tree[item];
+		if (itemObj.ring && !mutatorRingCount[itemObj.ring]) mutatorRingCount[itemObj.ring] = 0;
+		if (mutatorList.includes(item)) {
+			if (itemObj.ring && itemObj.ring > 0) mutatorRingCount[itemObj.ring]++;
+			else mutatorRingCount[0]++;
+		}
+	}
+	mutatorRingCount = JSON.stringify(mutatorRingCount);
+
 	let leftMost = 0;
 	let rightMost = 0;
 	for (let item in u2Mutations.tree) {
 		const coords = u2Mutations.tree[item].pos;
 		const itemObj = u2Mutations.tree[item];
-		const bgColor = !_mutatorCheckRequirements(item, mutatorList) ? 'requirement' : mutatorList.includes(item) ? 'purchased' : 'available';
+		const bgColor = !_mutatorCheckRequirements(item, mutatorList, mutatorRingCount) ? 'requirement' : mutatorList.includes(item) ? 'purchased' : 'available';
 		if (bgColor === 'purchased') mutatorListActive.push(item);
 		const displayName = itemObj.dn ? itemObj.dn : item;
 		let description = itemObj.description;
@@ -370,9 +394,10 @@ function _mutatorPopulateTree(firstLoad = false) {
 	}
 }
 
-function _mutatorCheckRequirements(what, mutatorList) {
+function _mutatorCheckRequirements(what, mutatorList, mutatorRingCount) {
 	const itemObj = u2Mutations.tree[what];
-	if (itemObj.ring && itemObj.ring > 0 && Number(document.getElementById('mutatorsPurchased').innerText) < u2Mutations.rings[itemObj.ring]) return false;
+	mutatorRingCount = JSON.parse(mutatorRingCount);
+	if (itemObj.ring && itemObj.ring > 0 && mutatorRingCount[[itemObj.ring - 1]] < u2Mutations.rings[itemObj.ring]) return false;
 	if (!itemObj.require) return true;
 
 	for (let y = 0; y < itemObj.require.length; y++) {
@@ -449,8 +474,9 @@ function _mutatorDefaultObj() {
 		'Preset 3': { mutators: [], purchaseCount: 0, name: 'Preset 3' },
 		'Preset 4': { mutators: [], purchaseCount: 0, name: 'Preset 4' },
 		'Preset 5': { mutators: [], purchaseCount: 0, name: 'Preset 5' },
+		'Preset 6': { mutators: [], purchaseCount: 0, name: 'Preset 6' },
 		selectedPreset: 'Preset 1',
-		titles: ['Preset 1', 'Preset 2', 'Preset 3', 'Preset 4', 'Preset 5']
+		titles: ['Preset 1', 'Preset 2', 'Preset 3', 'Preset 4', 'Preset 5', 'Preset 6']
 	};
 
 	return mutatorObj;
@@ -469,15 +495,18 @@ function _displayMutatorPresets(tooltipDiv) {
 	const presetName = setting[selectedPreset] ? setting[selectedPreset].name || 'Preset 1' : 'Preset 1';
 	const runningAT = !(typeof autoTrimpSettings === 'undefined' || (typeof autoTrimpSettings !== 'undefined' && typeof autoTrimpSettings.ATversion !== 'undefined' && !autoTrimpSettings.ATversion.includes('SadAugust')));
 	const headerTitles = {
-		1: 'This preset will be loaded when portaling into Filler challenges with the Preset Swap Mutators setting enabled.',
-		2: 'This preset will be loaded when portaling into Daily challenges with the Preset Swap Mutators setting enabled.',
-		3: 'This preset will be loaded when portaling into C3 or special challenges (Mayhem, Pandemonium, Desolation) with the Preset Swap Mutators setting enabled.',
-		4: '',
-		5: ''
+		1: 'This preset will be loaded when portaling into Filler challenges if the Preset Swap Mutators setting is enabled.',
+		2: 'This preset will be loaded when portaling into Daily challenges if the Preset Swap Mutators setting is enabled.',
+		3: 'This preset will be loaded when portaling into C3 or special challenges (Mayhem, Pandemonium, Desolation) if the Preset Swap Mutators setting is enabled.',
+		4: 'This preset will be loaded when portaling into the Wither challenge if the Preset Swap Mutators and W: Mutator Preset settings are enabled.',
+		5: 'This preset will be loaded when portaling into the Desolation challenge if both the Preset Swap Mutators and D: Mutator Preset settings are enabled.',
+		6: 'This preset will be loaded when portaling into Daily challenges that have the Plagued modifier if both the Preset Swap Mutators and D: Plagued Mutator Preset settings are enabled.'
 	};
 
 	const preset = setting[selectedPreset] || { mutators: {}, purchaseCount: 0, name: presetName };
-	const headerList = ['Preset 1', 'Preset 2', 'Preset 3', 'Preset 4', 'Preset 5'];
+	const headerList = ['Preset 1', 'Preset 2', 'Preset 3', 'Preset 4', 'Preset 5', 'Preset 6'];
+	let itemCount = 0;
+	const maxItemsInRow = 3;
 
 	const availableSeeds = game.global.mutatedSeeds + game.global.mutatedSeedsSpent;
 	const maxMutators = Math.floor(Math.log2(availableSeeds / 300 + 1));
@@ -488,12 +517,22 @@ function _displayMutatorPresets(tooltipDiv) {
 
 	let tooltipText = '';
 	tooltipText += `<div id='mutatorPresets' style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">`;
-	for (const header of headerList) {
-		const titleName = setting[header] ? setting[header].name || header : header;
-		const headerClass = header === selectedPreset ? 'Selected' : 'NotSelected';
-		const escapedTitleName = escapeHtmlAttribute(titleName);
-		const titleText = runningAT ? headerTitles[Number(header.replace(/\D/g, ''))] : '';
-		tooltipText += `<div style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;" class='mutatorHeader mutatorHeader${headerClass}' onclick='_mutatorSwapPreset("${header}")'  data-hidden-name="${header}" title="${titleText}"><b>${escapedTitleName}</b></div>`;
+
+	while (itemCount < headerList.length) {
+		const itemsInRow = Math.min(maxItemsInRow, headerList.length - itemCount);
+		const widthStyle = `width: calc((100% - ${0.2 + 0.2 * itemsInRow}em - 6px) / ${itemsInRow});`;
+
+		for (let i = 0; i < itemsInRow; i++) {
+			const header = headerList[itemCount];
+			const titleName = setting[header] ? setting[header].name || header : header;
+			const headerClass = header === selectedPreset ? 'Selected' : 'NotSelected';
+			const escapedTitleName = escapeHtmlAttribute(titleName);
+			const titleText = runningAT ? headerTitles[Number(header.replace(/\D/g, ''))] : '';
+			tooltipText += `<div style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;" class='mutatorHeader mutatorHeader${headerClass}' onclick='_mutatorSwapPreset("${header}")'  data-hidden-name="${header}" title="${titleText}"><b>${escapedTitleName}</b></div>`;
+			itemCount++;
+		}
+
+		tooltipText += `<br>`;
 	}
 
 	tooltipText += `</div>`;
@@ -584,7 +623,7 @@ if (typeof autoTrimpSettings === 'undefined' || (typeof autoTrimpSettings !== 'u
 		function loadModules(fileName, prefix = '', retries = 3) {
 			return new Promise((resolve, reject) => {
 				const script = document.createElement('script');
-				script.src = `${basepathMutator}${prefix}${fileName}.js`;
+				script.src = `${basepathMutator}${prefix}${fileName}.js?${Date.now()}`;
 				script.id = `${fileName}_MODULE`;
 				script.async = false;
 				script.defer = true;
@@ -612,7 +651,7 @@ if (typeof autoTrimpSettings === 'undefined' || (typeof autoTrimpSettings !== 'u
 				}
 
 				const link = document.createElement('link');
-				link.href = url;
+				link.href = `${url}?${Date.now()}`;
 				link.rel = rel;
 				link.type = type;
 
@@ -639,7 +678,7 @@ if (typeof autoTrimpSettings === 'undefined' || (typeof autoTrimpSettings !== 'u
 				}
 
 				const script = document.createElement('script');
-				script.src = url;
+				script.src = `${url}?${Date.now()}`;
 				script.type = type;
 
 				script.onload = () => {

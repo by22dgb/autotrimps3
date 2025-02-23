@@ -283,7 +283,8 @@ function getTrimpHealth(realHealth, worldType = _getWorldType(), extraItem = new
 			observation: () => game.portal.Observation.getMult(),
 			mutatorHealth: () => (u2Mutations.tree.Health.purchased ? 1.5 : 1),
 			geneHealth: () => (u2Mutations.tree.GeneHealth.purchased ? 10 : 1),
-			spireBasics: () => u2SpireBonuses.basics()
+			spireBasics: () => u2SpireBonuses.basics(),
+			fluffyHealth: () => (Fluffy.isRewardActive('scaledHealth') ? Fluffy.rewardConfig.scaledHealth.mult() : 1)
 		};
 		health = applyMultipliers(healthMultipliers, health);
 
@@ -466,21 +467,57 @@ function addPoison(realDamage, zone = game.global.world) {
 }
 
 function getCritMulti(crit, customShield) {
+	const doubleCrit = typeof atConfig !== 'undefined' ? getPlayerDoubleCritChance_AT(customShield) : getPlayerDoubleCritChance();
 	const critD = typeof atConfig !== 'undefined' ? getPlayerCritDamageMult_AT(customShield) : getPlayerCritDamageMult();
 	let critChance = typeof atConfig !== 'undefined' ? getPlayerCritChance_AT(customShield) : getPlayerCritChance();
+
 	if (crit === 'never') critChance = Math.floor(critChance);
-	else if (crit === 'force') critChance = Math.ceil(critChance);
+	if (crit === 'force') critChance = Math.ceil(critChance + (doubleCrit > 0 ? 1 : 0));
 
-	const lowTierMulti = getMegaCritDamageMult(Math.floor(critChance));
-	const highTierMulti = getMegaCritDamageMult(Math.ceil(critChance));
-	const highTierChance = critChance - Math.floor(critChance);
+	let critMult = 1;
+	if (critChance < 0) {
+		critMult = 1 + critChance - critChance / 5;
+	} else if (critChance < 1) {
+		if (doubleCrit > 0 && !['never', 'force'].includes(crit)) {
+			const noCritNoDouble = (1 - critChance) * (1 - doubleCrit);
+			const critNoDouble = critChance * (1 - doubleCrit) * critD;
+			const noCritDouble = (1 - critChance) * doubleCrit * critD;
+			const critDouble = critChance * doubleCrit * critD * critD;
+			critMult = noCritNoDouble + critNoDouble + noCritDouble + critDouble;
+		} else {
+			critMult = 1 - critChance + critChance * critD;
+		}
+	} else if (critChance < 2) {
+		const megaCritDmg = getMegaCritDamageMult(2);
+		if (doubleCrit > 0 && !['never', 'force'].includes(crit)) {
+			const noCritNoDouble = (2 - critChance) * (1 - doubleCrit) * critD;
+			const critNoDouble = (critChance - 1) * (1 - doubleCrit) * megaCritDmg * critD;
+			const noCritDouble = (2 - critChance) * doubleCrit * megaCritDmg * critD;
+			const critDouble = (critChance - 1) * doubleCrit * getMegaCritDamageMult(3) * critD;
+			critMult = noCritNoDouble + critNoDouble + noCritDouble + critDouble;
+		} else {
+			critMult = (critChance - 1) * megaCritDmg * critD + (2 - critChance) * critD;
+		}
+	} else if (critChance >= 2 && ['never', 'force'].includes(crit)) {
+		critMult = getMegaCritDamageMult(Math.floor(critChance)) * critD;
+	} else if (critChance >= 2) {
+		let highTierChance = critChance - Math.floor(critChance);
+		const lowTierMulti = getMegaCritDamageMult(Math.floor(critChance));
+		const highTierMulti = getMegaCritDamageMult(Math.ceil(critChance));
 
-	if (critChance < 0) return 1 + critChance - critChance / 5;
-	if (critChance < 1) return 1 - critChance + critChance * critD;
-	if (critChance < 2) return (critChance - 1) * getMegaCritDamageMult(2) * critD + (2 - critChance) * critD;
-	if (critChance >= 2 && ['never', 'force'].includes(crit)) return lowTierMulti * critD;
-	if (critChance >= 2) return ((1 - highTierChance) * lowTierMulti + highTierChance * highTierMulti) * critD;
-	return (critChance - 2) * Math.pow(getMegaCritDamageMult(critChance), 2) * critD + (3 - critChance) * getMegaCritDamageMult(critChance) * critD;
+		if (doubleCrit > 0) {
+			const doubleTierMulti = getMegaCritDamageMult(Math.ceil(critChance) + 1);
+			const noCritNoDouble = (1 - highTierChance) * (1 - doubleCrit) * lowTierMulti;
+			const critNoDouble = highTierChance * (1 - doubleCrit) * highTierMulti;
+			const noCritDouble = (1 - highTierChance) * doubleCrit * highTierMulti;
+			const critDouble = highTierChance * doubleCrit * doubleTierMulti;
+			critMult = (noCritNoDouble + critNoDouble + noCritDouble + critDouble) * critD;
+		} else {
+			critMult = ((1 - highTierChance) * lowTierMulti + highTierChance * highTierMulti) * critD;
+		}
+	}
+
+	return critMult;
 }
 
 function getTenacityTime(worldType = _getWorldType()) {
@@ -621,7 +658,7 @@ function calcOurDmg(minMaxAvg = 'avg', universeSetting, realDamage = false, worl
 			Revenge: () => game.challenges.Revenge.getMult(),
 			Quest: () => game.challenges.Quest.getAttackMult(),
 			Archaeology: () => game.challenges.Archaeology.getStatMult('attack'),
-			Storm: () => (game.global.mapsActive ? Math.pow(0.9995, game.challenges.Storm.beta) : 1),
+			Storm: () => (worldType !== 'world' ? Math.pow(0.9995, game.challenges.Storm.beta) : 1),
 			Berserk: () => game.challenges.Berserk.getAttackMult(),
 			Nurture: () => game.challenges.Nurture.getStatBoost(),
 			Alchemy: () => alchObj.getPotionEffect('Potion of Strength'),
@@ -810,7 +847,7 @@ function calcEnemyAttackCore(worldType = _getWorldType(), zone = _getZone(worldT
 			Wither: () => game.challenges.Wither.getEnemyAttackMult(),
 			Archaeology: () => game.challenges.Archaeology.getStatMult('enemyAttack'),
 			Mayhem: () => game.challenges.Mayhem.getEnemyMult() * (worldType === 'world' ? game.challenges.Mayhem.getBossMult() : 1),
-			Storm: () => (!game.global.mapsActive ? game.challenges.Storm.getAttackMult() : 1),
+			Storm: () => (worldType === 'world' ? game.challenges.Storm.getAttackMult() : 1),
 			Berserk: () => 1.5,
 			Exterminate: () => game.challenges.Exterminate.getSwarmMult(),
 			Nurture: () => 2 * game.buildings.Laboratory.getEnemyMult(),
@@ -1128,6 +1165,7 @@ function calcHDRatio(targetZone = game.global.world, worldType = 'world', maxTen
 	}
 
 	if ((worldType !== 'map' && game.global.universe === 2 && universeSetting < getPerkLevel('Equality') - 14) || game.global.universe === 1) ourBaseDamage *= MODULES.heirlooms.gammaBurstPct;
+	if (worldType !== 'map' && challengeActive('Storm') && game.challenges.Storm.mutations > 0) ourBaseDamage *= game.challenges.Storm.getGammaMult();
 
 	if (checkOutputs) _calcHDRatioDebug(ourBaseDamage, enemyHealth, universeSetting, worldType);
 
