@@ -139,13 +139,13 @@ function formatTimeForDescriptions(number) {
 				timeString += `年`;
 			}
 			else if (unit === 'day'){
-				timeString += `日`;
+				timeString += `天`;
 			}
 			else if (unit === 'hour'){
 				timeString += `小时`;
 			}
 			else if (unit === 'minute'){
-				timeString += `分`;
+				timeString += `分钟`;
 			}
 			else if (unit === 'second'){
 				timeString += `秒`;

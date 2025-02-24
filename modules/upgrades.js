@@ -86,7 +86,7 @@ function firstGiga() {
 	if (deltaGiga !== delta) setPageSetting('deltaGigastation', delta);
 
 	if (firstGiga !== base || deltaGiga !== delta) {
-		debug(`Auto Gigastation: Setting pattern to ${base} + ${delta}`, 'buildings', '*rocket');
+		debug(`自动千兆核心：使用初始值${base}，变化值${delta}的配置`, 'buildings', '*rocket');
 	}
 
 	return true;
@@ -246,7 +246,7 @@ function buyUpgrades() {
 		}
 
 		buyUpgrade(upgrade, true, true);
-		debug(`Upgraded ${upgrade}`, 'upgrades', '*upload2');
+		debug(`升级了<i></i>${upgrade}`, 'upgrades', '*upload2');
 	}
 }
 
@@ -310,6 +310,6 @@ function autoGoldUpgrades() {
 		const heName = heliumOrRadon();
 		const guName = selected === 'Helium' ? heName : selected;
 		buyGoldenUpgrade(selected);
-		debug(`Purchased Golden ${guName} #${game.goldenUpgrades[selected].purchasedAt.length}`, 'golden_Upgrades', '*upload2');
+		debug(`购买第${game.goldenUpgrades[selected].purchasedAt.length}次金色${guName}升级`, 'golden_Upgrades', '*upload2');
 	}
 }

@@ -199,13 +199,13 @@ function spireAssaultImportSpreadsheet(preset) {
 		const itemData = autoBattle.items[itemSplit[0]];
 
 		if (!itemData.owned) {
-			errorMsg += `You do not own the ${autoBattle.cleanName(item)} item so it won't be imported.<br>`;
+			errorMsg += `You do not own the <i></i>${autoBattle.cleanName(item)}<i></i> item so it won't be imported.<br>`;
 			continue;
 		}
 
 		itemArray.push(itemSplit[0]);
 		if (itemData.level < Number(itemSplit[1])) {
-			errorMsg += `<span style="color: red;">Your ${autoBattle.cleanName(itemSplit[0])} is level ${itemData.level} but the imported level is ${Number(itemSplit[1])}.</span><br>`;
+			errorMsg += `<span style="color: red;">Your <i></i>${autoBattle.cleanName(itemSplit[0])}<i></i>为等级${itemData.level}，但想要导入的为等级${Number(itemSplit[1])}。</span><br>`;
 		}
 	}
 
@@ -222,7 +222,7 @@ function spireAssaultImportSpreadsheet(preset) {
 
 	const ringMods = Object.keys(ringData.mods).filter((mod) => ringData.mods[mod]);
 	if (ringData.level > autoBattle.rings.level) {
-		errorMsg += `<span style="color: red;">Your Ring is level ${autoBattle.rings.level} but the imported level is ${ringData.level}.</span><br>`;
+		errorMsg += `<span style="color: red;">灵戒为等级${autoBattle.rings.level}，但想要导入的为等级${ringData.level}。</span><br>`;
 	}
 
 	if (errorMsg !== '' && importBox.style.display !== 'none') {

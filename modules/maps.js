@@ -12,17 +12,17 @@ function autoMapsStatus(get = false) {
 		status = 'Advancing';
 	}
 
-	if (challengeActive('Mapology') && game.challenges.Mapology.credits < 1) status = `Out of Map Credits ${status}`;
-	if (getPageSetting('autoMaps') === 0) status = `[Auto Maps Off] ${status}`;
+	if (challengeActive('Mapology') && game.challenges.Mapology.credits < 1) status = `Out of Map Credits <br>${status}`;
+	if (getPageSetting('autoMaps') === 0) status = `[Auto Maps Off] <br>${status}`;
 
 	if (usingRealTimeOffline && getPageSetting('timeWarpDisplay')) {
 		const { ticksProcessed, progressMax } = offlineProgress;
 		const progressPercentage = ((ticksProcessed / progressMax) * 100).toFixed(1);
-		status = `Time Warp (${progressPercentage}%)<br>${status}`;
+		status = `时间跃迁(${progressPercentage}%)<br>${status}`;
 	}
 
 	const resourceType = game.global.universe === 1 ? 'Helium' : 'Radon';
-	const resourceShortened = game.global.universe === 1 ? 'He' : 'Rn';
+	const resourceShortened = game.global.universe === 1 ? '氦' : '氡';
 	const resourceOwned = game.resources[resourceType.toLowerCase()].owned;
 	const resourceEarned = game.global[`total${resourceType}Earned`];
 
@@ -59,7 +59,7 @@ function autoMapsStatus(get = false) {
 
 		const heHrElem = document.getElementById('heHrStatus');
 		if (heHrElem !== null && !getPageSetting('displayHideAutoButtons').ATheHr) {
-			const heHrStatus = `${resourceShortened}/hr: ${getPercent > 0 ? getPercent.toFixed(3) : 0}%<br>&nbsp;&nbsp;&nbsp;${resourceShortened}: ${lifetime > 0 ? lifetime.toFixed(3) : 0}%`;
+			const heHrStatus = `${resourceShortened}每小时：${getPercent > 0 ? getPercent.toFixed(3) : 0}%<br>${resourceShortened}：${lifetime > 0 ? lifetime.toFixed(3) : 0}%`;
 			if (heHrElem.innerHTML !== heHrStatus) heHrElem.innerHTML = heHrStatus;
 
 			const currentOnMouseOver = heHrElem.getAttribute('onmouseover');
@@ -225,15 +225,15 @@ function prettifyMap(map) {
 	let descriptor;
 
 	if (!map.noRecycle) {
-		const bonus = map.hasOwnProperty('bonus') ? mapSpecialModifierConfig[map.bonus].name : 'no bonus';
-		descriptor = `Level ${map.level} (${bonus}) map`;
+		const bonus = map.hasOwnProperty('bonus') ? mapSpecialModifierConfig[map.bonus].name : '无词缀';
+		descriptor = `，等级${map.level}(<i></i>${bonus}<i></i>)地图`;
 	} else if (map.location === 'Void') {
-		descriptor = `(void map)`;
+		descriptor = `(虚空地图)`;
 	} else {
-		descriptor = `(unique map)`;
+		descriptor = `(独特地图)`;
 	}
 
-	return `[${map.id}] ${map.name} ${descriptor}`;
+	return `编号[${map.id}]<i></i>${map.name}<i></i>${descriptor}`;
 }
 
 function _fragmentCheck(highestMap, runUnique) {
@@ -244,15 +244,15 @@ function _fragmentCheck(highestMap, runUnique) {
 	const mapCheck = findMap(game.global.world - mapLevel, mapSpecial, mapBiome);
 	if (mapCheck) return _runSelectedMap(mapCheck, runUnique);
 
-	const mapSpecialMsg = mapSpecial === '0' ? 'no bonus' : mapSpecial;
-	debug(`Can't afford the designed map (level ${mapLevel} ${mapSpecialMsg})`, 'maps', 'th-large');
+	const mapSpecialMsg = mapSpecial === '0' ? '无词缀' : mapSpecial;
+	debug(`碎片不够，无法制造指定地图(等级${mapLevel} ${mapSpecialMsg})`, 'maps', 'th-large');
 	/* runs fragment farming if Explorers are unlocked and can afford a max loot+size sliders map */
 	if (!game.jobs.Explorer.locked && mapCost(masteryPurchased('mapLoot') ? -1 : 0, getAvailableSpecials('fa'), 'Depths', [9, 9, 0], false) <= game.resources.fragments.owned) {
 		fragmentFarm();
 	} /* disable mapping if we don't have a map and can't afford the one that we want to make. */ else if (highestMap === null) {
 		MODULES.maps.fragmentCost = updateMapCost(true);
 		mapsClicked();
-		debug(`Disabling mapping until we reach ${prettify(MODULES.maps.fragmentCost)} fragments as we don't have any maps to run.`, 'maps');
+		debug(`暂无地图，获得${prettify(MODULES.maps.fragmentCost)}碎片后再运行地图。`, 'maps');
 		return true;
 	} else {
 		/* runs highest map we have available to farm fragments with */
@@ -518,7 +518,7 @@ function _purchaseMap(lowestMap) {
 
 	if (result === 1) {
 		const mapCost = updateMapCost(true);
-		debug(`Bought ${prettifyMap(game.global.mapsOwnedArray[game.global.mapsOwnedArray.length - 1])}. Spent ${prettify(mapCost)}/${prettify(game.resources.fragments.owned + mapCost)} (${((mapCost / (game.resources.fragments.owned + mapCost)) * 100).toFixed(2)}%) fragments.`, 'maps', 'th-large');
+		debug(`制造了${prettifyMap(game.global.mapsOwnedArray[game.global.mapsOwnedArray.length - 1])}。花费了${prettify(mapCost)}/${prettify(game.resources.fragments.owned + mapCost)}(${((mapCost / (game.resources.fragments.owned + mapCost)) * 100).toFixed(2)}%)碎片。`, 'maps', 'th-large');
 		runMap();
 	}
 }
@@ -580,7 +580,7 @@ function _runSelectedMap(mapId, runUnique) {
 	_abandonMapCheck(mapId, runUnique);
 	if (game.global.currentMapId !== mapId) selectMap(mapId);
 	runMap();
-	debug(`Running ${prettifyMap(MODULES.maps.lastMapWeWereIn)}`, 'maps', 'th-large');
+	debug(`运行${prettifyMap(MODULES.maps.lastMapWeWereIn)}`, 'maps', 'th-large');
 }
 
 //Way to fix an issue with having no maps available to run and no fragments to purchase them

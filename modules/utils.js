@@ -139,7 +139,7 @@ function timeStamp() {
 function setTitle() {
 	const world = game.global.world;
 	const versionNumber = document.getElementById('versionNumber').innerHTML;
-	document.title = `(${world}) Trimps ${versionNumber}`;
+	document.title = `(${world})脆皮 ${versionNumber}`;
 }
 
 function message_AT(message, messageType, icon) {
@@ -166,9 +166,9 @@ function message_AT(message, messageType, icon) {
 
 	if (lastMessageElement && lastMessageElement.innerHTML.includes(message)) {
 		const lastMessage = lastMessageElement.innerHTML;
-		const countIndex = lastMessage.lastIndexOf(' x');
+		const countIndex = lastMessage.lastIndexOf('×');
 		const lastMessageWithoutCount = countIndex !== -1 ? lastMessage.slice(0, countIndex) : lastMessage;
-		const lastMessageCount = countIndex !== -1 ? parseInt(lastMessage.slice(countIndex + 2)) : 1;
+		const lastMessageCount = countIndex !== -1 ? parseInt(lastMessage.slice(countIndex + 1)) : 1;
 		lastMessageElement.innerHTML = `${lastMessageWithoutCount}<i></i>×${lastMessageCount + 1}`;
 	} else {
 		log.innerHTML += messageHTML;
@@ -533,7 +533,7 @@ function _assembleChangelogFooter() {
 	return `
 		<br><b>SadAugust fork</b> - <u>Report any bugs/problems please</u>!
 		<br>Talk with the other Trimpers: <a target="Trimps" href="https://discord.gg/trimps">Trimps Discord Server</a>
-		<br>Check <a target="#" href="https://github.com/SadAugust/AutoTrimps_Local/commits/gh-pages" target="#">the commit history</a> (if you want).`;
+		<br>Check <a target="#" href="https://github.com/SadAugust/AutoTrimps/commits/main" target="#">the commit history</a> (if you want).`;
 }
 
 function printChangelog(changes) {
@@ -1118,12 +1118,12 @@ function RTC_populateRunetrinketCounterTooltip() {
 
 	let tooltipstring = '';
 	tooltipstring = "tooltip('Runetrinket Summary', 'customText', event, '";
-	tooltipstring += `<p>Runetrinkets give 1% per runetrinket per perk level, for a current boost of `;
+	tooltipstring += `<p>每有1级特权，每个小符饰就提供1%加成。总加成为`;
 	tooltipstring += `${prettify(game.portal.Observation.trinkets)} &times; ${game.portal.Observation.radLevel + 1}`;
 	tooltipstring += ` = ` + `<b>+${RTC_getRunetrinketEffect()}%</b>.</p>`;
 
 	tooltipstring += `<p>${game.portal.Observation.getChanceText()}`;
-	tooltipstring += ` Also, you are getting a guaranteed <b>${RTC_getRunetrinketGuaranteedRate()}</b> every 25 zones past z100.</p>`;
+	tooltipstring += `<i></i>每在区域100以上通过25个区域，可以稳定获得<b>${RTC_getRunetrinketGuaranteedRate()}</b>个小符饰。</p>`;
 	tooltipstring += "')";
 	return tooltipstring;
 }

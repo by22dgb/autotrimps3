@@ -361,7 +361,7 @@ function toggleCatchUpMode() {
 		const timeWarpTime = Math.floor(offlineProgress.totalOfflineTime / 1000);
 		debug(`时间推移模式已启用。您的时间跃迁持续${formatTimeForDescriptions(timeWarpTime)}。`, 'offline');
 		if (getPageSetting('timeWarpDisplay')) {
-			tooltip(`Time Warp`, `customText`, `lock`, `您的时间跃迁持续${formatTimeForDescriptions(timeWarpTime)}。由于启用了${autoTrimpSettings.timeWarpDisplay.name()}设置，您不会看到具体的时间，但可以在自动地图状态条上看到进度百分比。`, false, `center`);
+			tooltip(`Time Warp`, `customText`, `lock`, `您的时间跃迁持续${formatTimeForDescriptions(timeWarpTime)}。由于启用了<i></i>${autoTrimpSettings.timeWarpDisplay.name()}<i></i>设置，您不会看到具体的时间，但可以在自动地图状态条上看到进度百分比。`, false, `center`);
 		}
 	}
 }

@@ -138,28 +138,28 @@
 
 	M['performance'].updateAFKOverlay = function updateAFKOverlay() {
 		const mapObj = game.global.mapsActive ? getCurrentMapObject() : null;
-		const zoneText = `Zone: ${game.global.world} Cell: ${game.global.lastClearedCell + 2}${game.global.mapsActive ? `<br> Map: ${mapObj.level - game.global.world >= 0 ? ' + ' : ''}${mapObj.level - game.global.world} ${mapObj.bonus !== undefined ? mapObj.bonus : ''}` : ''}`;
+		const zoneText = `区域：${game.global.world} 格子：${game.global.lastClearedCell + 2}${game.global.mapsActive ? `<br>地图：${mapObj.level - game.global.world >= 0 ? '+' : ''}${mapObj.level - game.global.world} ${mapObj.bonus !== undefined ? mapObj.bonus : ''}` : ''}`;
 
 		const overlayZone = M['performance'].AFKOverlayZone;
 		if (overlayZone.innerHTML !== zoneText) overlayZone.innerHTML = zoneText;
 
 		const universeResources = {
-			1: { resourceType: 'Helium', resourcePerHour: 'He/hr' },
-			2: { resourceType: 'Radon', resourcePerHour: 'Rn/hr' }
+			1: { resourceType: 'Helium', cnType: '氦', resourcePerHour: '氦每小时' },
+			2: { resourceType: 'Radon', cnType: '氡', resourcePerHour: '氡每小时' }
 		};
 
-		const { resourceType, resourcePerHour } = universeResources[game.global.universe] || {};
+		const { resourceType, cnType, resourcePerHour } = universeResources[game.global.universe] || {};
 
 		const overlayHelium = M['performance'].AFKOverlayHelium;
-		const heliumText = `${resourceType}: ${prettify(Math.floor(game.resources[resourceType.toLowerCase()].owned))}`;
+		const heliumText = `${cnType}：${prettify(Math.floor(game.resources[resourceType.toLowerCase()].owned))}`;
 		if (overlayHelium.innerText !== heliumText) overlayHelium.innerText = heliumText;
 
 		const overlayHeliumPerHour = M['performance'].AFKOverlayHeliumPerHour;
-		const heliumPerHourText = `${resourcePerHour}: ${prettify(game.stats.heliumHour.value())}`;
+		const heliumPerHourText = `${resourcePerHour}：${prettify(game.stats.heliumHour.value())}`;
 		if (overlayHeliumPerHour.innerText !== heliumPerHourText) overlayHeliumPerHour.innerText = heliumPerHourText;
 
 		const overlayStatus = M['performance'].AFKOverlayStatus;
-		const statusText = `Status: ${autoMapsStatus(true)[0]}`;
+		const statusText = `${autoMapsStatus(true)[0]}`;
 		if (overlayStatus.innerText !== statusText) overlayStatus.innerText = statusText;
 	};
 })(atData, window);

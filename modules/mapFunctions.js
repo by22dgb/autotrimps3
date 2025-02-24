@@ -1153,7 +1153,7 @@ function _runWorshipperFarm(setting, mapName, settingName, settingIndex, default
 	const shouldMap = worshippersOwned !== 50 && worshipperGoal > worshippersOwned;
 
 	if ((mapSettings.mapName === mapName && !shouldMap) || shouldSkip) {
-		if (shouldSkip) debug(`跳过区域${game.global.world}的刷崇信者，因为1张${mapSpecial.toUpperCase()}词缀的地图无法增加不低于${defaultSettings.shipskip}名崇信者。请检查一下相关设置`, 'map_Skip');
+		if (shouldSkip) debug(`跳过区域${game.global.world}的刷崇信者，因为1张${mapSpecial}词缀的地图无法增加不低于${defaultSettings.shipskip}名崇信者。请检查一下相关设置`, 'map_Skip');
 		else mappingDetails(mapName, mapLevel, mapSpecial);
 		resetMapVars(setting, settingName);
 	}
@@ -3230,12 +3230,12 @@ function _runHDFarm(setting, mapName, settingName, settingIndex, defaultSettings
 		//Messages detailing why we are skipping mapping.
 		if (shouldSkip) {
 			if (hdType.includes('hitsSurvived')) {
-				debug(`区域${game.global.world}格子${game.global.lastClearedCell + 2}的承伤数刷资源已经跳过，因为目标已经达成(${hitsSurvived.toFixed(2)}/${settingTarget.toFixed(2)})。`, 'map_Skip');
+				debug(`跳过区域${game.global.world}格子${game.global.lastClearedCell + 2}的承伤数刷资源，因为目标已经达成(${hitsSurvived.toFixed(2)}/${settingTarget.toFixed(2)})。`, 'map_Skip');
 			} else if (hdType !== 'maplevel') {
-				debug(`区域${game.global.world}格子${game.global.lastClearedCell + 2}的命攻比刷资源已经跳过，因为目标已经达成(${hdRatio.toFixed(2)}/${settingTarget.toFixed(2)})。`, 'map_Skip');
+				debug(`跳过区域${game.global.world}格子${game.global.lastClearedCell + 2}的命攻比刷资源，因为目标已经达成(${hdRatio.toFixed(2)}/${settingTarget.toFixed(2)})。`, 'map_Skip');
 			} else {
 				const autoLevel = whichAutoLevel();
-				debug(`区域${game.global.world}格子${game.global.lastClearedCell + 2}的命攻比刷资源已经跳过，因为地图等级目标已经达成(自动等级${setting.hdBase}/${autoLevel})。`, 'map_Skip');
+				debug(`跳过区域${game.global.world}格子${game.global.lastClearedCell + 2}的命攻比刷资源，因为地图等级目标已经达成(自动等级${setting.hdBase}/${autoLevel})。`, 'map_Skip');
 			}
 		}
 
@@ -3792,18 +3792,18 @@ function mappingDetails(mapName, mapLevel, mapSpecial, extra, extra2, extra3) {
 	const currCell = game.global.lastClearedCell + 2;
 	let message = '';
 
-	const mapDetails = `(区域${game.global.world}格子${currCell})用了`;
+	const mapDetails = `(区域${game.global.world}格子${currCell})`;
 	const timeDescription = formatTimeForDescriptions(timeMapping);
 	const mapLevelPrefix = mapLevel >= 0 ? '+' : '';
 
 	if (mapName !== 'Void Map' && mapName !== 'Quagmire Farm' && mapName !== 'Smithy Farm' && mapName !== 'Bionic Raiding' && mapName !== 'Quest') {
-		message += `${mapName}<i></i>${mapDetails}${mappingLength}张(${mapLevelPrefix}${mapLevel} ${mapSpecial})地图，经过${timeDescription}。<i></i>`;
+		message += `${mapName}<i></i>${mapDetails}运行了${mappingLength}张(${mapLevelPrefix}${mapLevel} ${mapSpecial})地图，经过${timeDescription}。<i></i>`;
 	} else if (mapName === 'Smithy Farm') {
-		message += `${mapName}<i></i>${mapDetails}${MODULES.maps.mapRepeatsSmithy[0]}张食物，${MODULES.maps.mapRepeatsSmithy[2]}张金属，${MODULES.maps.mapRepeatsSmithy[1]}张木头(${mapLevelPrefix}${mapLevel})地图，经过${timeDescription}。<i></i>`;
+		message += `${mapName}<i></i>${mapDetails}运行了${MODULES.maps.mapRepeatsSmithy[0]}张食物，${MODULES.maps.mapRepeatsSmithy[2]}张金属，${MODULES.maps.mapRepeatsSmithy[1]}张木头(${mapLevelPrefix}${mapLevel})地图，经过${timeDescription}。<i></i>`;
 	} else if (mapName === 'Quagmire Farm') {
-		message += `${mapName}<i></i>${mapDetails}${mappingLength}张地图，经过${timeDescription}。<i></i>`;
+		message += `${mapName}<i></i>${mapDetails}运行了${mappingLength}张地图，经过${timeDescription}。<i></i>`;
 	} else {
-		message += `${mapName}<i></i>${mapDetails}${timeDescription}。<i></i>`;
+		message += `${mapName}<i></i>${mapDetails}经过${timeDescription}。<i></i>`;
 	}
 
 	if (mapName === 'Void Map') {

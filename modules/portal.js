@@ -142,7 +142,7 @@ function handleHeHrPortal(prefix, universe, resourceType, myHeliumHr, bestHeHr, 
 		doPortal(challenge, skipDaily);
 
 		setTimeout(() => {
-			debug(`My ${resourceType}Hr was: ${prettify(myHeliumHr)} & the Best ${resourceType}Hr was: ${prettify(bestHeHr)} at zone ${bestHeHrZone}`, 'portal');
+			debug(`${resourceType}<i></i>每小时为：${prettify(myHeliumHr)}，该周目最高<i></i>${resourceType}<i></i>每小时为：区域${bestHeHrZone}的${prettify(bestHeHr)}`, 'portal');
 		}, 1000);
 	} else {
 		_handleHeHrPortalDelay(resourceType, myHeliumHr, bestHeHr, bestHeHrZone, challengeSelected, skipDaily);
@@ -152,8 +152,8 @@ function handleHeHrPortal(prefix, universe, resourceType, myHeliumHr, bestHeHr, 
 function _handleHeHrAfterVoids(prefix, universe) {
 	if (!MODULES.mapFunctions.afterVoids) {
 		const notPoisonZone = getPageSetting(prefix + 'HrPortal', universe) === 2 && getZoneEmpowerment(game.global.world) !== 'Poison';
-		if (notPoisonZone && game.global.world < getObsidianStart()) debug(`Z${game.global.world} - Pushing to next Poison zone then portaling after void maps have been run.`, 'portal');
-		else debug(`Z${game.global.world} - Portaling after void maps have been run.`, 'portal');
+		if (notPoisonZone && game.global.world < getObsidianStart()) debug(`区域${game.global.world} - 推进至下一个毒区域，然后再运行虚空地图，最后进行传送。`, 'portal');
+		else debug(`区域${game.global.world} - 运行虚空地图后进行传送。`, 'portal');
 	}
 
 	MODULES.mapFunctions.afterVoids = true;
@@ -163,7 +163,7 @@ function _handleHeHrPortalDelay(resourceType, myHeliumHr, bestHeHr, bestHeHrZone
 	MODULES.portal.zonePostpone += 1;
 	MODULES.popups.portal = true;
 	if (MODULES.popups.remainingTime === Infinity) MODULES.popups.remainingTime = 4000;
-	tooltip('confirm', null, 'update', '<b>Auto Portaling NOW!</b><p>Hit Delay Portal to WAIT 1 more zone.', 'MODULES.portal.zonePostpone++; MODULES.popups.portal = false', `<b>NOTICE: Auto-Portaling in ${MODULES.popups.remainingTime} seconds....</b>`, 'Delay Portal');
+	tooltip('confirm', null, 'update', '<b>Auto Portaling NOW!</b><p>Hit Delay Portal to delay this by 1 more zone.', 'MODULES.portal.zonePostpone++; MODULES.popups.portal = false', `<b>注意：将在${MODULES.popups.remainingTime}秒后自动传送……</b>`, 'Delay Portal');
 
 	MODULES.portal.heHrTimeout = setTimeout(() => {
 		cancelTooltip();
@@ -177,7 +177,7 @@ function _handleHeHrPortalDelay(resourceType, myHeliumHr, bestHeHr, bestHeHrZone
 		doPortal(challenge, skipDaily);
 
 		setTimeout(() => {
-			debug(`My ${resourceType}Hr was: ${prettify(myHeliumHr)} & the Best ${resourceType}Hr was: ${prettify(bestHeHr)} at zone ${bestHeHrZone}`, 'portal');
+			debug(`${resourceType}<i></i>每小时为：${prettify(myHeliumHr)}，该周目最高<i></i>${resourceType}<i></i>每小时为：区域${bestHeHrZone}的${prettify(bestHeHr)}`, 'portal');
 		}, 1000);
 	}, MODULES.portal.timeout + 100);
 }
@@ -298,7 +298,7 @@ function doPortal(challenge, skipDaily) {
 	if (magmiteText) debug(magmiteText, 'magmite');
 	if (c2Text) debug(c2Text, 'portal');
 	if (dailyText) debug(dailyText, 'portal');
-	if (!game.global.runningChallengeSquared && !challengeActive('Daily')) debug(`Portaling into ${game.global.challengeActive || 'a no challenge run'}.`, 'portal');
+	if (!game.global.runningChallengeSquared && !challengeActive('Daily')) debug(`传送并进入<i></i>${game.global.challengeActive || '无'}<i></i>挑战。`, 'portal');
 }
 
 function _autoPortalAbandonChallenge(portal = true) {
@@ -350,14 +350,14 @@ function _autoPortalVoidTracker() {
 	activatePortal();
 	resetVarsZone(true, false);
 
-	let portalText = 'Portaling ';
+	let portalText = '进行传送';
 
 	if (portalRespec === 1) {
-		portalText += 'to refresh respec.';
+		portalText += '以刷新洗点次数。';
 		MODULES.portal.portalForRespec = true;
 	} else {
 		MODULES.portal.portalForVoid = true;
-		portalText += `to increment void tracker (currently ${trackerValue}/10) with liquification.`;
+		portalText += `以通过液化增加骨头升级中虚空地图的充能次数(目前${trackerValue}/10)。`;
 	}
 
 	debug(portalText, 'portal');
@@ -464,12 +464,12 @@ function _autoPortalC2() {
 	const challenge = _c2RunnerCheck(true);
 	if (!challenge) return;
 
-	const universePrefix = portalUniverse === 2 ? 'C3' : 'C2';
-	if (Array.isArray(challenge)) return `${universePrefix} Runner: All ${universePrefix}'s above level threshold!`;
+	const universePrefix = portalUniverse === 2 ? '挑战³' : '挑战²';
+	if (Array.isArray(challenge)) return `自动进行${universePrefix}：所有${universePrefix}的最高到达区域均超过阈值！`;
 
 	if (!challengeSquaredMode) toggleChallengeSquared();
 	selectChallenge(challenge);
-	return `${universePrefix} Runner: Starting ${challenge}`;
+	return `自动进行${universePrefix}：进行<i></i>${challenge}<i></i>挑战`;
 }
 
 function _autoPortalDaily(challenge, portalUniverse, skipDaily = false) {
@@ -519,8 +519,8 @@ function _autoPortalDaily(challenge, portalUniverse, skipDaily = false) {
 	selectChallenge('Daily');
 	getDailyChallenge(lastUndone);
 	const dailyString = getDailyTimeString(lastUndone, true);
-	const dayName = dayOfWeek(getDailyTimeString(lastUndone, false, true)).slice(0, -1);
-	return [`Portaling into ${dayName}ily (${dailyString})`, 'Daily'];
+	const dayName = dayOfWeek(getDailyTimeString(lastUndone, false, true)).slice(2, 3);
+	return [`传送并进入周${dayName}(${dailyString})的日常挑战`, 'Daily'];
 }
 
 function _autoPortalRegular(challengeName) {
@@ -646,7 +646,7 @@ function decayFinishChallenge() {
 
 	if (stacksToAbandon > 0 && currentStacks >= stacksToAbandon) {
 		abandonChallenge();
-		debug(`Finished ${challengeName} challenge because we had more than ${stacksToAbandon} stacks.`, 'general', 'oil');
+		debug(`层数已经超过${stacksToAbandon}，完成<i></i>${challengeName}<i></i>挑战。`, 'general', 'oil');
 	}
 }
 
@@ -656,7 +656,7 @@ function dailyFinishChallenge() {
 	const endZone = getPageSetting('dailyAbandonZone');
 	if (endZone > 0 && game.global.world >= endZone) {
 		_autoPortalAbandonChallenge(false);
-		debug(`Finished ${'Daily'} challenge because we reached zone ${endZone}.`, 'general', 'oil');
+		debug(`已经到达区域${endZone}，完成日常挑战。`, 'general', 'oil');
 	}
 }
 
@@ -666,7 +666,7 @@ function quagmireFinishChallenge() {
 
 	if (zoneToAbandon > 0 && game.global.world >= zoneToAbandon) {
 		abandonChallenge();
-		debug(`Finished Quagmire challenge because we are at or past zone ${zoneToAbandon}.`, 'general', 'oil');
+		debug(`已经到达区域${zoneToAbandon}，完成泥淖挑战。`, 'general', 'oil');
 	}
 }
 
@@ -677,7 +677,7 @@ function challengeInfo(force) {
 	if (game.global.runningChallengeSquared) {
 		if (finishChallenge - 1 === game.global.world) debug(`Warning: AT will abandon your challenge when starting your next zone. If you want to stop this increase the zone set in 'Finish ${challengeType}' or set it to -1`, 'challenge');
 		if (finishChallenge <= 0 && finishChallenge <= game.c2[game.global.challengeActive] && game.global.world < 3) {
-			debug(`The zone input in the '${challengeType} Finish' setting (${finishChallenge}) is below or equal to your HZE for this challenge (${game.c2[game.global.challengeActive]}). Increase it or it'll end earlier than you'd probably like it to.`, 'challenge');
+			debug(`“完成<i></i>${challengeType}<i></i>”设置的数值(${finishChallenge})未超过该挑战的最高到达区域(${game.c2[game.global.challengeActive]})。请将它设为更大的数值，否则可能会在您不想的情况下退出挑战。`, 'challenge');
 		}
 	}
 
@@ -745,7 +745,7 @@ function c2FinishZone() {
 }
 
 function finishChallengeSquared(onlyDebug) {
-	debug(`Finished ${game.global.challengeActive} at zone ${game.global.world}`, 'challenge', 'oil');
+	debug(`在区域${game.global.world}完成<i></i>${game.global.challengeActive}<i></i>挑战`, 'challenge', 'oil');
 	if (onlyDebug) return;
 	abandonChallenge();
 	cancelTooltip();
@@ -862,7 +862,7 @@ function combatRespec() {
 
 	const calcName = game.global.universe === 2 ? 'Surky' : 'Perky';
 	const respecPresetName = $$('#preset')[$$('#preset').selectedIndex].innerHTML;
-	debug(`${calcName} - Respeccing into the ${respecPresetName} preset.`, 'portal');
+	debug(`${calcName} - 洗点为“<i></i>${respecPresetName}<i></i>”预设。`, 'portal');
 
 	if (game.global.universe === 2) fillPresetSurky(currPreset);
 	else fillPresetPerky(currPreset);
@@ -900,15 +900,15 @@ function atlantrimpRespecMessage(cellOverride) {
 	if (respecSetting === 2) {
 		MODULES.popups.respecAncientTreasure = true;
 		MODULES.popups.remainingTime = MODULES.portal.timeout;
-		let description = '<p>Respeccing into the <b>' + respecName + '</b> preset</p>';
-		tooltip('confirm', null, 'update', description + '<p>Hit <b>Disable Respec</b> to stop this.</p>', 'MODULES.popups.respecAncientTreasure = false, MODULES.popups.remainingTime = Infinity', '<b>NOTICE: Auto-Respeccing in ' + (MODULES.popups.remainingTime / 1000).toFixed(1) + ' seconds....</b>', 'Disable Respec');
+		let description = '<p>Respeccing into the <b>' + respecName + '</b> preset.</p>';
+		tooltip('confirm', null, 'update', description + '<p>Hit <b>Disable Respec</b> to stop this.</p>', 'MODULES.popups.respecAncientTreasure = false, MODULES.popups.remainingTime = Infinity', '<b>注意：将在' + (MODULES.popups.remainingTime / 1000).toFixed(1) + '秒后自动洗点……</b>', 'Disable Respec');
 		setTimeout(combatRespec, MODULES.portal.timeout);
 	}
 	//If setting is disabled, show tooltip to allow for respec after Atlantrimp has been run
 	else if (respecSetting === 1) {
-		const mapName = game.global.universe === 2 ? 'Atlantrimp' : 'Trimple Of Doom';
+		const mapName = game.global.universe === 2 ? '亚特兰蒂皮' : '末日神殿';
 		const description = '<p>Click <b>Force Respec</b> to respec into the <b>' + respecName + '</b> preset.</p>';
-		tooltip('confirm', null, 'update', description, 'MODULES.popups.respecAncientTreasure = true; combatRespec()', '<b>Post ' + mapName + ' Respec</b>', 'Force Respec');
+		tooltip('confirm', null, 'update', description, 'MODULES.popups.respecAncientTreasure = true; combatRespec()', '<b>通过' + mapName + '后洗点</b>', 'Force Respec');
 	}
 }
 

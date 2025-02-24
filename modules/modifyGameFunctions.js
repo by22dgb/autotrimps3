@@ -50,7 +50,7 @@ if (typeof originalLoad !== 'function') {
 			updateHeirloomSwapElem();
 			atData.autoPerks.displayGUI();
 		} catch (e) {
-			debug(`Load save failed: ${e}`, 'error');
+			debug(`Load save failed: <i></i>${e}`, 'error');
 		}
 	};
 }
@@ -67,7 +67,7 @@ if (typeof originalresetGame !== 'function') {
 			atlantrimpRespecOverride();
 			_setButtonsPortal();
 		} catch (e) {
-			debug(`Load save failed: ${e}`, 'error');
+			debug(`Load save failed: <i></i>${e}`, 'error');
 		}
 	};
 }
@@ -194,9 +194,9 @@ if (typeof offlineProgress.originalFinish !== 'function') {
 			if (timeRun > 30) {
 				const offlineTime = offlineProgress.formatTime(Math.floor(Math.min(timeRun, maxTicks / 10)));
 				const remainingTime = offlineProgress.formatTime(Math.floor(Math.max(0, timeRun)));
-				const remainingText = remainingTime.includes('days') ? `You have ${remainingTime} left to run.` : `This is your last Time Warp loop.`;
+				const remainingText = remainingTime.includes('天') ? `还剩下${remainingTime}。` : `这是最后一次时间跃迁。`;
 
-				debug(`Running Time Warp again for ${offlineTime} to catchup on the time you missed whilst running it. ${remainingText}`, 'offline');
+				debug(`重新进行时间跃迁，持续${offlineTime}。${remainingText}`, 'offline');
 				timeRun *= 1000;
 
 				const keys = ['lastOnline', 'portalTime', 'zoneStarted', 'lastSoldierSentAt', 'lastSkeletimp', 'lastBonePresimpt', 'lastChargeAt'];
@@ -1047,7 +1047,7 @@ function recycleMap(map, fromMass, killVoid, noRefund) {
 		game.resources.fragments.owned += refund;
 		const displaySetting = getPageSetting('displayHideAutoButtons');
 		const hideRecycle = displaySetting ? displaySetting.recycleMaps : false;
-		if (!fromMass && !hideRecycle) message('Recycled ' + mapObj.name + ' for ' + prettify(refund) + ' fragments.', 'Notices');
+		if (!fromMass && !hideRecycle) message('您回收了<i></i>' + mapObj.name + '<i></i>地图，获得' + prettify(refund) + '碎片。', 'Notices');
 	}
 	game.global.mapsOwnedArray.splice(map, 1);
 	if (killVoid) {

@@ -402,8 +402,8 @@ function remakeTooltip() {
 	if (game.global.lockTooltip) {
 		if (MODULES.popups.respecAncientTreasure || MODULES.popups.portal) {
 			const titleElem = document.getElementById('tipTitle');
-			const action = MODULES.popups.respecAncientTreasure ? 'Auto-Respeccing' : 'Auto-Portaling';
-			const respecMessage = `<b>NOTICE: ${action} in ${(MODULES.popups.remainingTime / 1000).toFixed(1)} seconds....</b>`;
+			const action = MODULES.popups.respecAncientTreasure ? '自动洗点' : '自动传送';
+			const respecMessage = `<b>注意：将在${(MODULES.popups.remainingTime / 1000).toFixed(1)}秒后${action}……</b>`;
 			if (titleElem.innerHTML !== respecMessage) titleElem.innerHTML = respecMessage;
 		}
 
@@ -413,12 +413,12 @@ function remakeTooltip() {
 	if (MODULES.popups.respecAncientTreasure) {
 		let respecName = !trimpStats.isC3 ? 'Radon ' : '' + 'Combat Respec';
 		if (game.global.universe === 1) respecName = 'Spire';
-		const description = `<p><b>Respeccing into the ${respecName} preset.</b></p>`;
-		tooltip('confirm', null, 'update', description + '<p>Hit <b>Disable Respec</b> to stop this.</p>', 'MODULES.popups.respecAncientTreasure = false', `<b>NOTICE: Auto-Respeccing in ${MODULES.popups.remainingTime} seconds....</b>`, 'Disable Respec');
+		const description = `<p><b>Respeccing into the <i></i>${respecName}<i></i> preset.</b></p>`;
+		tooltip('confirm', null, 'update', description + '<p>Hit <b>Disable Respec</b> to stop this.</p>', 'MODULES.popups.respecAncientTreasure = false', `<b>注意：将在${MODULES.popups.remainingTime}秒后自动洗点……</b>`, 'Disable Respec');
 	} else if (MODULES.popups.challenge) {
 		tooltip('confirm', null, 'update', MODULES.popups.message, 'MODULES.popups.challenge = false, delete MODULES.popups.message', 'AutoTrimps New Unlock!');
 	} else {
-		tooltip('confirm', null, 'update', '<b>Auto Portaling Now!</b><p>Hit Delay Portal to delay this by 1 more zone.', 'MODULES.portal.zonePostpone+=1; MODULES.popups.portal = false', `<b>NOTICE: Auto-Portaling in ${MODULES.popups.remainingTime} seconds....</b>`, 'Delay Portal');
+		tooltip('confirm', null, 'update', '<b>Auto Portaling Now!</b><p>Hit Delay Portal to delay this by 1 more zone.', 'MODULES.portal.zonePostpone+=1; MODULES.popups.portal = false', `<b>注意：将在${MODULES.popups.remainingTime}秒后自动传送……</b>`, 'Delay Portal');
 	}
 }
 
