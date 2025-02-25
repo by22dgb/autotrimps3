@@ -116,7 +116,7 @@ function _displayImportAutoTrimpsProfile(profileSettings, profileName) {
 	const tooltipDiv = document.getElementById('tooltipDiv');
 	swapClass('tooltipExtra', 'tooltipExtraNone', tooltipDiv);
 
-	const tooltipText = `Are you sure you wish to import the settings from the profile named: ${profileName}?`;
+	const tooltipText = `Are you sure you wish to import the settings from the profile named: <i></i>${profileName}<i></i>的设置吗？`;
 
 	let costText = "<div class='maxCenter'>";
 	costText += `<div id='confirmTooltipBtn' class='btn btn-info' onclick='cancelTooltip(); resetAutoTrimps("${profileSettings}", "${profileName}");'>Switch Profile</div>`;
@@ -146,7 +146,7 @@ function atProfileSave(profileName = autoTrimpSettings.ATprofile) {
 	const profileData = JSON.parse(settingProfiles);
 	profileData[profileName] = serializeSettings();
 	localStorage.setItem('atSettingsProfiles', JSON.stringify(profileData));
-	debug(`Profile: ${profileName} has been saved.`, 'profile');
+	debug(`配置文件：<i></i>${profileName}<i></i>已保存。`, 'profile');
 }
 
 function _displayExportAutoTrimps(tooltipDiv) {
@@ -154,8 +154,8 @@ function _displayExportAutoTrimps(tooltipDiv) {
 	Save this save somewhere safe so you can save time next time.<br/><br/>
 	<textarea id='exportArea' style='width: 100%' rows='5'>${serializeSettings()}</textarea>`;
 
-	const u2Affix = game.global.totalRadPortals > 0 ? ` ${game.global.totalRadPortals} U${game.global.universe}` : '';
-	const saveName = `AT Settings P${game.global.totalPortals}${u2Affix} Z${game.global.world}`;
+	const u2Affix = game.global.totalRadPortals > 0 ? `-宇宙${game.global.universe}第${game.global.totalRadPortals}次传送` : '';
+	const saveName = `自动脆皮第${game.global.totalPortals}次传送${u2Affix}-区域${game.global.world}`;
 	const serializedSettings = encodeURIComponent(serializeSettings());
 
 	const costText = `
@@ -223,12 +223,12 @@ function _displayPriorityOrder(tooltipDiv) {
             <tr>
                 <td>Name</td>
                 <td>Line</td>
-                <td>Active</td>
+                <td>是否激活</td>
                 <td>Priority</td>
                 <td>Zone</td>
                 <td>End Zone</td>
                 <td>Cell</td>
-                <td>Special</td>
+                <td>特殊词缀</td>
             </tr>
     `;
 
@@ -335,7 +335,7 @@ function spireAssaultPresetSwap(preset, force = false) {
 
 function spireAssaultPresetRename() {
 	const selectedPreset = $('.spireHeaderSelected')[0].innerText;
-	const newName = prompt(`Enter a new name for preset ${selectedPreset}:`, selectedPreset);
+	const newName = prompt(`输入预设“${selectedPreset}”的新名字：`, selectedPreset);
 
 	if (newName) {
 		const activePreset = document.getElementsByClassName('spireHeaderSelected')[0].dataset.hiddenName;
@@ -436,7 +436,7 @@ function _displaySpireAssaultPresets(tooltipDiv) {
 	tooltipText += `</div>`;
 
 	if (selectedPreset !== 'Hidden Items') {
-		tooltipText += `<div id="spireAssaultExtraLimb" class="spireAssaultItem spireItems${preset.extraLimb ? 'Equipped' : 'NotEquipped'}" style='display: flex; justify-content: center; margin-left: 4.5vw;' onclick='spireAssaultToggleLimb()' title="Enable this to increase your item cap by 1 to prepare builds for Extra Limb purchases.\n\nIf you try to import a build that has more items than you can equip then the build won't be imported."><span>Extra Limb</span></div>`;
+		tooltipText += `<div id="spireAssaultExtraLimb" class="spireAssaultItem spireItems${preset.extraLimb ? 'Equipped' : 'NotEquipped'}" style='display: flex; justify-content: center; margin-left: 4.5vw;' onclick='spireAssaultToggleLimb()' title="启用后可以使物品上限增加1，这样您可以提前规划购买一臂之力后的配置方案。\n\n如果您尝试导入的预设中物品数量超过了上限，导入将失败。"><span>Extra Limb</span></div>`;
 	}
 
 	tooltipText += `<div id='spireAssaultChangesContainer' style='color: red; display: flex; justify-content: flex-end; align-items: center; display: flex; visibility: hidden;'>`;
@@ -455,7 +455,7 @@ function _displaySpireAssaultPresets(tooltipDiv) {
 		}
 
 		let equipClass = itemsEquipped.includes(item) ? 'Equipped' : 'NotEquipped';
-		const itemLevel = item.includes('Doppelganger') ? '' : ` Lv ${itemObj.level}`;
+		const itemLevel = item.includes('Doppelganger') ? '' : ` 等级${itemObj.level}`;
 		rowData += `
 			<div class='spireAssaultItem spireItems${equipClass}' onclick='spireAssaultToggleElem(this, "Items")' data-hidden-text="${item}">
 				<span style="float: left;">${autoBattle.cleanName(item)}</span>
@@ -472,7 +472,7 @@ function _displaySpireAssaultPresets(tooltipDiv) {
 		const ringSlots = autoBattle.getRingSlots();
 		const ringModsEquipped = preset.ringMods;
 		tooltipText += `<div style="white-space: nowrap;">
-			<span>The Ring - Level ${autoBattle.rings.level} (</span><span id='spireAssaultRingEquipped'>${ringModsEquipped.length}</span><span>/</span><span id='spireAssaultRingMax'>${ringSlots}</span><span>) </span><span id='spireAssaultRingError' style='color: red;'></span>
+			<span>灵戒 - 等级${autoBattle.rings.level}(</span><span id='spireAssaultRingEquipped'>${ringModsEquipped.length}</span><span>/</span><span id='spireAssaultRingMax'>${ringSlots}</span><span>) </span><span id='spireAssaultRingError' style='color: red;'></span>
 		</div>`;
 
 		const ringMods = Object.keys(autoBattle.ringStats);
@@ -715,9 +715,9 @@ function _displayC2Table(tooltipDiv) {
 	const populateHeaders = (type) => {
 		challengeList[type] = {
 			number: `Difficulty`,
-			percent: `${type} %`,
+			percent: `${type}<i></i>%`,
 			zone: `Zone`,
-			percentzone: `HZE%`,
+			percentzone: `HZE`,
 			c2runner: `${type} Runner`,
 			runChallenge: `Auto Portal`
 		};
@@ -868,8 +868,8 @@ function _downloadSave(what = '') {
 
 	saveGame = LZString.compressToBase64(JSON.stringify(saveGame));
 
-	const u2Affix = game.global.totalRadPortals > 0 ? ` ${game.global.totalRadPortals} U${game.global.universe}` : '';
-	const saveName = `Trimps Save P${game.global.totalPortals}${u2Affix} Z${game.global.world}`;
+	const u2Affix = game.global.totalRadPortals > 0 ? `-宇宙${game.global.universe}第${game.global.totalRadPortals}次传送` : '';
+	const saveName = `脆皮存档第${game.global.totalPortals}次传送${u2Affix}-区域${game.global.world}`;
 
 	const link = document.createElement('a');
 	link.download = `${saveName}.txt`;
@@ -885,7 +885,7 @@ function loadAutoTrimps() {
 		autoTrimpsSettings = JSON.parse(importBox);
 		if (autoTrimpsSettings === null || autoTrimpsSettings === '') return void debug(`Error importing AT settings, the string is empty.`, 'profile');
 	} catch (error) {
-		return debug(`Error importing AT settings, the string is bad. ${error.message}`, 'profile');
+		return debug(`Error importing AT settings, the string is bad. <i></i>${error.message}`, 'profile');
 	}
 
 	if (!autoTrimpsSettings) {
@@ -952,8 +952,8 @@ function resetAutoTrimps(autoTrimpsSettings, switchProfile) {
 
 	const displayedMessage = {
 		switchProfile: {
-			message: `Successfully loaded existing profile: ${switchProfile}`,
-			tooltipMessage: `Successfully loaded existing profile: ${switchProfile}`,
+			message: `Successfully loaded existing profile: <i></i>${switchProfile}`,
+			tooltipMessage: `Successfully loaded existing profile: <i></i>${switchProfile}`,
 			title: 'Profile Loaded'
 		},
 		defaultSettings: {
@@ -1103,7 +1103,7 @@ function makeFragmentDecisionHelpTooltip() {
 	if (trimpStats.plusLevels) tooltipText += `<p>Disables perfect maps.</p>`;
 	tooltipText += `<p>Reduces the <b>Difficulty</b> slider until it either reaches 0 or you can afford the map.</p>`;
 	tooltipText += `<p>Reduces the <b>Loot</b> slider until it either reaches 0 or you can afford the map.</p>`;
-	tooltipText += `<p>Sets the <b>Biome</b> to <b>Random</b>.</p>`;
+	tooltipText += `<p>Sets the <b>Biome</b>为<b>Random</b>.</p>`;
 	tooltipText += `<p>Removes the <b>Special Modifier</b> if it's not set to a <b>Cache</b> special.</p>`;
 	tooltipText += `<p>Reduces the <b>Size</b> slider until it either reaches 0 or you can afford the map.</p>`;
 	tooltipText += `<p>Removes the <b>Special Modifier</b> if still set.</p>`;
@@ -1120,7 +1120,7 @@ function makeAdditionalInfoTooltip(mouseover) {
 	}
 
 	if (game.permaBoneBonuses.voidMaps.owned > 0) {
-		tooltipText += `<p><b>Void</b><br>`;
+		tooltipText += `<p><b>虚(虚空地图)</b><br>`;
 		tooltipText += `The progress you have towards the <b>Void Maps</b> permanent bone upgrade counter.</p>`;
 	}
 
@@ -1133,7 +1133,7 @@ function makeAdditionalInfoTooltip(mouseover) {
 	tooltipText += `</p>`;
 	const refreshTimer = usingRealTimeOffline ? 30 : 5;
 	const remainingTime = Math.ceil(refreshTimer - ((atConfig.intervals.counter / 10) % refreshTimer)) || refreshTimer;
-	tooltipText += `<p>The data shown is updated every ${refreshTimer} seconds. <b>${remainingTime}s</b> until the next update.</p>`;
+	tooltipText += `<p>以上显示数据每${refreshTimer}秒更新一次。距离下次更新数据还有<b>${remainingTime}秒</b>。</p>`;
 	tooltipText += `<p>Click this button while in the map chamber to either select your already purchased map or automatically set the inputs to the desired values.</p>`;
 	tooltipText += `<p>Control click this button to display a table of the calculators simulation results.</p>`;
 
@@ -1156,26 +1156,26 @@ function makeAdditionalInfoTooltip(mouseover) {
 
 function makeAdditionalInfo() {
 	//Void, AutoLevel, Breed Timer, Tenacity information
-	let lineBreak = ` | `;
+	let lineBreak = ` `;
 	let description = ``;
 
 	if (game.permaBoneBonuses.voidMaps.owned > 0) {
 		let voidValue = game.permaBoneBonuses.voidMaps.owned === 10 ? Math.floor(game.permaBoneBonuses.voidMaps.tracker / 10) : game.permaBoneBonuses.voidMaps.tracker / 10;
-		description += `V: ${voidValue}/10`;
+		description += `虚:${voidValue}/10`;
 		description += lineBreak;
 	}
 
-	description += `AL: (L:${hdStats.autoLevelLoot} S:${hdStats.autoLevelSpeed})`;
+	description += `等:(利:${hdStats.autoLevelLoot} 速:${hdStats.autoLevelSpeed})`;
 
 	if (game.global.universe === 1 && game.jobs.Amalgamator.owned > 0) {
 		const breedTimer = Math.floor((getGameTime() - game.global.lastSoldierSentAt) / 1000);
 		description += lineBreak;
-		description += `B: ${breedTimer.toFixed(0)}s`;
+		description += `繁:${breedTimer.toFixed(0)}秒`;
 	}
 	//Tenacity timer when you have tenacity
 	else if (game.global.universe === 2 && getPerkLevel('Tenacity') > 0) {
 		description += lineBreak;
-		description += `T: ${Math.floor(game.portal.Tenacity.getTime())}m`;
+		description += `坚:${Math.floor(game.portal.Tenacity.getTime())}分钟`;
 	}
 
 	return description;
@@ -1456,7 +1456,7 @@ function makeAutomapStatusTooltip(mouseover = false) {
 		tooltipText += `Map Level: <b>${mapSettings.mapLevel}</b><br>`;
 		tooltipText += `Auto Level: <b>${mapSettings.autoLevel}</b><br>`;
 		if (mapSettings.settingIndex) tooltipText += `Line Run: <b>${mapSettings.settingIndex}</b>${mapSettings.priority ? ` Priority: <b>${mapSettings.priority}</b>` : ``}<br>`;
-		tooltipText += `Special: <b>${mapSettings.special !== undefined && mapSettings.special !== '0' ? mapSpecialModifierConfig[mapSettings.special].name : 'None'}</b><br>`;
+		tooltipText += `特殊词缀：<b>${mapSettings.special !== undefined && mapSettings.special !== '0' ? mapSpecialModifierConfig[mapSettings.special].name : 'None'}</b><br>`;
 		tooltipText += `Wants To Run: ${mapSettings.shouldRun.toString().charAt(0).toUpperCase() + mapSettings.shouldRun.toString().slice(1)}<br>`;
 		tooltipText += `Repeat: ${mapSettings.repeat}`;
 	} else {
@@ -1702,11 +1702,11 @@ function _displayFarmCalcTable(tooltipDiv, titleText, currFragments = 'Current F
 
 	if (show_stance) {
 		if (game.global.universe === 1) {
-			best.loot.zone += ' in ' + best.loot.stance;
-			if (best.loot.lootSecond) best.loot.lootSecond.zone += ' in ' + best.loot.lootSecond.stance;
+			best.loot.zone += '用' + best.loot.stance + '阵型';
+			if (best.loot.lootSecond) best.loot.lootSecond.zone += '用' + best.loot.lootSecond.stance + '阵型';
 		} else if (game.global.universe === 2) {
-			best.loot.zone += ` with ${best.loot.equality} equality`;
-			if (best.loot.lootSecond) best.loot.lootSecond.zone += ` with ${best.loot.lootSecond.equality} equality`;
+			best.loot.zone += `以${best.loot.equality}级平等`;
+			if (best.loot.lootSecond) best.loot.lootSecond.zone += `以${best.loot.lootSecond.equality}级平等`;
 		}
 	}
 
@@ -1717,10 +1717,10 @@ function _displayFarmCalcTable(tooltipDiv, titleText, currFragments = 'Current F
 	let bestFarm = `You should ${adverbs[[adverbValue]]} farm on <b>${best.loot.zone}</b>`;
 
 	if (mapData.length > 1) {
-		if (percentage < 2) bestFarm += ` or <b>${best.loot.lootSecond.zone}</b>.`;
-		bestFarm += percentage < 2 ? ` They’re equally efficient.` : percentage < 4 ? `. But <b>${best.loot.lootSecond.zone}</b> is almost as good.` : `. It’s <b>${percentage.toFixed(1)}%</b> more efficient than <b>${best.loot.lootSecond.zone}</b>.`;
+		if (percentage < 2) bestFarm += `或区域<b>${best.loot.lootSecond.zone}</b>.`;
+		bestFarm += percentage < 2 ? ` They’re equally efficient.` : percentage < 4 ? `. But <b>${best.loot.lootSecond.zone}</b> is almost as good.` : `. It’s <b>${percentage.toFixed(1)}%</b> more efficient than <b>${best.loot.lootSecond.zone}</b>刷资源相比)。`;
 	} else {
-		bestFarm += '.';
+		bestFarm += '刷资源。';
 	}
 
 	if (game.global.spireActive) bestFarm += '<br>Good luck with the Spire!';

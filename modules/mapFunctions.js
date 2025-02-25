@@ -3784,9 +3784,9 @@ function mappingDetails(mapName, mapLevel, mapSpecial, extra, extra2, extra3) {
 	const mapProg = game.global.mapsActive ? (getCurrentMapCell().level - 1) / mapObj.size : 0;
 	const mappingLength = mapProg > 0 ? (game.global.mapRunCounter + mapProg).toFixed(2) : game.global.mapRunCounter;
 	//Setting special to current maps special if we're in a map.
-	if (game.global.mapsActive) mapSpecial = mapObj.bonus === undefined ? 'no special' : mapObj.bonus;
-	if (mapSpecial === '0') mapSpecial = 'no special';
-	if (mapName === 'Bionic Raiding') mapSpecial = masteryPurchased('bionic2') ? 'fa' : 'no special';
+	if (game.global.mapsActive) mapSpecial = mapObj.bonus === undefined ? '无词缀' : mapObj.bonus;
+	if (mapSpecial === '0') mapSpecial = '无词缀';
+	if (mapName === 'Bionic Raiding') mapSpecial = masteryPurchased('bionic2') ? 'fa' : '无词缀';
 
 	const timeMapping = MODULES.maps.mapTimer > 0 ? getZoneSeconds() - MODULES.maps.mapTimer : 0;
 	const currCell = game.global.lastClearedCell + 2;
