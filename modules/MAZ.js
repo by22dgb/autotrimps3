@@ -148,37 +148,37 @@ function _mapSettingsInputObj() {
 		'Auto Golden': {
 			settingInputs: ['active', 'priority', 'row', 'golden', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: [],
-			windowWidth: '40%'
+			windowWidth: '45%'
 		},
 		'HD Farm': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'hdType', 'hdBase', 'hdMult', 'mapCap', 'jobratio', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: ['jobratio', 'mapCap'],
-			windowWidth: '70%'
+			windowWidth: '100%'
 		},
 		'Void Map': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'hdType', 'hdRatio', 'hdType2', 'voidHDRatio', 'jobratio', 'runType', 'challenge', 'challenge3', 'challengeOneOff', 'portalAfter'],
 			settingInputsDefault: ['maxTenacity', 'boneCharge', 'voidFarm', 'hitsSurvived', 'hdRatio', 'jobratio', 'mapCap'],
-			windowWidth: '70%'
+			windowWidth: '100%'
 		},
 		'Bone Shrine': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'cell', 'boneamount', 'bonebelow', 'jobratio', 'gather', 'atlantrimp', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: ['autoBone', 'bonebelow', 'world', 'gather', 'jobratio'],
-			windowWidth: '65%'
+			windowWidth: '100%'
 		},
 		'Map Bonus': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'hdRatio', 'repeat', 'jobratio', 'special', 'gather', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: ['jobratio', 'special', 'gather'],
-			windowWidth: '75%'
+			windowWidth: '100%'
 		},
 		'Map Farm': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'mapType', 'repeat', 'hdRatio', 'jobratio', 'repeatevery', 'special', 'gather', 'atlantrimp', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: [],
-			windowWidth: '80%'
+			windowWidth: '100%'
 		},
 		Raiding: {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'raidingzone', 'cell', 'repeatevery', 'raidingDropdown', 'prestigeGoal', 'incrementMaps', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: ['recycle'],
-			windowWidth: '75%'
+			windowWidth: '100%'
 		},
 		'Bionic Raiding': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'raidingzone', 'cell', 'repeatevery', 'prestigeGoal', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
@@ -188,22 +188,22 @@ function _mapSettingsInputObj() {
 		'Worshipper Farm': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'worshipper', 'jobratio', 'repeatevery', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: ['shipSkipEnabled', 'shipskip'],
-			windowWidth: '70%'
+			windowWidth: '100%'
 		},
 		'Tribute Farm': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'mapType', 'tributes', 'mets', 'jobratio', 'repeatevery', 'atlantrimp', 'buildings', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: [],
-			windowWidth: '80%'
+			windowWidth: '100%'
 		},
 		'Smithy Farm': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'mapType', 'repeat', 'repeatevery', 'meltingPoint', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: [],
-			windowWidth: '70%'
+			windowWidth: '100%'
 		},
 		Toxicity: {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'repeat', 'jobratio', 'repeatevery', 'special', 'gather'],
 			settingInputsDefault: [],
-			windowWidth: '50%'
+			windowWidth: '80%'
 		},
 		Quagmire: {
 			settingInputs: ['active', 'priority', 'row', 'world', 'cell', 'bogs', 'jobratio'],
@@ -213,22 +213,22 @@ function _mapSettingsInputObj() {
 		Archaeology: {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'relics', 'mapCap', 'jobratio', 'repeatevery'],
 			settingInputsDefault: [],
-			windowWidth: '50%'
+			windowWidth: '80%'
 		},
 		Insanity: {
 			settingInputs: ['active', 'priority', 'row', 'world', 'cell', 'autoLevel', 'level', 'insanity', 'jobratio', 'special', 'gather', 'destack'],
 			settingInputsDefault: [],
-			windowWidth: '55%'
+			windowWidth: '100%'
 		},
 		Alchemy: {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'mapType', 'potion', 'jobratio', 'repeatevery', 'special', 'gather'],
 			settingInputsDefault: ['voidPurchase'],
-			windowWidth: '75%'
+			windowWidth: '100%'
 		},
 		Hypothermia: {
 			settingInputs: ['active', 'priority', 'row', 'world', 'cell', 'autoLevel', 'level', 'bonfire', 'jobratio'],
 			settingInputsDefault: ['frozencastle', 'autostorage', 'packrat'],
-			windowWidth: '45%'
+			windowWidth: '50%'
 		},
 		'Desolation Gear Scumming': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'jobratio', 'repeatevery', 'special', 'gather', 'prestigeGoal'],
@@ -238,7 +238,7 @@ function _mapSettingsInputObj() {
 		Profile: {
 			settingInputs: ['profileName', 'row', 'load', 'settingString', 'overwrite'],
 			settingInputsDefault: [],
-			windowWidth: '60%'
+			windowWidth: '70%'
 		},
 		'Gene Assist': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'hdRatio', 'jobratio', 'repeatevery', 'special', 'gather', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
@@ -248,7 +248,7 @@ function _mapSettingsInputObj() {
 		'Spire Assault': {
 			settingInputs: ['active', 'priority', 'row', 'world', 'preset', 'settingType', 'item', 'bonusItem', 'oneTimerItem', 'levelSA'],
 			settingInputsDefault: [],
-			windowWidth: '55%'
+			windowWidth: '65%'
 		}
 	};
 }
@@ -416,32 +416,32 @@ function _mapSettingsDefaultTitles(varPrefix, activeSettings, settingOrder) {
 	const elements = [];
 
 	if (s.worshipperFarm) {
-		elements.push({ name: 'shipSkipEnabled', class: `windowWorshipperSkip`, title: 'Enable<br/>Skip' });
-		elements.push({ name: 'shipskip', class: `windowWorshipper`, title: 'Skip<br/>Value' });
+		elements.push({ name: 'shipSkipEnabled', class: `windowWorshipperSkip`, title: 'Enable Skip' });
+		elements.push({ name: 'shipskip', class: `windowWorshipper`, title: 'Skip Value' });
 	}
 
 	if (s.boneShrine) {
 		elements.push({ name: 'autoBone', class: `windowAutoBoneShrine`, title: 'Auto Spend Charges' });
-		elements.push({ name: 'bonebelow', class: `windowBoneDefault`, title: 'Auto Spend<br>At X Charges' });
-		elements.push({ name: 'world', class: `windowBoneDefault`, title: 'Auto Spend<br>From Z' });
-		elements.push({ name: 'gather', class: `windowBoneDefault`, title: 'Auto Spend<br>Gather' });
-		elements.push({ name: 'jobratio', class: `windowBoneDefault`, title: 'Auto Spend<br>Job Ratio' });
+		elements.push({ name: 'bonebelow', class: `windowBoneDefault`, title: 'Auto Spend At X Charges' });
+		elements.push({ name: 'world', class: `windowBoneDefault`, title: 'Auto Spend From Z' });
+		elements.push({ name: 'gather', class: `windowBoneDefault`, title: 'Auto Spend Gather' });
+		elements.push({ name: 'jobratio', class: `windowBoneDefault`, title: 'Auto Spend Job Ratio' });
 	}
 
 	if (s.mapBonus || s.hdFarm) {
-		elements.push({ name: 'jobratio', class: `windowJobRatio${varPrefix}`, title: 'Job<br>Ratio' });
+		elements.push({ name: 'jobratio', class: `windowJobRatio${varPrefix}`, title: 'Job Ratio' });
 	}
 
 	if (s.mapBonus) {
-		elements.push({ name: 'special', class: `windowSpecial${varPrefix}`, title: 'Special' });
+		elements.push({ name: 'special', class: `windowSpecial${varPrefix}`, title: '特殊词缀' });
 	}
 
 	if (s.raiding) {
-		elements.push({ name: 'recycle', class: `windowRecycle`, title: 'Recycle<br>Maps' });
+		elements.push({ name: 'recycle', class: `windowRecycle`, title: 'Recycle Maps' });
 	}
 
 	if (s.alchemy) {
-		elements.push({ name: 'voidPurchase', class: `windowStorage`, title: 'Void<br>Purchase' });
+		elements.push({ name: 'voidPurchase', class: `windowStorage`, title: 'Void Purchase' });
 	}
 
 	if (s.quagmire) {
@@ -449,25 +449,25 @@ function _mapSettingsDefaultTitles(varPrefix, activeSettings, settingOrder) {
 	}
 
 	if (s.voidMap) {
-		elements.push({ name: 'maxTenacity', class: `windowDefaultVoidMap`, title: 'Max<br>Map Bonus' });
+		elements.push({ name: 'maxTenacity', class: `windowDefaultVoidMap`, title: 'Max Map Bonus' });
 		if (game.permaBoneBonuses.boosts.owned > 0) {
-			elements.push({ name: 'boneCharge', class: `windowDefaultVoidMap`, title: 'Use Bone<br>Charge' });
+			elements.push({ name: 'boneCharge', class: `windowDefaultVoidMap`, title: 'Use Bone Charge' });
 		}
-		elements.push({ name: 'voidFarm', class: `windowDefaultVoidMap`, title: 'Pre Void<br>Farm' });
-		elements.push({ name: 'hitsSurvived', class: `windowDefaultVoidMap`, title: 'Void Farm<br>Hits Survived' });
-		elements.push({ name: 'hdRatio', class: `windowDefaultVoidMap`, title: 'Void Farm<br>HD Ratio' });
-		elements.push({ name: 'jobratio', class: `windowDefaultVoidMap`, title: 'Void Farm<br>Job Ratio' });
-		elements.push({ name: 'mapCap', class: `windowDefaultVoidMap`, title: 'Void Farm<br>Map Cap' });
+		elements.push({ name: 'voidFarm', class: `windowDefaultVoidMap`, title: 'Pre Void Farm' });
+		elements.push({ name: 'hitsSurvived', class: `windowDefaultVoidMap`, title: 'Void Farm Hits Survived' });
+		elements.push({ name: 'hdRatio', class: `windowDefaultVoidMap`, title: 'Void Farm HD Ratio' });
+		elements.push({ name: 'jobratio', class: `windowDefaultVoidMap`, title: 'Void Farm Job Ratio' });
+		elements.push({ name: 'mapCap', class: `windowDefaultVoidMap`, title: 'Void Farm Map Cap' });
 	}
 
 	if (s.hypothermia) {
-		elements.push({ name: 'frozencastle', class: `windowFrozenCastle`, title: 'Frozen<br>Castle' });
-		elements.push({ name: 'autostorage', class: `windowStorage`, title: 'Auto<br>Storage' });
+		elements.push({ name: 'frozencastle', class: `windowFrozenCastle`, title: 'Frozen Castle' });
+		elements.push({ name: 'autostorage', class: `windowStorage`, title: 'Auto Storage' });
 		elements.push({ name: 'packrat', class: `windowPackrat`, title: 'Packrat' });
 	}
 
 	if (s.hdFarm) {
-		elements.push({ name: 'mapCap', class: `windowCell${varPrefix}`, title: 'Map<br>Cap' });
+		elements.push({ name: 'mapCap', class: `windowCell${varPrefix}`, title: 'Map Cap' });
 	}
 
 	if (s.geneAssist) {
@@ -566,18 +566,18 @@ function _mapSettingsRowTitles(varPrefix, activeSettings, settingOrder) {
 	}
 
 	if (s.hdFarm) {
-		elements.push({ name: 'hdType', class: `windowHDType`, title: 'Farming<br/>Type' });
+		elements.push({ name: 'hdType', class: `windowHDType`, title: 'Farming Type' });
 		elements.push({ name: 'hdBase', class: `windowHDBase`, title: 'HD Base' });
 		elements.push({ name: 'hdMult', class: `windowHDMult`, title: 'HD Mult' });
-		elements.push({ name: 'mapCap', class: `windowMapCap`, title: 'Map<br/>Cap' });
+		elements.push({ name: 'mapCap', class: `windowMapCap`, title: 'Map Cap' });
 	}
 
 	if (s.voidMap) {
-		elements.push({ name: 'hdType', class: `windowHDTypeVoidMap`, title: 'Dropdown<br/>#1' });
-		elements.push({ name: 'hdRatio', class: `windowVoidHDRatio`, title: 'Option<br/>#1' });
-		elements.push({ name: 'hdType2', class: `windowHDTypeVoidMap`, title: 'Dropdown<br/>#2' });
-		elements.push({ name: 'voidHDRatio', class: `windowVoidHDRatio`, title: 'Option<br/>#2' });
-		elements.push({ name: 'portalAfter', class: `windowPortalAfter`, title: 'Portal<br/>After' });
+		elements.push({ name: 'hdType', class: `windowHDTypeVoidMap`, title: 'Dropdown #1' });
+		elements.push({ name: 'hdRatio', class: `windowVoidHDRatio`, title: 'Option #1' });
+		elements.push({ name: 'hdType2', class: `windowHDTypeVoidMap`, title: 'Dropdown #2' });
+		elements.push({ name: 'voidHDRatio', class: `windowVoidHDRatio`, title: 'Option #2' });
+		elements.push({ name: 'portalAfter', class: `windowPortalAfter`, title: 'Portal After' });
 	}
 
 	if (s.boneShrine) {
@@ -588,23 +588,23 @@ function _mapSettingsRowTitles(varPrefix, activeSettings, settingOrder) {
 	}
 
 	if (s.mapBonus) {
-		elements.push({ name: 'hdRatio', class: `windowHDRatio${varPrefix}`, title: 'Above X<br/>HD Ratio' });
-		elements.push({ name: 'repeat', class: `windowMapStacks`, title: 'Map<br/>Stacks' });
+		elements.push({ name: 'hdRatio', class: `windowHDRatio${varPrefix}`, title: 'Above X HD Ratio' });
+		elements.push({ name: 'repeat', class: `windowMapStacks`, title: 'Map Stacks' });
 	}
 
 	if (s.mapFarm) {
-		elements.push({ name: 'repeat', class: `windowRepeat${varPrefix}`, title: 'Map<br/>Repeats' });
-		elements.push({ name: 'hdRatio', class: `windowHDRatio${varPrefix}`, title: 'Above X<br/>HD Ratio' });
+		elements.push({ name: 'repeat', class: `windowRepeat${varPrefix}`, title: 'Map Repeats' });
+		elements.push({ name: 'hdRatio', class: `windowHDRatio${varPrefix}`, title: 'Above X HD Ratio' });
 	}
 
 	if (s.raiding) {
-		elements.push({ name: 'raidingzone', class: `windowRaidingZone${varPrefix}`, title: 'Map<br/>Level' });
+		elements.push({ name: 'raidingzone', class: `windowRaidingZone${varPrefix}`, title: 'Map Level' });
 		elements.push({ name: 'raidingDropdown', class: `windowRaidingDropdown`, title: 'Frag Type' });
-		elements.push({ name: 'incrementMaps', class: `windowIncrementMaps`, title: 'Increment<br>Maps' });
+		elements.push({ name: 'incrementMaps', class: `windowIncrementMaps`, title: 'Increment Maps' });
 	}
 
 	if (s.bionic) {
-		elements.push({ name: 'raidingzone', class: `windowRaidingZone${varPrefix}`, title: 'Raiding<br/>Zone' });
+		elements.push({ name: 'raidingzone', class: `windowRaidingZone${varPrefix}`, title: 'Raiding Zone' });
 	}
 
 	if (s.worshipperFarm) {
@@ -614,16 +614,16 @@ function _mapSettingsRowTitles(varPrefix, activeSettings, settingOrder) {
 	if (s.tributeFarm) {
 		elements.push({ name: 'tributes', class: `windowTributes`, title: 'Tributes' });
 		elements.push({ name: 'mets', class: `windowMets`, title: 'Mets' });
-		elements.push({ name: 'buildings', class: `windowBuildings`, title: 'Buy<br/>Buildings' });
+		elements.push({ name: 'buildings', class: `windowBuildings`, title: 'Buy Buildings' });
 	}
 
 	if (s.smithyFarm) {
 		elements.push({ name: 'repeat', class: `windowSmithies`, title: 'Smithies' });
-		elements.push({ name: 'meltingPoint', class: `windowMeltingPoint`, title: 'Run<br/>MP' });
+		elements.push({ name: 'meltingPoint', class: `windowMeltingPoint`, title: 'Run MP' });
 	}
 
 	if (s.toxicity) {
-		elements.push({ name: 'repeat', class: `windowRepeat${varPrefix}`, title: 'Toxic<br/>Stacks' });
+		elements.push({ name: 'repeat', class: `windowRepeat${varPrefix}`, title: 'Toxic Stacks' });
 	}
 
 	if (s.quagmire) {
@@ -632,7 +632,7 @@ function _mapSettingsRowTitles(varPrefix, activeSettings, settingOrder) {
 
 	if (s.archaeology) {
 		elements.push({ name: 'relics', class: `windowRelics${varPrefix}`, title: 'Relic String' });
-		elements.push({ name: 'mapCap', class: `windowMapCap`, title: 'Map<br/>Cap' });
+		elements.push({ name: 'mapCap', class: `windowMapCap`, title: 'Map Cap' });
 	}
 
 	if (s.insanity) {
@@ -663,17 +663,17 @@ function _mapSettingsRowTitles(varPrefix, activeSettings, settingOrder) {
 	}
 
 	if (!s.golden && !s.profile && !s.spireAssault) {
-		if (!s.boneShrine) elements.push({ name: 'world', class: `windowWorld${varPrefix}`, title: 'Start<br/>Zone' });
+		if (!s.boneShrine) elements.push({ name: 'world', class: `windowWorld${varPrefix}`, title: 'Start Zone' });
 		if (!s.desolation) elements.push({ name: 'cell', class: `windowCell${varPrefix}`, title: 'Cell' });
 	}
 
 	if (s.endZone) {
-		elements.push({ name: 'endzone', class: `windowEndZone${varPrefix}`, title: 'End<br/>Zone' });
+		elements.push({ name: 'endzone', class: `windowEndZone${varPrefix}`, title: 'End Zone' });
 	}
 
 	if (s.mapLevel) {
-		elements.push({ name: 'autoLevel', class: `windowAutoLevel${varPrefix}`, title: 'Auto<br/>Level' });
-		elements.push({ name: 'level', class: `windowLevel windowLevel${varPrefix}`, title: 'Map<br/>Level' });
+		elements.push({ name: 'autoLevel', class: `windowAutoLevel${varPrefix}`, title: 'Auto Level' });
+		elements.push({ name: 'level', class: `windowLevel windowLevel${varPrefix}`, title: 'Map Level' });
 	}
 
 	if (s.mapType) {
@@ -681,36 +681,36 @@ function _mapSettingsRowTitles(varPrefix, activeSettings, settingOrder) {
 	}
 
 	if (s.jobRatio) {
-		elements.push({ name: 'jobratio', class: `windowJobRatio${varPrefix}`, title: 'Job<br/>Ratio' });
+		elements.push({ name: 'jobratio', class: `windowJobRatio${varPrefix}`, title: 'Job Ratio' });
 	}
 
 	if (s.repeatEvery) {
-		elements.push({ name: 'repeatevery', class: `windowRepeatEvery${varPrefix}`, title: 'Repeat<br/>Every' });
+		elements.push({ name: 'repeatevery', class: `windowRepeatEvery${varPrefix}`, title: 'Repeat Every' });
 	}
 
 	if (s.special) {
-		elements.push({ name: 'special', class: `windowSpecial${varPrefix}`, title: 'Special' });
+		elements.push({ name: 'special', class: `windowSpecial${varPrefix}`, title: '特殊词缀' });
 	}
 
 	if (s.prestigeGoal) {
-		elements.push({ name: 'prestigeGoal', class: `windowPrestigeGoal${varPrefix}`, title: 'Prestige<br/>Goal' });
+		elements.push({ name: 'prestigeGoal', class: `windowPrestigeGoal${varPrefix}`, title: 'Prestige Goal' });
 	}
 
 	if (s.runType) {
-		elements.push({ name: 'runType', class: `windowRunType${varPrefix}`, title: 'Run&nbsp;Type' });
+		elements.push({ name: 'runType', class: `windowRunType${varPrefix}`, title: 'Run Type' });
 	}
 
 	const trimpleName = atConfig.settingUniverse === 1 ? 'Trimple' : 'Atlantrimp';
 	if (s.atlantrimp) {
-		elements.push({ name: 'atlantrimp', class: `windowAtlantrimp`, title: `Run<br/>${trimpleName}` });
+		elements.push({ name: 'atlantrimp', class: `windowAtlantrimp`, title: `Run ${trimpleName}` });
 	}
 
 	if (s.spireAssault) {
 		elements.push({ name: 'world', class: `windowWorld${varPrefix}`, title: 'Level' });
 		elements.push({ name: 'preset', class: `windowPreset${varPrefix}`, title: 'Preset' });
-		elements.push({ name: 'settingType', class: `windowSettingType${varPrefix}`, title: `Setting&nbsp;Type` });
+		elements.push({ name: 'settingType', class: `windowSettingType${varPrefix}`, title: `Setting Type` });
 		elements.push({ name: 'item', class: `windowClear windowItem${varPrefix}`, title: `Item` });
-		elements.push({ name: 'levelSA', class: `windowLevel windowItemLevel${varPrefix}`, title: `Item&nbsp;Level` });
+		elements.push({ name: 'levelSA', class: `windowLevel windowItemLevel${varPrefix}`, title: `Item Level` });
 	}
 
 	const sortedElements = new Array(settingOrder.length).fill(null);
@@ -1226,7 +1226,7 @@ function settingsWindowSave(titleText, varPrefix, activeSettings, reopen) {
 
 		const checkSettingsErrors = (condition, errorMessage) => {
 			if (condition) {
-				error += ` Line #${x + 1} ${errorMessage}<br>`;
+				error += `第${x + 1}行<i></i>${errorMessage}<br>`;
 			}
 		};
 
@@ -1238,7 +1238,7 @@ function settingsWindowSave(titleText, varPrefix, activeSettings, reopen) {
 
 		if (s.mapBonus) {
 			const repeat = Number(thisSetting.repeat);
-			checkSettingsErrors(!thisSetting.autoLevel && +thisSetting.level < (atConfig.settingUniverse === 1 ? 0 - game.portal.Siphonology.level : 0), "can't have a map level below " + (game.global.universe === 1 && game.portal.Siphonology.level > 0 ? 0 - game.portal.Siphonology.level : 'world level') + " as you won't be able to get any map stacks.");
+			checkSettingsErrors(!thisSetting.autoLevel && +thisSetting.level < (atConfig.settingUniverse === 1 ? 0 - game.portal.Siphonology.level : 0), "地图等级不能" + (game.global.universe === 1 && game.portal.Siphonology.level > 0 ? '比当前区域' + (0 - game.portal.Siphonology.level) + '的数值低' : '比当前区域的数值低') + "，否则您无法获得地图奖励层数。");
 			checkSettingsErrors(repeat < 1, "can't have a map bonus value lower than 1 as you won't be able to get any map stacks.");
 		}
 
@@ -1297,7 +1297,7 @@ function settingsWindowSave(titleText, varPrefix, activeSettings, reopen) {
 		const value = atConfig.settingUniverse === 2 ? 'valueU2' : 'value';
 		game.global.addonUser.mapData[varPrefix + 'Settings'][value] = Array.from({ length: 31 }, () => ({ done: '' }));
 
-		if (!defaultSetting.active) debug(`${titleText} has been saved but is disabled. To enable it tick the 'Active' box in the top left of the window.`, 'mazSettings');
+		if (!defaultSetting.active) debug(`${titleText}<i></i> has been saved but is disabled. To enable it tick the 'Active' box in the top left of the window.`, 'mazSettings');
 	}
 
 	document.getElementById('tooltipDiv').style.overflowY = '';
@@ -1359,7 +1359,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 	}
 
 	if (s.voidMap) {
-		mazHelp += '<br><br>Void Map works by using Start Zone</b> as the lower bound zone to run voids on and <b>End Zone</b> as the upper bound.';
+		mazHelp += '<br><br>Void Map works by using <b>Start Zone</b> as the lower bound zone to run voids on and <b>End Zone</b> as the upper bound.';
 
 		mazHelp += '<li class="indent">Additionally it has dropdown inputs which can give you the ability to add more fine-tuning for when a line should be run.';
 		mazHelp += '<li class="indent">If you reach the <b>End Zone</b> zone input of a line it will run regardless of dropdown inputs.';
@@ -1388,7 +1388,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 		if (s.mapBonus) {
 			mazHelp += '<li><b>Job Ratio</b> - The job ratio to use when Map Bonus is set to run from <b>Map Bonus Ratio</b> or <b>Max Map Bonus for Spire</b> settings. If set to <b>-1</b> it will use your world job ratios.</li>';
 			mazHelp += "<li class=\"indent\">Input should look like '1,1,1,1' (Farmers, Lumberjacks, Miners, Scientists). If you don't want Farmers, Miners or Scientists you can input '0,1' for this setting.</li>";
-			mazHelp += "<li><b>Special</b> - The type of cache you'd like to run when Map Bonus is set to run from <b>Map Bonus Ratio</b> or <b>Max Map Bonus for Spire</b> settings.</li>";
+			mazHelp += "<li><b>特殊词缀</b> - The type of cache you'd like to run when Map Bonus is set to run from <b>Map Bonus Ratio</b> or <b>Max Map Bonus for Spire</b>运行时，地图的特殊词缀。</li>";
 		}
 		if (s.voidMap) {
 			mazHelp += '<li><b>Max Map Bonus</b> - Will assume you have 10 map bonus stacks';
@@ -1397,7 +1397,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 
 			if (game.permaBoneBonuses.boosts.owned > 0) mazHelp += '<li><b>Bone Charge</b> - The first time a line starts running Void Maps in each portal it will use a single Bone Charge.</li>';
 
-			mazHelp += '<li><b>Void Farm</b> - Will farm before running void maps if your void hits survived is below the input in <b>Void Farm Hits Survived</b> or your void hd ratio is below the input in <b>Void Farm Void HD Ratio</b>. Farms until you have reached the map cap set in the <b>HD Farm</b> settings.</li>';
+			mazHelp += '<li><b>Void Farm</b> - Will farm before running void maps if your void hits survived is below the input in <b>Void Farm Hits Survived</b> or your void hd ratio is below the input in <b>Void Farm Void HD Ratio</b>. Farms until you have reached the map cap set in the <b>HD Farm</b>设置中地图上限的输入值。</li>';
 
 			mazHelp += '<li><b>Void Farm Hits Survived</b> - Will farm to this void hits survived value before running void maps. Must be set above 0 to be used otherwise will be ignored.</li>';
 
@@ -1405,7 +1405,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 
 			mazHelp += '<li><b>Void Farm Job Ratio</b> - The job ratio to use when farming stats before running void maps.</li>';
 			mazHelp += "<li class=\"indent\">Input should look like '1,1,1,1' (Farmers, Lumberjacks, Miners, Scientists). If you don't want Farmers, Miners or Scientists you can input '0,1' for this setting.</li>";
-			mazHelp += "<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this farm. If using <b>Map Count</b> and you set to <b>-1</b> it will repeat an Infinite amount of times and you'll have to manually stop farming, would only recommend this if you're confident you'll be able to get enough stats to finish the farm.</li>";
+			mazHelp += "<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this farm. If set to <b>-1</b> it will repeat an Infinite amount of times and you'll have to manually stop farming, would only recommend this if you're confident you'll be able to get enough stats to finish the farm.</li>";
 		}
 		if (s.boneShrine) {
 			mazHelp += '<li><b>Auto Spend Charges</b> - Enables the ability to automatically spend bone charges when above a certain value.</li>';
@@ -1464,7 +1464,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 		mazHelp += '<li><b>Job Ratio</b> - The job ratio you want to use for this line. If set to <b>-1</b> it will use your world job ratios.</li>';
 		mazHelp += "<li class=\"indent\">Input should look like '1,1,1,1' (Farmers, Lumberjacks, Miners, Scientists). If you don't want Farmers, Miners or Scientists you can input '0,1' for this setting.</li>";
 	}
-	if (s.special) mazHelp += "<li><b>Special</b> - The type of cache you'd like to run during this map. Will override metal cache inputs with wooden caches during the Transmute challenge.</li>";
+	if (s.special) mazHelp += "<li><b>特殊词缀</b> - The type of cache you'd like to run during this map. Will override metal cache inputs with wooden caches during the Transmute challenge.</li>";
 
 	//Row Settings
 	if (!s.profile) mazHelp += '</ul></br><b>These inputs are specific to this setting and can be quite important for how you try to set this up:</b><ul><br>';
@@ -1475,7 +1475,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 		mazHelp += "<li><b>Dropdowns</b> - Will only run the line when one or more of the dropdown options aren't met OR you are at the <b>End Zone</b> input for that line. The information relating to each of the dropdowns can be found in the Auto Maps status tooltip.</li>";
 		mazHelp += '<li class="indent">If you have selected a <b>HD Ratio</b> and that type of <b>HD Ratio</b> is greater than the value input OR if you\'ve selected one of Hits Survived, Hits Survived Void it will check if the value is lower than it and skip if it is. Disabled just skips checking that input.<br></li>';
 		mazHelp += '<li><b>Portal After</b> - Will run Auto Portal immediately after this line has run.';
-		if (!radonSetting) mazHelp += '<br>When enabled and farming for, or running Void Maps this will buy as many nurseries as you can afford based upon your spending percentage in the AT AutoStructure settings.</li>';
+		if (!radonSetting) mazHelp += '<br><li class="indent">When enabled and farming for, or running Void Maps this will buy as many nurseries as you can afford based upon your spending percentage in the AT AutoStructure settings.</li>';
 		mazHelp += '</li>';
 	}
 
@@ -1605,16 +1605,16 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 
 	if (s.spireAssault) {
 		mazHelp += '<li><b>Level</b> - The Spire Assault level you would like to run during this line.</li>';
-		mazHelp += `<li class="indent">When switching levels <b>Auto Level</b> will be turned off.</li>`;
+		mazHelp += `<li class="indent">When switching levels <b>自动提升等级</b> will be turned off.</li>`;
 		mazHelp += '<li><b>Preset</b> - The preset you would like to switch to when this line runs.</li>';
-		mazHelp += `<li class="indent">Item presets can be setup in the <b>Presets</b> setting in the <b>Spire Assault</b> tab.</li>`;
+		mazHelp += `<li class="indent">Item presets can be setup in the <b>Presets</b> setting in the <b>Spire Assault</b>选项卡)。</li>`;
 		mazHelp += `<li class="indent">Ring mods will only be switched if you have selected the maximum amount of mods available.</li>`;
 		mazHelp += '<li><b>Setting Type</b> - This provides the option to either clear a level or farm for limbs, equipment, or ring levels.</li>';
 		mazHelp += '<li><b>Item</b> - The item you would like to farm levels in.</li>';
-		mazHelp += '<li class="indent">This input is only accessible when <b>Setting Type</b> is set to <b>Level Equipment</b>.</li>';
+		mazHelp += '<li class="indent">This input is only accessible when <b>Setting Type</b> is set to <b>Level Equipment</b>时才可以选择。</li>';
 		mazHelp += `<li class="indent">Items saved in the <b>Hidden Items</b> tab of the <b>Presets</b> setting won't be visible in this list.</li>`;
 		mazHelp += '<li><b>Item Level</b> - The limb, equipment or ring level you would like to farm for.</li>';
-		mazHelp += `<li class="indent">This input is only accessible when <b>Setting Type</b> isn't set to <b>Clear Level</b>.</li>`;
+		mazHelp += `<li class="indent">This input is only accessible when <b>Setting Type</b> isn't set to <b>Clear Level</b>时才可以选择。</li>`;
 	}
 
 	return mazHelp;

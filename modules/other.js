@@ -4,7 +4,7 @@ function autoRoboTrimp() {
 	if (autoRoboTrimpSetting <= 59) return;
 
 	const shouldShriek = game.global.world >= autoRoboTrimpSetting && (game.global.world - autoRoboTrimpSetting) % 5 === 0;
-	if (shouldShriek && !game.global.useShriek) debug(`Activated Robotrimp MagnetoShriek Ability at zone ${game.global.world}`, 'other', '*podcast');
+	if (shouldShriek && !game.global.useShriek) debug(`在区域${game.global.world}激活脆皮机器人的电磁尖啸`, 'other', '*podcast');
 	if (game.global.useShriek !== shouldShriek) magnetoShriek();
 }
 
@@ -40,7 +40,7 @@ function exitSpireCell(checkCell) {
 
 	if (isSpireActive && (game.global.lastClearedCell + 1 > cell || cell === 0)) {
 		endSpire();
-		debug(`Exiting Spire ${game.global.spiresCompleted + 1} at cell ${exitCell}`, 'maps');
+		debug(`在格子${exitCell}退出尖塔${game.global.spiresCompleted + 1}`, 'maps');
 	}
 }
 
@@ -434,7 +434,7 @@ function _timeWarpSave() {
 		save(false, true);
 		_adjustGlobalTimers(keys, reduceBy);
 
-		debug(`Game Saved! ${formatTimeForDescriptions(reduceBy / 1000)} of Time Warp left to process.`, `offline`);
+		debug(`游戏已保存！还需要进行${formatTimeForDescriptions(reduceBy / 1000)}的时间跃迁。`, `offline`);
 	}
 }
 
