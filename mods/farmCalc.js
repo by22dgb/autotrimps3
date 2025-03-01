@@ -1388,18 +1388,18 @@ function farmCalcGetMapDetails() {
 	let text = `<p>Details of the ${lootText} map you own that ${calcName} recommends you run:`;
 	if (!mapOwned) text = `<p>Details for the ${lootText} map that ${calcName} is recommending you purchase to run:`;
 
-	if (mapOwned) text += `<br><b>Map Name:</b> ${name}`;
-	text += `<br><b>Map Level:</b> ${Math.min(level, game.global.world)}`;
+	if (mapOwned) text += `<br><b>Map Name:</b>${name}`;
+	text += `<br><b>Map Level:</b>${Math.min(level, game.global.world)}`;
 	if (plusLevel > 0) text += ` (+${plusLevel})`;
-	text += `<br><b>Special:</b> ${special !== undefined && special !== '0' ? mapSpecialModifierConfig[special].name : 'None'}`;
-	text += `<br><b>Biome:</b> ${biome === 'Plentiful' ? 'Gardens' : biome}`;
-	text += `<br><b>Difficulty:</b> ${Math.floor(difficulty * 100)}%`;
-	if (!mapOwned) text += ` (slider: ${sliders.difficulty})`;
-	text += `<br><b>Size:</b> ${size}`;
-	if (!mapOwned) text += ` (slider: ${sliders.size})`;
-	text += `<br><b>Loot:</b> ${Math.floor(loot * 100)}%`;
-	if (!mapOwned) text += ` (slider: ${sliders.loot})`;
-	if (!mapOwned && perfectUnlocked) text += `<br><b>Perfect Sliders:</b> ${perfect.toString().charAt(0).toUpperCase() + perfect.toString().slice(1)}`;
+	text += `<br><b>特殊词缀：</b>${special !== undefined && special !== '0' ? mapSpecialModifierConfig[special].name : 'None'}`;
+	text += `<br><b>Biome:</b>${biome === 'Plentiful' ? 'Gardens' : biome}`;
+	text += `<br><b>Difficulty:</b>${Math.floor(difficulty * 100)}%`;
+	if (!mapOwned) text += ` (滑块：${sliders.difficulty})`;
+	text += `<br><b>Size:</b>${size}`;
+	if (!mapOwned) text += ` (滑块：${sliders.size})`;
+	text += `<br><b>Loot:</b>${Math.floor(loot * 100)}%`;
+	if (!mapOwned) text += ` (滑块：${sliders.loot})`;
+	if (!mapOwned && perfectUnlocked) text += `<br><b>Perfect Sliders:</b>${perfect.toString().charAt(0).toUpperCase() + perfect.toString().slice(1)}`;
 	text += '</p>';
 
 	return text;

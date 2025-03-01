@@ -195,7 +195,10 @@ function setupHeirloomUI() {
 			this.style.color = game.options.menu.darkTheme.enabled !== 2 ? 'black' : 'white';
 			tooltip('Auto Allocate', 'customText', undefined, 'Buys the shown optimal levels in each modifier when pressed.');
 		};
-
+		hcGUI.$allocatorBtn.onmouseout = function () {
+			this.style.color = game.options.menu.darkTheme.enabled !== 2 ? 'white' : 'black';
+			tooltip('hide');
+		};
 		hcGUI.$allocatorBtnParent.appendChild(hcGUI.$allocatorBtn);
 		hcGUI.$ratiosLine.row1.insertBefore(hcGUI.$allocatorBtnParent, document.getElementById('XPWeightDiv'));
 
@@ -212,6 +215,7 @@ function setupHeirloomUI() {
 		['Farmer', 'Lumberjack', 'Miner', 'Scientist', 'Parity'].forEach((button) => {
 			const efficiencyName = `${button} ${button !== 'Parity' ? 'Efficiency' : 'Power'}`;
 			const btn = document.createElement('DIV');
+			let cnbutton;
 			btn.id = `heirloomCustom${button}Btn`;
 			btn.setAttribute('class', `btn settingBtn${['Miner', 'Parity'].includes(button) ? 'true' : 'false'}`);
 			btn.addEventListener('click', (event) => {
@@ -221,10 +225,19 @@ function setupHeirloomUI() {
 					toggleCustomRatio(btn.id, button);
 				}
 			});
-			btn.setAttribute('onmouseover', `tooltip("Enable ${efficiencyName}", "customText", event, '<p>Enabling this will allow the script to assign nullifium to ${efficiencyName} on this heirloom.</p><p><i>Set <b>custom spending percentages</b> by holding <b>control</b> and clicking.</i></p>')`);
+			btn.setAttribute('onmouseover', `tooltip("Enable ${efficiencyName}", "customText", event, '<p>Enabling this will allow the script to assign nullifium to ${efficiencyName} on this heirloom.</p><p><i>想设为<b>custom spending percentages</b> by holding <b>control</b> and clicking.</i></p>')`);
 			btn.setAttribute('onmouseout', 'tooltip("hide")');
 			btn.style.cssText = `height: 1.5vw; padding: 0; justify-content: center; width: 2vw; font-size: 0.8vw; line-height: 1.3vw; margin: 0.5px; border: 1px solid #777; border-radius: 1px; margin-left: 0.1vw; margin-right: 0.1vw;`;
-			btn.textContent = button[0].toUpperCase();
+			cnbutton = button[0].toUpperCase();
+			switch (cnbutton){
+				case 'F': cnbutton = '农'; break;
+				case 'L': cnbutton = '木'; break;
+				case 'M': cnbutton = '矿'; break;
+				case 'S': cnbutton = '科'; break;
+				case 'P': cnbutton = '等'; break;
+				default: break;
+			}
+			btn.textContent = cnbutton;
 			hcGUI.$ratiosLine.row2.insertBefore(btn, document.getElementById('equalityTargetDiv'));
 		});
 
@@ -238,7 +251,7 @@ function setupHeirloomUI() {
 			equipLevels: {
 				name: 'Efficiency Mods Weight',
 				description:
-					"<p>The weight you want to use for efficiency modifiers, the lower you put this value the higher the script will weight the efficiency modifiers.</p><p><b>Explorer & Dragimp Efficiency</b> modifiers will be calculated using roughly 1% of the cost of other efficiencies.</p><p>You can modify the percentage spent on other efficiency mods by holding <b>control</b> and clicking on the buttons below the <b>Allocate Nullifium</b> button.</p><br><p>If you set this to 0, the script won't spend any nullifium on Efficiency modifiers.</p>",
+					"<p>The weight you want to use for efficiency modifiers, the lower you put this value the higher the script will weight the efficiency modifiers.</p><p><b>Explorer & Dragimp Efficiency</b> modifiers will be calculated using roughly 1% of the cost of other efficiencies.</p><p>You can modify the percentage spent on other efficiency mods by holding <b>control</b> and clicking on the buttons below the <b>Allocate Nullifium</b>按钮下的按钮来设置用于相应效率词缀的权重。</p><br><p>If you set this to 0, the script won't spend any nullifium on Efficiency modifiers.</p>",
 				minValue: 0,
 				maxValue: null,
 				defaultValue: 90
@@ -1148,7 +1161,7 @@ function updateModContainer(divName = 'heirloomHelpBtn', heirloom) {
 
 		const cost = heirloom.getModSpent(mod[0]);
 		if (mod[0] !== 'empty' && cost > 0) {
-			infoValueText += `<br>&nbsp&nbsp&nbsp•&nbsp&nbsp<b>${heirloomData[mod[0]].name}</b>: +${prettify(cost)} (${humanify((cost / heirloomValue) * 100, 2)}%)`;
+			infoValueText += `<br>&nbsp&nbsp&nbsp•&nbsp&nbsp<b>${heirloomData[mod[0]].name}</b>：+${prettify(cost)} (${humanify((cost / heirloomValue) * 100, 2)}%)`;
 		}
 	}
 
@@ -1162,18 +1175,18 @@ function updateModContainer(divName = 'heirloomHelpBtn', heirloom) {
 				const modEfficiency = heirloom.getModEfficiency(mod[0]);
 
 				infoText += `<b>${heirloomData[mod[0]].name}</b>:<br>`;
-				infoText += `&nbsp&nbsp&nbsp<b>•&nbsp&nbspCost</b>: ${modCost === 1e100 ? '∞' : prettify(modCost)}`;
-				infoText += `&nbsp&nbsp&nbsp<b>•&nbsp&nbspGain</b>: ${humanify((modGain + modInnateGain - 2) * 100, 3)}%`;
-				infoText += `&nbsp&nbsp&nbsp<b>•&nbsp&nbspEfficiency</b>: ${humanify(((modEfficiency - 1) / (bestEfficiency - 1)) * 100, 2)}%</span>`;
+				infoText += `&nbsp&nbsp&nbsp•&nbsp&nbsp<b>Cost</b>：${modCost === 1e100 ? '∞' : prettify(modCost)}`;
+				infoText += `&nbsp&nbsp&nbsp•&nbsp&nbsp<b>Gain</b>：${humanify((modGain + modInnateGain - 2) * 100, 3)}%`;
+				infoText += `&nbsp&nbsp&nbsp•&nbsp&nbsp<b>Efficiency</b>：${humanify(((modEfficiency - 1) / (bestEfficiency - 1)) * 100, 2)}%</span>`;
 				infoText += `<br>`;
 			}
 		}
 	}
 
 	infoText += `<b>${heirloom.isCore ? 'Spirestone' : 'Nullifium'} Value</b>:`;
-	infoText += `${heirloom.replaceSpent ? `<br>&nbsp&nbsp&nbsp•&nbsp&nbsp<b>Mod changes</b>: ${prettify(heirloom.replaceSpent)} (${humanify((heirloom.replaceSpent / heirloomValue) * 100, 2)}%)` : ''}`;
+	infoText += `${heirloom.replaceSpent ? `<br>&nbsp&nbsp&nbsp•&nbsp&nbsp<b>Mod changes</b>：${prettify(heirloom.replaceSpent)} (${humanify((heirloom.replaceSpent / heirloomValue) * 100, 2)}%)` : ''}`;
 	infoText += ` ${infoValueText}`;
-	infoText += `<br>&nbsp&nbsp&nbsp•&nbsp&nbsp<b>Total</b>: ${prettify(heirloomValue)}<br>`;
+	infoText += `<br>&nbsp&nbsp&nbsp•&nbsp&nbsp<b>Total</b>：${prettify(heirloomValue)}<br>`;
 
 	if (heirloom.type.includes('Core')) {
 		const enemyMaxHealth = getMaxEnemyHP();

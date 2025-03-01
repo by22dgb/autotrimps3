@@ -2056,7 +2056,7 @@ function autoStructureDisplay(elem) {
 
 	const hze = game.global.universe === 2 ? game.stats.highestRadLevel.valueTotal() : game.stats.highestLevel.valueTotal();
 	const baseText =
-		"<p>Here you can choose which structures will be automatically purchased when AutoStructure is toggled on. Check a box to enable the automatic purchasing of that structure, the 'Perc:' box specifies the cost-to-resource % that the structure should be purchased below, and set the 'Up To:' box to the maximum number of that structure you'd like purchased <b>(0&nbsp;for&nbsp;no&nbsp;limit)</b>. For example, setting the 'Perc:' box to 10 and the 'Up To:' box to 50 for 'House' will cause a House to be automatically purchased whenever the costs of the next house are less than 10% of your Food, Metal, and Wood, as long as you have less than 50 houses.</p>";
+		"<p>Here you can choose which structures will be automatically purchased when AutoStructure is toggled on. Check a box to enable the automatic purchasing of that structure, the 'Perc:' box specifies the cost-to-resource % that the structure should be purchased below, and set the 'Up To:' box to the maximum number of that structure you'd like purchased <b>(设为0则不限制)</b>. For example, setting the 'Perc:' box to 10 and the 'Up To:' box to 50 for 'House' will cause a House to be automatically purchased whenever the costs of the next house are less than 10% of your Food, Metal, and Wood, as long as you have less than 50 houses.</p>";
 	const nursery = "<p><b>Nursery:</b> Acts the same as the other settings but also has a 'From' input which will cause nurseries to only be built from that zone onwards. Spire nursery settings within AT will ignore this start zone if needed for them to work. If 'Advanced Nurseries' is enabled and 'Up To' is set to 0 it will override buying max available and instead respect the input.</p>";
 	const warpstation = '<p><b>Warpstation:</b> Settings for this type of building can be found in the AutoTrimp settings building tab!</p>';
 	const safeGateway = "<p><b>Safe Gateway:</b> Will stop purchasing Gateways when your owned fragments are lower than the cost of the amount of maps you input in the 'Maps' field times by what a perfect LMC map of the level picked would cost up to the zone specified in 'Till Z:', if that value is 0 it'll assume z999.</p>";
@@ -2119,7 +2119,7 @@ function autoStructureTable(settingGroup, hze) {
 		tooltipText += '</div></td>';
 
 		tooltipText += "<td><div class='row'>";
-		tooltipText += "<div class='col-xs-3' style='width: 44%; padding-right: 5px'><span>Map Level:" + "&nbsp;</span><select class='structConfigPercent' id='safeGatewayMapLevel'><option value='0'>0</option>";
+		tooltipText += "<div class='col-xs-3' style='width: 44%; padding-right: 5px'><span>地图等级：</span><select class='structConfigPercent' id='safeGatewayMapLevel'><option value='0'>0</option>";
 
 		if (hze >= 50) {
 			for (let i = 1; i <= 10; i++) {
@@ -2186,7 +2186,7 @@ function autoStructureSave() {
 		setting[name].percent = perc;
 
 		if (setting[name].percent < 0 || isNaN(setting[name].percent)) {
-			error += `Your spending percentage for ${name}s needs to be above a valid number of 0 or above.<br>`;
+			error += `${name}<i></i>设置的比例需要超过0，并且为有效输入值。<br>`;
 		}
 
 		let max = parseInt(quantboxes[x].value, 10);
@@ -2194,7 +2194,7 @@ function autoStructureSave() {
 		setting[name].buyMax = max;
 
 		if (setting[name].buyMax < 0 || isNaN(setting[name].buyMax)) {
-			error += `Your Up To value for ${name}s needs to be above a valid number of 0 or above.<br>`;
+			error += `${name}<i></i>设置的上限需要超过0，并且为有效输入值。<br>`;
 		}
 
 		if (name === 'Nursery') {
@@ -2207,7 +2207,7 @@ function autoStructureSave() {
 				setting[name].fromZ = fromZ;
 
 				if (setting[name].fromZ < 0 || isNaN(setting[name].fromZ)) {
-					error += `Your zone input for ${name}s needs to be above a valid number of 0 or above.<br>`;
+					error += `${name}<i></i>设置的始区需要超过0，并且为有效输入值。<br>`;
 				}
 			}
 		}
@@ -2367,7 +2367,7 @@ function autoJobsSave() {
 			setting[name].zone = parseInt(quantBoxes[index].value);
 
 			if (setting[name].zone < 0 || isNaN(setting[name].zone)) {
-				error += `Your zone input for ${name}s needs to be above a valid number of 0 or above.<br>`;
+				error += `${name}<i></i>设置的区域需要超过0，并且为有效输入值。<br>`;
 			}
 			return;
 		}
@@ -2376,7 +2376,7 @@ function autoJobsSave() {
 			setting[name].ratio = parseFloat(quantBoxes[index].value);
 
 			if (setting[name].ratio < 0 || isNaN(setting[name].ratio)) {
-				error += `Your ratio for ${name}s needs to be above a valid number of 0 or above.<br>`;
+				error += `${name}<i></i>设置的比例需要超过0，并且为有效输入值。<br>`;
 			}
 			return;
 		}
@@ -2385,7 +2385,7 @@ function autoJobsSave() {
 		setting[name].percent = parseFloat(jobQuant);
 
 		if (setting[name].percent < 0 || isNaN(setting[name].percent)) {
-			error += `Your spending percentage for ${name}s needs to be above a valid number of 0 or above.<br>`;
+			error += `${name}<i></i>设置的花费百分比需要超过0，并且为有效输入值。<br>`;
 		}
 	});
 
@@ -2668,7 +2668,7 @@ function dailyPortalModsDisplay(elem) {
                     ${checkbox}&nbsp;&nbsp;<span>${itemName}</span>
                 </div>
                 <div class='col-xs-6' style='width: 48%; text-align: right'>
-                    ± Zone: <input class='structConfigPercent' id='structZone${item}' type='number'  value='${setting && setting.zone ? setting.zone : 0}'/>
+                    ±区域：<input class='structConfigPercent' id='structZone${item}' type='number'  value='${setting && setting.zone ? setting.zone : 0}'/>
                 </div>
             </div>
         </td>`;
@@ -2759,7 +2759,7 @@ function c2RunnerDisplay(elem) {
 					<td>
 						<div class='row'>
 							<div class='col-xs-5' style='width: 100%; padding-right: 5px'>
-								&nbsp;&nbsp;<span><u>Fused ${_getChallenge2Info()}s</u></span>
+								&nbsp;&nbsp;<span><u>Fused ${_getChallenge2Info()}s.</u></span>
 							</div>
 						</div>
 					</td>
@@ -2839,7 +2839,7 @@ function hideAutomationDisplay(elem) {
 
 	let tooltipText = "<div id='messageConfig'>Here you can finely tune ingame automation buttons  you'd prefer to hide. Mouse over the name of a filter for more info.</div>";
 	tooltipText += "<div class='row'>";
-	tooltipText += `<span class='messageConfigContainer' style='font-size: 1.3vw;'>&nbsp;&nbsp;Base Game Automation</span></span><br/>`;
+	tooltipText += `<span class='messageConfigContainer' style='font-size: 1.3vw;'>&nbsp;&nbsp;<i></i>Base Game Automation</span></span><br/>`;
 	tooltipText += "<div class='col-xs-6'></span>";
 
 	for (let item in settingGroup) {
@@ -2863,7 +2863,7 @@ function hideAutomationDisplay(elem) {
 		if (item === 'enabled') continue;
 		let realName = 'Auto ' + (item.charAt(0).toUpperCase() + item.substr(1)).replace(/_/g, ' ');
 		if (item === 'status') realName = 'Auto Maps Status';
-		if (item === 'heHr') realName = `${heliumOrRadon()} Per Hour Status`;
+		if (item === 'heHr') realName = `${heliumOrRadon()}每小时状态`;
 
 		tooltipText += `<span class='messageConfigContainer'><span class='messageCheckboxHolder'>${buildNiceCheckbox('AT' + item, 'messageConfigCheckbox', msgs['AT' + item])}</span><span onmouseover='hideAutomationConfigHover("${'AT' + item}", event)' onmouseout='tooltip("hide")' class='messageNameHolderAT'> - ${realName}</span></span><br/>`;
 	}
@@ -2891,9 +2891,9 @@ function hideAutomationConfigHover(what, event) {
 		storage: { title: 'Auto Storage', text: 'Hides the games AutoStorage button.' },
 		structure: { title: 'Auto Structure', text: 'Hides the games AutoStructure button.' },
 		jobs: { title: 'Auto Jobs', text: 'Hides the games AutoJobs button.' },
-		jobs: { title: 'Auto Jobs', text: 'Hides the games AutoJobs button.' },
+		gold: { title: 'Auto Gold', text: 'Hides the games AutoGolden button.' },
 		geneticistassist: { title: 'Geneticistassist', text: 'Hides the games Geneticistassist button.' },
-		upgrades: { title: 'Auto Upgrade', text: 'Hides the games AutoUpgrade button.' },
+		upgrade: { title: 'Auto Upgrade', text: 'Hides the games AutoUpgrade button.' },
 		prestige: { title: 'Auto Prestige', text: 'Hides the games AutoPrestige button.' },
 		equip: { title: 'Auto Equip', text: 'Hides the games AutoEquip button.' },
 		recycleMaps: { title: 'Recycle Maps', text: 'Hides Recycle Maps messages in the message log.' },
@@ -2902,7 +2902,7 @@ function hideAutomationConfigHover(what, event) {
 		ATequip: { title: 'AutoTrimps Auto Equip', text: 'Hides the AutoTrimps AutoEquip button.' },
 		ATmaps: { title: 'AutoTrimps Auto Maps', text: 'Hides the AutoTrimps AutoMaps button.' },
 		ATstatus: { title: 'AutoTrimps Auto Maps Status', text: 'Hides the AutoTrimps Map Status message.' },
-		ATheHr: { title: `AutoTrimps ${heliumOrRadon()} Per Hour Status`, text: `Hides the AutoTrimps ${heliumOrRadon()} Per Hour Status message.` }
+		ATheHr: { title: `脚本${heliumOrRadon()}每小时状态`, text: `隐藏脚本${heliumOrRadon()}每小时状态的消息。` }
 	};
 
 	const config = messageConfigMap[what];

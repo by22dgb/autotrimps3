@@ -1221,50 +1221,50 @@ atData.autoPerks = {
 	presetsPerky: {
 		regular: {
 			early: {
-				name: 'Z1-59',
-				description: "Use this setting for the when you're progressing through the first 60 zones.",
+				name: '区域1至区域59',
+				description: "请在区域60之前使用该设置。",
 				require: () => true,
 				visible: () => true
 			},
 			broken: {
-				name: 'Z60-99',
-				description: 'Use this setting for zones 60-99.',
+				name: '区域60至区域99',
+				description: '请在区域60至区域99之间使用该设置。',
 				require: () => getHighestLevelCleared(true) >= 59,
 				visible: () => true
 			},
 			mid: {
-				name: 'Z100-180',
-				description: 'Use this setting for zones 100-180.',
+				name: '区域100至区域180',
+				description: '请在区域100至区域180之间使用该设置。',
 				require: () => getHighestLevelCleared(true) >= 99,
 				visible: () => getHighestLevelCleared(true) >= 59
 			},
 			corruption: {
-				name: 'Z181-229',
-				description: 'Use this setting for zones 181-229.',
+				name: '区域181至区域229',
+				description: '请在区域181至区域229之间使用该设置。',
 				require: () => getHighestLevelCleared(true) >= 179,
 				visible: () => getHighestLevelCleared(true) >= 99
 			},
 			magma: {
-				name: 'Z230-280',
-				description: 'Use this setting for zones 230-280.',
+				name: '区域230至区域280',
+				description: '请在区域230至区域280之间使用该设置。',
 				require: () => getHighestLevelCleared(true) >= 229,
 				visible: () => getHighestLevelCleared(true) >= 179
 			},
 			z280: {
-				name: 'Z280-400',
-				description: 'Use this setting for zones 280-400.',
+				name: '区域280至区域400',
+				description: '请在区域280至区域400之间使用该设置。',
 				require: () => getHighestLevelCleared(true) >= 279,
 				visible: () => getHighestLevelCleared(true) >= 229
 			},
 			z400: {
-				name: 'Z400-450',
-				description: 'Use this setting for zones 400-450.',
+				name: '区域400至区域450',
+				description: '请在区域400至区域450之间使用该设置。',
 				require: () => getHighestLevelCleared(true) >= 399,
 				visible: () => getHighestLevelCleared(true) >= 279
 			},
 			z450: {
-				name: 'Z450+',
-				description: 'Use this setting for zones 450+.',
+				name: '区域450以上',
+				description: '请在区域450以上使用该设置。',
 				require: () => getHighestLevelCleared(true) >= 449,
 				visible: () => getHighestLevelCleared(true) >= 399
 			}
@@ -1272,49 +1272,49 @@ atData.autoPerks = {
 		challenges: {
 			metal: {
 				name: 'Metal²',
-				description: 'Use this setting to respec for the Metal² challenge.',
+				description: '请在金属²挑战中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 24,
 				visible: () => true
 			},
 			scientist: {
 				name: 'Scientist',
-				description: 'Use this setting to respec for the Scientist challenge.',
+				description: '请在科学家挑战中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 39,
 				visible: () => getHighestLevelCleared(true) >= 34
 			},
 			trimp: {
 				name: 'Trimp²',
-				description: 'Use this setting to respec for the Trimp² challenge.',
+				description: '请在脆皮²挑战中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 59,
 				visible: () => getHighestLevelCleared(true) >= 54
 			},
 			trappercarp: {
 				name: 'Trapper² (initial)',
-				description: 'Use this setting to respec for the Trapper² challenge.',
+				description: '请在捕手²挑战中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 69,
 				visible: () => getHighestLevelCleared(true) >= 59
 			},
 			trapper: {
 				name: 'Trapper² (respec)',
-				description: 'Use this setting to respec for the Trapper² challenge.',
+				description: '请在捕手²挑战中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 69,
 				visible: () => getHighestLevelCleared(true) >= 59
 			},
 			coord: {
 				name: 'Coordinate²',
-				description: 'Use this setting to respec for the Coordinate² challenge.',
+				description: '请在协同²挑战中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 119,
 				visible: () => getHighestLevelCleared(true) >= 114
 			},
 			experience: {
 				name: 'Experience',
-				description: 'Use this setting to respec for the Experience challenge.',
+				description: '请在经历挑战中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 599,
 				visible: () => getHighestLevelCleared(true) >= 459
 			},
 			c2: {
 				name: 'Other c²',
-				description: 'Use this setting to respec for the other c² challenges.',
+				description: '请在其余挑战²中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 64,
 				visible: () => getHighestLevelCleared(true) >= 59
 			}
@@ -1322,13 +1322,13 @@ atData.autoPerks = {
 		special: {
 			spire: {
 				name: 'Spire respec',
-				description: 'Use this setting to respec for the Spire.',
+				description: '请在尖塔中使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 199,
 				visible: () => getHighestLevelCleared(true) >= 169
 			},
 			income: {
 				name: 'Income',
-				description: 'Use this setting to respec for Income.',
+				description: '请在想要获取资源时使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 199,
 				visible: () => getHighestLevelCleared(true) >= 169
 			}
@@ -1336,25 +1336,25 @@ atData.autoPerks = {
 		feats: {
 			tent: {
 				name: 'Tent City',
-				description: 'Use this setting to respec for the Tent City feat.',
+				description: '请在获取帐篷城壮举时使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 74,
 				visible: () => getHighestLevelCleared(true) >= 74
 			},
 			nerfed: {
 				name: 'Nerfed',
-				description: 'Use this setting to respec for the Nerfed feat.',
+				description: '请在获取弱化壮举时使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 199,
 				visible: () => getHighestLevelCleared(true) >= 199
 			},
 			nerfeder: {
 				name: 'Nerfeder',
-				description: 'Use this setting to respec for the Nerfeder feat.',
+				description: '请在获取超级弱化壮举时使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 299,
 				visible: () => getHighestLevelCleared(true) >= 299
 			},
 			unessenceted: {
 				name: 'Unessenceted',
-				description: 'Use this setting to respec for the Unessenceted feat.',
+				description: '请在获取究极精华壮举时使用该设置(将进行洗点)。',
 				require: () => getHighestLevelCleared(true) >= 179,
 				visible: () => getHighestLevelCleared(true) >= 179
 			}
@@ -1412,41 +1412,41 @@ atData.autoPerks = {
 		regular: {
 			ezfarm: {
 				name: 'Easy Radon Challenge',
-				description: 'Use if you can easily complete your radon challenge quickly at the minimum requirements with no golden battle. Pushing perks will still be valued for gains to scruffy level 3 and other growth mechanisms.',
+				description: '如果您可以在没有金色升级战斗的情况下，轻松快速地完成相应氡挑战，则可以考虑使用。考虑到污污等级3的技能以及其他机制，仍然会提升与战斗相关的特权等级。',
 				require: () => true,
 				visible: () => true
 			},
 			tufarm: {
 				name: 'Difficult Radon Challenge',
-				description: 'Use if you need some extra pushing power to complete your radon challenge, especially if you still want golden battle. This will almost always be the right setting when you first start a new radon challenge.'
+				description: '如果您需要更高战力才能完成相应氡挑战，尤其是需要购买金色升级战斗时，可以考虑使用。进入新的氡挑战时通常应该使用该预设。'
 			},
 			push: {
 				name: 'Push/C³/Mayhem',
-				description: 'Use when doing any pushing runs. Aim is to maximise pushing power so should almost always be used with golden battle upgrades.'
+				description: '需要推进时使用。将以提高战力为目标，所以几乎总是应该购买金色升级战斗。'
 			}
 		},
 		challenges: {
 			downsize: {
 				name: 'Downsize³',
-				description: 'This setting optimizes for each housing building giving only 1 Trimp. coordLimited=1 is assumed as the minimum (but a larger value to overweight population will be respected).\nIf it has been set then this will use your Push/C^3/Mayhem preset weights when selected.',
+				description: '该设置可以在每个住房只能容纳1个脆皮时优化特权配置。将至少把“协作限制”视为1(但如果输入更大的数值仍然可以正常生效)。\n如果设置了“协作限制”，则该预设将使用推进/挑战³/暴乱的权重。',
 				require: () => getHighestLevelCleared(true) >= 19,
 				visible: () => getHighestLevelCleared(true) >= true
 			},
 			duel: {
 				name: 'Duel³',
-				description: "This setting optimizes for less than 100% CC in Duel. It's a very minor effect that only matters for Criticality so feel free to skip this setting if you like.\nIf it has been set then this will use your Push/C^3/Mayhem preset weights when selected.",
+				description: "该设置可以在决斗挑战中，暴击率低于100%时优化特权配置。它的效果很微弱，只影响暴击限界的等级，所以不使用它也不会有太大问题。",
 				require: () => getHighestLevelCleared(true) >= 44,
 				visible: () => getHighestLevelCleared(true) >= 39
 			},
 			trappacarp: {
 				name: 'Trappa Carp',
-				description: 'Use this setting to max Carpentry when portalling into Trappa, if you can get enough starting population this way to be significant compared to how much you can trap.',
+				description: '该设置可以在进入捕手道达人挑战之前尽可能提升木工特权的等级，前提是通过该方式获得的脆皮初始数量明显超过陷阱捕捉的数量。',
 				require: () => getHighestLevelCleared(true) >= 49,
 				visible: () => getHighestLevelCleared(true) >= 44
 			},
 			trappa: {
 				name: 'Trappa³',
-				description: "Be sure to enter an 'Hours of trapping' value below to help value Bait! Use this setting either when portalling into Trappa, or after portalling with the Max Carpentry setting. <b>Coord Limited: 1</b> is assumed.",
+				description: "请在下方“捕捉脆皮的小时数”输入框中输入数值，以确定诱饵特权的权重。请在进入捕手道达人挑战时，或者在使用捕手道达人木工预设进入捕手道达人挑战后使用该设置。将把“协作限制”视为1。",
 				require: () => getHighestLevelCleared(true) >= 49,
 				visible: () => getHighestLevelCleared(true) >= 44
 			},
@@ -1464,19 +1464,19 @@ atData.autoPerks = {
 			}, */
 			berserk: {
 				name: 'Berserk³',
-				description: 'This setting will stop Frenzy being purchased.\nIf it has been set then this will use your Push/C^3/Mayhem preset weights when selected.',
+				description: '该设置将不购买战狂特权。',
 				require: () => getHighestLevelCleared(true) >= 114,
 				visible: () => getHighestLevelCleared(true) >= 109
 			},
 			alchemy: {
 				name: 'Alchemy',
-				description: `Use this setting to optimize for trinket drop rate with finding potions. If you won't buy finding potions or don't care about trinket drops you can use a Zone Progression preset instead.`,
+				description: `该设置将使用魔药·探宝优化小符饰概率。如果您不想购买魔药·探宝，或者不在意小符饰概率，则可以直接使用区域进度的预设。`,
 				require: () => getHighestLevelCleared(true) >= 154,
 				visible: () => getHighestLevelCleared(true) >= 134
 			},
 			smithless: {
 				name: 'Smithless³',
-				description: 'This setting will stop Smithology being purchased and make Smithies hold no value.\nIf it has been set then this will use your Push/C^3/Mayhem preset weights when selected.',
+				description: '该设置将不购买铁匠学，且使铁匠铺的权重归零。',
 				require: () => getHighestLevelCleared(true) >= 199,
 				visible: () => getHighestLevelCleared(true) >= 174
 			}
@@ -1485,24 +1485,24 @@ atData.autoPerks = {
 			combat: {
 				name: 'Combat Respec',
 				description:
-					"As a respec ONLY, optimize for maximum combat stats given current equipment and population. Radon weight is ignored, but atk / hp vs.equality weights are respected. Coord Limited value is ignored and instead uses your save to determine how much housing perk levels are needed to buy your current coord amount. If you are in Trappa, the optimization assumes you have sent your last army so that health perks won't be applied - DO NOT USE in Trappa until after you send your last army."
+					"只用于洗点，根据当前装备和脆皮数量优化战斗相关特权的配置。无视氡权重，攻击力、生命值和平等权重可以生效。无视协作限制，而会使用存档数据来计算在当前协作升级数量下，住房相关特权的等级。如果在捕手道达人挑战中，该预设将假设您已经将最后一队士兵送入战场，所以不考虑生命值相关特权。 - 请注意，在捕手道达人挑战中，不要在将最后一队士兵送入战场之前使用该预设。"
 			},
 			combatRadon: {
 				name: 'Radon Combat Respec',
-				description: "As a respec ONLY, optimize for maximum combat stats given current equipment and population. Coord Limited value is ignored and instead uses your save to determine how much housing perk levels are needed to buy your current coord amount. If you are in Trappa, the optimization assumes you have sent your last army so that health perks won't be applied - DO NOT USE in Trappa until after you send your last army."
+				description: "只用于洗点，根据当前装备和脆皮数量优化战斗相关特权的配置。无视协作限制，而会使用存档数据来计算在当前协作升级数量下，住房相关特权的等级。如果在捕手道达人挑战中，该预设将假设您已经将最后一队士兵送入战场，所以不考虑生命值相关特权。 - 请注意，在捕手道达人挑战中，不要在将最后一队士兵送入战场之前使用该预设。"
 			},
 			equip: {
 				name: 'Equipment farming',
-				description: 'Optimize purely for equipment purchasing power, including zone progression to get more speedbooks. Useful as an initial spec to maximize prestiges that can be afforded before respeccing to Combat spec. All entered weights are ignored, but the Coord-limited setting is respected.'
+				description: '完全为购买装备而优化，包括推进区域，以获得更多加快脆皮资源采集速度的升级。以该预设传送时将尽可能购买重铸升级，在切换到战斗预设之前可能会很有用。除了协作限制以外，将无视所有其他输入框中的数值。'
 			},
 
 			resminus: {
 				name: 'Resources (-maps)',
-				description: 'Optimize for max resource gains from below world level maps. Only use this if you are farming maps below your current zone and care ONLY about total resource gains. All user entered weights are ignored in favor of resource gains. Pushing perks are still valued for increasing the level of map you can farm.'
+				description: '在低于当前区域数值的地图中，为尽可能获取资源而优化。请只在低于当前区域数值的地图中刷资源，且 只 关心资源获取速度时使用该预设。无视所有输入框中的数值，仍然会提升与战斗相关的特权等级，以增加刷资源的地图等级。'
 			},
 			resplus: {
 				name: 'Resources (+maps)',
-				description: 'Optimize for max resource gains from +maps. Only use this if you are farming maps above your current zone and care ONLY about total resource gains. All user entered weights are ignored in favor of resource gains. Pushing perks are still valued for increasing the level of map you can farm.'
+				description: '在超过当前区域数值的地图中，为尽可能获取资源而优化。请只在超过当前区域数值的地图中刷资源，且 只 关心资源获取速度时使用该预设。无视所有输入框中的数值，仍然会提升与战斗相关的特权等级，以增加刷资源的地图等级。'
 			}
 		}
 	},

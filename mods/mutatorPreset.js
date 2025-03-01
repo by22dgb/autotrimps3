@@ -92,7 +92,7 @@ function tooltipAT(what, event, textString, headingName, use2 = '2') {
 			_verticalCenterTooltip(true, undefined, '2');
 		};
 	} else if (what === 'Mutator Import') {
-		tooltipText = `Are you sure you want to load your current mutators from the <b>${textString}</b> preset?`;
+		tooltipText = `Are you sure you want to load your current mutators from the <b>${textString}</b>)导入游戏吗？`;
 		tooltipText += `<br><br><b>Warning:</b> This will use your saved version of this preset. If you have made changes to your loadout since saving, they won't be applied.`;
 
 		costText = `<div class='maxCenter'><div id='confirmTooltipBtn' class='btn btn-info' onclick='cancelTooltip2(true); _mutatorLoadPreset("${headingName}"); document.getElementById("tooltipDiv2").style.zIndex = 6;'>Import</div><div class='btn btn-info' onclick='cancelTooltip2(true); document.getElementById("tooltipDiv2").style.zIndex = 6;'>Cancel</div></div>`;
@@ -103,7 +103,7 @@ function tooltipAT(what, event, textString, headingName, use2 = '2') {
 		};
 	} else if (what === 'Mutator Clear Preset') {
 		tooltipText = `Are you sure you want to clear the <b>${textString}</b> preset?`;
-		tooltipText += `<br><br><b>Warning:</b> This will also set the name back to ${headingName}.`;
+		tooltipText += `<br><br><b>Warning:</b> This will also set the name back to <i></i>${headingName}<i></i>.`;
 
 		costText = `<div class='maxCenter'><div id='confirmTooltipBtn' class='btn btn-info' onclick='cancelTooltip2(true); _mutatorClearPreset("${headingName}"); document.getElementById("tooltipDiv2").style.zIndex = 6;'>Confirm</div><div class='btn btn-info' onclick='cancelTooltip2(true); document.getElementById("tooltipDiv2").style.zIndex = 6;'>Cancel</div></div>`;
 
@@ -153,7 +153,7 @@ function _mutatorSavePreset() {
 
 function _mutatorRenamePreset() {
 	const selectedPreset = $('.mutatorHeaderSelected')[0].innerText;
-	const newName = prompt(`Enter a new name for preset ${selectedPreset}:`, selectedPreset);
+	const newName = prompt(`输入预设“${selectedPreset}”的新名字：`, selectedPreset);
 
 	if (newName) {
 		const activePreset = document.getElementsByClassName('mutatorHeaderSelected')[0].dataset.hiddenName;
@@ -543,7 +543,7 @@ function _displayMutatorPresets(tooltipDiv) {
 	tooltipText += `<div id='mutatorErrorRow' style="display: flex; justify-content: space-between; align-items: center; width: 100%;">`;
 
 	tooltipText += `<div id='mutatorItemCounter' style='display: flex;'>`;
-	tooltipText += `<span>&nbsp;Mutators (</span><span id='mutatorsPurchased'>${Object.keys(mutatorsPurchased).length}</span><span>/</span><span id='mutatorsMax'>${maxMutators}</span><span>)&nbsp;</span><span id='mutatorsError' style='color: red;'></span>`;
+	tooltipText += `&nbsp;<span>Mutators (</span><span id='mutatorsPurchased'>${Object.keys(mutatorsPurchased).length}</span><span>/</span><span id='mutatorsMax'>${maxMutators}</span><span>)&nbsp;</span><span id='mutatorsError' style='color: red;'></span>`;
 	tooltipText += `</div>`;
 
 	tooltipText += `<div id='mutatorsChangesContainer' style='color: red; display: flex; justify-content: flex-end; align-items: center; display: flex; visibility: hidden;'>`;

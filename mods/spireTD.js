@@ -38,7 +38,7 @@ playerSpire.updateRsPs = function () {
 		elem.firstChild.innerHTML = `
 	<span onmouseover='playerSpire.infoTooltip("Runestones", event)' onmouseout='tooltip("hide")'>
 		Runestones: <span id='playerSpireRunestones'>${prettify(this.runestones)}</span><br/>
-		Rs/s: <span id='RsPs'>${prettify(runeStonesPS)} Rs/hr ${prettify(runeStonesPS * 3600)}</span>
+		Rs/s: <span id='RsPs'>${prettify(runeStonesPS)} 每小时符石：${prettify(runeStonesPS * 3600)}</span>
 	</span>`;
 	}
 };
@@ -52,9 +52,9 @@ if (typeof oldPlayerSpireDrawInfo !== 'function') {
 	playerSpire.drawInfo = function (arguments) {
 		oldPlayerSpireDrawInfo.apply(this, arguments);
 		const elem = document.getElementById('spireTrapsWindow');
-		const tooltipText = `Click to paste and import your Spire string! These are typically acquired through the Spire TD Calc website`;
+		const tooltipText = `点击并粘贴您的尖塔字符串后可以导入它！通常需要通过外部的尖塔布局计算器获取。`;
 		if (!elem) return arguments;
-		const importBtn = `<input style="width:19%;border:2px solid #dadada;padding:0.5vw;display:inline-block;margin:0.5%;text-align:center;" placeholder="Import" onpaste="tdStringCode(_getClipboardText(event));" title="${tooltipText}">`;
+		const importBtn = `<input style="width:19%;border:2px solid #dadada;padding:0.5vw;display:inline-block;margin:0.5%;text-align:center;" placeholder="导入" onpaste="tdStringCode(_getClipboardText(event));" title="${tooltipText}">`;
 
 		elem.innerHTML = importBtn + elem.innerHTML;
 		return arguments;

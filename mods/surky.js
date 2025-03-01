@@ -1315,18 +1315,18 @@ function updateGoldenText(props, perks) {
 	}
 
 	// final recommendation
-	let GUtext = 'Suggested GU Strategy:\n\xa0\xa0' + (GVcount > 0 ? GVcount + ' GVs, then ' : '');
+	let GUtext = 'Suggested GU Strategy:\n\xa0\xa0' + (GVcount > 0 ? GVcount + '次虚空，然后' : '');
 	let GRpct = ((GRcount + GVcount) * (GRcount + GVcount + 1)) / 2 - (GVcount * (GVcount + 1)) / 2;
 	let GBcount = GUavail - GVcount - GRcount;
 	let GBpct = 3 * ((GUavail * (GUavail + 1)) / 2 - ((GRcount + GVcount) * (GRcount + GVcount + 1)) / 2);
 
-	if (GRcount > 0) GUtext += GRcount + ' GRs (' + GRpct + '%), then ';
-	GUtext += GBcount + ' GBs (' + GBpct + '%)';
+	if (GRcount > 0) GUtext += GRcount + '次氡(' + GRpct + '%)，然后';
+	GUtext += GBcount + '次战斗(' + GBpct + '%)';
 
 	if (game.global.canGuString) {
 		const vComma = GRcount > 0 || GBcount > 0 ? ',' : '';
 		const rComma = GBcount > 0 ? ',' : '';
-		GUtext += '\n\xa0\xa0GU String: ' + (GVcount > 0 ? GVcount + 'v' + vComma : '') + (GRcount > 0 ? GRcount + 'r' + rComma : '') + (GBcount > 0 ? GBcount + 'b' : '');
+		GUtext += '\n\xa0\xa0金色升级字符串：' + (GVcount > 0 ? GVcount + '<i></i>v<i></i>' + vComma : '') + (GRcount > 0 ? GRcount + '<i></i>r<i></i>' + rComma : '') + (GBcount > 0 ? GBcount + '<i></i>b<i></i>' : '');
 	} else if (GBcount > 0 && GBcount < Math.floor(props.targetZone / 25)) {
 		/* if there aren't enough GBs to cover all the non-free GUs, present an alternate automate-able strategy */
 		GBcount = 0;
@@ -1337,11 +1337,11 @@ function updateGoldenText(props, perks) {
 			GBgain = GBgainNext;
 			GBgainNext = GUgain(props, perks, GUavail, GVcount, GBcount + 1, true);
 		}
-		GUtext += '\n\xa0\xa0or ' + (GVcount > 0 ? GVcount + ' GVs, then ' : '');
+		GUtext += '\n\xa0\xa0或' + (GVcount > 0 ? GVcount + '次虚空，然后' : '');
 		GRcount = GUavail - GVcount - GBcount;
 		GBpct = 3 * (((GBcount + GVcount) * (GBcount + GVcount + 1)) / 2 - (GVcount * (GVcount + 1)) / 2);
 		GRpct = (GUavail * (GUavail + 1)) / 2 - ((GBcount + GVcount) * (GBcount + GVcount + 1)) / 2;
-		GUtext += GBcount + ' GBs (' + GBpct + '%), then ' + GRcount + ' GRs (' + GRpct + '%)';
+		GUtext += GBcount + '次战斗(' + GBpct + '%)，然后' + GRcount + '次氡(' + GRpct + '%)';
 	}
 
 	if (document.querySelector('#showGoldenUpgradesBtn').classList.value.includes('settingBtntrue')) {
