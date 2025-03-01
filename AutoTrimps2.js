@@ -195,17 +195,18 @@ function loadScriptsAT() {
 			const scripts = [`${atConfig.initialise.basepath}libs/jquery.min.js`, `${atConfig.initialise.basepath}libs/select2.min.js`, `${atConfig.initialise.basepath}Graphs.js`, `${atConfig.initialise.basepath}VoidMapClarifier.js`];
 			const stylesheets = [`${atConfig.initialise.basepath}css/select2.min.css`, `${atConfig.initialise.basepath}css/select2.css`, `${atConfig.initialise.basepath}css/tabs.css`, `${atConfig.initialise.basepath}css/farmCalc.css`, `${atConfig.initialise.basepath}css/perky.css`, `${atConfig.initialise.basepath}css/mutatorPreset.css`];
 
-			await loadModules('gameUpdates', atConfig.modules.pathMods);
-			await loadModules('utils', atConfig.modules.path);
-
-			for (const module of modules) {
-				const path = installedTesting.includes(module) ? pathTesting : installedMods.includes(module) ? pathMods : installedModules.includes(module) ? atConfig.modules.path : '';
-				await loadModules(module, path, undefined, timeStamp);
-			}
+			await loadModules('gameUpdates', atConfig.modules.pathMods, undefined, timeStamp);
 
 			for (const script of scripts) {
 				if (atConfig.modules.loadedExternal.includes(script)) continue;
 				await loadScript(script, undefined, undefined, timeStamp);
+			}
+
+			await loadModules('utils', atConfig.modules.path, undefined, timeStamp);
+
+			for (const module of modules) {
+				const path = installedTesting.includes(module) ? pathTesting : installedMods.includes(module) ? pathMods : installedModules.includes(module) ? atConfig.modules.path : '';
+				await loadModules(module, path, undefined, timeStamp);
 			}
 
 			for (const stylesheet of stylesheets) {
@@ -291,6 +292,8 @@ function initialiseScript() {
 	toggleCatchUpMode();
 	if (usingRealTimeOffline) offlineProgress.loop = setTimeout(timeWarpLoop, 0, true);
 	if (u2Mutations && u2Mutations.open) u2Mutations.openTree();
+
+	updateVanillaChangelogButton(true);
 	debug(`AutoTrimps (${atConfig.initialise.version.split(' ')[0]} ${atConfig.initialise.version.split(' ')[1]}) has finished loading.`);
 	challengeInfo(true);
 	console.timeEnd();

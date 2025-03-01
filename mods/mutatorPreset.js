@@ -1,13 +1,3 @@
-if (typeof MODULES !== 'object') {
-	MODULES = {};
-}
-
-if (typeof atConfig === 'undefined') {
-	MODULES.mutatorPreset = {
-		selected: 0
-	};
-}
-
 function tooltipAT(what, event, textString, headingName, use2 = '2') {
 	let elem = document.getElementById(`tooltipDiv${use2}`);
 	swapClass('tooltipExtra', 'tooltipExtraNone', elem);
@@ -198,8 +188,8 @@ function _mutatorLoadPreset(preset) {
 	for (let item in mutatorRingsList) {
 		if (u2Mutations.purchaseCount >= u2Mutations.rings[item]) {
 			const itemObj = mutatorRingsList[item];
+
 			while (itemObj.length > 0 && game.global.mutatedSeeds > u2Mutations.nextCost()) {
-				console.log(itemObj[0]);
 				if (!u2Mutations.checkRequirements(itemObj[0])) itemObj.push(itemObj.shift());
 				const mutName = itemObj[0];
 				if (u2Mutations.checkRequirements(mutName)) {

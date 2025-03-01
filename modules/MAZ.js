@@ -171,7 +171,7 @@ function _mapSettingsInputObj() {
 			windowWidth: '100%'
 		},
 		'Map Farm': {
-			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'mapType', 'repeat', 'hdRatio', 'jobratio', 'repeatevery', 'special', 'gather', 'atlantrimp', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
+			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'mapType', 'repeat', 'hdRatio', 'jobratio', 'special', 'repeatevery', 'gather', 'atlantrimp', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: [],
 			windowWidth: '100%'
 		},
@@ -201,7 +201,7 @@ function _mapSettingsInputObj() {
 			windowWidth: '100%'
 		},
 		Toxicity: {
-			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'repeat', 'jobratio', 'repeatevery', 'special', 'gather'],
+			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'repeat', 'jobratio', 'special', 'repeatevery', 'gather'],
 			settingInputsDefault: [],
 			windowWidth: '80%'
 		},
@@ -221,7 +221,7 @@ function _mapSettingsInputObj() {
 			windowWidth: '100%'
 		},
 		Alchemy: {
-			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'mapType', 'potion', 'jobratio', 'repeatevery', 'special', 'gather'],
+			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'mapType', 'potion', 'jobratio', 'special', 'repeatevery', 'gather'],
 			settingInputsDefault: ['voidPurchase'],
 			windowWidth: '100%'
 		},
@@ -231,7 +231,7 @@ function _mapSettingsInputObj() {
 			windowWidth: '50%'
 		},
 		'Desolation Gear Scumming': {
-			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'jobratio', 'repeatevery', 'special', 'gather', 'prestigeGoal'],
+			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'jobratio', 'special', 'repeatevery', 'gather', 'prestigeGoal'],
 			settingInputsDefault: ['abandonZone'],
 			windowWidth: '50%'
 		},
@@ -241,7 +241,7 @@ function _mapSettingsInputObj() {
 			windowWidth: '70%'
 		},
 		'Gene Assist': {
-			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'hdRatio', 'jobratio', 'repeatevery', 'special', 'gather', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
+			settingInputs: ['active', 'priority', 'row', 'world', 'endzone', 'cell', 'autoLevel', 'level', 'hdRatio', 'jobratio', 'special', 'repeatevery', 'gather', 'runType', 'challenge', 'challenge3', 'challengeOneOff'],
 			settingInputsDefault: ['geneAssistSpendingPct', 'geneAssistBleedVoids'],
 			windowWidth: '70%'
 		},
@@ -684,12 +684,12 @@ function _mapSettingsRowTitles(varPrefix, activeSettings, settingOrder) {
 		elements.push({ name: 'jobratio', class: `windowJobRatio${varPrefix}`, title: 'Job Ratio' });
 	}
 
-	if (s.repeatEvery) {
-		elements.push({ name: 'repeatevery', class: `windowRepeatEvery${varPrefix}`, title: 'Repeat Every' });
-	}
-
 	if (s.special) {
 		elements.push({ name: 'special', class: `windowSpecial${varPrefix}`, title: '特殊词缀' });
+	}
+
+	if (s.repeatEvery) {
+		elements.push({ name: 'repeatevery', class: `windowRepeatEvery${varPrefix}`, title: 'Repeat Every' });
 	}
 
 	if (s.prestigeGoal) {
@@ -837,13 +837,13 @@ function _mapSettingsRowPopulateInputs(vals, varPrefix, activeSettings, x, style
 	}
 
 	if (s.tributeFarm) {
-		elements.push({ name: 'tributes', class: `windowTributes`, title: `<input value='${vals.tributes}' type='number' id='windowTributes${x}'/>` });
-		elements.push({ name: 'mets', class: `windowMets`, title: `<input value='${vals.mets}' type='number' id='windowMets${x}'/>` });
+		elements.push({ name: 'tributes', class: `windowTributes`, title: `<div style='text-align: center; font-size: 0.6vw;'>${vals.mapType === 'Map Count' ? 'Max Maps' : ''}</div><input value='${vals.tributes}' type='number' id='windowTributes${x}'/>` });
+		elements.push({ name: 'mets', class: `windowMets`, title: `<div style='text-align: center; font-size: 0.6vw;'>${vals.mapType === 'Map Count' ? 'Max Maps' : ''}</div><input value='${vals.mets}' type='number' id='windowMets${x}'/>` });
 		elements.push({ name: 'buildings', class: `windowBuildings`, title: `${buildNiceCheckbox('windowBuildings' + x, null, vals.buildings)}`, style: 'text-align: center;' });
 	}
 
 	if (s.smithyFarm) {
-		elements.push({ name: 'repeat', class: `windowSmithies`, title: `<input value='${vals.repeat}' type='number' id='windowRepeat${x}'/>` });
+		elements.push({ name: 'repeat', class: `windowSmithies`, title: `<div style='text-align: center; font-size: 0.6vw;'>${vals.mapType === 'Map Count' ? 'Max Maps' : ''}</div><input value='${vals.repeat}' type='number' id='windowRepeat${x}'/>` });
 		elements.push({ name: 'meltingPoint', class: `windowMeltingPoint`, title: `${buildNiceCheckbox('windowMeltingPoint' + x, null, vals.meltingPoint)}`, style: 'text-align: center;' });
 	}
 
@@ -867,7 +867,7 @@ function _mapSettingsRowPopulateInputs(vals, varPrefix, activeSettings, x, style
 
 	if (s.alchemy) {
 		elements.push({ name: 'potion', class: `windowPotionType`, title: `<select value='${vals.potionstype}' id='windowPotionType${x}' onchange='_mapSettingsUpdatePreset(${x})'>${dropdowns.potionTypes}</select>` });
-		elements.push({ name: 'potion2', class: `windowPotionNumber`, title: `<input value='${vals.potionsnumber}' type='number' id='windowPotionNumber${x}'/>` });
+		elements.push({ name: 'potion2', class: `windowPotionNumber`, title: `<div style='text-align: center; font-size: 0.6vw;'>${vals.mapType === 'Map Count' ? 'Max Maps' : ''}</div><input value='${vals.potionsnumber}' type='number' id='windowPotionNumber${x}'/>` });
 	}
 
 	if (s.hypothermia) {
@@ -909,13 +909,13 @@ function _mapSettingsRowPopulateInputs(vals, varPrefix, activeSettings, x, style
 		elements.push({ name: 'jobratio', class: `windowJobRatio${varPrefix}`, title: `<input value='${vals.jobratio}' type='value' id='windowJobRatio${x}'/>` });
 	}
 
-	if (s.repeatEvery) {
-		elements.push({ name: 'repeatevery', class: `windowRepeatEvery${varPrefix}`, title: `<input value='${vals.repeatevery}' type='number' id='windowRepeatEvery${x}'/>` });
-	}
-
 	if (s.special) {
 		elements.push({ name: 'special', class: `windowSpecial${varPrefix}`, title: `<select value='${vals.special}' id='windowSpecial${x}' onchange='_mapSettingsUpdatePreset("${x}","${varPrefix}")'>${dropdowns.special}</select>` });
 		elements.push({ name: 'gather', class: `windowGather`, title: `<div style='text-align: center; font-size: 0.6vw;'>Gather</div><select value='${vals.gather}' id='windowGather${x}' onchange='_mapSettingsUpdatePreset("${x}","${varPrefix}")'>${dropdowns.gather}</select>` });
+	}
+
+	if (s.repeatEvery) {
+		elements.push({ name: 'repeatevery', class: `windowRepeatEvery${varPrefix}`, title: `<input value='${vals.repeatevery}' type='number' id='windowRepeatEvery${x}'/>` });
 	}
 
 	if (s.prestigeGoal) {
@@ -1326,7 +1326,6 @@ function settingsWindowSave(titleText, varPrefix, activeSettings, reopen) {
 	}
 
 	/* disables Atlantrimp for 0.5 seconds and recalculates mapSettings variable. */
-	//This is to prevent the issue of Atlantrimp being run when you're saving settings.
 	_settingTimeout('mapSettings', 500);
 	farmingDecision();
 }
@@ -1335,285 +1334,376 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 	const s = JSON.parse(activeSettings);
 	const radonSetting = atConfig.settingUniverse === 2;
 	const trimple = atConfig.settingUniverse === 1 ? 'Trimple' : 'Atlantrimp';
-	let mazHelp = 'Welcome to <b>' + titleText + '</b> settings!';
+	const trimpleName = atConfig.settingUniverse === 1 ? 'Trimple of Doom' : 'Atlantrimp';
+	const hze = game.stats.highestLevel.valueTotal();
+	const hzeU2 = game.stats.highestRadLevel.valueTotal();
+	let mazHelp = '';
 
-	if (!s.golden && !s.profile && !s.spireAssault) mazHelp += " This is a powerful automation tool that allows you to set when maps should be automatically run. Here's a quick overview of what everything does:";
-	else if (s.golden) {
-		mazHelp += " This is a powerful automation tool that allows you to set the order of golden upgrade purchases and how many of each type you'd like to have. Here's a quick overview of what everything does:";
-	} else {
-		mazHelp += " This is a tool that allows you to save and load different settings profiles. Here's a quick overview of what everything does:";
-	}
-
-	//Brief overview of what the setting does as it's kinda different from other settings.
+	/* 
+		brief overview of what the setting does as it's kinda different from other settings. 
+	*/
 	if (s.desolation) {
-		mazHelp += "<p>This setting is sligtly different from others. It abuses a bug in the game where you can scum prestiges through a <b>Blacksmithery 3</b> bug. <b>This definitely shouldn't exist so be aware this is exploiting unintentional game mechanics.</b></p>";
-		mazHelp += '<li class="indent">By exploiting this bug we get the prestiges from <b>Blacksmithery 3</b> when entering the zone and then the prestiges from the equivalent of doing a +10 map to get those prestiges significantly easier than we should be able to.</li>';
-		mazHelp += "<li class=\"indent\">For a more detailed explanation of how this setting works please see the <a href='https://discord.com/channels/371177798305447938/1075840564534202398/1087668293797679194' target='_blank'>guide in the <b>[Guide] Desolation</b> channel on the Trimps Discord.</a></li>";
-		mazHelp += '<li class="indent">It will create a +1 map on cell 100 of the zone <b>PRIOR</b> to the start zone you set when the improbability is less than 5 gamma bursts from death.</li>';
-		mazHelp += '<li class="indent">It then clears 3 cells before going back into the world and finishing off the improbability and clearing the map on the next zone to take advantage of the bug.</li>';
+		mazHelp += `<p>This setting is sligtly different from others. It abuses a bug in the game where you can scum prestiges through a <b>Blacksmithery 3</b> bug. <b>This definitely shouldn't exist so be aware this is exploiting unintentional game mechanics.</b></p>`;
+		mazHelp += `<li class="indent">By exploiting this bug we get the prestiges from <b>Blacksmithery 3</b> when entering the zone and then the prestiges from the equivalent of doing a +10 map to get those prestiges significantly easier than we should be able to.</li>`;
+		mazHelp += `<li class="indent">For a more detailed explanation of how this setting works please see the <a href='https://discord.com/channels/371177798305447938/1075840564534202398/1087668293797679194' target='_blank'>guide in the <b>[Guide] Desolation</b> channel on the Trimps Discord.</a></li>`;
+		mazHelp += `<li class="indent">It will create a +1 map on cell 100 of the zone <b>PRIOR</b> to the start zone you set when the improbability is less than 5 gamma bursts from death.</li>`;
+		mazHelp += `<li class="indent">It then clears 3 cells before going back into the world and finishing off the improbability and clearing the map on the next zone to take advantage of the bug.</li>`;
 	}
 
-	//Map Bonus Information to detail how it functions since it's unclear compared to every other setting
 	if (s.mapBonus) {
-		mazHelp += "<br><br><b>Map Bonus</b> works by using the last active line that's greater or equal to your current world zone and then using those settings for every zone that follows on from it.";
+		mazHelp += `<p><b>Map Bonus Settings</b> works by slightly differently from other mapping settings:</p>`;
+		mazHelp += `<li class="indent">It finds the highest priority value line that's equal to or greater than your current world zone, and uses that lines settings when it runs.</li>`;
+		mazHelp += `<li class="indent">Lines repeat every zone from when they start until they reach their <b>End Zone</b> input.</li>`;
 	}
 
 	if (s.voidMap) {
-		mazHelp += '<br><br>Void Map works by using <b>Start Zone</b> as the lower bound zone to run voids on and <b>End Zone</b> as the upper bound.';
-
-		mazHelp += '<li class="indent">Additionally it has dropdown inputs which can give you the ability to add more fine-tuning for when a line should be run.';
-		mazHelp += '<li class="indent">If you reach the <b>End Zone</b> zone input of a line it will run regardless of dropdown inputs.';
+		mazHelp += `<p><b>Void Map Settings</b> works by using <b>Start Zone</b> as the lower bound zone to run voids on and <b>End Zone</b> as the upper bound.</p>`;
+		mazHelp += `<li class="indent">It has dropdown options to allow fine-tuning for when a line should be run.</li>`;
+		mazHelp += `<li class="indent">If you reach the <b>End Zone</b> input of a line it will run regardless of dropdown inputs.</li>`;
 	}
 
 	if (s.smithyFarm) {
-		mazHelp += '<br><br><b>Smithy Farm</b> will farm resources in the following order <b>Metal > Wood > Gems</b>. This cannot be changed.';
+		mazHelp += `<p><b>Smithy Farm</b> will farm resources in the following order <b>Metal > Wood > Gems</b>. This cannot be changed.</p>`;
 	}
 
 	if (s.archaeology) {
-		mazHelp += '<br><br><b>Archaeology Farm</b> requires you to have a scientist ratio set in the <b>Job Ratio</b> input field for it to run properly.';
+		mazHelp += `<p><b>Archaeology Farm</b> requires you to have a scientist ratio set in the <b>Job Ratio</b> input field for it to run properly.</p>`;
 	}
 
 	if (s.insanity) {
-		mazHelp += "<br><br><b>Insanity Farm</b> will disable unique & lower than world level maps when you don't have a destack zone line setup.";
+		mazHelp += `<p><b>Insanity Farm</b> will disable unique & lower than world level maps when you don't have a destack zone line setup.</p>`;
 	}
 
-	//Top Row Information
+	/* 
+		top row information 
+	*/
 	if (!s.golden && !s.profile) {
-		mazHelp += '<br><br>The top row section consists of toggles and inputs which add extra functions to the setting itself:<br></br><ul>';
-		mazHelp += '<li><b>Enabled</b> - A toggle to enable or disable the entire setting.</li>';
+		if (s.desolation || s.mapBonus || s.voidMap) mazHelp += `<br>`;
+		mazHelp += `The top row of this settings window consists of toggles and inputs which add extra functions to the setting itself:<br></br><ul>`;
+		mazHelp += `<li><b>Enabled</b> - A toggle to allow this setting to run.</li>`;
+
 		if (s.raiding && !s.bionic) {
-			mazHelp += '<li><b>Recycle Maps</b> - A toggle to recycle maps after raiding has finished.</li>';
-			mazHelp += "<li><b>Increment Maps</b> - A toggle to swap between just running the 1 target zone map and gradually running different maps from lowest map you can obtain a prestige to the highest which can help if you're not strong enough to raid your target zone immediately.</li>";
+			mazHelp += `<li><b>Recycle Maps</b> - When enabled this will recycle maps this setting creates after it finishes raiding.</li>`;
+			mazHelp += `<li><b>Increment Maps</b> - Swaps from running a single map to running multiple maps, starting from the lowest map level you can obtain prestiges.</li>`;
+			mazHelp += `<li class="indent">This can help if additional stats will allow you to raid your target zone but it will use more fragments.</li>`;
 		}
+
 		if (s.mapBonus) {
-			mazHelp += '<li><b>Job Ratio</b> - The job ratio to use when Map Bonus is set to run from <b>Map Bonus Ratio</b> or <b>Max Map Bonus for Spire</b> settings. If set to <b>-1</b> it will use your world job ratios.</li>';
-			mazHelp += "<li class=\"indent\">Input should look like '1,1,1,1' (Farmers, Lumberjacks, Miners, Scientists). If you don't want Farmers, Miners or Scientists you can input '0,1' for this setting.</li>";
-			mazHelp += "<li><b>特殊词缀</b> - The type of cache you'd like to run when Map Bonus is set to run from <b>Map Bonus Ratio</b> or <b>Max Map Bonus for Spire</b>运行时，地图的特殊词缀。</li>";
+			const showSpire = (!radonSetting && hze >= 170) || (radonSetting && hzeU2 >= 270);
+			const settingText = showSpire ? `either the <b>Map Bonus Ratio</b>或尖塔<b>Max Map Bonus</b>` : `the <b>Map Bonus Ratio</b>`;
+			mazHelp += `<li><b>Job Ratio</b> - The job ratio to use when Map Bonus stacks are obtained from ${settingText}运行时，使用的工作比例。</li>`;
+			mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
+			mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
+			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
+
+			mazHelp += `<li><b>特殊词缀</b> - The map cache (special modifier) you'd like to run when Map Bonus is run from ${settingText}运行时，地图的特殊词缀。</li>`;
 		}
+
 		if (s.voidMap) {
-			mazHelp += '<li><b>Max Map Bonus</b> - Will assume you have 10 map bonus stacks';
-			if (radonSetting && !game.portal.Tenacity.radLocked) mazHelp += ' and max tenacity';
-			mazHelp += ' when void maps HD Ratio calcs are being set.</li>';
+			mazHelp += `<li><b>Max Map Bonus</b> - Makes your <b>Void HD Ratio</b> assume you have 10 map bonus stacks${radonSetting && !game.portal.Tenacity.radLocked ? ' and max Tenacity multiplier' : ''}.</li>`;
 
-			if (game.permaBoneBonuses.boosts.owned > 0) mazHelp += '<li><b>Bone Charge</b> - The first time a line starts running Void Maps in each portal it will use a single Bone Charge.</li>';
+			if (game.permaBoneBonuses.boosts.owned > 0) mazHelp += `<li><b>Bone Charge</b> - The first time a line starts running Void Maps in each portal it will use a single Bone Charge.</li>`;
 
-			mazHelp += '<li><b>Void Farm</b> - Will farm before running void maps if your void hits survived is below the input in <b>Void Farm Hits Survived</b> or your void hd ratio is below the input in <b>Void Farm Void HD Ratio</b>. Farms until you have reached the map cap set in the <b>HD Farm</b>设置中地图上限的输入值。</li>';
+			mazHelp += `<li><b>Void Farm</b> - Will farm before running void maps if your void hits survived is below the input in <b>Void Farm Hits Survived</b> or your void hd ratio is below the input in <b>Void Farm Void HD Ratio</b>. Farms until you have reached the map cap set in the <b>HD Farm</b>设置中地图上限的输入值。</li>`;
+			mazHelp += `<li><b>Void Farm Hits Survived</b> - Will farm to this <b>Void Hits Survived</b> value before running void maps.</li>`;
+			mazHelp += `<li class="indent">Will only farm <b>Void Hits Survived</b> to this value when set <b>超过0的数值</b>.</li>`;
+			mazHelp += `<li class="indent">Your current <b>Void Hits Survived</b> value can be seen in either the <b>Auto Maps Status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</li>`;
+			mazHelp += `<li><b>Void Farm HD Ratio</b> - Will farm to this <b>Void HD Ratio</b> value before running void maps.</li>`;
+			mazHelp += `<li class="indent">Will only farm <b>Void HD Ratio</b> to this value when set <b>超过0的数值</b>.</li>`;
+			mazHelp += `<li class="indent">Your current <b>Void HD Ratio</b> value can be seen in either the <b>Auto Maps Status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</li>`;
 
-			mazHelp += '<li><b>Void Farm Hits Survived</b> - Will farm to this void hits survived value before running void maps. Must be set above 0 to be used otherwise will be ignored.</li>';
+			mazHelp += `<li><b>Void Farm Job Ratio</b> - The job ratio you want to use when farming stats before you run your Void Maps.</li>`;
+			mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
+			mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
+			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
 
-			mazHelp += '<li><b>Void Farm HD Ratio</b> - Will farm to this void HD ratio survived value before running void maps. Must be set above 0 to be used otherwise will be ignored.</li>';
-
-			mazHelp += '<li><b>Void Farm Job Ratio</b> - The job ratio to use when farming stats before running void maps.</li>';
-			mazHelp += "<li class=\"indent\">Input should look like '1,1,1,1' (Farmers, Lumberjacks, Miners, Scientists). If you don't want Farmers, Miners or Scientists you can input '0,1' for this setting.</li>";
-			mazHelp += "<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this farm. If set to <b>-1</b> it will repeat an Infinite amount of times and you'll have to manually stop farming, would only recommend this if you're confident you'll be able to get enough stats to finish the farm.</li>";
+			mazHelp += `<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this farm.</li>`;
+			mazHelp += `<li class="indent">If set to <b>-1</b> it will repeat an Infinite amount of times.</li>`;
 		}
+
 		if (s.boneShrine) {
-			mazHelp += '<li><b>Auto Spend Charges</b> - Enables the ability to automatically spend bone charges when above a certain value.</li>';
-			mazHelp += '<li><b>Auto Spend At X Charges</b> - The amount of bone charges you have to reach before one will automatically be spent. Disable this by setting this to a value at or below 0 or above 10.</li>';
-			mazHelp += '<li><b>Auto Spend From Z</b> - Will only auto spend bone charges when at or above this zone.</li>';
-			mazHelp += '<li><b>Auto Spend Gather</b> - The gather type to use when auto spending bone charges.</li>';
-			mazHelp += '<li><b>Auto Spend Job Ratio</b> - The job ratio to use when auto spending bone charges.</li>';
-			mazHelp += "<li class=\"indent\">Input should look like '1,1,1,1' (Farmers, Lumberjacks, Miners, Scientists). If you don't want Farmers, Miners or Scientists you can input '0,1' for this setting.</li>";
+			mazHelp += `<li><b>Auto Spend Charges</b> - Enables the ability to automatically spend bone charges when above a certain value.</li>`;
+			mazHelp += `<li><b>Auto Spend At X Charges</b> - The amount of bone charges you have to reach before one will automatically be spent.</li>`;
+			mazHelp += `<li class="indent">If set to <b>0 or below</b> OR <b>超过10的数值</b> it will stop bone charges from being auto spent.</li>`;
+			mazHelp += `<li><b>Auto Spend From Z</b> - Will only auto spend bone charges when at or above this zone.</li>`;
+			mazHelp += `<li><b>Auto Spend Gather</b> - The resource you'd like to gather when auto spending bone charges.</li>`;
+
+			mazHelp += `<li><b>Auto Spend Job Ratio</b> - The job ratio you want to use when auto spending bone charges.</li>`;
+			mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
+			mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
+			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
 		}
+
 		if (s.hdFarm) {
-			mazHelp += '<li><b>Job Ratio</b> - The job ratio to use when Map Bonus is set to run from the <b>Hits Survived</b> setting. If set to <b>-1</b> it will use your world job ratios.</li>';
-			mazHelp += "<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this farm. If set to -1 it will repeat an Infinite amount of times and you'll have to manually stop farming, would only recommend this if you're confident you'll be able to get enough stats to finish the farm.</li>";
+			const showSpire = (!radonSetting && hze >= 170) || (radonSetting && hzeU2 >= 270);
+			const settingText = showSpire ? `either the <b>Hits Survived</b>或尖塔<b>Hits Survived</b>` : `the <b>Hits Survived</b>`;
+			mazHelp += `<li><b>Job Ratio</b> - The job ratio to use when farming to improve your Hits Survived ratio through ${settingText}运行时，使用的工作比例。</li>`;
+			mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
+			mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
+			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
+
+			mazHelp += `<li><b>Map Cap</b> - The maximum amount of maps you would like to run when farming to improve your Hits Survived ratio through ${settingText}运行时，刷资源运行地图的次数上限。</li>`;
+			mazHelp += `<li class="indent">If set to <b>-1</b> it will repeat an Infinite amount of times.</li>`;
 		}
+
 		if (s.worshipperFarm) {
-			mazHelp += '<li><b>Enabled Skip</b> - A toggle to enable the skip value setting.</li>';
-			mazHelp += '<li><b>Skip Value</b> - How many worshippers a small/large (dependant on what you have unlocked) savoury cache must provide for you to run your Worshipper Farming.</li>';
+			mazHelp += `<li><b>Enabled Skip</b> - A toggle to enable the skip value setting.</li>`;
+			mazHelp += `<li><b>Skip Value</b> - How many worshippers a small/large (dependant on what you have unlocked) savoury cache must provide for you to run your Worshipper Farming.</li>`;
 		}
+
 		if (s.quagmire) {
-			mazHelp += '<li><b>Abandon Zone</b> - The zone you would like to abandon the challenge at.</li>';
+			mazHelp += `<li><b>Abandon Zone</b> - The zone you would like to abandon the challenge at.</li>`;
 		}
+
 		if (s.alchemy) {
-			mazHelp += '<li><b>Void Purchase</b> - Will purchase as many void and strength potions as you can currently afford when you go into a void map. Would recommend only disabling this setting when going for the Alchemy achievement.</li>';
+			mazHelp += `<li><b>Void Purchase</b> - Will purchase as many void and strength potions as you can currently afford when you go into a void map. Would recommend only disabling this setting when going for the Alchemy achievement.</li>`;
 		}
+
 		if (s.hypothermia) {
-			mazHelp += "<li><b>Frozen Castle</b> - The zone,cell combination that you'd like Frozen Castle to be run at. The input style is '200,99' and if you don't input it properly it'll default to zone 200 cell 99.</li>";
-			mazHelp += '<li><b>AutoStorage</b> - Disables AutoStorage until the first Bonfire farm zone that you reach during the challenge.</li>';
-			mazHelp += "<li><b>Packrat</b> - Will purchase as many levels of packrat as possible once the Hypothermia challenge ends with leftover radon and additionally when portaling it reset the packrat level to 3 so that you don't accidentally trigger a 5th bonfire at the start of the run.</li>";
+			mazHelp += `<li><b>Frozen Castle</b> - The zone,cell combination that you'd like Frozen Castle to be run at. The input style is '200,99' and if you don't input it properly it'll default to zone 200 cell 99.</li>`;
+			mazHelp += `<li><b>AutoStorage</b> - Disables AutoStorage until the first Bonfire farm zone that you reach during the challenge.</li>`;
+			mazHelp += `<li><b>Packrat</b> - Will purchase as many levels of packrat as possible once the Hypothermia challenge ends with leftover radon and additionally when portaling it reset the packrat level to 3 so that you don't accidentally trigger a 5th bonfire at the start of the run.</li>`;
 		}
 	}
 
-	if (s.golden || s.profile) mazHelp += '<br>';
+	/* 
+		general settings
+	*/
+	if (!s.golden && !s.profile) mazHelp += `</ul></br>`;
+	mazHelp += `Here's a description of settings for each added row:<ul>`;
 
-	//Row Settings
-	mazHelp += '</ul></br> The settings for each row that is added:<ul>';
-
-	mazHelp += "<li><span style='padding-left: 0.3%' class='mazDelete'><span class='icomoon icon-cross'></span></span> - Remove this line completely</li>";
+	mazHelp += `<li><span style='padding-left: 0.3%; margin-right: -0.3%' class='mazDelete'><span class='icomoon icon-cross'></span></span> - Removes this line from the settings window.</li>`;
 	if (!s.profile) {
 		const includeCell = !s.golden && !s.spireAssault;
-		mazHelp += '<li><b>Active</b> - A toggle to disable/enable this line.</li>';
-		mazHelp += `<li><b>Priority</b> - If this setting has two or more lines set to trigger ${includeCell ? 'at the same cell ' : ''}on the same zone, the line with the lowest priority will run first.</li>`;
-		mazHelp += '<li class="indent">This also determines sort order of lines in the UI.</li>';
+		mazHelp += `<li><b>Active</b> - A toggle to allow this row to be run.</li>`;
+		mazHelp += `<li><b>Priority</b> - If multiple rows trigger ${includeCell ? 'at the same cell and ' : 'on the same '} zone, the ${s.mapBonus ? 'higher' : 'lower'} priority line runs first.</li>`;
+		mazHelp += `<li class="indent">This also determines sort order of rows in the UI.</li>`;
 	}
-	if (!s.voidMap && !s.golden && !s.profile && !s.spireAssault) mazHelp += '<li><b>Zone</b> - The Zone that this line should run. Must be between 6 and 1000.</li>';
-	if (!s.golden && !s.desolation && !s.profile && !s.spireAssault) {
-		mazHelp += '<li><b>Cell</b> - The cell number between 1 and 100 where this line should trigger. 1 is the first cell of the Zone, 100 is the final cell.</li>';
-		mazHelp += '<li class="indent"><b>Runs on the cell you have input or after if you have already gone past that cell on your zone.</b></li>';
-		mazHelp += '<li class="indent"><b>Doesn\'t take overkill into account so for example if you overkill past c100 with a c100 line it will be skipped.</b></li>';
-	}
-	if (s.mapLevel) {
-		mazHelp += '<li><b>Auto Level</b> - Will automatically identify the best map level for your farming needs by looking at highest affordable map level and then calculating if you can one shot enemies with Titimp buff. ' + (radonSetting ? "Highly recommended to use 'Auto Equality: Advanced' with this setting as it'll speed up map runs by a significant amount." : '') + '</li>';
-		mazHelp += "<li><b>Map Level</b> - The map level you'd like this line to run. Can input a positive or negative number for this so input could be '-5', '0', or '3'. " + (radonSetting && !(s.insanity || s.alchemy || s.hypothermia) ? 'Will override inputs above -1 during the Wither challenge.' : '') + '</li>';
-	}
-	if (s.mapBonus) mazHelp += "<li><b>Map Level</b> - The map level you'd like this line to run. Can only input a value for a map level you'd be able to gain map stacks from.</li>";
+	if (!s.voidMap && !s.golden && !s.profile && !s.spireAssault) mazHelp += `<li><b>Start Zone</b> - The zone where this line starts running.</li>`;
 
-	if (s.jobRatio) {
-		mazHelp += '<li><b>Job Ratio</b> - The job ratio you want to use for this line. If set to <b>-1</b> it will use your world job ratios.</li>';
-		mazHelp += "<li class=\"indent\">Input should look like '1,1,1,1' (Farmers, Lumberjacks, Miners, Scientists). If you don't want Farmers, Miners or Scientists you can input '0,1' for this setting.</li>";
+	if (s.endZone && !s.voidMap) {
+		mazHelp += `<li><b>End Zone</b> - The zone where this line should stop running.</li>`;
+		if (s.repeatEvery) mazHelp += `<li class="indent">This input is only used when your <b>Repeat Every</b> input is <b>超过0的数值</b>时生效。</li>`;
 	}
-	if (s.special) mazHelp += "<li><b>特殊词缀</b> - The type of cache you'd like to run during this map. Will override metal cache inputs with wooden caches during the Transmute challenge.</li>";
-
-	//Row Settings
-	if (!s.profile) mazHelp += '</ul></br><b>These inputs are specific to this setting and can be quite important for how you try to set this up:</b><ul><br>';
 
 	if (s.voidMap) {
-		mazHelp += '<li><b>Start Zone</b> - The lower bound zone to run voids maps on.</li>';
-		mazHelp += '<li><b>End Zone</b> - The upper bound zone to run voids maps on.</li>';
-		mazHelp += "<li><b>Dropdowns</b> - Will only run the line when one or more of the dropdown options aren't met OR you are at the <b>End Zone</b> input for that line. The information relating to each of the dropdowns can be found in the Auto Maps status tooltip.</li>";
-		mazHelp += '<li class="indent">If you have selected a <b>HD Ratio</b> and that type of <b>HD Ratio</b> is greater than the value input OR if you\'ve selected one of Hits Survived, Hits Survived Void it will check if the value is lower than it and skip if it is. Disabled just skips checking that input.<br></li>';
-		mazHelp += '<li><b>Portal After</b> - Will run Auto Portal immediately after this line has run.';
-		if (!radonSetting) mazHelp += '<br><li class="indent">When enabled and farming for, or running Void Maps this will buy as many nurseries as you can afford based upon your spending percentage in the AT AutoStructure settings.</li>';
-		mazHelp += '</li>';
+		mazHelp += `<li><b>Start Zone</b> - The lower bound zone to run voids maps on.</li>`;
+		mazHelp += `<li><b>End Zone</b> - The upper bound zone to run voids maps on.</li>`;
+	}
+
+	if (!s.golden && !s.desolation && !s.profile && !s.spireAssault) {
+		mazHelp += `<li><b>Cell</b> - The cell number where this line should trigger.</li>`;
+		mazHelp += `<li class="indent">The line will still trigger if you have passed the rows cell input.</li>`;
+		if (!game.portal.Overkill.locked) mazHelp += `<li class="indent">Your line can be skipped if you overkill past it and onto the next zone in a single attack.</li>`;
+	}
+
+	if (s.mapLevel) {
+		mazHelp += `<li><b>Auto Level</b> - Uses the recommendation from Auto Level to determine the optimal map level to run.</li>`;
+		mazHelp += `<li class="indent">Your <b>Auto Level</b> recommendation can be seen in the games breeding section.</li>`;
+		mazHelp += `<li><b>Map Level</b> - The map level you'd like this line to run.</li>`;
+		if (s.mapBonus) mazHelp += `<li class="indent">Only accepts inputs for map levels you can gain map bonus stacks on.</li>`;
+		else mazHelp += `<li class="indent">Inputs can be positive or negative, so you could do <b>-5</b>, or <b>0</b>, or <b>3</b>.</li>`;
+		mazHelp += `<li class="indent">This input is disabled when the <b>Auto Level</b> checkbox is enabled.</li>`;
+		if (radonSetting && !(s.mapBonus || s.insanity || s.alchemy || s.hypothermia)) mazHelp += `<li class="indent">在<b>Wither</b>挑战中将无视<b>-1</b>以上的输入值。</li>`;
+	}
+
+	if (s.jobRatio) {
+		mazHelp += `<li><b>Job Ratio</b> - The job ratio you want to use when this line is run.</li>`;
+		mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
+		mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
+		mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
+	}
+
+	if (s.special) mazHelp += `<li><b>特殊词缀</b> - The map cache (special modifier) you'd like to use when this line runs.</li>`;
+	if (s.repeatEvery) mazHelp += `<li><b>Repeat Every</b> - Repeat this line every X zones from when this line starts.</li>`;
+
+	if (s.runType) {
+		mazHelp += `<li><b>Run Type</b> - The type of run you would like this challenge to run on.</li>`;
+		mazHelp += `<li class="indent">You can choose between Filler, One Offs, Daily, and ${_getChallenge2Info()} challenge runs.</li>`;
+		mazHelp += `<li class="indent">The Filler, One Offs, and ${_getChallenge2Info()} options provide the ability to run this line on all challenges of that run type or a specific challenge.</li>`;
+	}
+
+	/* 
+		row Settings 
+	*/
+	if (!s.profile) mazHelp += `</ul></br>These inputs are <b>specific to this setting</b> and can be quite important for how you try to set this up:<ul><br>`;
+
+	if (s.voidMap) {
+		mazHelp += `<li><b>Dropdowns</b> - Will only run the line when one or more of the dropdown options aren't met <b>OR</b> you are at the <b>End Zone</b> input for that line.</li>`;
+		mazHelp += `<li class="indent"><b>HD Ratio</b> dropdowns will check to see if the input value is higher than your selected <b>HD Ratio</b> value.</li>`;
+		mazHelp += `<li class="indent"><b>Hits Survived</b> dropdowns will check to see if the input value is lower than your selected <b>Hits Survived</b> value.</li>`;
+		mazHelp += `<li class="indent"><b>Disabled</b> this dropdown is used to disable checking this dropdown. Can be used to only check against one <b>HD Ratio</b> or <b>Hits Survived</b> condition.</li>`;
+		mazHelp += `<li class="indent">Your current values for each of the dropdown options can be seen in either the <b>Auto Maps Status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</li>`;
+		mazHelp += `<li><b>Portal After</b> - Will run Auto Portal immediately after this line has run.`;
+		if (!radonSetting) mazHelp += `<br>When enabled and farming for, or running Void Maps this will buy as many nurseries as you can afford based upon your spending percentage in the AT AutoStructure settings.</li>`;
+		mazHelp += `</li>`;
 	}
 
 	if (s.mapFarm) {
-		mazHelp += '<li><b>Farm Type</b> The different ways that the script can determine how many maps are run.</li>';
-		mazHelp += '<li class="indent">The <b>Zone Time, Farm Time, Portal Time, Daily Reset and Skele Spawn</b> settings use a DD:HH:MM:SS input and will break if that format isn\'t followed.</li>';
-		mazHelp += '<li class="indent"><b>Map Count</b> - Will run maps until it has reached the specified repeat counter.</li>';
-		mazHelp += '<li class="indent"><b>Zone Time</b> - Runs maps until the zone time surpasses the time set in repeat counter.</li>';
-		mazHelp += '<li class="indent"><b>Farm Time</b> - Tracks when it starts farming then run maps until it reaches that timer.</li>';
-		mazHelp += '<li class="indent"><b>Portal Time</b> - Runs maps until the portal time surpasses the time set in repeat counter.</li>';
-		mazHelp += '<li class="indent"><b>Daily Reset</b> - Runs maps until the daily reset time is below the time set in repeat counter.</li>';
-		mazHelp += '<li class="indent"><b>Skele Spawn</b> - Runs maps until the time since your last Skeletimp kill was this amount of time or greater.</li>';
+		mazHelp += `<li><b>Farm Type</b> The different ways that the script can determine how many maps are run.</li>`;
+		mazHelp += `<li class="indent">All of the dropdown settings other than <b>Map Count</b> use a DD:HH:MM:SS input and will break if that format isn't followed.</li>`;
+		mazHelp += `<li class="indent"><b>Map Count</b> - Will run maps until it has reached the specified repeat counter.</li>`;
+		mazHelp += `<li class="indent"><b>Zone Time</b> - Runs maps until the zone time surpasses the time set in repeat counter.</li>`;
+		mazHelp += `<li class="indent"><b>Farm Time</b> - Tracks when it starts farming then run maps until it reaches that timer.</li>`;
+		mazHelp += `<li class="indent"><b>Portal Time</b> - Runs maps until the portal time surpasses the time set in repeat counter.</li>`;
+		mazHelp += `<li class="indent"><b>Daily Reset</b> - Runs maps until the daily reset time is below the time set in repeat counter.</li>`;
+		mazHelp += `<li class="indent"><b>Skele Spawn</b> - Runs maps until the time since your last Skeletimp kill was this amount of time or greater.</li>`;
 
-		mazHelp += "<li><b>Map Repeats</b> - How many maps you'd like to run during this line. If set to -1 it will repeat an Infinite amount of times and you'll have to manually stop farming, would only recommend this if you're confident you'll be back to manually take over the run.</li>";
-		mazHelp += '<li><b>Above X HD Ratio</b> - Will only run this line when your world HD Ratio (can be seen in Auto Maps status tooltip) is above this value (and above 0).<br>';
-		mazHelp += '<li><b>Run ' + trimple + '</b> - Will run ' + trimple + ' once this line has been completed.</li>';
-		mazHelp += '<li class="indent">Whilst farming for this line the script will stop purchasing equips until ' + trimple + ' has been run so that there are no wasted resources.</li>';
-		mazHelp += '<li class="indent">If ' + trimple + " has been run then any line with this enabled won't be run." + '</li>';
+		mazHelp += `<li><b>Map Repeats</b> - The amount of maps you would like to run during this line.</li>`;
+		mazHelp += `<li class="indent">If set to <b>-1</b> it will repeat an Infinite amount of times.</li>`;
+		mazHelp += `<li><b>Above X HD Ratio</b> - This line will only run when your <b>World HD Ratio</b> is above this value.</li>`;
+		mazHelp += `<li class="indent">Requires an input above <b>0</b> for this to be checked.</li>`;
+		mazHelp += `<li class="indent">Your current <b>World HD Ratio</b> can be seen in either the <b>Auto Maps Status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</li>`;
+		mazHelp += `<li><b>Run ${trimple}</b> - Will run the ${trimpleName} unique map (if unlocked) once this line has been completed.</li>`;
+		mazHelp += `<li class="indent">While lines with this enabled are running <b>AT Auto Equip</b> won't purchase any equipment until ${trimpleName} has been run so that there are no wasted resources.</li>`;
+		mazHelp += `<li class="indent">If ${trimpleName} has been run then any line with this enabled won't be run.</li>`;
 	}
 
 	if (s.mapBonus) {
-		mazHelp += '<li><b>Map Stacks</b> - How many stacks the script should aim for when running this line.</li>';
-		mazHelp += '<li><b>Above X HD Ratio</b> - Will only run this line when your world HD Ratio (can be seen in Auto Maps status tooltip) is above this value (and above 0).<br>';
+		mazHelp += '<li><b>Map Stacks</b> - The amount of map bonus stacks to obtain when this line runs.</li>';
+		mazHelp += `<li><b>Above X HD Ratio</b> - This line will only run when your <b>World HD Ratio</b> is above this value.</li>`;
+		mazHelp += `<li class="indent">Requires an input above <b>0</b> for this to be checked.</li>`;
+		mazHelp += `<li class="indent">Your current <b>World HD Ratio</b> can be seen in either the <b>Auto Maps Status tooltip</b> or the AutoTrimp settings <b>Help</b> tab.</li>`;
 	}
 
 	if (s.raiding || s.bionic) {
 		const raidingZone = s.bionic ? 'Raiding Zone' : 'Map Level';
-		mazHelp += '<li><b>' + raidingZone + '</b> - The ' + raidingZone.split(' ')[1].toLowerCase() + " you'd like to raid when this line is run. If <b>Repeat Every X</b> is set to a value above 0 then it will also raise the " + raidingZone.toLowerCase() + ' by that value everytime this line runs.</li>';
+		mazHelp += `<li><b>${raidingZone}</b> - The ${raidingZone.split(' ')[1].toLowerCase()} you'd like to raid when this line is run.</li>`;
+		if (s.bionic) mazHelp += `<li class="indent">If <b>Repeat Every</b> is set to a value above 0 then it will also raise the ${raidingZone.toLowerCase()} by (<b>worldZone-startZone</b>) everytime this line runs.</li>`;
+
 		if (!s.bionic) {
-			mazHelp += '<li><b>Frag Type</b> - The choices how for aggresively the script will spend fragments on maps.</li>';
-			mazHelp += '<li class="indent"><b>Frag</b>: General all purpose setting. Will set sliders to max and reduce when necessary to afford the maps you\'re trying to purchase.</li>';
-			mazHelp += '<li class="indent"><b>Frag Min</b>: Used for absolute minimum frag costs. Will set everything but the map size to minimum and gradually reduce that if necessary to purchase maps.</li>';
-			mazHelp += '<li class="indent"><b>Frag Max</b>: This option will make sure that the map has perfect sliders and uses the prestegious special if available.</li>';
+			mazHelp += `<li><b>Frag Type</b> - The choices how for aggresively the script will spend fragments on maps.</li>`;
+			mazHelp += `<li class="indent"><b>Frag</b> - General all purpose setting. Will set sliders to max and reduce when necessary to afford the maps you're trying to purchase.</li>`;
+			mazHelp += `<li class="indent"><b>Frag Min</b> - Used for absolute minimum fragment costs. Will set everything but the map size to minimum and gradually reduce that if necessary to purchase maps.</li>`;
+			mazHelp += `<li class="indent"><b>Frag Max</b> - This option will make sure that the map has perfect sliders and uses the <b>Prestigious</b> map special if available.</li>`;
 		}
 
-		mazHelp += '<li><b>Prestige Goal</b> - The script will identify if the prestige selected here is available in the raiding zone you have input and if so will run maps to get the highest available level of that prestige.</li>';
+		mazHelp += `<li><b>Prestige Goal</b> - Will run maps to get this prestige if it's available on the selected ${raidingZone.toLowerCase()}.</li>`;
 	}
 
 	if (s.hdFarm) {
-		mazHelp += "<li><b>Farming Type</b> - The type of Hits Survived or HD Ratio you'd like to farm towards.</li>";
-		mazHelp += "<li><b>HD Base</b> - What H:D you'd like to reach.</li>";
-		mazHelp += "<li><b>HD Mult</b> - Starting from the zone above the lines initial zone, this setting will multiply the H:D you have set in HD Base. So if your initial zone was 100, HD Base was 10, HD Mult was 1.2, at z101 your H:D target will be 12, then at z102 it will be 14.4 and so on. This way you can account for the zones getting stronger and you will not waste Map Farming for a really low H:D.'</li>";
+		mazHelp += `<li><b>Farming Type</b> - The type of Hits Survived or HD Ratio you'd like to farm towards.</li>`;
+		mazHelp += `<li class="indent">If <b>Map Level</b> has been selected it will farm until Auto Level (loot) reaches that level.</li>`;
+		mazHelp += `<li class="indent">Will only run Void Map lines if you have void maps in your map chamber.</li>`;
 
-		mazHelp += '<li class="indent">If <b>Map Level</b> has been selected it will farm until auto level reaches that level.</li>';
-		mazHelp += '<li class="indent">Will only run Void Map lines if you have void maps in your map chamber.</li>';
-		mazHelp += "<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this line. If set to -1 it will repeat an Infinite amount of times and you'll have to manually stop farming, would only recommend this if you're confident you'll be able to get enough stats to finish the farm.</li>";
+		mazHelp += `<li><b>HD Base</b> - The Hits Survived or HD Ratio value you'd like to reach.</li>`;
+		mazHelp += `<li><b>HD Mult</b> - Starting from second zone this line runs, this will cause the target value (HD Base) to be calculated as HD Base * (HD Mult^(worldZone-startZone)).</li>`;
+		mazHelp += `<li class="indent">If your initial zone was 100, HD Base was 10, HD Mult was 1.2, then at z101 your target would be 12, at z102 it would be 14.4 and so on.</li>`;
+		mazHelp += `<li class="indent">This can help you account for zones getting harder to complete so that you can reduce wasted farming time.</li>`;
+
+		mazHelp += `<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this line.</li>`;
+		mazHelp += `<li class="indent">If set to <b>-1</b> it will repeat an Infinite amount of times.</li>`;
 	}
 
 	if (s.boneShrine) {
-		mazHelp += '<li><b>To use</b> - How many bone charges to use on this line.</li>';
-		mazHelp += "<li><b>Use above</b> - This value will stop bone charges being spent when you're at or below this value.</li>";
-		mazHelp += '<li><b>Run ' + trimple + '</b> - Will run ' + trimple + ' during this line. After using the bone shrine charges specified for this line it will stop AT purchasing equips until ' + trimple + ' has been run so that there is no wasted resources. <b>Will run ' + trimple + ' and use the charges after cell 95.</b></li>';
-		mazHelp += "<li><b>Gather</b> - Which resource you'd like to gather when popping a Bone Shrine charge to make use of Turkimp resource bonus.</li>";
+		mazHelp += `<li><b>To use</b> - How many bone charges to use on this line.</li>`;
+		mazHelp += `<li><b>Use above</b> - This stops bone charges being used when you're at or below this value.</li>`;
+		mazHelp += `<li><b>Run ${trimple}</b> - Will run ${trimpleName} during this line.</li>`;
+		mazHelp += `<li class="indent"><b>AT Auto Equip</b> is disabled while ${trimpleName} is running so that there are no wasted resources.</li>`;
+		mazHelp += `<li class="indent">Will use your bone charges once cell 70 of the map has been reached.</b></li>`;
+		mazHelp += `<li><b>Gather</b> - Which resource you'd like to gather when using bone shrine charge(s) to make use of Turkimp's resource bonus.</li>`;
 	}
 
 	if (s.tributeFarm) {
-		mazHelp += "<li><b>Farm Type</b> - The way in which Tribute Farming will operate. Either by using absolute values for what you'd like to farm e.g. 2700 Tributes and 37 Meteorologists or by having the script identify how many of each you can farm in X maps and then farming until you reach those values.</li>";
-		mazHelp += "<li><b>Tributes</b> - The amount of Tributes that should be farmed up to on this zone. If the value is greater than your Tribute Cap setting then it'll adjust it to the Tribute input whilst doing this farm.</li>";
-		mazHelp += '<li><b>Meteorologist</b> - The amount of Meteorologist that should be farmed up to on this zone.</li>';
-		mazHelp += "<li><b>Buy Buildings</b> - If you'd like to buy buildings during this farming line to reduce the amount of maps it takes to farm your specified Tribute or Meteorologist inputs. When unselected it will automatically disable vanilla AutoStructure if it's enabled to remove the possibility of resources being spent there too.</li>";
-		mazHelp += '<li><b>Run ' + trimple + '</b> - Will run ' + trimple + ' during this line. Autoamtically calculates when it would be more efficient to run ' + trimple + ' or continue farming Savory Cache maps to reach your target in the fastest time possible.</b></li>';
+		mazHelp += `<li><b>Farm Type</b> - Has a dropdown to allow you to decide how the Tributes and Meteorologists are farmed for.</li>`;
+		mazHelp += `<li class="indent"><b>Absolute</b> - This will allow you to farm to a specific amount of Tributes and Meteorologists.</li>`;
+		mazHelp += `<li class="indent"><b>Map Count</b> - The script will identify how many Tributes and Meteorologists you can purchase in the max amount of maps you input and farm for that amount.</li>`;
+
+		mazHelp += `<li><b>Tributes</b> - The amount of Tributes you want to reach during this line.</li>`;
+		mazHelp += `<li class="indent">If the value is greater than your Tribute Cap setting in <b>AT Auto Structure</b> then it'll adjust it to the Tribute input whilst doing this farm.</li>`;
+		mazHelp += `<li><b>Mets</b> - The amount of Meteorologists you want to reach during this line.</li>`;
+
+		mazHelp += `<li><b>Buy Buildings</b> - Allows you to disable building purchases to reduce the amount of maps it takes to farm your specified Tribute or Meteorologist inputs.</li>`;
+		mazHelp += `<li class="indent">When unselected, it will temporarily disable vanilla AutoStructure if it's enabled to remove the possibility of resources being spent there.</li>`;
+
+		mazHelp += `<li><b>Run ${trimple}</b> - Allows it to run ${trimpleName} during this line to complete it faster.</b></li>`;
+		mazHelp += `<li class="indent">Calculates when it would be more efficient to run ${trimple} or continue farming Savory Cache maps to reach your target in the fastest time possible.</li>`;
 	}
 
 	if (s.smithyFarm) {
-		mazHelp += "<li><b>Smithies</b> - Smithy count you'd like to reach during this line. If you currently own 18 and want to reach 21 you'd enter 21 into this field.</li>";
-		mazHelp += "<li><b>Farm Type</b> - The way in which Smithy Farming will operate. Either by using absolute values for what you'd like to farm e.g. 27 Smithies or by having the script identify how many you can farm in X maps and then farming until you reach that value.</li>";
-		mazHelp += '<li><b>Run MP</b> - Will run Melting Point after this line has been run.</b></li>';
+		mazHelp += `<li><b>Farm Type</b> - Has a dropdown to allow you to decide how the smithies are farmed for.</li>`;
+		mazHelp += `<li class="indent"><b>Absolute</b> - This will allow you to farm to a specific amount of smithies.</li>`;
+		mazHelp += `<li class="indent"><b>Map Count</b> - The script will identify how many smithies you can purchase in the max amount of maps you input and farm for that amount.</li>`;
+
+		mazHelp += `<li><b>Smithies</b> - Smithy count you'd like to reach during this line.</li>`;
+		mazHelp += `<li class="indent">If you currently own 18 and want to reach 21 you'd enter 21.</li>`;
+		mazHelp += `<li><b>Run MP</b> - Will run the Melting Point unique map (if unlocked) after this line has been run.</b></li>`;
+		mazHelp += `<li class="indent">If Melting Point has been run then any line with this enabled won't be run.</li>`;
 	}
 
 	if (s.worshipperFarm) {
-		mazHelp += "<li><b>Ship</b> - How many worshippers you'd like to farm up to during this line. Max input is 50 and it'll default to that value if you input anything higher.</li>";
+		mazHelp += `<li><b>Worshippers</b> - How many Worshippers you'd like to farm up to during this line.</li>`;
+		mazHelp += `<li class="indent">Max input is 50 and it'll default to that value if you input anything higher.</li>`;
 	}
 
 	if (s.toxicity) {
-		mazHelp += "<li><b>Toxic Stacks</b> - How many Toxic Stacks you'd like to farm up to during this line.</li>";
+		mazHelp += `<li><b>Toxic Stacks</b> - How many Toxic Stacks you'd like to farm up to during this line.</li>`;
 	}
 
 	if (s.quagmire) {
-		mazHelp += "<li><b>Bogs</b> - How many Black Bog maps you'd like to run during this line.</li>";
+		mazHelp += `<li><b>Bogs</b> - How many Black Bog maps you'd like to run during this line.</li>`;
 	}
 
 	if (s.archaeology) {
-		mazHelp += '<li><b>Relic String</b> - The relic string to be farmed on this zone. This setting will override the ingame Archaeology Automator input so only use this setting in conjunction with the scripts Archaeology string settings.</li>';
-		mazHelp += "<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this line. If set to 0 or below it will farm an infinite amount of maps. Be warned this will force the script to check if you can afford your next relic in this amount of maps (minus maps run) and if you can't it'll skip farming so ensure your job ratio is setup appropriately.</li>";
+		mazHelp += `<li><b>Relic String</b> - The relic string to be farmed on this zone.</li>`;
+		mazHelp += `<li class="indent">This setting will override the ingame Archaeology Automator input so only use this setting in conjunction with the scripts Archaeology string settings.</li>`;
+
+		mazHelp += `<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this line.</li>`;
+		mazHelp += `<li class="indent">If set to <b>-1</b> it will repeat an Infinite amount of times.</li>`;
 	}
 	if (s.insanity) {
-		mazHelp += "<li><b>Insanity</b> - How many Insanity stack you'd like to farm up to during this line.</li>";
-		mazHelp += '<li><b>Destack</b> - Toggle to allow you to run maps that are lower than world level during Insanity. If a destack zone is set it will allow lower than world level maps to be run from that zone onwards.</li>';
-		mazHelp += '<li class="indent">When enabled Insanity Farm will assume you\'re destacking and it will aim to reduce your max Insanity to the value in the Insanity field.</li>';
+		mazHelp += `<li><b>Insanity</b> - How many Insanity stack you'd like to farm up to during this line.</li>`;
+		mazHelp += `<li><b>Destack</b> - Toggle to allow you to run maps that are lower than world level during Insanity.</li>`;
+		mazHelp += `<li class="indent">If a destack zone is set it will allow lower than world level maps to be run from that zone onwards.</li>`;
+		mazHelp += `<li class="indent">When enabled, Insanity Farm will assume you're destacking and it will aim to reduce your max Insanity to the value in the Insanity field.</li>`;
 	}
 
 	if (s.alchemy) {
-		mazHelp += "<li><b>Farm Type</b> - The way in which Alchemy Farm will operate. Either by using absolute values for what you'd like to farm e.g. 5 Potions of Strength or by having the script identify how many you can farm in X maps and then farming until you reach that value.</li>";
-		mazHelp += '<li><b>Potion Type</b> - The type of potion you want to farm during this line.</li>';
-		mazHelp += "<li><b>Potion Number</b> - How many of the potion specified in 'Potion Type' you'd like to farm for.</li>";
+		mazHelp += `<li><b>Farm Type</b> - Has a dropdown to allow you to decide how many of the selected potion are farmed for.</li>`;
+		mazHelp += `<li class="indent"><b>Absolute</b> - This will allow you to farm to a specific amount of potions.</li>`;
+		mazHelp += `<li class="indent"><b>Map Count</b> - The script will identify how many potions you can purchase in the max amount of maps that you input and farm for that amount.</li>`;
+		mazHelp += `<li><b>Potion Type</b> - The type of potion you want to farm during this line.</li>`;
+		mazHelp += `<li><b>Potion Number</b> - How many of the potion selected in <b>Potion Type</b> you'd like to farm for.</li>`;
 	}
 
 	if (s.hypothermia) {
-		mazHelp += "<li><b>Bonfires</b> - How many Bonfires should be farmed on this zone. Uses max bonfires built rather than a specific amount to farm for so if you have already built 14 so far during your run and want another 8 then you'd input 22.</li>";
+		mazHelp += `<li><b>Bonfires</b> - How many Bonfires should be farmed to on this zone.</li>`;
+		mazHelp += `<li class="indent">Uses max bonfires built, so if you have already built 14 and want another 8, then you'd input 22.</li>`;
 	}
 
 	if (s.desolation) {
-		mazHelp += '<li><b>Prestige Goal</b> - The script will identify if the prestige selected here is available in the zone you have input and if so will run a map to get that prestige.</li>';
+		mazHelp += `<li><b>Prestige Goal</b> - The script will identify if the prestige selected here is available in the zone you have input and if so will run a map to get that prestige.</li>`;
 	}
 
-	if (s.repeatEvery) mazHelp += '<li><b>Repeat Every</b> - Line can be repeated every zone, or set to a custom number depending on need.</li>';
-	if (s.endZone) mazHelp += "<li><b>End Zone</b> - Only matters if you're planning on having this line repeat. If so, the line will stop repeating at this zone. Must be between 6 and 1000.</li>";
-	if (s.runType) mazHelp += "<li><b>Run Type</b> - What type of run you'd like this line to be run.</li>";
-
 	if (s.golden) {
-		mazHelp += '<li><b>Amount</b> - The amount of golden upgrades to purchase before moving onto the next line.</li>';
-		mazHelp += '<li class="indent">Setting this input to <b>-1</b> will purchase this golden type infinitely.</li>';
-		mazHelp += "<li><b>Golden Type</b> - The type of Golden upgrade that you'd like to get during this line.</li>";
+		mazHelp += `<li><b>Amount</b> - The amount of golden upgrades to purchase before moving onto the next line.</li>`;
+		mazHelp += `<li class="indent">Setting this input to <b>-1</b> will purchase this golden type infinitely.</li>`;
+		mazHelp += `<li><b>Golden Type</b> - The type of Golden upgrade that you'd like to get during this line.</li>`;
 
-		mazHelp += '<br>';
+		mazHelp += `</ul><br>`;
 		const heliumType = atConfig.settingUniverse === 2 ? 'Radon' : 'Helium';
-		mazHelp += `You are able to have multiple lines of the same type. For example 8 Void, 12 Battle, 10 ${heliumType}, 8 Battle would end with 8 Golden Voids, 20 Golden Battle, and 10 Golden ${heliumType} upgrades. Requests to buy Golden Void will be skipped if it would put you above 72%.`;
-		mazHelp += `Will skip all ${heliumType} upgrades when running a C2.`;
+		mazHelp += `<p>You are able to have multiple lines of the same type. For example 8 Void, 12 Battle, 10 ${heliumType}, 8 Battle would end with 8 Golden Voids, 20 Golden Battle, and 10 Golden ${heliumType} upgrades.<br>Requests to buy Golden Void will be skipped if it would put you above 72%.`;
+		mazHelp += `<br>Will skip all ${heliumType} upgrades when running a ${_getChallenge2Info()} challenge.</p>`;
 	}
 
 	if (s.profile) {
-		mazHelp += '<li><b>Profile Name</b> - The name of the settings profile.</li>';
-		mazHelp += '<li><b>Load Profile</b> - A button to load the profile.</li>';
-		mazHelp += "<li><b>Profile String</b> - The settings string that corresponds to the saved input. Can be copied but can't be adjusted.</li>";
-		mazHelp += '<li><b>Overwrite Profile</b> - Allows you to overwrite the profile with your current settings.</li>';
+		mazHelp += `<li><b>Profile Name</b> - The name of the settings profile.</li>`;
+		mazHelp += `<li><b>Load Profile</b> - A button to load the profile.</li>`;
+		mazHelp += `<li><b>Profile String</b> - The settings string that corresponds to the saved input. Can be copied but can't be adjusted.</li>`;
+		mazHelp += `<li><b>Overwrite Profile</b> - Allows you to overwrite the profile with your current settings.</li>`;
 	}
 
 	if (s.spireAssault) {
-		mazHelp += '<li><b>Level</b> - The Spire Assault level you would like to run during this line.</li>';
+		mazHelp += `<li><b>Level</b> - The Spire Assault level you would like to run during this line.</li>`;
 		mazHelp += `<li class="indent">When switching levels <b>自动提升等级</b> will be turned off.</li>`;
-		mazHelp += '<li><b>Preset</b> - The preset you would like to switch to when this line runs.</li>';
-		mazHelp += `<li class="indent">Item presets can be setup in the <b>Presets</b> setting in the <b>Spire Assault</b>选项卡)。</li>`;
+		mazHelp += `<li><b>Preset</b> - The preset you would like to switch to when this line runs.</li>`;
+		mazHelp += `<li class="indent">Item presets can be setup in the <b>Item Presets</b> setting in the <b>Spire Assault</b>选项卡)。</li>`;
 		mazHelp += `<li class="indent">Ring mods will only be switched if you have selected the maximum amount of mods available.</li>`;
-		mazHelp += '<li><b>Setting Type</b> - This provides the option to either clear a level or farm for limbs, equipment, or ring levels.</li>';
-		mazHelp += '<li><b>Item</b> - The item you would like to farm levels in.</li>';
-		mazHelp += '<li class="indent">This input is only accessible when <b>Setting Type</b> is set to <b>Level Equipment</b>时才可以选择。</li>';
-		mazHelp += `<li class="indent">Items saved in the <b>Hidden Items</b> tab of the <b>Presets</b> setting won't be visible in this list.</li>`;
-		mazHelp += '<li><b>Item Level</b> - The limb, equipment or ring level you would like to farm for.</li>';
+		mazHelp += `<li><b>Setting Type</b> - This provides the option to either clear a level or farm for limbs, equipment, or ring levels.</li>`;
+		mazHelp += `<li><b>Item</b> - The item you would like to farm levels in.</li>`;
+		mazHelp += `<li class="indent">This input is only accessible when <b>Setting Type</b> is set to <b>Level Equipment</b>时才可以选择。</li>`;
+		mazHelp += `<li class="indent">Items saved in the <b>Hidden Items</b> tab of the <b>Item Presets</b> setting won't be visible in this list.</li>`;
+		mazHelp += `<li><b>Item Level</b> - The limb, equipment or ring level you would like to farm for.</li>`;
 		mazHelp += `<li class="indent">This input is only accessible when <b>Setting Type</b> isn't set to <b>Clear Level</b>时才可以选择。</li>`;
 	}
 
@@ -1680,7 +1770,7 @@ function _mapSettingsAddRow(varPrefix) {
 		const rows = Array.from({ length: Number(row) }, (_, x) => document.getElementById(`windowRow${x}`));
 		const priorities = rows.map((row) => parseInt(document.getElementById(`windowPriority${row.id.replace(/[a-zA-Z]/g, '')}`).value, 10));
 		const highestPriority = Math.max(...priorities);
-		document.getElementById(`windowPriority${row}`).value = highestPriority + 1;
+		document.getElementById(`windowPriority${row}`).value = Math.max(0, highestPriority) + 1;
 	}
 
 	const tooltipDiv = document.getElementById('tooltipDiv');
@@ -1827,6 +1917,31 @@ function _mapSettingsUpdatePreset(index = '', varPrefix = document.getElementByI
 
 		const repeatElem = document.getElementById('windowRepeat' + index).parentNode.children[0];
 		const repeatText = special === 'maplevel' ? 'Map Level' : '';
+		if (repeatElem.innerHTML !== repeatText) repeatElem.innerHTML = repeatText;
+	}
+
+	if (tributeFarm && index !== '') {
+		const mapType = document.getElementById('windowMapTypeDropdown' + index).value;
+		['windowTributes', 'windowMets'].forEach((type) => {
+			const repeatElem = document.getElementById(`${type}${index}`).parentNode.children[0];
+			const repeatText = mapType === 'Map Count' ? 'Max Maps' : '';
+			if (repeatElem.innerHTML !== repeatText) repeatElem.innerHTML = repeatText;
+		});
+	}
+
+	if (alchemy && index !== '') {
+		const mapType = document.getElementById('windowMapTypeDropdown' + index).value;
+
+		const repeatElem = document.getElementById('windowPotionNumber' + index).parentNode.children[0];
+		const repeatText = mapType === 'Map Count' ? 'Max Maps' : '';
+		if (repeatElem.innerHTML !== repeatText) repeatElem.innerHTML = repeatText;
+	}
+
+	if (smithyFarm && index !== '') {
+		const mapType = document.getElementById('windowMapTypeDropdown' + index).value;
+
+		const repeatElem = document.getElementById('windowRepeat' + index).parentNode.children[0];
+		const repeatText = mapType === 'Map Count' ? 'Max Maps' : '';
 		if (repeatElem.innerHTML !== repeatText) repeatElem.innerHTML = repeatText;
 	}
 
@@ -2246,21 +2361,33 @@ function autoStructureSave() {
 
 //Auto Jobs
 function autoJobsDisplay(elem) {
-	const ratio = "<p>The left side of this window is dedicated to jobs that are limited more by workspaces than resources. 1:1:1 will purchase all 3 of these ratio-based jobs evenly, and the ratio refers to the amount of workspaces you wish to dedicate to each job. Any number that's 0 or below will stop AT hiring any workers for that job. Scientists will be hired based on a ratio that is determined by how far you are into the game, the further you get the less Scientists will be hired.</p>";
+	const ratio =
+		"<p>The left side of this window is dedicated to jobs that are limited more by workspaces than resources. 1:1:1 will purchase all 3 of these ratio-based jobs evenly, and the ratio refers to the amount of workspaces you wish to dedicate to each job. Any number that's 0 or below will stop the script hiring any workers for that job. Scientists will be hired based on a ratio that is determined by how far you are into the game, the further you get, the less Scientists will be hired.</p>";
 	const percent = "<p>The right side of this window is dedicated to jobs limited more by resources than workspaces. Set the percentage of resources that you'd like to be spent on each job.</p>";
 	const magmamancer = "<p><b>Magmamancers:</b> These will only be hired when they'll do something! So once the time spent on the zone is enough to activate the first metal boost.</p>";
 	const farmersUntil = '<p><b>Farmers Until:</b> Stops buying Farmers from this zone. Map setting job ratios override this setting.</p>';
 	const lumberjackMP = '<p><b>No Lumberjacks Post MP:</b> Stops buying Lumberjacks after Melting Point has been run. The Smithy Farm setting will override this setting.</p>';
 
-	let autoRatios = '<p><b>AutoRatios</b> - Running <b>' + (portalUniverse === 2 ? 'Transmute' : 'Metal') + '</b> will override these values and use <b>4/5/0.</b>';
-	autoRatios += '<br><b>1/1/1</b> Up until 300k trimps.';
-	autoRatios += '<br><b>3/3/5</b> Up until 3 million trimps.';
-	autoRatios += '<br><b>3/1/4</b> When above 3 million trimps.';
-	autoRatios += '<br><b>1/1/10</b> When above 1000 tributes.';
-	autoRatios += '<br><b>1/2/22</b> When above 1500 tributes.';
-	autoRatios += '<br><b>1/7/12</b> When above 3000 tributes and at or above z230.';
-	autoRatios += '<br><b>1/1/100</b> When at or above z300.';
-	if (game.global.universe === 2) autoRatios += '<br><b>1/1/1</b> When using a Hazardous or better heirloom.';
+	let autoRatios = '<p><b>Auto Ratios</b> - Using ratios from top to bottom based on the following criteria:';
+	autoRatios += '<br></b><b>4/5/0</b> - When running the <b>' + (portalUniverse === 2 ? 'Transmute' : 'Metal') + '</b> challenge.';
+
+	if (game.global.universe === 1) {
+		autoRatios += '<br><b>1/1/100</b> - When at or above z300 or running the <b>Eradicated</b> challenge.';
+		autoRatios += '<br><b>1/7/12</b> - When at or above z230.';
+		autoRatios += '<br><b>1/2/22</b> - When above 1500 tributes.';
+		autoRatios += '<br><b>1/1/10</b> - When above 1000 tributes.';
+	}
+
+	if (game.global.universe === 2) {
+		autoRatios += '<br><b>1/1/1</b> - When using a <b>Hazardous</b> or higher rarity heirloom.';
+		autoRatios += '<br><b>1/2/4</b> - When above 1250 tributes.';
+		autoRatios += '<br><b>2/1/4</b> - When at or above z110.';
+	}
+
+	autoRatios += `<br><b>3/1/4</b> - When above <i></i>${prettify(3e6)}<i></i>之后。`;
+	autoRatios += `<br><b>3/3/5</b> - When above <i></i>${prettify(3e5)}<i></i>之后。`;
+	autoRatios += `<br><b>1/1/2</b> - Used running a map until you reach <i></i>${prettify(3e6)}<i></i>，运行地图时。`;
+	autoRatios += `<br><b>1/1/1</b> - Base ratio.`;
 	autoRatios += '</p>';
 
 	let tooltipText = "<div style='color: red; font-size: 1.1em; text-align: center;' id='autoJobsError'></div><p>Welcome to AT's Auto Job Settings! <span id='autoTooltipHelpBtn' role='button' style='font-size: 0.6vw;' class='btn btn-md btn-info' onclick='toggleAutoTooltipHelp(); _verticalCenterTooltip(true);'>Help</span></p><div id='autoTooltipHelpDiv' style='display: none'> ";
@@ -2532,32 +2659,43 @@ function uniqueMapsSave() {
 //AT Messages
 function messageDisplay(elem) {
 	const msgs = getPageSetting('spamMessages');
-	const keys = ['general', 'upgrades', 'equipment', 'maps', 'map_Details', 'map_Destacking', 'map_Skip', 'other', 'buildings', 'jobs', 'zone', 'golden_Upgrades', 'exotic', 'gather', 'stance', 'run_Stats', 'magmite', 'nature', 'portal'];
+	const keys = ['gather', 'buildings', 'jobs', 'equipment', 'upgrades', 'maps', 'map_Details', 'map_Destacking', 'map_Skip', 'golden_Upgrades', 'other', 'stance', 'magmite', 'nature', 'zone', 'run_Stats', 'exotic', 'challenge_Abandon', 'portal'];
 
 	const settingGroup = keys.reduce((obj, key) => {
 		obj[key] = false;
 		return obj;
 	}, {});
 
-	let tooltipText = "<div id='messageConfig'>Here you can finely tune your message settings. Mouse over the name of a filter for more info.</div>";
-	tooltipText += "<div class='row'>";
+	let tooltipText = "<div id='messageConfig'>Here you can select the messages that the script will print into the message log.<br>Mouse over the name of a filter for more info.<br></div>";
+	tooltipText += `<div id='baseGameItems'>`;
 
-	for (let x = 0; x < 1; x++) {
-		tooltipText += "<div class='col-xs-6'></span><br/>";
+	let rowData = '';
+	let rows = 0;
+	let total = 0;
+	for (let item in settingGroup) {
+		if (item === 'enabled') continue;
+		const realName = (item.charAt(0).toUpperCase() + item.substr(1)).replace(/_/g, ' ');
+		if (typeof msgs[item] === 'undefined') msgs[item] = false;
 
-		for (let item in settingGroup) {
-			if (item === 'enabled') continue;
-			const realName = (item.charAt(0).toUpperCase() + item.substr(1)).replace(/_/g, ' ');
-			if (typeof msgs[item] === 'undefined') msgs[item] = false;
-			tooltipText += `<span class='messageConfigContainer'><span class='messageCheckboxHolder'>${buildNiceCheckbox(item, 'messageConfigCheckbox', msgs && msgs[item])}</span><span onmouseover='messageConfigHoverAT("${item}", event)' onmouseout='tooltip("hide")' class='messageNameHolderAT'> - ${realName}</span></span><br/>`;
+		if ((total > 0 && total % 5 === 0) || item === 'zone') {
+			tooltipText += `<div id='row${rows}'>${rowData}</div>`;
+			rowData = '';
+			rows++;
+			if (item === 'zone') total++;
 		}
 
-		tooltipText += '</div>';
+		let equipClass = msgs[item] ? 'Equipped' : 'NotEquipped';
+
+		rowData += `
+			<div class='spireAssaultItem spireItems${equipClass}' onclick='hideAutomationToggleElem(this)' data-hidden-text="${item}" <span onmouseover='messageConfigHoverAT("${item}", event)' onmouseout='messageConfigHoverAT("hide", event)'>
+				<span>${realName}</span>
+			</div>`;
+		total++;
 	}
-
-	tooltipText += '</div>';
-
-	const ondisplay = () => _verticalCenterTooltip();
+	rows++;
+	tooltipText += `<div id='row${rows}'>${rowData}</div>`;
+	tooltipText += `</div>`;
+	const ondisplay = () => _verticalCenterTooltip(true);
 
 	elem.style.top = '25%';
 	elem.style.left = '35%';
@@ -2574,40 +2712,45 @@ function messageDisplay(elem) {
 
 function messageConfigHoverAT(what, event) {
 	const messageConfigMap = {
+		hide: { title: 'Hide', text: 'Here you can finely tune the messages that the script will print into the message log.<br>Mouse over the name of a filter for more info.' },
 		general: { title: 'General', text: 'Notification Messages, Auto He/Hr.' },
-		upgrades: { title: 'Upgrades', text: 'Log all the upgrades that AT has purchased.' },
-		equipment: { title: 'Equipment', text: 'Log the equipment & prestiges that AT buys.' },
-		maps: { title: 'Maps', text: 'Log the maps that AT decides to pick, buy, run, or recycle.' },
-		map_Details: { title: 'Map Details', text: 'Logs run time & map count when AT decides to farm.' },
-		map_Destacking: { title: 'Map Destacking', text: 'Logs run time & map count when AT does any map based destacking.' },
-		map_Skip: { title: 'Map Skip', text: 'Logs when AT skips Worshipper Farm, HD Farm & Hits Survived.' },
-		other: { title: 'Other', text: 'Log Better Auto Fight, Trimpicide & AutoBreed/Gene Timer changes, etc - a catch all.' },
-		buildings: { title: 'Buildings', text: 'Log the buildings that AT purchases.' },
-		jobs: { title: 'Jobs', text: 'Log the jobs that AT purchases.' },
+		buildings: { title: 'Buildings', text: 'Log buildings purchased.' },
+		jobs: { title: 'Jobs', text: 'Log workers hired.' },
+		equipment: { title: 'Equipment', text: 'Log equipment and prestiges purchases.' },
+		upgrades: { title: 'Upgrades', text: 'Log upgrades purchased.' },
+		golden_Upgrades: { title: 'Golden Upgrades', text: 'Log golden upgrades purchases.' },
+		/*  */
+		maps: { title: 'Maps', text: 'Log maps purchases and maps run.' },
+		map_Details: { title: 'Map Details', text: 'Log the time and amount of maps it takes to finish mapping.' },
+		map_Destacking: { title: 'Map Destacking', text: 'Log the time and amount of maps it takes to finish destacking through maps.' },
+		map_Skip: { title: 'Map Skip', text: 'Log when the script skips any mapping settings.' },
+		other: { title: 'Other', text: 'Log Trimpicide army suicides and Robotrimp activations.' },
+		gather: { title: 'Gather', text: 'Log gather changes.' },
+		stance: { title: 'Stance', text: 'Log stance changes.' },
+		magmite: { title: 'Magmite', text: 'Log magmite spending.' },
+		nature: { title: 'Nature', text: 'Log when the script spends nature tokens.' },
+		/*  */
 		zone: { title: 'Zone', text: 'Log when you start a new zone.' },
-		golden_Upgrades: { title: 'Golden Upgrades', text: 'Log all the golden upgrades that AT purchases.' },
-		exotic: { title: 'Exotic', text: 'Log the amount of world exotics you start a zone with.' },
-		gather: { title: 'Gather', text: 'Log the action that AT tries to gather.' },
-		stance: { title: 'Stance', text: 'Logs when AT decides to change stance and what it changes to.' },
-		magmite: { title: 'Magmite', text: 'Logs when the script spends Magmite.' },
-		nature: { title: 'Nature', text: 'Logs when the script spends nature tokens.' },
-		run_Stats: { title: 'Run Stats', text: "Logs the total trimps you have and how many resources you'd gain from a bone charge when entering a new zone." },
-		portal: { title: 'Portal', text: 'Logs the challenge that is portaled into.' }
+		run_Stats: { title: 'Run Stats', text: "Log your total trimps and how many resources you'd gain from a bone charge when starting a new zone." },
+		exotic: { title: 'Exotic', text: 'Log your current world exotics when starting a new zone.' },
+		challenge_Abandon: { title: 'Challenge Abandon', text: 'Log when challenges are abandoned through the scripts settings.' },
+		portal: { title: 'Portal', text: 'Log challenges started by Auto Portal.' }
 	};
 
 	const config = messageConfigMap[what];
 	if (!config) return;
 
-	document.getElementById('messageConfig').innerHTML = `<b>${config.title}</b><br>${config.text}`;
+	if (what === 'hide') document.getElementById('messageConfig').innerHTML = `${config.text}`;
+	else document.getElementById('messageConfig').innerHTML = `<b>${config.title}</b><br>${config.text}`;
 	tooltip(config.title, 'customText', event, config.text);
 }
 
 function messageSave() {
 	const setting = getPageSetting('spamMessages', portalUniverse);
-	const checkboxes = Array.from(document.getElementsByClassName('messageConfigCheckbox'));
+	const items = Array.from(document.getElementsByClassName('spireAssaultItem'));
 
-	checkboxes.forEach((checkbox) => {
-		setting[checkbox.id] = checkbox.dataset.checked === 'true';
+	items.forEach((item) => {
+		setting[item.dataset.hiddenText] = item.classList.contains('spireItemsEquipped');
 	});
 
 	setPageSetting('spamMessages', setting);
@@ -2711,7 +2854,7 @@ function dailyPortalModsSave() {
 function c2RunnerDisplay(elem) {
 	MODULES.popups.mazWindowOpen = true;
 
-	const baseText = `Here you can enable the challenges you would like ${_getChallenge2Info()} runner to complete and the zone you'd like the respective challenge to finish at and it will start them on the next auto portal if necessary.`;
+	const baseText = `Here you can enable the challenges you would like ${_getChallenge2Info()} runner to complete and the zone you'd like the respective challenge to finish at.`;
 	const fusedText = autoTrimpSettings.c2Fused.universe.indexOf(atConfig.settingUniverse) !== -1 ? ` Fused challenges are prioritised over their regular counterparts when starting challenges.` : '';
 
 	let tooltipText = `
@@ -2795,9 +2938,9 @@ function c2RunnerDisplay(elem) {
 	tooltipText += '</tbody></table>';
 
 	const costText = "<div class='maxCenter'><div id='confirmTooltipBtn' class='btn-lg btn btn-info' onclick='c2RunnerSave()'>Apply</div><div class='btn btn-lg btn-danger' onclick='cancelTooltip()'>Cancel</div></div>";
-	elem.style.width = '45%';
 	elem.style.left = '30.5%';
 	elem.style.top = '25%';
+	elem.classList = `tooltipExtraCustom45`;
 	const ondisplay = () => _verticalCenterTooltip();
 
 	return [elem, tooltipText, costText, ondisplay];
@@ -2828,7 +2971,13 @@ function c2RunnerSave() {
 	}
 }
 
-//Hide Automation Buttons
+function hideAutomationToggleElem(element) {
+	const elemPrefix = `spireItems`;
+
+	element.classList.toggle(`${elemPrefix}Equipped`);
+	element.classList.toggle(`${elemPrefix}NotEquipped`);
+}
+
 function hideAutomationDisplay(elem) {
 	const msgs = getPageSetting('displayHideAutoButtons');
 	const keys = ['fight', 'autoFight', 'trap', 'storage', 'structure', 'jobs', 'gold', 'upgrade', 'prestige', 'equip', 'recycleMaps'];
@@ -2837,41 +2986,82 @@ function hideAutomationDisplay(elem) {
 		return obj;
 	}, {});
 
-	let tooltipText = "<div id='messageConfig'>Here you can finely tune ingame automation buttons  you'd prefer to hide. Mouse over the name of a filter for more info.</div>";
-	tooltipText += "<div class='row'>";
-	tooltipText += `<span class='messageConfigContainer' style='font-size: 1.3vw;'>&nbsp;&nbsp;<i></i>Base Game Automation</span></span><br/>`;
-	tooltipText += "<div class='col-xs-6'></span>";
+	let tooltipText = "<div id='messageConfig'>Here you can select certain ingame (and AutoTrimps) buttons and messages you'd prefer to hide.<br>Mouse over the name of a filter for more info.</div>";
 
+	tooltipText += `<div id='baseGameItems'>`;
+	tooltipText += `<span class='messageConfigContainer' style='font-size: 1.3vw;'>&nbsp;<i></i>Base Game Features</span></span><br/>`;
+
+	let rowData = '';
+	let rows = 0;
+	let total = 0;
 	for (let item in settingGroup) {
 		if (item === 'enabled') continue;
+		if (total > 0 && total % 5 === 0) {
+			tooltipText += `<div id='row${rows}'>${rowData}</div>`;
+			rowData = '';
+			rows++;
+		}
+
+		let equipClass = msgs[item] ? 'Equipped' : 'NotEquipped';
+
 		const addAuto = item.includes('ight') || item.includes('recycle') ? '' : 'Auto ';
 		let realName = addAuto + (item.charAt(0).toUpperCase() + item.substr(1)).replace(/_/g, ' ');
 		if (realName === 'AutoFight') realName = 'Auto Fight';
 		if (realName === 'RecycleMaps') realName = 'Recycle Maps';
 
-		tooltipText += `<span class='messageConfigContainer'><span class='messageCheckboxHolder'>${buildNiceCheckbox(item, 'messageConfigCheckbox', msgs[item])}</span><span onmouseover='hideAutomationConfigHover("${item}", event)' onmouseout='tooltip("hide")' class='messageNameHolderAT'> - ${realName}</span></span><br/>`;
+		rowData += `
+			<div class='spireAssaultItem spireItems${equipClass}' onclick='hideAutomationToggleElem(this)' data-hidden-text="${item}" <span onmouseover='hideAutomationConfigHover("${item}", event)' onmouseout='hideAutomationConfigHover("hide", event)'>
+				<span>${realName}</span>
+			</div>`;
+		total++;
 	}
+	rows++;
+	tooltipText += `<div id='row${rows}'>${rowData}</div>`;
+	tooltipText += `</div>`;
+	tooltipText += `</div>`;
 
-	tooltipText += `<span class='messageConfigContainer' style='font-size: 1.3vw;'>AutoTrimps Automation</span></span><br/>`;
+	tooltipText += `<div id='autoTrimpsItems'>`;
+	tooltipText += `<span class='messageConfigContainer' style='font-size: 1.3vw;'>&nbsp;<i></i>AutoTrimps Features</span></span><br/>`;
 	const atKeys = ['structure', 'jobs', 'equip', 'maps', 'status', 'heHr'];
 	const atSettingGroup = atKeys.reduce((obj, key) => {
 		obj[key] = false;
 		return obj;
 	}, {});
 
+	rowData = '';
+	rows = 0;
+	total = 0;
 	for (let item in atSettingGroup) {
 		if (item === 'enabled') continue;
+		if (total > 0 && total % 5 === 0) {
+			tooltipText += `<div id='row${rows}'>${rowData}</div>`;
+			rowData = '';
+			rows++;
+		}
+
+		let equipClass = msgs[item] ? 'Equipped' : 'NotEquipped';
+
 		let realName = 'Auto ' + (item.charAt(0).toUpperCase() + item.substr(1)).replace(/_/g, ' ');
 		if (item === 'status') realName = 'Auto Maps Status';
 		if (item === 'heHr') realName = `${heliumOrRadon()}每小时状态`;
 
-		tooltipText += `<span class='messageConfigContainer'><span class='messageCheckboxHolder'>${buildNiceCheckbox('AT' + item, 'messageConfigCheckbox', msgs['AT' + item])}</span><span onmouseover='hideAutomationConfigHover("${'AT' + item}", event)' onmouseout='tooltip("hide")' class='messageNameHolderAT'> - ${realName}</span></span><br/>`;
+		rowData += `
+			<div class='spireAssaultItem spireItems${equipClass}' onclick='hideAutomationToggleElem(this)' data-hidden-text="${item}" <span onmouseover='hideAutomationConfigHover("AT${item}", event)' onmouseout='hideAutomationConfigHover("hide", event)'>
+				<span>${realName}</span>
+			</div>`;
+		total++;
 	}
+	rows++;
+	tooltipText += `<div id='row${rows}'>${rowData}</div>`;
+	tooltipText += `</div>`;
+	tooltipText += `</div>`;
 
-	const ondisplay = () => _verticalCenterTooltip();
+	const ondisplay = function () {
+		_verticalCenterTooltip(true);
+	};
 
-	elem.style.top = '25%';
-	elem.style.left = '35%';
+	tooltipDiv.style.left = '33.75%';
+	tooltipDiv.style.top = '25%';
 
 	const costText = `
 	<div class='maxCenter'>
@@ -2883,41 +3073,43 @@ function hideAutomationDisplay(elem) {
 	return [elem, tooltipText, costText, ondisplay];
 }
 
-function hideAutomationConfigHover(what, event) {
+function hideAutomationConfigHover(what, event, hide = false) {
 	const messageConfigMap = {
+		hide: { title: 'Hide', text: "Here you can finely tune ingame automation buttons  you'd prefer to hide. Mouse over the name of a filter for more info." },
 		fight: { title: 'Fight', text: 'Hides the games Fight button.' },
 		autoFight: { title: 'Auto Fight', text: 'Hides the games AutoFight button.' },
 		trap: { title: 'Auto Traps', text: 'Hides the games AutoTraps button.' },
 		storage: { title: 'Auto Storage', text: 'Hides the games AutoStorage button.' },
 		structure: { title: 'Auto Structure', text: 'Hides the games AutoStructure button.' },
 		jobs: { title: 'Auto Jobs', text: 'Hides the games AutoJobs button.' },
-		gold: { title: 'Auto Gold', text: 'Hides the games AutoGolden button.' },
+		gold: { title: 'Auto Gold', text: 'Hides the games AutoGold button.' },
 		geneticistassist: { title: 'Geneticistassist', text: 'Hides the games Geneticistassist button.' },
 		upgrade: { title: 'Auto Upgrade', text: 'Hides the games AutoUpgrade button.' },
 		prestige: { title: 'Auto Prestige', text: 'Hides the games AutoPrestige button.' },
 		equip: { title: 'Auto Equip', text: 'Hides the games AutoEquip button.' },
 		recycleMaps: { title: 'Recycle Maps', text: 'Hides Recycle Maps messages in the message log.' },
-		ATstructure: { title: 'AutoTrimps Auto Structure', text: 'Hides the AutoTrimps AutoStructure button.' },
-		ATjobs: { title: 'AutoTrimps Auto Jobs', text: 'Hides the AutoTrimps AutoJobs button.' },
-		ATequip: { title: 'AutoTrimps Auto Equip', text: 'Hides the AutoTrimps AutoEquip button.' },
-		ATmaps: { title: 'AutoTrimps Auto Maps', text: 'Hides the AutoTrimps AutoMaps button.' },
-		ATstatus: { title: 'AutoTrimps Auto Maps Status', text: 'Hides the AutoTrimps Map Status message.' },
-		ATheHr: { title: `脚本${heliumOrRadon()}每小时状态`, text: `隐藏脚本${heliumOrRadon()}每小时状态的消息。` }
+		ATstructure: { title: 'Auto Structure', text: 'Hides the AT Auto Structure button.' },
+		ATjobs: { title: 'Auto Jobs', text: 'Hides the AT Auto Jobs button.' },
+		ATequip: { title: 'Auto Equip', text: 'Hides the AT Auto Equip button.' },
+		ATmaps: { title: 'Auto Maps', text: 'Hides the Auto Maps button.' },
+		ATstatus: { title: 'Auto Maps Status', text: 'Hides the AutoTrimps Map Status message.' },
+		ATheHr: { title: `${heliumOrRadon()}每小时状态`, text: `隐藏${heliumOrRadon()}每小时状态的消息。` }
 	};
 
 	const config = messageConfigMap[what];
 	if (!config) return;
 
-	document.getElementById('messageConfig').innerHTML = `<b>${config.title}</b><br>${config.text}`;
+	if (what === 'hide') document.getElementById('messageConfig').innerHTML = `${config.text}`;
+	else document.getElementById('messageConfig').innerHTML = `<b>${config.title}</b><br>${config.text}`;
 	tooltip(config.title, 'customText', event, config.text);
 }
 
 function hideAutomationSave() {
 	const setting = getPageSetting('displayHideAutoButtons');
-	const checkboxes = Array.from(document.getElementsByClassName('messageConfigCheckbox'));
+	const items = Array.from(document.getElementsByClassName('spireAssaultItem'));
 
-	checkboxes.forEach((checkbox) => {
-		setting[checkbox.id] = checkbox.dataset.checked === 'true';
+	items.forEach((item) => {
+		setting[item.dataset.hiddenText] = item.classList.contains('spireItemsEquipped');
 	});
 
 	setPageSetting('displayHideAutoButtons', setting);
