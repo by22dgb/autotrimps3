@@ -1394,7 +1394,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 			mazHelp += `<li><b>Job Ratio</b> - The job ratio to use when Map Bonus stacks are obtained from ${settingText}运行时，使用的工作比例。</li>`;
 			mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
 			mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
-			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
+			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b>设置时使用自动工作比例。</li>`;
 
 			mazHelp += `<li><b>特殊词缀</b> - The map cache (special modifier) you'd like to run when Map Bonus is run from ${settingText}运行时，地图的特殊词缀。</li>`;
 		}
@@ -1415,7 +1415,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 			mazHelp += `<li><b>Void Farm Job Ratio</b> - The job ratio you want to use when farming stats before you run your Void Maps.</li>`;
 			mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
 			mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
-			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
+			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b>设置时使用自动工作比例。</li>`;
 
 			mazHelp += `<li><b>Map Cap</b> - The maximum amount of maps you would like to run during this farm.</li>`;
 			mazHelp += `<li class="indent">If set to <b>-1</b> it will repeat an Infinite amount of times.</li>`;
@@ -1431,7 +1431,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 			mazHelp += `<li><b>Auto Spend Job Ratio</b> - The job ratio you want to use when auto spending bone charges.</li>`;
 			mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
 			mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
-			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
+			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b>设置时使用自动工作比例。</li>`;
 		}
 
 		if (s.hdFarm) {
@@ -1440,7 +1440,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 			mazHelp += `<li><b>Job Ratio</b> - The job ratio to use when farming to improve your Hits Survived ratio through ${settingText}运行时，使用的工作比例。</li>`;
 			mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
 			mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
-			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
+			mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b>设置时使用自动工作比例。</li>`;
 
 			mazHelp += `<li><b>Map Cap</b> - The maximum amount of maps you would like to run when farming to improve your Hits Survived ratio through ${settingText}运行时，刷资源运行地图的次数上限。</li>`;
 			mazHelp += `<li class="indent">If set to <b>-1</b> it will repeat an Infinite amount of times.</li>`;
@@ -1511,7 +1511,7 @@ function mapSettingsHelpWindow(titleText, activeSettings) {
 		mazHelp += `<li><b>Job Ratio</b> - The job ratio you want to use when this line is run.</li>`;
 		mazHelp += `<li class="indent">Input should look like this: <b>1,1,1,1</b> with the order being the games unlock order (farmers, lumberjacks, miners, scientists).</li>`;
 		mazHelp += `<li class="indent">If set to <b>-1</b> it will use your current AT Auto Jobs ratio.</li>`;
-		mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b> setting is enabled.</li>`;
+		mazHelp += `<li class="indent">Your job ratio will only be used when the <b>AT Auto Jobs</b>设置时使用自动工作比例。</li>`;
 	}
 
 	if (s.special) mazHelp += `<li><b>特殊词缀</b> - The map cache (special modifier) you'd like to use when this line runs.</li>`;
