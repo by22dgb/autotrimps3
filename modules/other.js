@@ -40,7 +40,10 @@ function exitSpireCell(checkCell) {
 
 	if (isSpireActive && (game.global.lastClearedCell + 1 > cell || cell === 0)) {
 		endSpire();
-		debug(`在格子${exitCell}退出尖塔${game.global.spiresCompleted + 1}`, 'maps');
+
+		const baseWorld = game.global.universe === 2 ? 2 : 1;
+		const spireNo = game.global.world / 100 - baseWorld;
+		debug(`在格子${exitCell}退出尖塔${spireNo}`, 'maps');
 	}
 }
 

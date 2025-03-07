@@ -3,9 +3,9 @@ function importExportTooltip(event, titleText, extraParam, extraParam2) {
 		mapSettings: typeof mapSettingsDisplay === 'function' ? mapSettingsDisplay : null,
 		AutoStructure: typeof autoStructureDisplay === 'function' ? autoStructureDisplay : null,
 		AutoJobs: typeof autoJobsDisplay === 'function' ? autoJobsDisplay : null,
-		UniqueMaps: typeof uniqueMapsDisplay === 'function' ? uniqueMapsDisplay : null,
-		MessageConfig: typeof messageDisplay === 'function' ? messageDisplay : null,
-		DailyAutoPortal: typeof dailyPortalModsDisplay === 'function' ? dailyPortalModsDisplay : null,
+		uniqueMaps: typeof uniqueMapsDisplay === 'function' ? uniqueMapsDisplay : null,
+		messageConfig: typeof messageDisplay === 'function' ? messageDisplay : null,
+		dailyAutoPortal: typeof dailyPortalModsDisplay === 'function' ? dailyPortalModsDisplay : null,
 		c2Runner: typeof c2RunnerDisplay === 'function' ? c2RunnerDisplay : null,
 		/* Import Export Functions */
 		exportAutoTrimps: typeof _displayExportAutoTrimps === 'function' ? _displayExportAutoTrimps : null,
@@ -31,11 +31,11 @@ function importExportTooltip(event, titleText, extraParam, extraParam2) {
 	const c2Info = typeof _getChallenge2Info === 'function' ? _getChallenge2Info() : '';
 
 	const titleTexts = {
-		AutoStructure: 'Configure AutoTrimps AutoStructure',
-		AutoJobs: 'Configure AutoTrimps AutoJobs',
-		UniqueMaps: 'Unique Maps',
-		MessageConfig: 'Message Config',
-		DailyAutoPortal: 'Daily Auto Portal',
+		AutoStructure: 'Configure AutoTrimps Auto Structure',
+		AutoJobs: 'Configure AutoTrimps Auto Jobs',
+		uniqueMaps: 'Unique Maps',
+		messageConfig: 'Message Config',
+		dailyAutoPortal: 'Daily Auto Portal Modifiers',
 		c2Runner: c2Info + ' Runner',
 		/* Import Export Titles */
 		exportAutoTrimps: titleText === 'downloadSave' ? 'downloadSave' : 'Export AutoTrimps Settings',
@@ -48,7 +48,7 @@ function importExportTooltip(event, titleText, extraParam, extraParam2) {
 		autoHeirloomMods: 'Auto Heirloom Mods',
 		spireAssault: 'Spire Assault Presets',
 		mutatorPresets: 'Mutator Presets',
-		c2table: c2Info + ' Table',
+		c2table: (extraParam ? `C${extraParam + 1}` : c2Info) + ' Table',
 		resetDefaultSettingsProfiles: 'Reset Default Settings',
 		disableSettingsProfiles: 'Disable All Settings',
 		setCustomChallenge: 'Set Custom Challenge',
@@ -454,7 +454,7 @@ function _displaySpireAssaultPresets(tooltipDiv) {
 			rows++;
 		}
 
-		let equipClass = itemsEquipped.includes(item) ? 'Equipped' : 'NotEquipped';
+		const equipClass = itemsEquipped.includes(item) ? 'Equipped' : 'NotEquipped';
 		const itemLevel = item.includes('Doppelganger') ? '' : ` 等级${itemObj.level}`;
 		rowData += `
 			<div class='spireAssaultItem spireItems${equipClass}' onclick='spireAssaultToggleElem(this, "Items")' data-hidden-text="${item}">
@@ -640,7 +640,7 @@ function _displayAutoHeirloomMods(tooltipDiv, heirloomRarity, heirloomType = 'Sh
 			rows++;
 		}
 
-		let equipClass = itemsEquipped.includes(item) ? 'Equipped' : 'NotEquipped';
+		const equipClass = itemsEquipped.includes(item) ? 'Equipped' : 'NotEquipped';
 		rowData += `<div class='spireAssaultItem spireItems${equipClass}' onclick='spireAssaultToggleElem(this, "Items", "${heirloomType}", ${blacklist})' data-hidden-text="${item}">${item}</div>`;
 		total++;
 	}
@@ -1163,7 +1163,7 @@ function makeAdditionalInfoTooltip(mouseover) {
 	const refreshTimer = usingRealTimeOffline ? 30 : 5;
 	const remainingTime = Math.ceil(refreshTimer - ((atConfig.intervals.counter / 10) % refreshTimer)) || refreshTimer;
 	tooltipText += `<p>以上显示数据每${refreshTimer}秒更新一次。距离下次更新数据还有<b>${remainingTime}秒</b>。</p>`;
-	tooltipText += `<p>Click this button while in the map chamber to either select your already purchased map or automatically set the inputs to the desired values.</p>`;
+	tooltipText += `<p>Click this button while in the map chamber to either select your already purchased (loot) map or automatically set the inputs to ones the script recommends for a (loot) map.</p>`;
 	tooltipText += `<p>Control click this button to display a table of the calculators simulation results.</p>`;
 
 	if (game.global.universe === 1 && game.jobs.Amalgamator.owned > 0) {
@@ -1233,11 +1233,12 @@ function _raspberryPiSettings() {
 function loadAugustSettings() {
 	_raspberryPiSettings();
 	if (atConfig.initialise.basepath !== 'https://localhost:8887/AutoTrimps_Local/') return;
-	if (typeof greenworks === 'undefined') autoTrimpSettings.gameUser.value = 'test';
-
-	autoTrimpSettings.downloadSaves.enabled = 0;
-	autoTrimpSettings.downloadSaves.enabledU2 = 0;
-	saveSettings();
+	if (typeof greenworks === 'undefined') {
+		autoTrimpSettings.gameUser.value = 'test';
+		autoTrimpSettings.downloadSaves.enabled = 0;
+		autoTrimpSettings.downloadSaves.enabledU2 = 0;
+		saveSettings();
+	}
 
 	game.options.menu.showAlerts.enabled = 0;
 	game.options.menu.useAverages.enabled = 1;
