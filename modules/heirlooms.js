@@ -158,7 +158,7 @@ function heirloomEquip(heirloom, type) {
 		equipHeirloom(!heirloomsShown);
 		if (type === 'Shield') updateShieldData();
 	} else if (!heirloomDetails && !isHeirloomEquipped && atConfig.intervals.tenSecond) {
-		const hdMessage = type === 'Shield' ? `This will be causing at least one of your HD Ratios to be incorrect.` : ``;
+		const hdMessage = type === 'Shield' ? ` This will be causing at least one of your HD Ratios to be incorrect.` : ``;
 		debug(`The heirloom named <i></i>${heirloomName}<i></i> doesn't exist. Rename an heirloom or adjust the input for your <i></i>${autoTrimpSettings[heirloom].name()}<i></i> ${type}.${hdMessage}`, `error`);
 	}
 }
